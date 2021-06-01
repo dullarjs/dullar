@@ -1,6 +1,6 @@
 {
   "name": "@dullar/queen",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": false,
   "description": "Lightweight Mobile UI Components built on Vue3",
   "author": "just be free <justbefree@126.com>",
@@ -67,5 +67,6 @@
   },
   "bugs": {
     "url": "https://github.com/justbefree/vueggy/issues"
-  }
+  },
+  "gitHead": "2e84cf5c0ad253bafd67cb4280ddabad17cfe7af"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@dullar/vue-framework",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publishConfig": {
     "access": "public"
   },
@@ -46,5 +46,5 @@
     "qrcode-terminal": "^0.12.0",
     "request": "^2.88.2"
   },
-  "gitHead": "4f72aef8358bcfb5a1fe9d21003a4dc93ed702a1"
+  "gitHead": "2e84cf5c0ad253bafd67cb4280ddabad17cfe7af"
 }
