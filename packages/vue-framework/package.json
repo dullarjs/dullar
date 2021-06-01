@@ -12,7 +12,7 @@
     "dullar"
   ],
   "author": "Just be free <justbefree@126.com>",
-  "homepage": "https://github.com/justbefree/dullar#readme",
+  "homepage": "https://github.com/dullarjs/dullar#readme",
   "license": "ISC",
   "main": "lib/vue-framework.js",
   "bin": {
@@ -28,13 +28,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justbefree/dullar.git"
+    "url": "git+https://github.com/dullarjs/dullar.git"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
-    "url": "https://github.com/justbefree/dullar/issues"
+    "url": "https://github.com/dullarjs/dullar/issues"
   },
   "dependencies": {
     "better-opn": "^3.0.0",

@@ -62,13 +62,13 @@
     "last 2 versions",
     "not dead"
   ],
-  "homepage": "https://github.com/justbefree/vueggy#readme",
+  "homepage": "https://github.com/dullarjs/dullar#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justbefree/vueggy.git"
+    "url": "git+https://github.com/dullarjs/dullar.git"
   },
   "bugs": {
-    "url": "https://github.com/justbefree/vueggy/issues"
+    "url": "https://github.com/dullarjs/dullar/issues"
   },
   "gitHead": "e3dbdf3475868e03d5145d8d93ea16b71ed82bb5"
 }
