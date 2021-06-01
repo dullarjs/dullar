@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+process.env.NODE_PATH = __dirname + '/../node_modules/'
+
+const program = require('commander')
+const greeting = require("../lib/greeting");
+const docs = require("../lib/docs");
+program
+  .version(require('../package.json').version)
+  .usage('<command> [options]')
+program
+  .command('list')
+  .description('View all avaliable templates')
+  .alias('l')
+  .action(() => {
+    require('../lib/list')()
+  })
+program
+  .command('docs')
+  .description('View docs online')
+  .alias('d')
+  .action(() => {
+    docs.online();
+  })
+program
+  .command('wechat')
+  .description('Wechat QR code ^_^')
+  .alias('w')
+  .action(() => {
+    greeting.wechat();
+  })
+program
+  .command('init')
+  .description('Create a new project using template!')
+  .alias('i')
+  .action(() => {
+    greeting.hi();
+    require('../lib/vue-framework')()
+  })
+program
+  .parse(process.argv)
+
+if(!program.args.length){
+  program.help()
+}

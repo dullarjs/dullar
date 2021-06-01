@@ -1,0 +1,50 @@
+{
+  "name": "@dullar/vue-framework",
+  "version": "0.0.14",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A tools for you to build your web project based on Vue2/3",
+  "keywords": [
+    "vue",
+    "vue2",
+    "vue3",
+    "dullar"
+  ],
+  "author": "Just be free <justbefree@126.com>",
+  "homepage": "https://github.com/justbefree/dullar#readme",
+  "license": "ISC",
+  "main": "lib/vue-framework.js",
+  "bin": {
+    "dullar-vue-framework": "bin/vue-framework"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__",
+    "bin": "bin"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justbefree/dullar.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/justbefree/dullar/issues"
+  },
+  "dependencies": {
+    "better-opn": "^3.0.0",
+    "chalk": "^4.1.1",
+    "commander": "^7.2.0",
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^8.0.0",
+    "ora": "^5.4.0",
+    "qrcode-terminal": "^0.12.0",
+    "request": "^2.88.2"
+  },
+  "gitHead": "4f72aef8358bcfb5a1fe9d21003a4dc93ed702a1"
+}
