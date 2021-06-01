@@ -1,2 +1,4 @@
 packages/.DS_Store
 lerna-debug.log
+packages/*.DS_Store
+node_modules
