@@ -39,7 +39,7 @@
   "types": "types/index.d.ts",
   "files": [
     "lib",
-    "packages",
+    "types",
     "*.d.ts"
   ],
   "eslintConfig": {
