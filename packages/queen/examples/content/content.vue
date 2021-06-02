@@ -118,9 +118,6 @@
         <span>js-api</span>
       </li>
     </ul>
-    <div class="logo">
-      <img src="../assets/logo/logo.svg">
-    </div>
   </div>
 </template>
 

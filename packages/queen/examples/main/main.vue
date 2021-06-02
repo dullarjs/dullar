@@ -2,12 +2,12 @@
   <div class="content-view">
     <div class="logo">
       <img :src="logo" width="180">
-      <p class="slogn">Vueggy</p>
+      <p class="slogn">@dullar/queen</p>
       <p class="description">Advanced and highly reusable Mobile UI Components built on <b><a href="https://v3.vuejs.org/" target="_blank">Vue3</a></b></p>
     </div>
     <div class="button-warrper">
       <a href="javascript:;" class="get-started" @click="getStarted">GET STARTED</a>
-      <a href="https://github.com/justbefree/vueggy" target="_blank" class="github">
+      <a href="https://github.com/dullarjs/dullar/tree/main/packages/queen" target="_blank" class="github">
         <img :src="github" width="24">&nbsp;&nbsp;Github
       </a>
     </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-const logo = require("../assets/logo/v.svg");
+const logo = require("../assets/logo/queen.logo.svg");
 const github = require("../assets/github.svg");
 import { Vue } from 'vue-class-component';
 export default class Main extends Vue {
@@ -38,7 +38,7 @@ export default class Main extends Vue {
 }
 p.slogn{
   /* color: #4f5959; */
-  color: #007aff;
+  color: #3E5D96;
   font-weight: 600;
   font-size: 30px;
   margin: 0;
@@ -79,15 +79,15 @@ a.github img {
 }
 a.get-started{
   /* color: #4fc08d; */
-  color: #007aff;
+  color: #3E5D96;
   transition: all 0.15s ease;
   box-sizing: border-box;
-  border: 1px solid #007aff;
+  border: 1px solid #3E5D96;
 }
 .content-view {
   text-align: center;
 }
 a {
-  color: #007aff;
+  color: #3E5D96;
 }
 </style>
