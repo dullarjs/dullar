@@ -10,37 +10,37 @@
         <li @click="showPopup6()">中间</li>
       </ul>
     </div>
-    <vg-popup v-model="popup1" position="bottom">
+    <q-popup v-model="popup1" position="bottom">
       <div class="popup-content">
         底部出现遮罩
         <template :key="item" v-for="item in 10">
           <h3>我是{{ item }}</h3>
         </template>
       </div>
-    </vg-popup>
-    <vg-popup v-model="popup2" position="right" :showCloseIcon="true">
+    </q-popup>
+    <q-popup v-model="popup2" position="right" :showCloseIcon="true">
       <div class="popup-content">右侧出现遮罩</div>
-    </vg-popup>
-    <vg-popup v-model="popup7" position="left" :showCloseIcon="true">
+    </q-popup>
+    <q-popup v-model="popup7" position="left" :showCloseIcon="true">
       <div class="popup-content">左侧出现遮罩</div>
-    </vg-popup>
-    <vg-popup v-model="popup3" position="top" :showCloseIcon="true">
+    </q-popup>
+    <q-popup v-model="popup3" position="top" :showCloseIcon="true">
       <div class="popup-content">上面出现遮罩</div>
-    </vg-popup>
-    <vg-popup v-model="popup4" position="bottom" :showCloseIcon="true">
+    </q-popup>
+    <q-popup v-model="popup4" position="bottom" :showCloseIcon="true">
       <div class="popup-content">
         <span @click="showPopup5()">打开内层</span>
         上面出现遮罩
-        <vg-popup v-model="popup5" position="bottom">
+        <q-popup v-model="popup5" position="bottom">
           <div class="popup-content">
             内层嵌套
           </div>
-        </vg-popup>
+        </q-popup>
       </div>
-    </vg-popup>
-    <vg-popup v-model="popup6" position="middle" :showCloseIcon="true" fixed>
+    </q-popup>
+    <q-popup v-model="popup6" position="middle" :showCloseIcon="true" fixed>
       <div class="popup-content">中间fade</div>
-    </vg-popup>
+    </q-popup>
   </div>
 </template>
 

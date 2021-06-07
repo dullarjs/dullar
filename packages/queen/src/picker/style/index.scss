@@ -2,20 +2,20 @@
 * @Author: Just be free
 * @Date:   2020-11-05 13:22:37
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-01-25 15:06:25
+* @Last Modified time: 2021-06-07 16:07:25
 */
-.vg-picker {
-  .vg-picker-header {
+.q-picker {
+  .q-picker-header {
     user-select: none;
     height: 44px;
-    .vg-picker-header-back,
-    .vg-picker-header-close {
+    .q-picker-header-back,
+    .q-picker-header-close {
       cursor: pointer;
       height: 100%;
       min-width: 30px;
       line-height: 44px;
     }
-    .vg-picker-header-title {
+    .q-picker-header-title {
       line-height: 44px;
       text-align: center;
       color: $text-color;
@@ -28,21 +28,21 @@
       }
     }
   }
-  .vg-picker-cancel,
-  .vg-picker-confirm {
+  .q-picker-cancel,
+  .q-picker-confirm {
     display: inline-block;
     // width: 50px;
     padding: 0 5px;
     text-align: center;
     color: $theme-color;
   }
-  .vg-picker-container {
+  .q-picker-container {
     overflow: hidden;
     height: 220px;
     position: relative;
     cursor: grab;
     user-select: none;
-    .vg-picker-column {
+    .q-picker-column {
       height: 100%;
       width: 100%;
       ul {
@@ -70,7 +70,7 @@
       pointer-events: none;
       z-index: 3;
     }
-    .vg-picker-mask {
+    .q-picker-mask {
       position: absolute;
       top: 0;
       left: 0;

@@ -2,25 +2,25 @@
   <div class="tabs-view">
     <div id="container">
       <div class="box">
-        <vg-tabs v-model="active0">
-          <vg-tab-item title="tab111" name="111111">1</vg-tab-item>
-          <vg-tab-item title="tab222" name="22222">2</vg-tab-item>
-          <vg-tab-item title="tab333" name="33333">3</vg-tab-item>
-        </vg-tabs>
+        <q-tabs v-model="active0">
+          <q-tab-item title="tab111" name="111111">1</q-tab-item>
+          <q-tab-item title="tab222" name="22222">2</q-tab-item>
+          <q-tab-item title="tab333" name="33333">3</q-tab-item>
+        </q-tabs>
       </div>
       <div class="box">
-        <vg-tabs v-model="active" @change="change">
-          <vg-tab-item :key="index" :name="'tab-' + index" :title="'Tab' + index" v-for="index in 4">
+        <q-tabs v-model="active" @change="change">
+          <q-tab-item :key="index" :name="'tab-' + index" :title="'Tab' + index" v-for="index in 4">
             content of tab {{ index }}
-          </vg-tab-item>
-          <vg-tab-item :key="`item—${index}`" :name="'item-' + index" :title="'Tab' + index" v-for="index in 4">
+          </q-tab-item>
+          <q-tab-item :key="`item—${index}`" :name="'item-' + index" :title="'Tab' + index" v-for="index in 4">
             content of tab {{ `item-${index}` }}
-          </vg-tab-item>
-        </vg-tabs>
+          </q-tab-item>
+        </q-tabs>
       </div>
       <div class="box">
-        <vg-tabs v-model="active1" @click="handleClick">
-          <vg-tab-item
+        <q-tabs v-model="active1" @click="handleClick">
+          <q-tab-item
             :key="index"
             :name="'tab-' + index"
             :title="'Tab' + index"
@@ -28,15 +28,15 @@
             :disabled="index === 4"
           >
             content of tab {{ index }}
-          </vg-tab-item>
-        </vg-tabs>
+          </q-tab-item>
+        </q-tabs>
       </div>
       <div class="box">
-        <vg-tabs v-model="active2">
-          <vg-tab-item :key="index" :name="'Tab-' + index" :title="'Tab' + index" v-for="index in 2">
+        <q-tabs v-model="active2">
+          <q-tab-item :key="index" :name="'Tab-' + index" :title="'Tab' + index" v-for="index in 2">
             content of tab {{ index }}
-          </vg-tab-item>
-        </vg-tabs>
+          </q-tab-item>
+        </q-tabs>
       </div>
     </div>
   </div>

@@ -2,10 +2,10 @@
   <div class="radiobox-view">
     <div id="container">
       <span>disabled</span>
-      <vg-radiobox v-model="radiobox1" :disabled="true"></vg-radiobox>
+      <q-radiobox v-model="radiobox1" :disabled="true"></q-radiobox>
       <hr>
       <span>{{ radiobox2 }}</span>
-      <vg-radiobox v-model="radiobox2"></vg-radiobox>
+      <q-radiobox v-model="radiobox2"></q-radiobox>
     </div>
   </div>
 </template>

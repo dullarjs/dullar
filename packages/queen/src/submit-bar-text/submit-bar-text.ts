@@ -2,19 +2,19 @@
 * @Author: Just be free
 * @Date:   2021-01-20 09:54:38
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 14:11:23
+* @Last Modified time: 2021-06-07 18:33:42
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, Options } from "../component/VueGgy";
+import Queen, { mixins, Options } from "../component/Queen";
 import { h } from "vue";
 class Props {}
 @Options({
-  name: "VgSubmitBarText"
+  name: "QSubmitBarText"
 })
-export default class VgSubmitBarText extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgSubmitBarText";
+export default class QSubmitBarText extends mixins(Queen).with(Props) {
+  public static componentName = "QSubmitBarText";
   render() {
-    return h("div", { class: ["vg-submit-bar-text"] }, {
+    return h("div", { class: ["q-submit-bar-text"] }, {
       default: () => this.getSlots()
     });
   }

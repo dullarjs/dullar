@@ -8,8 +8,8 @@
   import { Options, Vue } from 'vue-class-component';
   const exampleCode =
   `
-  <vg-icon name="close"></vg-icon>
-  <vg-icon name="location"></vg-icon>
+  <q-icon name="close"></q-icon>
+  <q-icon name="location"></q-icon>
   `;
   @Options({
     name: "IconCode"

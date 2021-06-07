@@ -2,14 +2,14 @@
 * @Author: Just be free
 * @Date:   2020-11-10 10:41:55
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 13:49:27
+* @Last Modified time: 2021-06-07 16:38:32
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h, VNode } from "vue";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
-const VALID_CHILD_COMPONENT = "VgTabItem";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
+const VALID_CHILD_COMPONENT = "QTabItem";
 export interface Tab {
   value: string;
   disabled: boolean|undefined;
@@ -20,7 +20,7 @@ class Props {
   modelValue!: string|number
 }
 @Options({
-  name: "VgTabs",
+  name: "QTabs",
   emits: ["click", "change"],
   provide() {
     return {
@@ -28,8 +28,8 @@ class Props {
     }
   }
 })
-export default class VgTabs extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgTabs";
+export default class QTabs extends mixins(Queen).with(Props) {
+  public static componentName = "QTabs";
   public currentTab = this.modelValue;
   getTitles(slots: VNode[] = []): Tab[] {
     const tabs: Tab[] = [];
@@ -62,13 +62,13 @@ export default class VgTabs extends mixins(VueGgy).with(Props) {
     const slots = this.getCustomSlotsByTagName(VALID_CHILD_COMPONENT);
     const tabTitles = this.getTitles(slots);
     const flex = tabTitles.length > 4 ? "0 0 22%" : 1;
-    return h("div", { class: ["vg-tabs"] }, [
-      h("div", { class: ["vg-tabs-nav"] }, [
-        h(VgFlex,
+    return h("div", { class: ["q-tabs"] }, [
+      h("div", { class: ["q-tabs-nav"] }, [
+        h(QFlex,
           { style: { overflowX: "auto", userSelect: "none" } },
           {
             default: () => Array.apply(null, tabTitles).map((tab: any, index: number, arr: any[]) => {
-              return h(VgFlexItem,
+              return h(QFlexItem,
                 {
                   style: { textAlign: "center" },
                   flex,
@@ -79,7 +79,7 @@ export default class VgTabs extends mixins(VueGgy).with(Props) {
                   default: () => [
                     h(
                       "span",
-                      { class: ["vg-tab-text", this.getStatus(tab)] },
+                      { class: ["q-tab-text", this.getStatus(tab)] },
                       { default: () => tab.value }
                     )
                   ]
@@ -89,7 +89,7 @@ export default class VgTabs extends mixins(VueGgy).with(Props) {
           }
         )
       ]),
-      h("div", { class: ["vg-tabs-content"] }, { default: () => slots })
+      h("div", { class: ["q-tabs-content"] }, { default: () => slots })
     ]);
   }
 }

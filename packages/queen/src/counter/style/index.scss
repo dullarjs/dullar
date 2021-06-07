@@ -2,12 +2,12 @@
 * @Author: Just be free
 * @Date:   2020-11-02 14:27:18
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-11-02 14:28:56
+* @Last Modified time: 2021-06-07 16:07:51
 */
-.vg-counter {
-  .vg-counter-subtract,
-  .vg-counter-screen,
-  .vg-counter-plus {
+.q-counter {
+  .q-counter-subtract,
+  .q-counter-screen,
+  .q-counter-plus {
     border-radius: 4px;
     color: #4a4a4a;
     height: 30px;
@@ -25,7 +25,7 @@
       cursor: not-allowed;
     }
   }
-  .vg-counter-screen {
+  .q-counter-screen {
     padding: 0 5px;
   }
 }

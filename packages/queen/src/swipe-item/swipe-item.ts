@@ -2,19 +2,19 @@
 * @Author: Just be free
 * @Date:   2020-11-25 14:12:12
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 14:06:06
+* @Last Modified time: 2021-06-07 16:38:00
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { loadImageAsync } from "../utils/lazyload";
 import { h } from "vue";
 class Props {}
 @Options({
-  name: "VgSwipeItem",
+  name: "QSwipeItem",
   inject: ["swipeParent"]
 })
-export default class VgSwipeItem extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgSwipeItem";
+export default class QSwipeItem extends mixins(Queen).with(Props) {
+  public static componentName = "QSwipeItem";
   public loaded = false;
   mounted() {
     const $el = this.$refs.swipeItem as HTMLElement;
@@ -41,7 +41,7 @@ export default class VgSwipeItem extends mixins(VueGgy).with(Props) {
         ref: "swipeItem",
         style: { width: `${width}px`, height: `${height}px` },
         class: [
-          "vg-swipe-item",
+          "q-swipe-item",
           this.loaded ? "loaded" : "loading",
           vertical ? "vertical" : "horizontal"
         ]

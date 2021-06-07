@@ -2,19 +2,19 @@
 * @Author: Just be free
 * @Date:   2020-11-09 17:02:32
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 18:23:36
+* @Last Modified time: 2021-06-07 16:24:50
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h } from "vue";
-import { VgDateInstance, validateFormatedDate } from "../utils/vg-date";
+import { QDateInstance, validateFormatedDate } from "../utils/q-date";
 import { ColumnObject } from "../picker/picker-column";
 import { ChangeCallbackEvent } from "../picker/picker";
-import VgPicker from "../picker";
+import QPicker from "../picker";
 const isEqual = (d1: string|number, d2: string|number): boolean => {
   return Number(d1) === Number(d2);
 }
-const now = VgDateInstance().getToday();
+const now = QDateInstance().getToday();
 const year = now.getFullYear();
 const m = now.getMonth() + 1;
 const month = m < 10 ? `0${m}` : m;
@@ -31,15 +31,15 @@ class Props {
   title?: string
 }
 @Options({
-  name: "VgDatePicker",
+  name: "QDatePicker",
   emits: ["update:modelValue", "confirm", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave"]
 })
-export default class VgDatePicker extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgDatePicker";
+export default class QDatePicker extends mixins(Queen).with(Props) {
+  public static componentName = "QDatePicker";
   public year: string|number = "";
   public month: string|number = "";
   public date: string|number = "";
-  public dayCount = VgDateInstance(year - 30, month, date).getDaysCountOfMonth();
+  public dayCount = QDateInstance(year - 30, month, date).getDaysCountOfMonth();
   public monthStart = 1;
   public monthEnd = 12;
   public dateStart = 1;
@@ -55,12 +55,12 @@ export default class VgDatePicker extends mixins(VueGgy).with(Props) {
       month: this.month,
       date: this.date,
       year: this.year,
-      dateInstance: VgDateInstance(this.year, this.month, this.date),
+      dateInstance: QDateInstance(this.year, this.month, this.date),
     });
     this.close();
   }
   updateMonthDayCount() {
-    this.dayCount = VgDateInstance(this.year, this.month, "01").getDaysCountOfMonth();
+    this.dayCount = QDateInstance(this.year, this.month, "01").getDaysCountOfMonth();
   }
   genDate(startDate: number, endDate: number): void {
     // this.updateMonthDayCount();
@@ -261,9 +261,9 @@ export default class VgDatePicker extends mixins(VueGgy).with(Props) {
     this.computedColumns = this.genColumns();
   }
   render() {
-    return h("div", { class: ["vg-date-picker"] }, {
+    return h("div", { class: ["q-date-picker"] }, {
       default: () => [
-        h(VgPicker,
+        h(QPicker,
           {
             onConfirm: this.handleOnConfirm,
             onClose: this.close,

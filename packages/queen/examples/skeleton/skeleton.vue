@@ -1,8 +1,8 @@
 <template>
   <div class="skeleton-view">
     <div id="container">
-      <vg-skeleton rows="10" :avatar="false"></vg-skeleton>
-      <vg-skeleton rows="10"></vg-skeleton>
+      <q-skeleton rows="10" :avatar="false"></q-skeleton>
+      <q-skeleton rows="10"></q-skeleton>
     </div>
   </div>
 </template>

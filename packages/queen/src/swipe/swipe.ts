@@ -2,16 +2,16 @@
 * @Author: Just be free
 * @Date:   2020-11-25 14:11:49
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 14:06:24
+* @Last Modified time: 2021-06-07 16:37:35
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options, VisibilityChangeStatus } from "../component/VueGgy";
+import Queen, { mixins, prop, Options, VisibilityChangeStatus } from "../component/Queen";
 import { h, VNode } from "vue";
 import { Remainder } from "../utils/number/remainder";
 import { move } from "../utils/dom/animate";
 import { EventBus } from "../utils/event/bus";
 import { EventEmulator, EventCallbackOptions } from "../component/EventEmulator";
-const VALID_CHILD_COMPONENT = "VgSwipeItem";
+const VALID_CHILD_COMPONENT = "QSwipeItem";
 class Props {
   vertical?: boolean
   autoPlay = prop<string|number>({
@@ -24,7 +24,7 @@ class Props {
 }
 
 @Options({
-  name: "VgSwipe",
+  name: "QSwipe",
   provide() {
     return {
       swipeParent: this
@@ -41,8 +41,8 @@ class Props {
     }
   }
 })
-export default class VgSwipe extends mixins(VueGgy, EventEmulator).with(Props) {
-  public static componentName = "VgSwipe";
+export default class QSwipe extends mixins(Queen, EventEmulator).with(Props) {
+  public static componentName = "QSwipe";
   public rect = {} as DOMRect;
   public width = 0;
   public count = 0;
@@ -84,7 +84,7 @@ export default class VgSwipe extends mixins(VueGgy, EventEmulator).with(Props) {
         "div",
         {
           class: [
-            "vg-swipe-indicators",
+            "q-swipe-indicators",
             indicatorType,
             this.vertical ? "vertical" : "horizontal"
           ]
@@ -286,14 +286,14 @@ export default class VgSwipe extends mixins(VueGgy, EventEmulator).with(Props) {
     this.count = slots.length;
     return h(
       "div",
-      { class: ["vg-swipe"], style: this.swipeStyle },
+      { class: ["q-swipe"], style: this.swipeStyle },
       {
         default: () => [
           h(
             "div",
             {
               style: { width: `${this.width}px`, height: `${this.height}px` },
-              class: ["vg-swipe-list-container"],
+              class: ["q-swipe-list-container"],
               ref: "swipeContainer"
             },
             { default: () => slots }

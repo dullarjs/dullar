@@ -2,16 +2,16 @@
 * @Author: Just be free
 * @Date:   2020-09-28 14:57:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 15:46:23
+* @Last Modified time: 2021-06-07 16:51:23
 * @E-mail: justbefree@126.com
 */
 /**
 references
 https://v3.vuejs.org/guide/migration/v-model.html
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h, Transition, withDirectives, vShow, VNode } from "vue";
-import VgIcon from "../icon";
+import QIcon from "../icon";
 const VALIDATE_POSITION_VALUE = ["left", "right", "top", "bottom", "middle"];
 import PopupManager from "../component/popupManager";
 import { addClass } from "../utils/dom";
@@ -29,10 +29,10 @@ class Props {
 }
 @Options({
   emits: ["update:modelValue", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave", "input"],
-  name: "VgPopup"
+  name: "QPopup"
 })
-export default class VgPopup extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgPopup";
+export default class QPopup extends mixins(Queen).with(Props) {
+  public static componentName = "QPopup";
   public bodyOverflow = "";
   public time = 0;
   public diff = 0;
@@ -60,7 +60,7 @@ export default class VgPopup extends mixins(VueGgy).with(Props) {
     this.bodyOverflow = document.body.style.overflow;
     const parentNode = node.parentNode as HTMLElement;
     const modal = document.createElement("div");
-    addClass(modal, "v-vgpopup-modal");
+    addClass(modal, "v-qpopup-modal");
     parentNode.insertBefore(modal, node);
     if (this.singleton) {
       modal.style.zIndex = `${this.zIndex + idSeed}`;
@@ -115,9 +115,9 @@ export default class VgPopup extends mixins(VueGgy).with(Props) {
   }
   createCloseIcon(): VNode[] {
     if (this.showCloseIcon) {
-      return [h("div", { class: ["vg-popup-closeicon", this.fixed ? "fixed" : ""] }, {
+      return [h("div", { class: ["q-popup-closeicon", this.fixed ? "fixed" : ""] }, {
         default: () => [
-          h(VgIcon, { name: "close", onClick: this.close }, { default: () => [] })
+          h(QIcon, { name: "close", onClick: this.close }, { default: () => [] })
         ]
       })];
     } else {
@@ -147,7 +147,7 @@ export default class VgPopup extends mixins(VueGgy).with(Props) {
     return h(
       Transition,
       {
-        name: `vg-popup-slide-${position}`,
+        name: `q-popup-slide-${position}`,
         onBeforeEnter: this.handleBeforeEnter,
         onEnter: this.handleEnter,
         onAfterEnter: this.handleAfterEneter,
@@ -160,7 +160,7 @@ export default class VgPopup extends mixins(VueGgy).with(Props) {
           withDirectives(h(
             "div",
             {
-              class: ["vg-popup", `vg-popup-${position}`],
+              class: ["q-popup", `q-popup-${position}`],
               style: { ...this.genStyle(position) }
             },
             { default: () => [this.createCloseIcon(), this.getSlots()] }

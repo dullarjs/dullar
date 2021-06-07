@@ -1,5 +1,5 @@
 <template>
-  <vg-layout
+  <q-layout
     :monitor="true"
     @scroll="handleScroll"
     :showHeader="showHeader"
@@ -15,18 +15,18 @@
       <div>
         body区域，可以滑动
         <div>
-          <h2>vg-layout</h2>
+          <h2>q-layout</h2>
         </div>
         <template v-for="item in dataList" :key="item">
           <div>{{ item }}</div>
         </template>
-        <vg-spin type="triple-bounce"></vg-spin>
+        <q-spin type="triple-bounce"></q-spin>
       </div>
     </template>
     <template #footer>
       <div>footer</div>
     </template>
-  </vg-layout>
+  </q-layout>
 </template>
 
 <script lang="ts">

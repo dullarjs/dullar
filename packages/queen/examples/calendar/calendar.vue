@@ -9,28 +9,28 @@
         <li @click="handleClick(5)">多选、底部确认按钮</li>
         <li @click="handleClick(6)">多选、允许选择同一天</li>
       </ul>
-      <vg-calendar
+      <q-calendar
         before="10"
         after="10"
         v-model="calendar1"
         v-on:getdate="getDate"
-      ></vg-calendar>
-      <vg-calendar
+      ></q-calendar>
+      <q-calendar
         before="10"
         after="10"
         mode="double"
         v-on:getdate="getDate"
         v-model="calendar2"
-      ></vg-calendar>
-      <vg-calendar
+      ></q-calendar>
+      <q-calendar
         mode="single"
         :before="10"
         :after="10"
         v-model="calendar3"
         :defaultDate="defaultDate"
         v-on:getdate="getDate"
-      ></vg-calendar>
-      <vg-calendar
+      ></q-calendar>
+      <q-calendar
         mode="double"
         :before="10"
         :after="10"
@@ -38,30 +38,30 @@
         :defaultStartDate="defaultStartDate"
         :defaultEndDate="defaultEndDate"
         v-on:getdate="getDate"
-      ></vg-calendar>
-      <vg-calendar
+      ></q-calendar>
+      <q-calendar
         mode="double"
         :before="10"
         :after="10"
         v-model="calendar5"
         v-on:getdate="getDate"
         :showConfirmButton="true"
-      ></vg-calendar>
-      <vg-calendar
+      ></q-calendar>
+      <q-calendar
         mode="double"
         :before="10"
         :after="10"
         v-model="calendar6"
         v-on:getdate="getDate"
         :doubleModeAllowSameDate="true"
-      ></vg-calendar>
+      ></q-calendar>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
-import { VgDateInstance } from "../../src/utils/vg-date";
+import { QDateInstance } from "../../src/utils/q-date";
 export default class Calendar extends Vue {
   public calendar1 = false;
   public calendar2 = false;
@@ -69,9 +69,9 @@ export default class Calendar extends Vue {
   public calendar4 = false;
   public calendar5 = false;
   public calendar6 = false;
-  public defaultDate = VgDateInstance().add(1, "d").format();
-  public defaultStartDate = VgDateInstance().substract(4, "d").format();
-  public defaultEndDate = VgDateInstance().add(3, "d").format();
+  public defaultDate = QDateInstance().add(1, "d").format();
+  public defaultStartDate = QDateInstance().substract(4, "d").format();
+  public defaultEndDate = QDateInstance().add(3, "d").format();
   handleClick(num: number) {
     this[`calendar${num}`] = true;
   }

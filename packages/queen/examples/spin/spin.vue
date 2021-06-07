@@ -2,9 +2,9 @@
   <div class="spin-view">
     <div id="container">
       <ul>
-        <li><vg-spin></vg-spin></li>
-        <li><vg-spin type="rotate" size="40"></vg-spin></li>
-        <li><vg-spin type="triple-bounce" size="40"></vg-spin></li>
+        <li><q-spin></q-spin></li>
+        <li><q-spin type="rotate" size="40"></q-spin></li>
+        <li><q-spin type="triple-bounce" size="40"></q-spin></li>
       </ul>
     </div>
   </div>

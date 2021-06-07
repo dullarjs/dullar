@@ -2,12 +2,12 @@
 * @Author: Just be free
 * @Date:   2020-10-28 14:38:33
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-10-28 19:13:02
+* @Last Modified time: 2021-06-07 16:07:22
 */
-.vg-picky-stepper {
-  .vg-picky-stepper-header {
+.q-picky-stepper {
+  .q-picky-stepper-header {
     text-align: center;
-    .vg-picky-stepper-title {
+    .q-picky-stepper-title {
       display: inline-block;
       height: 100%;
       line-height: 50px;
@@ -16,18 +16,18 @@
     }
     height: 50px;
     position: relative;
-    .vg-picky-stepper-back {
+    .q-picky-stepper-back {
       position: absolute;
       left: 10px;
       top: 10px;
     }
-    .vg-picky-stepper-close {
+    .q-picky-stepper-close {
       position: absolute;
       right: 10px;
       top: 10px;
     }
   }
-  .vg-picky-stepper-content {
+  .q-picky-stepper-content {
     &.show {
       display: block;
     }
@@ -100,7 +100,7 @@
       }
     }
   }
-  .vg-picky-stepper-footer {
+  .q-picky-stepper-footer {
     .step-confirm {
       margin: 10px auto;
       width: 90%;

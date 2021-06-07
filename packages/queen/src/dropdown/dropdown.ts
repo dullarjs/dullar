@@ -2,14 +2,14 @@
 * @Author: Just be free
 * @Date:   2021-02-23 15:21:59
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 14:27:06
+* @Last Modified time: 2021-06-07 16:26:12
 * @E-mail: justbefree@126.com
 */
 
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h, VNode, vShow, withDirectives } from "vue";
 import { renderDOM } from "../component/renderDOM";
-import VgPopup from "../popup";
+import QPopup from "../popup";
 
 class Props {
   borderRadius?: number
@@ -21,7 +21,7 @@ class Props {
   })
 }
 @Options({
-  name: "VgDropdown",
+  name: "QDropdown",
   emits: ["beforeenter", "afterenter", "beforeleave", "afterleave"],
   computed: {
     position() {
@@ -30,8 +30,8 @@ class Props {
     }
   }
 })
-export default class VgDropdown extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgDropdown";
+export default class QDropdown extends mixins(Queen).with(Props) {
+  public static componentName = "QDropdown";
   public status = false;
   public show = false;
   public toggle(): void {
@@ -72,14 +72,14 @@ export default class VgDropdown extends mixins(VueGgy).with(Props) {
   render() {
     const target = this.getSlots("target");
     const content = this.getSlots("content");
-    return h("div", { class: ["vg-dropdown"] }, {
+    return h("div", { class: ["q-dropdown"] }, {
       default: () => [
         h("div", { class: ["$dropdown-target"] }, { default: () => [target] }),
         withDirectives(h(
           "div",
           {
             class: [
-              "vg-dropdown-popup",
+              "q-dropdown-popup",
               this.direction,
               this.status ? "z-index" : "",
             ],
@@ -87,7 +87,7 @@ export default class VgDropdown extends mixins(VueGgy).with(Props) {
           },
           {
             default: () => [
-              h(VgPopup,
+              h(QPopup,
                 {
                   onBeforeenter: this.handleBeforeEnter,
                   onAfterenter: this.handleAfterEnter,

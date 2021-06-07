@@ -2,17 +2,17 @@
 * @Author: Just be free
 * @Date:   2020-10-19 16:31:57
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-12-02 11:43:01
+* @Last Modified time: 2021-06-07 16:09:45
 * @E-mail: justbefree@126.com
 */
 const now = new Date();
-export type VDate = string|number|VgDate;
+export type VDate = string|number|QDate;
 export type VDateString = string|number;
 const number2string = (num: VDateString): string => {
   const integer = (typeof num === "string") ? parseInt(num) : num;
   return integer < 10 ? `0${integer}` : `${integer}`;
 }
-class VgDate {
+class QDate {
   private year: VDate = now.getFullYear();
   private month: VDateString = number2string(now.getMonth() + 1);
   private date: VDateString = number2string(now.getDate());
@@ -21,7 +21,7 @@ class VgDate {
     this.init(year, month, date);
   }
   init(year?: VDate, month?: VDateString, date?: VDateString) {
-    if (year instanceof VgDate) {
+    if (year instanceof QDate) {
       return year;
     } else if (this.isDateFormat(year as string)) {
       this.init(...(year as string).split("-"));
@@ -47,13 +47,13 @@ class VgDate {
   isDateFormat(arg: string): boolean {
     return /^(\d{4})(-)(\d{2})(-)(\d{2})$/.test(String(arg));
   }
-  add(count: number = 1, unit: string = "days"): VgDate {
+  add(count: number = 1, unit: string = "days"): QDate {
     if (["days", "day", "d"].indexOf(unit) > -1) {
       this.JSDate.setDate(this.JSDate.getDate() + count);
     } else if (["months", "month", "m"].indexOf(unit) > -1) {
       // 解决思路：在某一个日期加一个月或N个月的时候需要判断当前日期是当月的第X天，
       // 需要确保在加了一个月或N个月的那月也有同样的X天，如果没有，则取那月的最后一天
-      const otherMonthDaysCount = VgDateInstance(this.year, this.JSDate.getMonth() + 1 + count, "01").getDaysCountOfMonth();
+      const otherMonthDaysCount = QDateInstance(this.year, this.JSDate.getMonth() + 1 + count, "01").getDaysCountOfMonth();
       const currentDay = this.JSDate.getDate();
       if (currentDay > otherMonthDaysCount) {
         this.JSDate.setDate(otherMonthDaysCount);
@@ -69,12 +69,12 @@ class VgDate {
     this.setDate(this.JSDate.getDate());
     return this;
   }
-  substract(count: number = 1, unit: string = "days"): VgDate {
+  substract(count: number = 1, unit: string = "days"): QDate {
     return this.add(-1 * count, unit);
   }
-  getMonthPeriod(begin: VgDate, end: VgDate): Array<string> {
+  getMonthPeriod(begin: QDate, end: QDate): Array<string> {
     const period = [begin.format()];
-    if (begin instanceof VgDate && end instanceof VgDate) {
+    if (begin instanceof QDate && end instanceof QDate) {
       while (begin.isBefore(end)) {
         begin.add(1, "month");
         period.push(begin.format());
@@ -106,14 +106,14 @@ class VgDate {
     return new Date(parseInt(this.year as string), parseInt(this.month as string, 10), 0).getDate();
   }
   diff(year: VDate, month?: VDateString, date?: VDateString): number {
-    if (year instanceof VgDate) {
+    if (year instanceof QDate) {
       return (year.getTime() - this.getTime()) / 1000 / 60 / 60 / 24;
     } else if (this.isDateFormat(year as string)) {
       const [y, m, d] = (year as string).split("-");
       return this.diff(y as string, m as string, d as string);
     } else {
       return (
-        (VgDateInstance(year, month, date).getTime() - this.getTime()) /
+        (QDateInstance(year, month, date).getTime() - this.getTime()) /
         1000 /
         60 /
         60 /
@@ -146,8 +146,8 @@ class VgDate {
     return this.isAfter(start) && this.isBefore(end);
   }
 }
-const VgDateInstance = (year?: VDate, month?: VDateString, date?: VDateString): VgDate => {
-  return new VgDate(year, month, date);
+const QDateInstance = (year?: VDate, month?: VDateString, date?: VDateString): QDate => {
+  return new QDate(year, month, date);
 }
-export { VgDate };
-export default VgDateInstance;
+export { QDate };
+export default QDateInstance;

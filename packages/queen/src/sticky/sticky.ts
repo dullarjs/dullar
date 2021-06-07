@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-28 11:18:21
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 16:20:03
+* @Last Modified time: 2021-06-07 16:35:26
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { hyphenate } from "../utils";
 import { getScroller } from "../utils/dom/scroller";
 import { getOffset, getScrollTop } from "../utils/dom";
@@ -19,11 +19,11 @@ class Props {
   sticky = prop<boolean>({ default: true })
 }
 @Options({
-  name: "VgSticky",
+  name: "QSticky",
   emits: ["scroll"]
 })
-export default class VgSticky extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgSticky";
+export default class QSticky extends mixins(Queen).with(Props) {
+  public static componentName = "QSticky";
   public fixed = false;
   public top = 0;
   public containerTop = 0;
@@ -73,7 +73,7 @@ export default class VgSticky extends mixins(VueGgy).with(Props) {
       "div",
       {
         style: { top: `${this.offsetTop}px`, zIndex: this.zIndex },
-        class: ["vg-sticky", this.sticky && this.fixed ? "vg-sticky-fixed" : ""]
+        class: ["q-sticky", this.sticky && this.fixed ? "q-sticky-fixed" : ""]
       },
       { default: () => slots }
     );

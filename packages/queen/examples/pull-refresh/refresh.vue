@@ -1,11 +1,11 @@
 <template>
   <div class="pull-refresh-view">
     <div id="container">
-      <vg-pull-refresh @pullrefresh="handlePullRefresh" :loading="isLoading">
+      <q-pull-refresh @pullrefresh="handlePullRefresh" :loading="isLoading">
         <ul>
           <li v-for="i in list" :key="i">{{ i }}</li>
         </ul>
-      </vg-pull-refresh>
+      </q-pull-refresh>
     </div>
   </div>
 </template>

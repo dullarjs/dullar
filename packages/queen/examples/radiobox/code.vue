@@ -10,8 +10,8 @@
   import { Options, Vue } from 'vue-class-component';
   const exampleCode =
   `
-  <vg-radiobox v-model="radiobox1" :disabled="true"></vg-radiobox>
-  <vg-radiobox v-model="radiobox2"></vg-radiobox>
+  <q-radiobox v-model="radiobox1" :disabled="true"></q-radiobox>
+  <q-radiobox v-model="radiobox2"></q-radiobox>
   `;
   const jsCode =
   `

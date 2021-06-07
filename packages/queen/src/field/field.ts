@@ -2,15 +2,15 @@
 * @Author: Just be free
 * @Date:   2020-12-07 14:36:07
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-15 18:19:25
+* @Last Modified time: 2021-06-07 16:26:41
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h, VNode, vShow, withDirectives } from "vue";
 import { encrypt } from "../utils/string";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
-import VgIcon from "../icon";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
+import QIcon from "../icon";
 const VALID_TYPE = ["number", "textarea", "password", "text", "email", "tel"];
 class Props {
   modelValue = prop<string|number>({ default: "" })
@@ -37,7 +37,7 @@ class Props {
 }
 
 @Options({
-  name: "VgField",
+  name: "QField",
   emits: ["blur", "update:modelValue", "focus", "click"],
   computed: {
     isColumnDisplay() {
@@ -45,8 +45,8 @@ class Props {
     }
   }
 })
-export default class VgField extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgField";
+export default class QField extends mixins(Queen).with(Props) {
+  public static componentName = "QField";
   public target: null|HTMLInputElement = null;
   public showIcon = false;
   public showEncryptInput = false;
@@ -97,12 +97,12 @@ export default class VgField extends mixins(VueGgy).with(Props) {
         this.showIcon = true;
       }
       icon.push(
-        withDirectives(h(VgFlexItem,
+        withDirectives(h(QFlexItem,
           {
             onClick: this.handleIconClick,
           },
           {
-            default: () => [h(VgIcon, { name, size: "16", cursor: "pointer" }, { default: () => [] })]
+            default: () => [h(QIcon, { name, size: "16", cursor: "pointer" }, { default: () => [] })]
           }
         ), [[vShow, this.showIcon]]
       ));
@@ -136,8 +136,8 @@ export default class VgField extends mixins(VueGgy).with(Props) {
     if (VALID_TYPE.indexOf(this.type) > -1) {
       if (this.type === "textarea") {
         area.push(
-          h(VgFlexItem,
-            { class: ["vg-field-textarea", columnDisplayClass], flex: 1 },
+          h(QFlexItem,
+            { class: ["q-field-textarea", columnDisplayClass], flex: 1 },
             {
               default: () => [
                 h(
@@ -152,7 +152,7 @@ export default class VgField extends mixins(VueGgy).with(Props) {
                 withDirectives(h(
                   "div",
                   {
-                    class: ["vg-field-textarea-counter"],
+                    class: ["q-field-textarea-counter"],
                   },
                   {
                     default: () => [
@@ -166,8 +166,8 @@ export default class VgField extends mixins(VueGgy).with(Props) {
         );
       } else {
         area.push(
-          h(VgFlexItem,
-            { class: ["vg-field-input", columnDisplayClass], flex: 1 },
+          h(QFlexItem,
+            { class: ["q-field-input", columnDisplayClass], flex: 1 },
             {
               default: () => [
                 h(
@@ -190,7 +190,7 @@ export default class VgField extends mixins(VueGgy).with(Props) {
   }
   genLabel(label: string): VNode {
     const limitLabelWidth = this.isColumnDisplay ? "column-flex-item" : "limit-label-width";
-    return h(VgFlexItem, { class: ["vg-field-label", limitLabelWidth] }, {
+    return h(QFlexItem, { class: ["q-field-label", limitLabelWidth] }, {
       default: () => [
         h("div", { class: ["label-wrapper"] }, label),
       ]
@@ -204,12 +204,12 @@ export default class VgField extends mixins(VueGgy).with(Props) {
     } else if (this.label) {
       label.push(this.genLabel(this.label));
     }
-    return h("div", { class: ["vg-field", "border-top-bottom", this.isColumnDisplay ? "vg-field-column" : ""] }, {
+    return h("div", { class: ["q-field", "border-top-bottom", this.isColumnDisplay ? "q-field-column" : ""] }, {
       default: () => [
-        h(VgFlex,
+        h(QFlex,
           {
             flexDirection: this.display,
-            class: ["vg-field-container"],
+            class: ["q-field-container"],
           },
           {
             default: () => [...label, ...this.createInput(), ...this.createIcon()]

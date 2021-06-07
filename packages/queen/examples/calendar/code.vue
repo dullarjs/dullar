@@ -8,28 +8,28 @@
   import { Options, Vue } from 'vue-class-component';
   const exampleCode =
   `
- <vg-calendar
+ <q-calendar
    before="10"
    after="10"
    v-model="calendar1"
    v-on:getdate="getDate"
- ></vg-calendar>
- <vg-calendar
+ ></q-calendar>
+ <q-calendar
    before="10"
    after="10"
    mode="double"
    v-on:getdate="getDate"
    v-model="calendar2"
- ></vg-calendar>
- <vg-calendar
+ ></q-calendar>
+ <q-calendar
    mode="single"
    :before="10"
    :after="10"
    v-model="calendar3"
    :defaultDate="defaultDate"
    v-on:getdate="getDate"
- ></vg-calendar>
- <vg-calendar
+ ></q-calendar>
+ <q-calendar
    mode="double"
    :before="10"
    :after="10"
@@ -37,23 +37,23 @@
    :defaultStartDate="defaultStartDate"
    :defaultEndDate="defaultEndDate"
    v-on:getdate="getDate"
- ></vg-calendar>
- <vg-calendar
+ ></q-calendar>
+ <q-calendar
    mode="double"
    :before="10"
    :after="10"
    v-model="calendar5"
    v-on:getdate="getDate"
    :showConfirmButton="true"
- ></vg-calendar>
- <vg-calendar
+ ></q-calendar>
+ <q-calendar
    mode="double"
    :before="10"
    :after="10"
    v-model="calendar6"
    v-on:getdate="getDate"
    :doubleModeAllowSameDate="true"
- ></vg-calendar>
+ ></q-calendar>
   `;
   @Options({
     name: "CalendarCode"

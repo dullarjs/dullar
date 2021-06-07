@@ -2,13 +2,13 @@
 * @Author: Just be free
 * @Date:   2020-10-21 15:19:17
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 17:31:17
+* @Last Modified time: 2021-06-07 16:30:04
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h, VNode, Transition, withDirectives, vShow } from "vue";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
 import { getScrollTop } from "../utils/dom";
 import { on, off } from "../utils/event";
 
@@ -24,11 +24,11 @@ class Props {
   bottomDistance = prop<number|string>({ default: 0 })
 }
 @Options({
-  name: "VgLayout",
+  name: "QLayout",
   emits: ["reachtop", "reachbottom", "scroll"]
 })
-export default class VgLayout extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgLayout";
+export default class QLayout extends mixins(Queen).with(Props) {
+  public static componentName = "QLayout";
   public scrollTop = 0;
   public clientHeight = 0;
   public topTriggered = false;
@@ -66,7 +66,7 @@ export default class VgLayout extends mixins(VueGgy).with(Props) {
     this.clientHeight = clientHeight;
   }
   getTop(pos: number = 0): void {
-    const ele = (this.$refs.scrollElement as VgFlexItem).$el;
+    const ele = (this.$refs.scrollElement as QFlexItem).$el;
     if (!ele) {
       return;
     }
@@ -74,7 +74,7 @@ export default class VgLayout extends mixins(VueGgy).with(Props) {
   }
   mounted() {
     if (this.monitor) {
-      const ele = (this.$refs.scrollElement as VgFlexItem).$el;
+      const ele = (this.$refs.scrollElement as QFlexItem).$el;
       if (!ele) {
         return;
       }
@@ -83,7 +83,7 @@ export default class VgLayout extends mixins(VueGgy).with(Props) {
   }
   beforeUnmount() {
     if (this.monitor) {
-      const ele = (this.$refs.scrollElement as VgFlexItem).$el;
+      const ele = (this.$refs.scrollElement as QFlexItem).$el;
       if (!ele) {
         return;
       }
@@ -93,11 +93,11 @@ export default class VgLayout extends mixins(VueGgy).with(Props) {
   render() {
     const headerHeight = `${this.headerHeight}px`;
     const footerHeight = `${this.footerHeight}px`;
-    return h("div", { class: ["vg-layout"] }, {
+    return h("div", { class: ["q-layout"] }, {
       default: () => [
-        h(VgFlex,
+        h(QFlex,
           {
-            class: ["vg-layout-flex-container"],
+            class: ["q-layout-flex-container"],
             flexDirection: "column",
             justifyContent: "spaceBetween"
           },
@@ -105,14 +105,14 @@ export default class VgLayout extends mixins(VueGgy).with(Props) {
             default: () => [
               h(Transition, { name: this.headerTransitionName }, {
                 default: () => [
-                  withDirectives(h(VgFlexItem, { class: ["vg-layout-header"], style: { height: headerHeight } }, {
+                  withDirectives(h(QFlexItem, { class: ["q-layout-header"], style: { height: headerHeight } }, {
                     default: () => this.getSlots("header")
                   }), [[vShow, this.showHeader]])
                 ]
               }),
-              h(VgFlexItem,
+              h(QFlexItem,
                 {
-                  class: ["vg-layout-body", "vg-layout-body-scroll-ele"],
+                  class: ["q-layout-body", "q-layout-body-scroll-ele"],
                   flex: 1,
                   ref: "scrollElement"
                 },
@@ -122,7 +122,7 @@ export default class VgLayout extends mixins(VueGgy).with(Props) {
               ),
               h(Transition, { name: this.footerTransitionName }, {
                 default: () => [
-                  withDirectives(h(VgFlexItem, { class: ["vg-layout-footer"], style: { height: footerHeight } }, {
+                  withDirectives(h(QFlexItem, { class: ["q-layout-footer"], style: { height: footerHeight } }, {
                     default: () => this.getSlots("footer")
                   }), [[vShow, this.showFooter]])
                 ]

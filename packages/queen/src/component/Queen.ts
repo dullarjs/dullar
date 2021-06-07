@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-09-23 17:32:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 14:58:51
+* @Last Modified time: 2021-06-07 15:54:32
 * @E-mail: justbefree@126.com
 */
 const pkg = require("../../package.json");
@@ -13,10 +13,10 @@ import { on, off } from "../utils/event";
 import { throttle } from "../utils";
 export type VisibilityChangeStatus = "hidden" | "visible";
 class Props {}
-export default class VueGgy extends Vue.with(Props) {
+export default class Queen extends Vue.with(Props) {
   [propName: string]: any;
   private version = pkg.version;
-  public static componentName = "VueGgy";
+  public static componentName = "Queen";
   getVersion(): string {
     return this.version;
   }

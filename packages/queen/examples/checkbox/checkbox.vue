@@ -2,10 +2,10 @@
   <div class="checkbox-view">
     <div id="container">
       <span>disabled</span>
-      <vg-checkbox v-model="checkbox1" :disabled="true"></vg-checkbox>
+      <q-checkbox v-model="checkbox1" :disabled="true"></q-checkbox>
       <hr>
       <span>{{ checkbox2 }}</span>
-      <vg-checkbox v-model="checkbox2"></vg-checkbox>
+      <q-checkbox v-model="checkbox2"></q-checkbox>
     </div>
   </div>
 </template>

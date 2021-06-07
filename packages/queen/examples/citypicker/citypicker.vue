@@ -11,7 +11,7 @@
         <li @click="handlePicker(7)">可搜索</li>
         <li @click="handlePicker(8)">可搜索(三列布局)</li>
       </ul>
-      <vg-citypicker
+      <q-citypicker
         :searchable="false"
         @pick="handlePick"
         v-model="picker1"
@@ -20,8 +20,8 @@
         :history="getHistory()"
         :hotCity="getHotCity()"
         :showHistory="true"
-      ></vg-citypicker>
-      <vg-citypicker
+      ></q-citypicker>
+      <q-citypicker
         :alphaBeta="getAlphaBeta()"
         :history="getHistory()"
         :hotCity="getHotCity()"
@@ -30,38 +30,38 @@
         @pick="handlePick"
         v-model="picker2"
         :tabs="tabs2"
-      ></vg-citypicker>
-      <vg-citypicker
+      ></q-citypicker>
+      <q-citypicker
         :alphaBeta="getAlphaBeta()"
         :history="getHistory()"
         :hotCity="getHotCity()"
         :searchable="false"
         @pick="handlePick"
         v-model="picker3"
-      ></vg-citypicker>
-      <vg-citypicker
+      ></q-citypicker>
+      <q-citypicker
         @pick="handlePick"
         v-model="picker4"
         :limitedData="data.cnCitiesList"
         :limited="true"
-      ></vg-citypicker>
-      <vg-citypicker
+      ></q-citypicker>
+      <q-citypicker
         @pick="handlePick"
         v-model="picker5"
         :hotCity="getHotCity()"
         :showHistory="true"
         :history="getHistory()"
         :alphaBeta="getAlphaBeta()"
-      ></vg-citypicker>
-      <vg-citypicker
+      ></q-citypicker>
+      <q-citypicker
         :alphaBeta="getAlphaBeta()"
         :searchable="false"
         @pick="handlePick"
         v-model="picker6"
         :tabs="tabs2"
         :showHotCity="false"
-      ></vg-citypicker>
-      <vg-citypicker
+      ></q-citypicker>
+      <q-citypicker
         :search="getSearch()"
         :alphaBeta="getAlphaBeta()"
         :history="getHistory()"
@@ -69,8 +69,8 @@
         :showHistory="true"
         @pick="handlePick"
         v-model="picker7"
-      ></vg-citypicker>
-      <vg-citypicker
+      ></q-citypicker>
+      <q-citypicker
         :search="getSearch()"
         :alphaBeta="getAlphaBeta()"
         :history="getHistory()"
@@ -79,7 +79,7 @@
         @pick="handlePick"
         v-model="picker8"
         column="3"
-      ></vg-citypicker>
+      ></q-citypicker>
     </div>
   </div>
 </template>

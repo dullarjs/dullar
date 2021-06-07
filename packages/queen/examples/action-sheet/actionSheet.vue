@@ -6,25 +6,25 @@
         <li @click="handleCancelUsage">带取消 & 禁止某些选线</li>
         <li @click="handleAsyncUsage">异步加载</li>
       </ul>
-      <vg-action-sheet
+      <q-action-sheet
         v-model="basic"
         :actions="basicActions"
         v-on:getselected="getSelect"
-      ></vg-action-sheet>
-      <vg-action-sheet
+      ></q-action-sheet>
+      <q-action-sheet
         v-model="cancel"
         :actions="cancelActions"
         v-on:getselected="getSelect"
         showCancel
-      ></vg-action-sheet>
-      <vg-action-sheet
+      ></q-action-sheet>
+      <q-action-sheet
         v-model="async"
         :loading="loading"
         @beforeenter="handleBeforeEnter"
         :actions="asyncActions"
         v-on:getselected="getSelect"
         showCancel
-      ></vg-action-sheet>
+      ></q-action-sheet>
     </div>
   </div>
 </template>

@@ -16,11 +16,11 @@
        <ul>
          <li>
            <span class="title">Basic usage</span>
-           <vg-field label="Label" v-model="basicUsage" placeholder="Text"></vg-field>
+           <q-field label="Label" v-model="basicUsage" placeholder="Text"></q-field>
          </li>
          <li>
            <span class="title">Types</span>
-           <vg-field
+           <q-field
              v-model="phoneNumber"
              label="Phone"
              type="tel"
@@ -28,79 +28,79 @@
              max="10"
              placeholder="phone number"
              pattern="[0-9]*"
-           ></vg-field>
-           <vg-field
+           ></q-field>
+           <q-field
              v-model="password"
              label="Password"
              type="password"
              placeholder="password"
-           ></vg-field>
-           <vg-field
+           ></q-field>
+           <q-field
              v-model="text"
              label="Text"
              type="text"
              placeholder="text"
-           ></vg-field>
+           ></q-field>
          </li>
          <li>
            <span class="title">Readonly</span>
-           <vg-field
+           <q-field
              v-model="readonly"
              label="ID"
              type="text"
              readonly
-           ></vg-field>
+           ></q-field>
          </li>
          <li>
            <span class="title">
              Encrypted
              <i class="hidden-value" @click="showHiddenValue">{{hidden}}</i>
            </span>
-           <vg-field
+           <q-field
              v-model="encryptedValue"
              label="Encrypted"
              type="text"
              encrypted
              ref="encrypted"
-           ></vg-field>
+           ></q-field>
          </li>
          <li>
            <span class="title">Disabled</span>
-           <vg-field
+           <q-field
              v-model="disabled"
              label="Keyword"
              type="text"
              disabled
-           ></vg-field>
+           ></q-field>
          </li>
          <li>
            <span class="title">Clear Icon</span>
-           <vg-field
+           <q-field
              class="clear-icon"
              v-model="clear"
              label="Clear"
              type="text"
              clearable
-           ></vg-field>
+           ></q-field>
          </li>
          <li>
            <span class="title">Textarea</span>
-           <vg-field
+           <q-field
              v-model="textarea"
              label="Textarea"
              type="textarea"
              maxlength="50"
              showTextareaCounter
              clearable
-           ></vg-field>
+           ></q-field>
          </li>
          <li>
            <span class="title">Column display</span>
-           <vg-field v-model="customLable" display="column" placeholder="上面的label是我的">
+           <q-field v-model="customLable" display="column" placeholder="上面的label是我的">
              <template #label>
                <span class="custom-label">Column display</span>
              </template>
-           </vg-field>
+           </q-field>
          </li>
        </ul>
      </div>

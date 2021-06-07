@@ -2,19 +2,19 @@
 * @Author: Just be free
 * @Date:   2020-11-30 11:11:58
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 14:10:39
+* @Last Modified time: 2021-06-07 16:35:45
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
-import VgPopup from "../popup";
-import VgIcon from "../icon";
-import VgButton from "../button";
+import Queen, { mixins, prop, Options } from "../component/Queen";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
+import QPopup from "../popup";
+import QIcon from "../icon";
+import QButton from "../button";
 import { h, withDirectives, vShow, VNode } from "vue";
-const VALID_POPUP_CONTENT_COMPONENT = "VgSubmitBarPopupContent";
-const VALID_VALUE_COMPONENT = "VgSubmitBarValue";
-const VALID_TEXT_COMPONENT = "VgSubmitBarText";
+const VALID_POPUP_CONTENT_COMPONENT = "QSubmitBarPopupContent";
+const VALID_VALUE_COMPONENT = "QSubmitBarValue";
+const VALID_TEXT_COMPONENT = "QSubmitBarText";
 class Props {
   submitText = prop<string>({ default: "提交" })
   label = prop<string>({ default: "" })
@@ -29,11 +29,11 @@ class Props {
 }
 
 @Options({
-  name: "VgSubmitBar",
+  name: "QSubmitBar",
   emits: ["trigger", "beforeenter", "afterleave", "submit"]
 })
-export default class VgSubmitBar extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgSubmitBar";
+export default class QSubmitBar extends mixins(Queen).with(Props) {
+  public static componentName = "QSubmitBar";
   public showPopup = false;
   public popupStatus = false;
   public submitStatus = "resolved";
@@ -47,20 +47,20 @@ export default class VgSubmitBar extends mixins(VueGgy).with(Props) {
       return value;
     } else {
       const hasDescription = this.valueDescription !== "";
-      // return h("span", { class: ["vg-submit-action-currency"] }, {
+      // return h("span", { class: ["q-submit-action-currency"] }, {
       //   default: () => [
       //     h("small", { innerHTML: this.currencySymbol }, { default: () => [] }),
       //     h("b", {}, { default: () => [this.value] }),
       //   ]
       // });
-      return h(VgFlex, { class: ["custom-value", hasDescription ? "initial-line-height" : ""], flexDirection: "column", justifyContent: "spaceBetween" }, {
+      return h(QFlex, { class: ["custom-value", hasDescription ? "initial-line-height" : ""], flexDirection: "column", justifyContent: "spaceBetween" }, {
         default: () => [
-          h(VgFlexItem, { flex: 2 }, { default: () => [
+          h(QFlexItem, { flex: 2 }, { default: () => [
             h(
               "span",
               {
                 class: [
-                  "vg-submit-action-currency",
+                  "q-submit-action-currency",
                   hasDescription ? "line-height-26" : "inherit-line-height",
                 ],
               },
@@ -75,7 +75,7 @@ export default class VgSubmitBar extends mixins(VueGgy).with(Props) {
               ]
             ),
           ] }),
-          hasDescription && h(VgFlexItem, { class: ["vg-submit-value-description"], flex: 1 }, {
+          hasDescription && h(QFlexItem, { class: ["q-submit-value-description"], flex: 1 }, {
             default: () => [this.valueDescription]
           })
         ]
@@ -87,9 +87,9 @@ export default class VgSubmitBar extends mixins(VueGgy).with(Props) {
       const iconName = this.showPopup
         ? "arrow-down"
         : "arrow-up";
-      return h("span", { class: ["vg-submit-action-icon"] }, {
+      return h("span", { class: ["q-submit-action-icon"] }, {
         default: () => [
-          h(VgIcon,
+          h(QIcon,
             { name: iconName, size: 12 },
             { default: () => [] }
           )
@@ -134,18 +134,18 @@ export default class VgSubmitBar extends mixins(VueGgy).with(Props) {
     const hasLabel = this.label !== "";
     return h(
       "div",
-      { class: ["vg-submit-action", this.fixed ? "fixed" : ""] },
+      { class: ["q-submit-action", this.fixed ? "fixed" : ""] },
       {
         default: () => [
           withDirectives(h(
             "div",
             {
-              class: ["vg-submit-action-popup"],
+              class: ["q-submit-action-popup"],
               ref: "actionPopup",
             },
             {
               default: () => [
-                hasPopup && h(VgPopup,
+                hasPopup && h(QPopup,
                   {
                     style: { position: "absolute" },
                     modelValue: this.showPopup,
@@ -156,7 +156,7 @@ export default class VgSubmitBar extends mixins(VueGgy).with(Props) {
                   },
                   {
                     default: () => [
-                      h("div", { class: ["vg-submit-action-content"] }, {
+                      h("div", { class: ["q-submit-action-content"] }, {
                         default: () => popupContent
                       })
                     ]
@@ -165,40 +165,40 @@ export default class VgSubmitBar extends mixins(VueGgy).with(Props) {
               ]
             }
           ), [[vShow, this.popupStatus]]),
-          h(VgFlex, { class: ["vg-submit-action-flex"] }, {
+          h(QFlex, { class: ["q-submit-action-flex"] }, {
             default: () => [
-              hasLabel && h(VgFlexItem,
+              hasLabel && h(QFlexItem,
                 { flex: this.leftFlex, onClick: this.toggle },
                 {
                   default: () => [
-                    h(VgFlex, { alignItems: "center" }, {
+                    h(QFlex, { alignItems: "center" }, {
                       default: () => [
-                        h(VgFlexItem, {}, {
+                        h(QFlexItem, {}, {
                           default: () => [
-                            h("span", { class: ["vg-submit-action-total-text"] }, {
+                            h("span", { class: ["q-submit-action-total-text"] }, {
                               default: () => [
                                 this.label,
                               ]
                             }),
                           ]
                         }),
-                        h(VgFlexItem, {}, { default: () => [this.genValue()] }),
-                        h(VgFlexItem, {}, { default: () => [hasPopup && !hasDescription && this.genIcon()] }),
+                        h(QFlexItem, {}, { default: () => [this.genValue()] }),
+                        h(QFlexItem, {}, { default: () => [hasPopup && !hasDescription && this.genIcon()] }),
                       ]
                     }),
                   ]
                 }
               ),
-              !hasLabel && h(VgFlexItem, { flex: this.leftFlex }, {
+              !hasLabel && h(QFlexItem, { flex: this.leftFlex }, {
                 default: () => [
                   this.getCustomSlotsByTagName(VALID_TEXT_COMPONENT)
                 ]
               }),
-              h(VgFlexItem, { flex: this.rightFlex }, {
+              h(QFlexItem, { flex: this.rightFlex }, {
                 default: () => [
-                  h(VgButton,
+                  h(QButton,
                     {
-                      class: ["vg-submit-action-button"],
+                      class: ["q-submit-action-button"],
                       type: "primary",
                       size: "large",
                       disabled: this.disabled,

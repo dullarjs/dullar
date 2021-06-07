@@ -2,17 +2,17 @@
 * @Author: Just be free
 * @Date:   2020-11-05 13:22:24
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 17:32:32
+* @Last Modified time: 2021-06-07 16:30:32
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h, vShow, withDirectives, VNode } from "vue";
 import { deepClone } from "../utils/deep-clone";
-import VgPickerColumn from "./picker-column";
+import QPickerColumn from "./picker-column";
 import { ColumnObject } from "./picker-column";
-import VgPopup from "../popup";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
+import QPopup from "../popup";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
 export interface ChangeCallbackEvent {
   value: any;
   index: number;
@@ -32,17 +32,17 @@ class Props {
 }
 
 @Options({
-  name: "VgPicker",
+  name: "QPicker",
   emits: ["close", "update:modelValue", "confirm", "change"]
 })
-export default class VgPicker extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgPicker";
+export default class QPicker extends mixins(Queen).with(Props) {
+  public static componentName = "QPicker";
   public computedColumn: ColumnObject[] = [];
   public pickColumns = {} as any;
   confirm(): void {
     this.pickColumns = {};
     this.computedColumn.forEach((column: any, key: number) => {
-      const pickerColumn = this.$refs[`picker_${key}`] as VgPickerColumn;
+      const pickerColumn = this.$refs[`picker_${key}`] as QPickerColumn;
       this.pickColumns[`picker_${key}`] = pickerColumn.getSelectedItem();
     });
     this.$emit("confirm", deepClone(this.pickColumns));
@@ -54,9 +54,9 @@ export default class VgPicker extends mixins(VueGgy).with(Props) {
   }
   getContent(type: string = "back"): VNode[] {
     if (type === "back") {
-      return [h("span", { class: ["vg-picker-cancel"] }, { default: () => this.cancelText })];
+      return [h("span", { class: ["q-picker-cancel"] }, { default: () => this.cancelText })];
     } else {
-      return [h("span", { class: ["vg-picker-confirm"] }, { default: () => this.confirmText })];
+      return [h("span", { class: ["q-picker-confirm"] }, { default: () => this.confirmText })];
     }
   }
   getData(): void {
@@ -79,16 +79,16 @@ export default class VgPicker extends mixins(VueGgy).with(Props) {
     const columns: VNode[] = [];
     this.computedColumn.forEach((column: any, key: number) => {
       columns.push(
-        h(VgFlexItem,
+        h(QFlexItem,
           {
             ref: `scrollColumn_${key}`,
-            class: ["vg-picker-column-wapper"],
+            class: ["q-picker-column-wapper"],
             key,
             flex: 1
           },
           {
             default: () => [
-              h(VgPickerColumn,
+              h(QPickerColumn,
                 {
                   ref: `picker_${key}`,
                   onChange: (value: any, index: number) => {
@@ -108,25 +108,25 @@ export default class VgPicker extends mixins(VueGgy).with(Props) {
     return columns;
   }
   createHeaderArea(): VNode {
-    return h("div", { class: ["vg-picker-header"] }, {
+    return h("div", { class: ["q-picker-header"] }, {
       default: () => [
-        h(VgFlex,
+        h(QFlex,
           { justifyContent: "spaceBetween" },
           {
             default: () => [
-              withDirectives(h(VgFlexItem,
+              withDirectives(h(QFlexItem,
                 {
                   onClick: this.close,
-                  class: ["vg-picker-header-back"],
+                  class: ["q-picker-header-back"],
                 },
                 {
                   default: () => this.getContent("back")
                 }
               ), [[vShow, this.showBack]]),
-              h(VgFlexItem,
+              h(QFlexItem,
                 {
                   class: [
-                    "vg-picker-header-title",
+                    "q-picker-header-title",
                     this.showBack ? "" : "ml30",
                     this.showClose ? "" : "mr30",
                   ],
@@ -134,10 +134,10 @@ export default class VgPicker extends mixins(VueGgy).with(Props) {
                 },
                 { default: () => this.title }
               ),
-              withDirectives(h(VgFlexItem,
+              withDirectives(h(QFlexItem,
                 {
                   onClick: this.confirm,
-                  class: ["vg-picker-header-close"],
+                  class: ["q-picker-header-close"],
                 },
                 {
                   default: () => this.getContent("close")
@@ -150,9 +150,9 @@ export default class VgPicker extends mixins(VueGgy).with(Props) {
     });
   }
   createScrollArea(): VNode {
-    return h("div", { class: ["vg-picker-container"] }, {
+    return h("div", { class: ["q-picker-container"] }, {
       default: () => [
-        h(VgFlex,
+        h(QFlex,
           {
             style: { height: "100%" },
             justifyContent: "spaceBetween",
@@ -163,7 +163,7 @@ export default class VgPicker extends mixins(VueGgy).with(Props) {
         ),
         h(
           "div",
-          { class: ["vg-picker-mask"], style: {}, ref: "pickerMask" },
+          { class: ["q-picker-mask"], style: {}, ref: "pickerMask" },
           { default: () => [] }
         ),
         h("div", { class: ["scroll-viewer-window"] }, { default: () => [] }),
@@ -177,9 +177,9 @@ export default class VgPicker extends mixins(VueGgy).with(Props) {
     (this.$refs.pickerMask as HTMLDivElement).style.backgroundSize = `100% ${Number(this.itemHeight) * 2}px`;
   }
   render() {
-    return h("div", { class: ["vg-picker"] }, {
+    return h("div", { class: ["q-picker"] }, {
       default: () => [
-        withDirectives(h(VgPopup, { position: "bottom", onBeforeenter: this.beforeEnter, onInput: this.close }, {
+        withDirectives(h(QPopup, { position: "bottom", onBeforeenter: this.beforeEnter, onInput: this.close }, {
           default: () => [
             this.createHeaderArea(),
             this.createScrollArea()

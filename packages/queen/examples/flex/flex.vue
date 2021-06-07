@@ -2,74 +2,74 @@
   <div class="flex-view">
     <div id="container">
       <a href="https://wow.techbrood.com/fiddle/8177" target="_blank">查看原案例</a>
-      <vg-flex justifyContent="center" alignItems="center" class="face">
+      <q-flex justifyContent="center" alignItems="center" class="face">
         <transition>
           <!-- 加一层<transition>也是可以的，其他元素就不行了哦，暂时不支持<transition-group> -->
-          <vg-flex-item class="dot"></vg-flex-item>
+          <q-flex-item class="dot"></q-flex-item>
         </transition>
-      </vg-flex>
-      <vg-flex justifyContent="spaceBetween" class="face">
-        <vg-flex-item class="dot"></vg-flex-item>
-        <vg-flex-item class="dot" align-self="flex-end"></vg-flex-item>
-      </vg-flex>
-      <vg-flex justifyContent="spaceBetween" class="face">
-        <vg-flex-item class="dot"></vg-flex-item>
-        <vg-flex-item class="dot" align-self="center"></vg-flex-item>
-        <vg-flex-item class="dot" align-self="flex-end"></vg-flex-item>
-      </vg-flex>
-      <vg-flex justifyContent="spaceBetween" flexDirection="column" class="face">
-        <vg-flex-item>
-          <vg-flex justifyContent="spaceBetween">
-            <vg-flex-item class="dot"></vg-flex-item>
-            <vg-flex-item class="dot"></vg-flex-item>
-          </vg-flex>
-        </vg-flex-item>
-        <vg-flex-item>
-          <vg-flex justifyContent="spaceBetween">
-            <vg-flex-item class="dot"></vg-flex-item>
-            <vg-flex-item class="dot"></vg-flex-item>
-          </vg-flex>
-        </vg-flex-item>
-      </vg-flex>
-      <vg-flex justifyContent="spaceBetween" flexDirection="column" class="face">
-        <vg-flex-item>
-          <vg-flex justifyContent="spaceBetween">
-            <vg-flex-item class="dot"></vg-flex-item>
-            <vg-flex-item class="dot"></vg-flex-item>
-          </vg-flex>
-        </vg-flex-item>
-        <vg-flex-item>
-          <vg-flex justify-content="center">
-            <vg-flex-item class="dot"></vg-flex-item>
-          </vg-flex>
-        </vg-flex-item>
-        <vg-flex-item>
-          <vg-flex justifyContent="spaceBetween">
-            <vg-flex-item class="dot"></vg-flex-item>
-            <vg-flex-item class="dot"></vg-flex-item>
-          </vg-flex>
-        </vg-flex-item>
-      </vg-flex>
-      <vg-flex justifyContent="spaceBetween" flexDirection="column" class="face">
-        <vg-flex-item>
-          <vg-flex justifyContent="spaceBetween">
-            <vg-flex-item class="dot"></vg-flex-item>
-            <vg-flex-item class="dot"></vg-flex-item>
-          </vg-flex>
-        </vg-flex-item>
-        <vg-flex-item>
-          <vg-flex justify-content="spaceBetween">
-            <vg-flex-item class="dot"></vg-flex-item>
-            <vg-flex-item class="dot"></vg-flex-item>
-          </vg-flex>
-        </vg-flex-item>
-        <vg-flex-item>
-          <vg-flex justifyContent="spaceBetween">
-            <vg-flex-item class="dot"></vg-flex-item>
-            <vg-flex-item class="dot"></vg-flex-item>
-          </vg-flex>
-        </vg-flex-item>
-      </vg-flex>
+      </q-flex>
+      <q-flex justifyContent="spaceBetween" class="face">
+        <q-flex-item class="dot"></q-flex-item>
+        <q-flex-item class="dot" align-self="flex-end"></q-flex-item>
+      </q-flex>
+      <q-flex justifyContent="spaceBetween" class="face">
+        <q-flex-item class="dot"></q-flex-item>
+        <q-flex-item class="dot" align-self="center"></q-flex-item>
+        <q-flex-item class="dot" align-self="flex-end"></q-flex-item>
+      </q-flex>
+      <q-flex justifyContent="spaceBetween" flexDirection="column" class="face">
+        <q-flex-item>
+          <q-flex justifyContent="spaceBetween">
+            <q-flex-item class="dot"></q-flex-item>
+            <q-flex-item class="dot"></q-flex-item>
+          </q-flex>
+        </q-flex-item>
+        <q-flex-item>
+          <q-flex justifyContent="spaceBetween">
+            <q-flex-item class="dot"></q-flex-item>
+            <q-flex-item class="dot"></q-flex-item>
+          </q-flex>
+        </q-flex-item>
+      </q-flex>
+      <q-flex justifyContent="spaceBetween" flexDirection="column" class="face">
+        <q-flex-item>
+          <q-flex justifyContent="spaceBetween">
+            <q-flex-item class="dot"></q-flex-item>
+            <q-flex-item class="dot"></q-flex-item>
+          </q-flex>
+        </q-flex-item>
+        <q-flex-item>
+          <q-flex justify-content="center">
+            <q-flex-item class="dot"></q-flex-item>
+          </q-flex>
+        </q-flex-item>
+        <q-flex-item>
+          <q-flex justifyContent="spaceBetween">
+            <q-flex-item class="dot"></q-flex-item>
+            <q-flex-item class="dot"></q-flex-item>
+          </q-flex>
+        </q-flex-item>
+      </q-flex>
+      <q-flex justifyContent="spaceBetween" flexDirection="column" class="face">
+        <q-flex-item>
+          <q-flex justifyContent="spaceBetween">
+            <q-flex-item class="dot"></q-flex-item>
+            <q-flex-item class="dot"></q-flex-item>
+          </q-flex>
+        </q-flex-item>
+        <q-flex-item>
+          <q-flex justify-content="spaceBetween">
+            <q-flex-item class="dot"></q-flex-item>
+            <q-flex-item class="dot"></q-flex-item>
+          </q-flex>
+        </q-flex-item>
+        <q-flex-item>
+          <q-flex justifyContent="spaceBetween">
+            <q-flex-item class="dot"></q-flex-item>
+            <q-flex-item class="dot"></q-flex-item>
+          </q-flex>
+        </q-flex-item>
+      </q-flex>
     </div>
   </div>
 </template>

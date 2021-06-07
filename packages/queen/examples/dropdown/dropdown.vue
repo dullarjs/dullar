@@ -1,38 +1,38 @@
 <template>
   <div class="dropdown-view">
-    <h2>vg-dropdown</h2>
-    <vg-dropdown ref="dropdown" :borderRadius="0">
+    <h2>q-dropdown</h2>
+    <q-dropdown ref="dropdown" :borderRadius="0">
       <template #target>
-        <vg-button @click="toggle">以下</vg-button>
+        <q-button @click="toggle">以下</q-button>
       </template>
       <template #content>
         <div>里面是内容</div>
       </template>
-    </vg-dropdown>
-    <vg-dropdown ref="dropup" direction="up">
+    </q-dropdown>
+    <q-dropdown ref="dropup" direction="up">
       <template #target>
-        <vg-button @click="toggle2">以上</vg-button>
+        <q-button @click="toggle2">以上</q-button>
       </template>
       <template #content>
         <div>里面是内容</div>
       </template>
-    </vg-dropdown>
-    <vg-dropdown ref="left" direction="left">
+    </q-dropdown>
+    <q-dropdown ref="left" direction="left">
       <template #target>
-        <vg-button class="left" @click="toggle3">左边</vg-button>
+        <q-button class="left" @click="toggle3">左边</q-button>
       </template>
       <template #content>
         <div>里面是内容</div>
       </template>
-    </vg-dropdown>
-    <vg-dropdown ref="right" direction="right">
+    </q-dropdown>
+    <q-dropdown ref="right" direction="right">
       <template #target>
-        <vg-button @click="toggle4">右边</vg-button>
+        <q-button @click="toggle4">右边</q-button>
       </template>
       <template #content>
         <div>里面是内容</div>
       </template>
-    </vg-dropdown>
+    </q-dropdown>
   </div>
 </template>
 <script lang="ts">

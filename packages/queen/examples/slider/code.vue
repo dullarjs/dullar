@@ -8,7 +8,7 @@
   import { Options, Vue } from 'vue-class-component';
   const htmlCode =
   `
-  <vg-slider v-model="value"></vg-slider>
+  <q-slider v-model="value"></q-slider>
   `;
   @Options({
     name: "SliderCode"

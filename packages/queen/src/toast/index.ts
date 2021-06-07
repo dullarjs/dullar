@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-23 16:16:39
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-10-13 12:15:22
+* @Last Modified time: 2021-06-07 16:38:52
 * @E-mail: justbefree@126.com
 */
-import VgToast from "./toast";
+import QToast from "./toast";
 import { isString } from "../utils";
 import { renderDOM } from "../component/renderDOM";
 import { nextTick } from "vue";
@@ -23,7 +23,7 @@ const removeDom = (event: Event) => {
 const Toast = (options: ToastOptions) => {
   const { message, position, duration = 3000 } = options;
   const computedMessage = message || (isString(options) ? options : "");
-  const instance = renderDOM(VgToast, { message: computedMessage, position }, { default: () => [] });
+  const instance = renderDOM(QToast, { message: computedMessage, position }, { default: () => [] });
   const ctx = instance.ctx;
   ctx.setClosed(false);
   clearTimeout(ctx.timer);

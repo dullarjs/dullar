@@ -2,24 +2,24 @@
 * @Author: Just be free
 * @Date:   2020-10-21 15:17:14
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-10-22 10:44:57
+* @Last Modified time: 2021-06-07 16:07:29
 */
-.vg-layout {
+.q-layout {
   width: 100%;
   height: 100%;
   position: relative;
-  .vg-layout-flex-container {
+  .q-layout-flex-container {
     height: 100%;
     width: 100%;
     position: relative;
-    .vg-layout-body {
+    .q-layout-body {
       transition: all 0.5s;
       box-sizing: border-box;
       height: 100%;
       overflow: auto;
       // -webkit-overflow-scrolling: touch;
     }
-    .vg-layout-footer {
+    .q-layout-footer {
       // min-height: 50px;
     }
   }

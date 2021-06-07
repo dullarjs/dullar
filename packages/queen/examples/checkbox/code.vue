@@ -10,8 +10,8 @@
   import { Options, Vue } from 'vue-class-component';
   const exampleCode =
   `
-  <vg-checkbox v-model="checkbox1" :disabled="true"></vg-checkbox>
-  <vg-checkbox v-model="checkbox2"></vg-checkbox>
+  <q-checkbox v-model="checkbox1" :disabled="true"></q-checkbox>
+  <q-checkbox v-model="checkbox2"></q-checkbox>
   `;
   const jsCode =
   `

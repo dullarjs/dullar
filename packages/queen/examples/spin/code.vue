@@ -9,22 +9,22 @@
   const exampleCode =
   `
   // The default type is snake
-  <vg-spin
+  <q-spin
     type="snake"
   >
-  </vg-spin>
+  </q-spin>
 
-  <vg-spin
+  <q-spin
     type="rotate"
     size="40"
   >
-  </vg-spin>
+  </q-spin>
 
-  <vg-spin
+  <q-spin
     type="triple-bounce"
     size="40"
   >
-  </vg-spin>
+  </q-spin>
   `;
   @Options({
     name: "SpinCode"

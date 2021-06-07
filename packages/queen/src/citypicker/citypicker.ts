@@ -2,20 +2,20 @@
 * @Author: Just be free
 * @Date:   2020-10-22 14:42:19
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-15 17:03:58
+* @Last Modified time: 2021-06-07 16:23:34
 * @E-mail: justbefree@126.com
 */
 
 import { h, withDirectives, vShow, VNode, nextTick } from "vue";
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { isChineseCharacters, isPromise, throttle } from "../utils";
 import { getPropertyValue } from "../utils/dom/style";
 import { EventBus } from "../utils/event/bus";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
-import VgPopup from "../popup";
-import VgIcon from "../icon";
-import VgSpin from "../spin";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
+import QPopup from "../popup";
+import QIcon from "../icon";
+import QSpin from "../spin";
 interface AnyObject {
   [propName: string]: any;
 }
@@ -117,7 +117,7 @@ class Props {
 }
 
 @Options({
-  name: "VgCitypicker",
+  name: "QCitypicker",
   emits: ["update:modelValue", "pick", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave"],
   watch: {
     tabs: {
@@ -138,8 +138,8 @@ class Props {
     }
   }
 })
-export default class VgCitypicker extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgCitypicker";
+export default class QCitypicker extends mixins(Queen).with(Props) {
+  public static componentName = "QCitypicker";
   public isCompose = false;
   public caculatedTabs = [] as Array<Tab>;
   public currentTab = "";
@@ -155,7 +155,7 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
   public keywords = "";
   public textBoxWidth = 68;
   createTitle() {
-    return h("span", { class: ["vg-city-picker-header-title"] }, { default: () => this.title });
+    return h("span", { class: ["q-city-picker-header-title"] }, { default: () => this.title });
   }
   close() {
     this.$emit("update:modelValue", false);
@@ -177,9 +177,9 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
     this.$emit("update:modelValue", e);
   }
   createClose() {
-    return h(VgIcon,
+    return h(QIcon,
       {
-        class: ["vg-city-picker-close"],
+        class: ["q-city-picker-close"],
         name: "close",
         size: 24,
         onClick: this.close
@@ -189,17 +189,17 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
   }
   createBlock({ cities, loading }: { cities: any[]; loading: boolean }): VNode {
     if (loading) {
-      return h("div", { class: ["vg-city-picker-searched-area"] }, {
+      return h("div", { class: ["q-city-picker-searched-area"] }, {
         default: () => [
-          h(VgSpin, { type: "tripleBounce", size: 30 }, { default: () => [] })
+          h(QSpin, { type: "tripleBounce", size: 30 }, { default: () => [] })
         ]
       });
     } else {
-      return h(VgFlex,
+      return h(QFlex,
         {
           flexWrap: "wrap",
           justifyContent: "spaceBetween",
-          class: "vg-city-picker-cities",
+          class: "q-city-picker-cities",
           ref: "cityBox"
         }, {
         default: () => Array.apply(null, cities).map((city, key) => {
@@ -217,7 +217,7 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
           } else {
             fontSize = `${fontSize}px`;
           }
-          return h(VgFlexItem,
+          return h(QFlexItem,
             {
               key,
               onClick: this.handlePick.bind(this, city),
@@ -234,7 +234,7 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
     }
   }
   createBlockTitle(title: string = ""): VNode {
-    return h("div", { class: ["vg-city-picker-block-title"] }, {
+    return h("div", { class: ["q-city-picker-block-title"] }, {
       default: () => [
         h("span", {}, { default: () => title })
       ]
@@ -271,7 +271,7 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
       return;
     }
     nextTick(() => {
-      const scrollElement = (this.$refs[`scrollElement-${this.currentTab}`] as VgFlexItem)
+      const scrollElement = (this.$refs[`scrollElement-${this.currentTab}`] as QFlexItem)
         .$el;
       const lastChild: HTMLElement = scrollElement.lastElementChild;
       scrollElement.scrollTop = lastChild.offsetTop;
@@ -308,16 +308,16 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
   createAlphaBeta(): VNode[] {
     return [
       this.createBlockTitle(this.alphaBeta.title),
-      h(VgFlex,
+      h(QFlex,
         {
           flexWrap: "wrap",
           justifyContent: "spaceBetween",
-          class: ["vg-city-picker-alpha-beta"]
+          class: ["q-city-picker-alpha-beta"]
         },
         {
           default: () => Array.apply(null, new Array(26)).map((i, key) => {
             const char = String.fromCharCode(65 + key);
-            return h(VgFlexItem,
+            return h(QFlexItem,
               {
                 onClick: this.handleClickAlphaBeta.bind(this, char),
                 class: [
@@ -430,19 +430,19 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
   }
   creteInputSearchArea(): VNode[] {
     if (this.searchable) {
-      return [h(VgFlex,
+      return [h(QFlex,
         {
           justifyContent: "spaceBetween",
-          class: ["vg-city-picker-input-search"]
+          class: ["q-city-picker-input-search"]
         },
         {
           default: () => [
-            h(VgFlexItem, { class: ["icon-box"] }, {
+            h(QFlexItem, { class: ["icon-box"] }, {
               default: () => [
-                h(VgIcon, { name: "search", size: "16" }, { default: () => [] })
+                h(QIcon, { name: "search", size: "16" }, { default: () => [] })
               ]
             }),
-            h(VgFlexItem, { class: ["input-box", this.isSearching ? "searching" : ""], flex: 1 }, {
+            h(QFlexItem, { class: ["input-box", this.isSearching ? "searching" : ""], flex: 1 }, {
               default: () => [
                 h("input",
                   {
@@ -456,14 +456,14 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
                 )
               ]
             }),
-            withDirectives(h(VgFlexItem,
+            withDirectives(h(QFlexItem,
               {
                 onClick: this.clearSearchKeywords,
                 class: ["delete-all"],
               },
               {
                 default: () => [
-                  h(VgIcon, { name: "clear", size: 16 }, { default: () => [] })
+                  h(QIcon, { name: "clear", size: 16 }, { default: () => [] })
                 ]
               }
             ), [[vShow, this.isSearching]])
@@ -479,22 +479,22 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
     header.push(this.createClose());
     if (this.caculatedTabs.length === 2) {
       header.push(
-        h(VgFlex,
+        h(QFlex,
           {
             justifyContent: "spaceAround",
-            class: ["vg-city-picker-tab-bar"]
+            class: ["q-city-picker-tab-bar"]
           },
           {
             default: () => Array.apply(null, this.caculatedTabs).map((ele: any, key: number, arr: any[]) => {
-              return h(VgFlexItem,
+              return h(QFlexItem,
                 {
                   key,
                   onClick: this.handleTabSwitch.bind(this, ele),
                   flex: 1,
-                  class: ["vg-city-picker-tab-item", ele.active ? "active" : ""]
+                  class: ["q-city-picker-tab-item", ele.active ? "active" : ""]
                 },
                 {
-                  default: () => [h("span", { class: ["vg-city-picker-tab-text"] }, { default: () => ele.label })]
+                  default: () => [h("span", { class: ["q-city-picker-tab-text"] }, { default: () => ele.label })]
                 }
               );
             })
@@ -508,13 +508,13 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
   createDynamicContent(): VNode[] {
     if (this.limited) {
       return [
-        h(VgFlexItem, { class: ["vg-city-picker-header"] }, {
+        h(QFlexItem, { class: ["q-city-picker-header"] }, {
           default: () => [
             this.createTitle(),
             this.createClose()
           ]
         }),
-        h(VgFlexItem, { flex: 1 }, {
+        h(QFlexItem, { flex: 1 }, {
           default: () => [
             this.createBlock({ cities: this.limitedData, loading: false })
           ]
@@ -522,35 +522,35 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
       ];
     } else {
       return [
-        h(VgFlexItem,
-          { class: ["vg-city-picker-header"] },
+        h(QFlexItem,
+          { class: ["q-city-picker-header"] },
           { default: () => this.creteHeaderArea() }
         ),
-        withDirectives(h(VgFlexItem,
+        withDirectives(h(QFlexItem,
           {
-            class: ["vg-city-picker-body"],
+            class: ["q-city-picker-body"],
             flex: 1,
             ref: "scrollElement-mainland-china"
           },
           { default: () => [this.createBodyArea()] }
         ), [[vShow, !this.isSearching && this.currentTab === "mainland-china"]]),
-        withDirectives(h(VgFlexItem,
+        withDirectives(h(QFlexItem,
           {
-            class: ["vg-city-picker-body"],
+            class: ["q-city-picker-body"],
             flex: 1,
             ref: "scrollElement-overseas"
           },
           { default: () => [this.createBodyArea()] }
         ), [[vShow, !this.isSearching && this.currentTab === "overseas"]]),
-        withDirectives(h(VgFlexItem,
+        withDirectives(h(QFlexItem,
           {
-            class: ["vg-city-picker-body", "vg-city-picker-input-search-result"],
+            class: ["q-city-picker-body", "q-city-picker-input-search-result"],
             flex: 1,
             ref: "scrollElement-searching"
           },
           { default: () => [this.createInputSearchList()] }
         ), [[vShow, this.isSearching]]),
-        h(VgFlexItem, { class: ["vg-city-picker-footer"] }, { default: () => [] })
+        h(QFlexItem, { class: ["q-city-picker-footer"] }, { default: () => [] })
       ];
     }
   }
@@ -622,7 +622,7 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
     this.textBoxWidth = textBoxWidth;
   }
   resize() {
-    const cityBox = (this.$refs.cityBox as VgFlex).$el;
+    const cityBox = (this.$refs.cityBox as QFlex).$el;
     const paddingLeft = getPropertyValue(cityBox, "padding-left");
     const paddingRight = getPropertyValue(cityBox, "padding-right");
     const el = this.$el;
@@ -635,8 +635,8 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
     this.resize();
   }
   render() {
-    return h("div", { class: ["vg-city-picker"] }, [
-      withDirectives(h(VgPopup,
+    return h("div", { class: ["q-city-picker"] }, [
+      withDirectives(h(QPopup,
         {
           onBeforeenter: this.beforeEnter,
           onEnter: this.enter,
@@ -649,9 +649,9 @@ export default class VgCitypicker extends mixins(VueGgy).with(Props) {
         },
         {
           default: () => [
-            h(VgFlex,
+            h(QFlex,
               {
-                class: ["vg-city-picker-content", this.limited ? "limited" : ""],
+                class: ["q-city-picker-content", this.limited ? "limited" : ""],
                 flexDirection: "column"
               },
               { default: () => this.createDynamicContent() }

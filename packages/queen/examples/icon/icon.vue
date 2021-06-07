@@ -2,8 +2,8 @@
   <div class="icon-view">
     <div id="container">
       <ul>
-        <li>我是组件库自带的<vg-icon name="close" @click="handleClick"></vg-icon></li>
-        <li>我是扩展来的<vg-icon name="location" @click="handleClick"></vg-icon></li>
+        <li>我是组件库自带的<q-icon name="close" @click="handleClick"></q-icon></li>
+        <li>我是扩展来的<q-icon name="location" @click="handleClick"></q-icon></li>
       </ul>
     </div>
   </div>

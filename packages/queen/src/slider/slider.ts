@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-10-23 16:35:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-15 17:58:20
+* @Last Modified time: 2021-06-07 16:32:53
 * @E-mail: justbefree@126.com
 */
 import { h, withDirectives, vShow, VNode, nextTick, Transition } from "vue";
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { EventEmulator, EventCallbackOptions } from "../component/EventEmulator";
 import { isObject, getCharLength, hasOwnProperty } from "../utils";
 import { preventDefault } from "../utils/event";
@@ -28,7 +28,7 @@ class Props {
   })
 }
 @Options({
-  name: "VgSlider",
+  name: "QSlider",
   emits: ["update:modelValue"],
   computed: {
     maxVlue() {
@@ -56,8 +56,8 @@ class Props {
     }
   }
 })
-export default class VgSlider extends mixins(VueGgy, EventEmulator).with(Props) {
-  public static componentName = "VgSlider";
+export default class QSlider extends mixins(Queen, EventEmulator).with(Props) {
+  public static componentName = "QSlider";
   public startLeft = 0;
   public endLeft = 0;
   public width = 0;
@@ -88,7 +88,7 @@ export default class VgSlider extends mixins(VueGgy, EventEmulator).with(Props) 
             width: `${tipValueSize}px`,
             left: `${(-1 * tipValueSize) / 2 + sliderOffsetWidth / 2 - 3}px`
           },
-          class: ["vg-slider-button-tip"]
+          class: ["q-slider-button-tip"]
         },
         [h("span", {}, { default: () => tipValue })]
       );
@@ -97,7 +97,7 @@ export default class VgSlider extends mixins(VueGgy, EventEmulator).with(Props) 
       "div",
       {
         ref: `${type}SliderBar`,
-        class: ["vg-slider-bar", type],
+        class: ["q-slider-bar", type],
         style: this[`${type}BarStyle`]
       },
       {
@@ -106,7 +106,7 @@ export default class VgSlider extends mixins(VueGgy, EventEmulator).with(Props) 
             "div",
             {
               ref: `${type}Slider`,
-              class: ["vg-slider-button", this.dragIcon ? "drag-icon" : ""]
+              class: ["q-slider-button", this.dragIcon ? "drag-icon" : ""]
             },
             {
               default: () => [dragIcon, tip]
@@ -247,7 +247,7 @@ export default class VgSlider extends mixins(VueGgy, EventEmulator).with(Props) 
     this.init();
   }
   render() {
-    return h("div", { class: ["vg-slider"] }, {
+    return h("div", { class: ["q-slider"] }, {
       default: () => [
         this.genSider("start"),
         this.genSider("end")

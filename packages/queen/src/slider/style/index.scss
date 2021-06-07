@@ -2,9 +2,9 @@
 * @Author: Just be free
 * @Date:   2020-10-23 16:35:29
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-10-23 16:37:32
+* @Last Modified time: 2021-06-07 16:07:09
 */
-.vg-slider {
+.q-slider {
   user-select: none;
   width: 100%;
   height: 2px;
@@ -19,7 +19,7 @@
     right: 0;
     left: 0;
   }
-  .vg-slider-bar {
+  .q-slider-bar {
     height: 100%;
     &.start {
       background: $background-color;
@@ -31,7 +31,7 @@
     }
     position: absolute;
     transition: width 0.2s;
-    .vg-slider-button {
+    .q-slider-button {
       position: absolute;
       right: 0;
       top: 50%;
@@ -57,7 +57,7 @@
           bottom: 0;
         }
       }
-      .vg-slider-button-tip {
+      .q-slider-button-tip {
         transform: translate3d(0, -20px, 0);
         background: #000;
         border-radius: 2px;

@@ -2,43 +2,43 @@
 * @Author: Just be free
 * @Date:   2020-11-02 17:10:04
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 17:17:18
+* @Last Modified time: 2021-06-07 16:31:51
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { EventEmulator, EventCallbackOptions } from "../component/EventEmulator";
 import { preventDefault } from "../utils/event";
 import { getScroller } from "../utils/dom/scroller";
 import { getScrollTop } from "../utils/dom";
 import { h } from "vue";
-import VgSpin from "../spin";
+import QSpin from "../spin";
 class Props {
   loadingText?: string
   draggingTip = prop<string>({ default: "松手下拉刷新" })
   loading?: boolean
 }
 @Options({
-  name: "VgPullRefresh"
+  name: "QPullRefresh"
 })
-export default class VgPullRefresh extends mixins(VueGgy, EventEmulator).with(Props) {
-  public static componentName = "VgPullRefresh";
+export default class QPullRefresh extends mixins(Queen, EventEmulator).with(Props) {
+  public static componentName = "QPullRefresh";
   public className = "";
   public dragging = false;
   public scrollElement: null|HTMLElement = null;
   public scrollTop = 0;
   genLoading() {
     if (this.loading) {
-      return h("div", { class: ["vg-pull-refresh-loading"] }, {
+      return h("div", { class: ["q-pull-refresh-loading"] }, {
         default: () => [
           h("span", {}, [this.loadingText]),
-          h(VgSpin, { type: "tripleBounce", size: 40 }, { default: () => [] }),
+          h(QSpin, { type: "tripleBounce", size: 40 }, { default: () => [] }),
         ]
       });
     }
   }
   genDraggingText() {
     if (this.dragging && this.deltaY >= 20) {
-      return h("div", { class: ["vg-pull-refresh-draggin-text"] }, {
+      return h("div", { class: ["q-pull-refresh-draggin-text"] }, {
         default: () => [
           h("span", {}, { default: () => [this.draggingTip] }),
         ]
@@ -82,7 +82,7 @@ export default class VgPullRefresh extends mixins(VueGgy, EventEmulator).with(Pr
     (this.scrollElement as HTMLElement).removeEventListener("scroll", this.handleScroll, false);
   }
   render() {
-    return h("div", { class: ["vg-pull-refresh", this.className] }, {
+    return h("div", { class: ["q-pull-refresh", this.className] }, {
       default: () => [
         this.genLoading(),
         this.genDraggingText(),

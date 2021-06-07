@@ -1,6 +1,6 @@
 <template>
   <div class="router-view-wapper">
-    <vg-layout :showHeader="isShowHeader()" :showFooter="isShowFooter()">
+    <q-layout :showHeader="isShowHeader()" :showFooter="isShowFooter()">
       <template #header>
         <div class="header">
           <span @click="back" class="backicon-button"><img width="20" :src="backIcon"></span>
@@ -14,7 +14,7 @@
       <template #footer>
         <div class="footer"></div>
       </template>
-    </vg-layout>
+    </q-layout>
   </div>
 </template>
 

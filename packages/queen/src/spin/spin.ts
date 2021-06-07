@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-28 11:18:21
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 15:36:06
+* @Last Modified time: 2021-06-07 18:35:28
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { hyphenate } from "../utils";
 import { h, VNode } from "vue";
 // export type SpinType = "snake" | "rotate" | "triple-bounce";
@@ -16,10 +16,10 @@ class Props {
   color = prop<string>({ default: "#007aff" })
 }
 @Options({
-  name: "VgSpin"
+  name: "QSpin"
 })
-export default class VgSpin extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgSpin";
+export default class QSpin extends mixins(Queen).with(Props) {
+  public static componentName = "QSpin";
   createSpinner(): VNode {
     const capitalizeName = hyphenate(this.type);
     let component = "span";

@@ -2,13 +2,13 @@
 * @Author: Just be free
 * @Date:   2020-12-07 14:36:22
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-12-11 15:03:59
+* @Last Modified time: 2021-06-07 16:07:37
 */
 
-.vg-field {
+.q-field {
   padding: 10px 10px;
   line-height: 24px;
-  &.vg-field-column {
+  &.q-field-column {
     line-height: none;
     padding: 0 10px;
   }
@@ -16,12 +16,12 @@
   width: 100%;
   background: #fff;
   position: relative;
-  .vg-field-container {
+  .q-field-container {
     .column-flex-item {
       height: 44px;
       line-height: 44px;
     }
-    .vg-field-label {
+    .q-field-label {
       box-sizing: border-box;
       user-select: none;
       &.limit-label-width {
@@ -33,8 +33,8 @@
         color: #646566;
       }
     }
-    .vg-field-input,
-    .vg-field-textarea {
+    .q-field-input,
+    .q-field-textarea {
       // color: #323233;
       > input.input-ele {
         font-size: 14px;
@@ -63,7 +63,7 @@
         width: 100%;
         padding: 0;
       }
-      .vg-field-textarea-counter {
+      .q-field-textarea-counter {
         text-align: right;
         span {
           font-size: 12px;
@@ -88,7 +88,7 @@
   //   transform: scaleY(0.5);
   // }
 }
-.vg-field-solo::after {
+.q-field-solo::after {
   position: absolute;
   box-sizing: border-box;
   content: " ";

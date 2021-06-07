@@ -2,14 +2,14 @@
 * @Author: Just be free
 * @Date:   2020-09-23 16:16:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 16:17:09
+* @Last Modified time: 2021-06-07 16:52:56
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { Options, mixins, prop } from "../component/VueGgy";
+import Queen, { Options, mixins, prop } from "../component/Queen";
 import { Transition, h, withDirectives, vShow, VNode } from "vue";
 import { addClass } from "../utils/dom";
 import { isPromise } from "../utils";
-import VgButton from "../button";
+import QButton from "../button";
 class Props {
   beforeOpen?: Function
   opened?: Function
@@ -29,10 +29,10 @@ class Props {
 }
 @Options({
   emits: ["update:modelValue", "modal-click", "before-enter", "after-enter", "before-leave", "after-leave", "button-click"],
-  name: "VgDialog"
+  name: "QDialog"
 })
-export default class VgDialog extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgDialog";
+export default class QDialog extends mixins(Queen).with(Props) {
+  public static componentName = "QDialog";
   public bodyOverflow = "";
   public events = {} as any;
   public renderedAsComponent = true;
@@ -58,7 +58,7 @@ export default class VgDialog extends mixins(VueGgy).with(Props) {
         this.$emit("modal-click");
       }
     };
-    addClass(modal, "v-vgdialog-modal");
+    addClass(modal, "v-qdialog-modal");
     parent.insertBefore(modal, node);
     // this.$emit("before-enter");
     this.events["doClose"] = () => {
@@ -131,13 +131,13 @@ export default class VgDialog extends mixins(VueGgy).with(Props) {
     if (this.showCancelButton) {
       buttons.push(
         h(
-          VgButton,
+          QButton,
           {
             textHideWhenLoading: this.textHideWhenLoading,
             disabled: this.getDisableStatus("cancel"),
             loading: this.getLoadingStatus("cancel"),
             onClick: this.handleButtonClick.bind(this, "cancel"),
-            class: ["vg-dialog-cancel-button"]
+            class: ["q-dialog-cancel-button"]
           },
           { default: () => this.cancelButtonText }
         )
@@ -147,13 +147,13 @@ export default class VgDialog extends mixins(VueGgy).with(Props) {
       const className = buttons.length === 1 ? "vertical-line" : "";
       buttons.push(
         h(
-          VgButton,
+          QButton,
           {
             textHideWhenLoading: this.textHideWhenLoading,
             disabled: this.getDisableStatus("confirm"),
             loading: this.getLoadingStatus("confirm"),
             onClick: this.handleButtonClick.bind(this, "confirm"),
-            class: ["vg-dialog-confirm-button", className]
+            class: ["q-dialog-confirm-button", className]
           },
           { default: () => this.confirmButtonText }
         )
@@ -165,7 +165,7 @@ export default class VgDialog extends mixins(VueGgy).with(Props) {
     const buttons = this.genButtons();
     const className = Array.isArray(this.className) ? this.className : [this.className];
     return h(Transition, {
-      name: "vg-dialog-bounce",
+      name: "q-dialog-bounce",
       onBeforeEnter: this.handleBeforeEnter,
       onAfterEnter: this.handleAfterEnter,
       onBeforeLeave: this.handleBeforeLeave,
@@ -174,16 +174,16 @@ export default class VgDialog extends mixins(VueGgy).with(Props) {
       withDirectives(h(
         "div",
         {
-          class: ["vg-dialog", ...className],
+          class: ["q-dialog", ...className],
           style: { zIndex: this.zIndex }
         },
         { default: () => [
             this.title && (
-              h("div", { class: ["vg-dialog-title"] }, { default: () => this.title })
+              h("div", { class: ["q-dialog-title"] }, { default: () => this.title })
             ),
-            h("div", { class: "vg-dialog-content" }, { default: () => [this.renderedAsComponent && this.getSlots() || this.message] }),
+            h("div", { class: "q-dialog-content" }, { default: () => [this.renderedAsComponent && this.getSlots() || this.message] }),
             buttons.length > 0 && (
-              h("div", { class: ["vg-dialog-buttons"] }, { default: () => buttons })
+              h("div", { class: ["q-dialog-buttons"] }, { default: () => buttons })
             )
           ]
         }

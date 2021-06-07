@@ -3,20 +3,20 @@
     <div id="container">
       <template v-for="item in 200" :key="item">
         <div v-if="item === 20">
-          <vg-sticky offsetTop="100">
+          <q-sticky offsetTop="100">
             <span>我固定在某个位置{{ item }}</span>
-          </vg-sticky>
+          </q-sticky>
         </div>
         <div v-else-if="item === 100">
-          <vg-sticky offsetTop="0">
+          <q-sticky offsetTop="0">
             <span>我固定在某个位置{{ item }}</span>
-          </vg-sticky>
+          </q-sticky>
         </div>
         <div v-else-if="item === 120">
           <div class="box111" ref="container">
-            <vg-sticky class="has-container" :container="container">
+            <q-sticky class="has-container" :container="container">
               <span>我固定在某个位置{{ item }}</span>
-            </vg-sticky>
+            </q-sticky>
           </div>
         </div>
         <div v-else>{{ item }}</div>

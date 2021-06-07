@@ -2,17 +2,17 @@
 * @Author: Just be free
 * @Date:   2020-11-19 17:56:43
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 13:53:05
+* @Last Modified time: 2021-06-07 16:21:10
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import VueGgy, { mixins, prop, Options } from "../component/Queen";
 import { h, Transition, withDirectives, vShow, VNode } from "vue";
 
 class Props {
   height?: string|number
 }
 @Options({
-  name: "VgAnimationListItem",
+  name: "QAnimationListItem",
   inject: ["parentList"],
   computed: {
     animation() {
@@ -20,8 +20,8 @@ class Props {
     }
   }
 })
-export default class VgAnimationListItem extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgAnimationListItem";
+export default class QAnimationListItem extends mixins(VueGgy).with(Props) {
+  public static componentName = "QAnimationListItem";
   public show = false;
   private entered = false;
   handleAfterEnter(): void {
@@ -40,11 +40,11 @@ export default class VgAnimationListItem extends mixins(VueGgy).with(Props) {
   }
   render() {
     return h(Transition, {
-      name: this.animation ? "vg-slide-in" : "",
+      name: this.animation ? "q-slide-in" : "",
       onAfterEnter: this.handleAfterEnter
     }, {
       default: () => [
-        withDirectives(h("div", { class: ["vg-animation-list-item", this.entered ? "no-transform" : ""], style: { height: `${this.height}px` } }, {
+        withDirectives(h("div", { class: ["q-animation-list-item", this.entered ? "no-transform" : ""], style: { height: `${this.height}px` } }, {
           default: () => this.getSlots()
         }), [[vShow, (this.show || !this.animation)]])
       ]

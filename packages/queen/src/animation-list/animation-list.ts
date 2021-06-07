@@ -2,13 +2,13 @@
 * @Author: Just be free
 * @Date:   2020-11-19 17:53:44
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 14:01:19
+* @Last Modified time: 2021-06-07 16:20:40
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import VueGgy, { mixins, prop, Options } from "../component/Queen";
 import { h, VNode } from "vue";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
 // const VALID_CHILD_COMPONENT = "animation-list-item";
 
 class Props {
@@ -16,7 +16,7 @@ class Props {
   animation = prop<boolean>({ default: true })
 }
 @Options({
-  name: "VgAnimationList",
+  name: "QAnimationList",
   provide() {
     return {
       parentList: this
@@ -31,8 +31,8 @@ class Props {
     }
   }
 })
-export default class VgAnimationList extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgAnimationList";
+export default class QAnimationList extends mixins(VueGgy).with(Props) {
+  public static componentName = "QAnimationList";
   public stackList: VNode[] = [];
   infinite(slots: VNode[]) {
     if (slots.length > 0) {
@@ -58,13 +58,13 @@ export default class VgAnimationList extends mixins(VueGgy).with(Props) {
     this.init();
   }
   render() {
-    return h("div", { class: ["vg-animation-list"] }, {
+    return h("div", { class: ["q-animation-list"] }, {
       default: () => [
-        h(VgFlex,
+        h(QFlex,
           { flexDirection: "column" },
           {
             default: () => Array.apply(null, this.stackList).map((item: any, key: number, arr: any[]) => {
-              return h(VgFlexItem, { key }, { default: () => [item] });
+              return h(QFlexItem, { key }, { default: () => [item] });
             })
           }
         )

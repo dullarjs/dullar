@@ -2,9 +2,9 @@
 * @Author: Just be free
 * @Date:   2020-11-25 14:11:59
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-11-25 14:24:14
+* @Last Modified time: 2021-06-07 16:06:54
 */
-.vg-swipe {
+.q-swipe {
   width: 100%;
   user-select: none;
   position: relative;
@@ -12,11 +12,11 @@
   > .v-ynpopup-modal {
     background: #000;
   }
-  .vg-swipe-list-container,
-  .vg-swipe-popup-list-container {
+  .q-swipe-list-container,
+  .q-swipe-popup-list-container {
     position: relative;
     overflow: hidden;
-    .vg-swipe-item {
+    .q-swipe-item {
       width: 100%;
       height: 100%;
       position: absolute;
@@ -33,7 +33,7 @@
       }
     }
   }
-  .vg-swipe-indicators {
+  .q-swipe-indicators {
     &.vertical {
       left: 5px;
       top: 50%;

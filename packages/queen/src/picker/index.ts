@@ -2,9 +2,9 @@
 * @Author: Just be free
 * @Date:   2020-11-05 13:22:20
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-11-05 13:22:55
+* @Last Modified time: 2021-06-07 16:30:18
 * @E-mail: justbefree@126.com
 */
 
-import VgPicker from "./picker";
-export default VgPicker;
+import Picker from "./picker";
+export default Picker;

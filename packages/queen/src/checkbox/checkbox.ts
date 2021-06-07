@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-09-22 15:24:40
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 16:06:31
+* @Last Modified time: 2021-06-07 16:23:04
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
-import VgIcon from "../icon";
+import VueGgy, { mixins, prop, Options } from "../component/Queen";
+import QIcon from "../icon";
 import { h, computed, ref } from "vue";
 
 class Props {
@@ -16,10 +16,10 @@ class Props {
 }
 @Options({
   emits: ["update:modelValue"],
-  name: "VgCheckbox"
+  name: "QCheckbox"
 })
-export default class VgCheckbox extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgCheckbox";
+export default class QCheckbox extends mixins(VueGgy).with(Props) {
+  public static componentName = "QCheckbox";
   public status = ref(this.modelValue).value;
   toggle(): void {
     if (this.disabled) {
@@ -35,6 +35,6 @@ export default class VgCheckbox extends mixins(VueGgy).with(Props) {
   render() {
     const modelValue = ref(this.modelValue);
     const nameComputed = computed(() => `checkbox-${modelValue.value ? "" : "un"}checked`);
-    return h(VgIcon, { class: ["vg-checkbox"], size: this.size, name: nameComputed.value, onClick: this.toggle, cursor: "pointer" }, { default: () => [] });
+    return h(QIcon, { class: ["q-checkbox"], size: this.size, name: nameComputed.value, onClick: this.toggle, cursor: "pointer" }, { default: () => [] });
   }
 }

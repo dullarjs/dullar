@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-10-12 15:56:53
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 15:42:12
+* @Last Modified time: 2021-06-07 16:21:42
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
-import VgIcon from "../icon";
+import VueGgy, { mixins, prop, Options } from "../component/Queen";
+import QIcon from "../icon";
 import { h } from "vue";
 class Props {
   size = prop<string>({ default: "default" })
@@ -17,10 +17,10 @@ class Props {
   textHideWhenLoading = prop<boolean>({ default: false })
 }
 @Options({
-  name: "VgButton"
+  name: "QButton"
 })
-export default class VgButton extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgButton";
+export default class QButton extends mixins(VueGgy).with(Props) {
+  public static componentName = "QButton";
   validType(type: string): boolean {
     return ["default", "primary", "dashed"].indexOf(type) > -1;
   }
@@ -34,18 +34,18 @@ export default class VgButton extends mixins(VueGgy).with(Props) {
       className.push(this.size);
     }
     if (this.validType(this.type)) {
-      className.push(`vg-button-${this.type}`);
+      className.push(`q-button-${this.type}`);
     }
     if (this.danger) {
-      className.push("vg-button-danger");
+      className.push("q-button-danger");
     }
     if (this.loading) {
       className.push("loading");
     }
-    return h("button", { type: "button", class: ["vg-button", ...className], disabled: this.disabled }, {
+    return h("button", { type: "button", class: ["q-button", ...className], disabled: this.disabled }, {
       default: () => [
         this.loading && (
-          h(VgIcon, { name: "loading", size: 16, adjustColor: true, class: ["vg-button-loading"] }, { default: () => "" })
+          h(QIcon, { name: "loading", size: 16, adjustColor: true, class: ["q-button-loading"] }, { default: () => "" })
         ),
         (!this.textHideWhenLoading || this.textHideWhenLoading && !this.loading) && (
           h("span", {}, { default: () => slots })

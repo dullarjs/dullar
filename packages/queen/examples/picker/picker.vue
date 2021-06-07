@@ -8,33 +8,33 @@
         <li @click="handleClick(4)">只有一个数据</li>
         <li @click="handleClick(5)">禁止某一项</li>
       </ul>
-      <vg-picker
+      <q-picker
         v-model="show1"
         :columns="columns1"
         @change="handleChange"
-      ></vg-picker>
-      <vg-picker
+      ></q-picker>
+      <q-picker
         v-model="show2"
         :columns="columns2"
         @change="handleChange"
-      ></vg-picker>
-      <vg-picker
+      ></q-picker>
+      <q-picker
         @confirm="handleConfirm"
         v-model="show3"
         :columns="columns3"
         @change="handleChange"
-      ></vg-picker>
-      <vg-picker
+      ></q-picker>
+      <q-picker
         v-model="show4"
         :columns="columns4"
         @change="handleChange"
-      ></vg-picker>
-      <vg-picker
+      ></q-picker>
+      <q-picker
         v-model="show5"
         :columns="columns5"
         @change="handleChange"
         @confirm="handleConfirm"
-      ></vg-picker>
+      ></q-picker>
     </div>
   </div>
 </template>

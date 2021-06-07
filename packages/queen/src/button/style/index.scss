@@ -2,9 +2,9 @@
 * @Author: Just be free
 * @Date:   2020-10-12 15:56:45
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-11-30 15:54:57
+* @Last Modified time: 2021-06-07 16:07:58
 */
-.vg-button {
+.q-button {
   appearance: none;
   border-radius: 4px;
   border: 1px solid $border-color;
@@ -25,7 +25,7 @@
     width: 100%;
   }
 }
-.vg-button[disabled] {
+.q-button[disabled] {
   cursor: not-allowed;
   color: rgba(0,0,0,.25);
   background: #f5f5f5;
@@ -34,44 +34,44 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.vg-button-default {
+.q-button-default {
   color: #656b79;
   background-color: #f6f8fa;
-  &.vg-button-danger {
+  &.q-button-danger {
     color: $danger-color;
     border-color: $danger-color;
   }
 }
-.vg-button-primary {
+.q-button-primary {
   background-color: $theme-color;
   border-color: $theme-color;
   color: $white;
-  &.vg-button-danger {
+  &.q-button-danger {
     color: $white;
     border-color: $danger-color;
     background-color: $danger-color;
   }
 }
-.vg-button-dashed {
+.q-button-dashed {
   color: #656b79;
   background-color: #f6f8fa;
   border: 1px dashed $border-color;
-  &.vg-button-danger {
+  &.q-button-danger {
     color: $danger-color;
     border-color: $danger-color;
   }
 }
 
-.vg-button-loading {
+.q-button-loading {
   img {
-    animation: vg-infinite-rotate 0.8s infinite linear;
+    animation: q-infinite-rotate 0.8s infinite linear;
     border: 0px solid transparent;
     border-radius: 50%;
     margin-right: 5px;
     // vertical-align: middle;
   }
 }
-@keyframes vg-infinite-rotate {
+@keyframes q-infinite-rotate {
   0% {
     transform: rotate(0deg);
   }

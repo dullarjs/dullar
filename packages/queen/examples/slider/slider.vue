@@ -4,7 +4,7 @@
       <div class="box">
         <h3>基础用法</h3>
         <span class="display">当前值是 {{ value }}</span>
-        <vg-slider v-model="value"></vg-slider>
+        <q-slider v-model="value"></q-slider>
       </div>
     </div>
   </div>

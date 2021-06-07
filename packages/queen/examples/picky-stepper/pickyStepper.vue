@@ -9,36 +9,36 @@
         <li @click="handleClick(5)">高级用法实际案例（多步骤）</li>
         <li @click="handleClick(6)">动态数据案例（多步骤）</li>
       </ul>
-      <vg-picky-stepper
+      <q-picky-stepper
         v-model="picker1"
         :submit="submit"
         :steps="steps1"
-      ></vg-picky-stepper>
-      <vg-picky-stepper
+      ></q-picky-stepper>
+      <q-picky-stepper
         v-model="picker2"
         :submit="submit"
         :steps="steps2"
-      ></vg-picky-stepper>
-      <vg-picky-stepper
+      ></q-picky-stepper>
+      <q-picky-stepper
         v-model="picker3"
         :submit="submit"
         :steps="steps3"
-      ></vg-picky-stepper>
-      <vg-picky-stepper
+      ></q-picky-stepper>
+      <q-picky-stepper
         v-model="picker4"
         @success="handleSuccess"
         :steps="steps4"
-      ></vg-picky-stepper>
-      <vg-picky-stepper
+      ></q-picky-stepper>
+      <q-picky-stepper
         v-model="picker5"
         @success="handleSuccess"
         :steps="steps5"
-      ></vg-picky-stepper>
-      <vg-picky-stepper
+      ></q-picky-stepper>
+      <q-picky-stepper
         v-model="picker6"
         @success="handleSuccess"
         :steps="steps6"
-      ></vg-picky-stepper>
+      ></q-picky-stepper>
     </div>
   </div>
 </template>

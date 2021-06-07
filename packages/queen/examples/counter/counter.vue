@@ -3,7 +3,7 @@
     <div id="container">
       <ul>
         <li v-for="(count, i) in counts" :key="i">
-          <vg-counter :name="count.name" :key="i" v-model="count.value" :min="count.min" :max="count.max" steps="1" @change="handleChange"></vg-counter>
+          <q-counter :name="count.name" :key="i" v-model="count.value" :min="count.min" :max="count.max" steps="1" @change="handleChange"></q-counter>
         </li>
       </ul>
     </div>

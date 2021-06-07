@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-11-05 13:44:32
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 17:31:54
+* @Last Modified time: 2021-06-07 16:30:49
 * @E-mail: justbefree@126.com
 */
 export interface ColumnObject {
@@ -11,7 +11,7 @@ export interface ColumnObject {
   disabled?: boolean;
   [propName: string]: any;
 }
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { EventEmulator, EventCallbackOptions } from "../component/EventEmulator";
 import { deepClone } from "../utils/deep-clone";
 import { getElementsTranslate } from "../utils/dom";
@@ -44,7 +44,7 @@ class Props {
   swipeDuration = prop<string|number>({ default: 1000 })
 }
 @Options({
-  name: "VgPickerColumn",
+  name: "QPickerColumn",
   emits: ["change"],
   watch: {
     defaultIndex(val) {
@@ -61,8 +61,8 @@ class Props {
     }
   }
 })
-export default class VgPickerColumn extends mixins(VueGgy, EventEmulator).with(Props) {
-  public static componentName = "VgPickerColumn";
+export default class QPickerColumn extends mixins(Queen, EventEmulator).with(Props) {
+  public static componentName = "QPickerColumn";
   public options = deepClone(this.columns);
   public currentIndex = this.defaultIndex;
   public duration = 0;
@@ -206,7 +206,7 @@ export default class VgPickerColumn extends mixins(VueGgy, EventEmulator).with(P
       transitionProperty: this.duration ? "all" : "none",
       lineHeight: `${this.itemHeight}px`
     };
-    return h("div", { class: "vg-picker-column", ref: "pickerColumn" }, {
+    return h("div", { class: "q-picker-column", ref: "pickerColumn" }, {
       default: () => [
         h(
           "ul",

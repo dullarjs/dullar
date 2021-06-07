@@ -2,15 +2,15 @@
 * @Author: Just be free
 * @Date:   2020-10-12 15:56:53
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-14 16:43:27
+* @Last Modified time: 2021-06-07 16:22:40
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
-import VgIcon from "../icon";
-import VgPopup from "../popup";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
-import { VgDate, VgDateInstance } from "../utils/vg-date";
+import Queen, { mixins, prop, Options } from "../component/Queen";
+import QIcon from "../icon";
+import QPopup from "../popup";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
+import { QDate, QDateInstance } from "../utils/q-date";
 import { h, withDirectives, vShow, VNode } from "vue";
 import { push, drop, setProperty } from "../utils";
 import { getOffset } from "../utils/dom";
@@ -22,7 +22,7 @@ export interface CalendarDateNode {
   day?: string|number;
   week?: string|number;
   date?: string;
-  vgDate?: VgDate;
+  qDate?: QDate;
   mark?: string;
   festival?: string;
 }
@@ -42,9 +42,9 @@ class Props {
   after = prop<string|number>({ default: 1 })
   unit = prop<string>({ default: "days" })
   weekText = prop<Array<string>>({ default: () => ["日", "一", "二", "三", "四", "五", "六"] })
-  defaultDate = prop<string>({ default: VgDateInstance().format() })
-  defaultStartDate = prop<string>({ default: VgDateInstance().format() })
-  defaultEndDate = prop<string>({ default: VgDateInstance().add(1, "day").format() })
+  defaultDate = prop<string>({ default: QDateInstance().format() })
+  defaultStartDate = prop<string>({ default: QDateInstance().format() })
+  defaultEndDate = prop<string>({ default: QDateInstance().add(1, "day").format() })
   showConfirmButton = prop<boolean>({ default: false })
   confirmText = prop<string>({ default: "确认" })
   fromDateMark = prop<string>({ default: "入住" })
@@ -58,13 +58,13 @@ class Props {
 }
 @Options({
   emits: ["update:modelValue", "getdate", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave"],
-  name: "VgCalendar",
+  name: "QCalendar",
   watch: {
     mode: "highLightDefault"
   }
 })
-export default class VgCalendar extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgCalendar";
+export default class QCalendar extends mixins(Queen).with(Props) {
+  public static componentName = "QCalendar";
   public changedNode = {} as { [propName: string]: any };
   public fromDate: null|CalendarDateNode = null;
   public toDate: null|CalendarDateNode = null;
@@ -78,16 +78,16 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
   getDefaultNodeFromProps(prop: string, className: string[] = []): CalendarDateNode {
     const key = this[prop];
     const [year, month, day] = key.split("-");
-    const festival = VgDateInstance().isSame(year, month, day) ? this.todayMark : "";
-    const vgDate = VgDateInstance(year, month, day);
+    const festival = QDateInstance().isSame(year, month, day) ? this.todayMark : "";
+    const qDate = QDateInstance(year, month, day);
     return {
       key,
-      vgDate,
+      qDate,
       year,
       month,
       day,
       date: key,
-      week: vgDate.getDay(),
+      week: qDate.getDay(),
       className: ["active", "clickable", ...className],
       mark: "",
       festival
@@ -121,9 +121,9 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
     }
   }
   createCloseIcon() {
-    return h(VgIcon,
+    return h(QIcon,
       {
-        class: ["vg-calendar-close"],
+        class: ["q-calendar-close"],
         name: "close",
         size: 24,
         onClick: this.close
@@ -151,7 +151,7 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
   createTitle(): VNode {
     return h("div",
       {
-        class: ["vg-calendar-header-title"],
+        class: ["q-calendar-header-title"],
         innerHTML: this.getTitle()
       },
       { default: () => [] } 
@@ -161,17 +161,17 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
     const bar: Array<VNode> = [];
     for (let i = 0; i < 7; i++) {
       bar.push(
-        h(VgFlexItem, { key: i }, {
+        h(QFlexItem, { key: i }, {
           default: () => [
             h("span", { innerHTML: this.weekText[i] }, { default: () => [] })
           ]
         })
       );
     }
-    return h("div", { class: ["vg-calendar-week-bar"] }, {
+    return h("div", { class: ["q-calendar-week-bar"] }, {
       default: () => [
-        h(VgFlex,
-          { key: "vg_flex_week_bar", justifyContent: "spaceAround" },
+        h(QFlex,
+          { key: "q_flex_week_bar", justifyContent: "spaceAround" },
           { default: () => bar }
         )
       ]
@@ -223,7 +223,7 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
             this.fromDate = null;
           }
         } else {
-          if ((this.fromDate.vgDate as VgDate).isAfter(date.vgDate as VgDate)) {
+          if ((this.fromDate.qDate as QDate).isAfter(date.qDate as QDate)) {
             if (this.crossed) {
               this.confirmButtonClassName = "active";
               drop(this.changedNode[this.fromDate.key].className, "start");
@@ -278,11 +278,11 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
     }
   }
   getTimePeriod() {
-    const beginDate = VgDateInstance().substract(Number(this.before), this.unit);
-    const endDate = VgDateInstance().add(Number(this.after), this.unit);
+    const beginDate = QDateInstance().substract(Number(this.before), this.unit);
+    const endDate = QDateInstance().add(Number(this.after), this.unit);
     this.beginDate = beginDate.format();
     this.endDate = endDate.format();
-    return VgDateInstance().getMonthPeriod(beginDate, endDate);
+    return QDateInstance().getMonthPeriod(beginDate, endDate);
   }
   generateDate() {
     const caculatedMonth: string[] = this.getTimePeriod();
@@ -291,11 +291,11 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
       const monthObject = {} as CalendarMonthNode;
       monthObject["dates"] = [];
       const [year, month] = item.split("-");
-      const daysOfMonth = VgDateInstance(year, month).getDaysCountOfMonth();
+      const daysOfMonth = QDateInstance(year, month).getDaysCountOfMonth();
       for (let i = 1; i <= daysOfMonth; i++) {
         let j = i < 10 ? `0${i}` : String(i);
         if (j === "01") {
-          for (let k = 0; k < VgDateInstance(year, month, j).getDay(); k++) {
+          for (let k = 0; k < QDateInstance(year, month, j).getDay(); k++) {
             monthObject["dates"].push({
               className: [],
               key: `year_month_date_${k}`
@@ -303,17 +303,17 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
           }
         }
         const className: string[] = [];
-        const vgDate = VgDateInstance(year, month, j);
+        const qDate = QDateInstance(year, month, j);
         push(
           className,
-          VgDateInstance().isAfter(year, month, j) ? "disable" : "clickable"
+          QDateInstance().isAfter(year, month, j) ? "disable" : "clickable"
         );
         if (this.mode === "double" && this.fromDate && this.toDate) {
           push(
             className,
-            VgDateInstance(year, month, j).isBetween(
-              this.fromDate.vgDate as VgDate,
-              this.toDate.vgDate as VgDate
+            QDateInstance(year, month, j).isBetween(
+              this.fromDate.qDate as QDate,
+              this.toDate.qDate as QDate
             )
               ? "during-active"
               : ""
@@ -321,7 +321,7 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
         }
         if (this.beginDate && this.endDate) {
           if (
-            VgDateInstance(year, month, j).isBetweenIncludeBoth(
+            QDateInstance(year, month, j).isBetweenIncludeBoth(
               this.beginDate,
               this.endDate
             )
@@ -336,7 +336,7 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
         monthObject["key"] = `${year}-${month}`;
         monthObject["month"] = month;
         monthObject["year"] = year;
-        const festival = VgDateInstance().isSame(year, month, j)
+        const festival = QDateInstance().isSame(year, month, j)
           ? this.todayMark
           : "";
         const key = `${year}-${month}-${j}`;
@@ -349,10 +349,10 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
             year,
             month,
             day: j,
-            week: vgDate.getDay(),
+            week: qDate.getDay(),
             date: key,
             className,
-            vgDate,
+            qDate,
             mark: "",
             festival
           });
@@ -370,7 +370,7 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
       caculateDOM.push(
         h("div",
           {
-            class: ["vg-calendar-month", month],
+            class: ["q-calendar-month", month],
             key
           },
           {
@@ -378,15 +378,15 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
               h(
                 "h4",
                 {
-                  class: ["vg-calendar-month-title"],
+                  class: ["q-calendar-month-title"],
                   innerHTML: this.monthTtitleParser(`${year}-${month}`, { year, month })
                 },
                 { default: () => [] }
               ),
-              h(VgFlex,
+              h(QFlex,
                 {
-                  key: `vg_flex_${key}`,
-                  class: ["vg-calendar-flex"],
+                  key: `q_flex_${key}`,
+                  class: ["q-calendar-flex"],
                   flexWrap: "wrap",
                   justifyContent: "spaceAround",
                   fixBottomLine: true
@@ -403,22 +403,22 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
                       ) {
                         ref = "scrollPosition";
                       }
-                      dateDom.push(h(VgFlexItem, {
+                      dateDom.push(h(QFlexItem, {
                         key: date.key,
-                        class: ["vg-calendar-date", ...date.className],
+                        class: ["q-calendar-date", ...date.className],
                         ref,
                         onClick: this.handleClick.bind(this, date)
                       }, {
                         default: () => [
-                          h(VgFlex, { flexDirection: "column", justifyContent: "spaceBetween" }, {
+                          h(QFlex, { flexDirection: "column", justifyContent: "spaceBetween" }, {
                             default: () => [
-                              h(VgFlexItem, { class: ["vg-calendar-date-festival"] }, {
+                              h(QFlexItem, { class: ["q-calendar-date-festival"] }, {
                                 default: () => date.festival
                               }),
-                              h(VgFlexItem, { class: ["vg-calendar-date-text"] }, {
+                              h(QFlexItem, { class: ["q-calendar-date-text"] }, {
                                 default: () => date.day
                               }),
-                              h(VgFlexItem, { class: ["vg-calendar-date-mark"] }, {
+                              h(QFlexItem, { class: ["q-calendar-date-mark"] }, {
                                 default: () => date.mark
                               })
                             ]
@@ -450,15 +450,15 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
   }
   createFooterArea() {
     if (this.showConfirmButton) {
-      return h(VgFlexItem,
+      return h(QFlexItem,
         {
-          class: ["vg-calendar-footer"]
+          class: ["q-calendar-footer"]
         },
         {
           default: () => [
             h("div", {
               class: [
-                "vg-calendar-confirm-button",
+                "q-calendar-confirm-button",
                 this.confirmButtonClassName
               ],
               onClick: this.handleOnConfirm,
@@ -473,8 +473,8 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
   }
   setPosition(): void {
     this.$nextTick(() => {
-      const el = (this.$refs.scrollPosition as VgFlexItem).$el;
-      const parent = (this.$refs.popup as VgPopup).$el;
+      const el = (this.$refs.scrollPosition as QFlexItem).$el;
+      const parent = (this.$refs.popup as QPopup).$el;
       // this.$refs.scroller.$el.scrollTop =
       //   getOffset(el).top -
       //   this.$refs.header.$el.offsetHeight -
@@ -484,9 +484,9 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
       // 猜测：可能是iOS 13.4.1的渲染机制跟其他版本浏览器渲染不一致，测试发现跟Vue transition有关系，具体还得查一下
       // 解决方法：延迟200ms，再进行设置scrollTop值
       const timer = setTimeout(() => {
-        (this.$refs.scroller as VgFlexItem).$el.scrollTop =
+        (this.$refs.scroller as QFlexItem).$el.scrollTop =
           getOffset(el).top -
-          (this.$refs.header as VgFlexItem).$el.offsetHeight -
+          (this.$refs.header as QFlexItem).$el.offsetHeight -
           getOffset(parent).top;
           console.log(getOffset(el).top);
           clearTimeout(timer);
@@ -516,8 +516,8 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
     this.highLightDefault();
   }
   render() {
-    return h("div", { class: ["vg-calendar"] }, { default: () => [
-      withDirectives(h(VgPopup,
+    return h("div", { class: ["q-calendar"] }, { default: () => [
+      withDirectives(h(QPopup,
         {
           onBeforeenter: this.handleBeforeEnter,
           onEnter: this.handleEnter,
@@ -532,21 +532,21 @@ export default class VgCalendar extends mixins(VueGgy).with(Props) {
         },
         {
           default: () => [
-            h(VgFlex,
+            h(QFlex,
               {
-                class: ["vg-calendar-content"],
+                class: ["q-calendar-content"],
                 flexDirection: "column"
               },
               {
                 default: () => [
-                  h(VgFlexItem,
-                    { class: ["vg-calendar-header"], ref: "header" },
+                  h(QFlexItem,
+                    { class: ["q-calendar-header"], ref: "header" },
                     { default: () => [this.createHeaderArea()] }
                   ),
-                  h(VgFlexItem,
+                  h(QFlexItem,
                     {
                       ref: "scroller",
-                      class: ["vg-calendar-body"],
+                      class: ["q-calendar-body"],
                       flex: 1
                     },
                     { default: () => [h("div", {}, { default: () => this.createDate() })] }

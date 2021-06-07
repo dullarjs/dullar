@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-23 16:16:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 15:33:33
+* @Last Modified time: 2021-06-07 16:39:05
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { Options, mixins, prop } from "../component/VueGgy";
+import Queen, { Options, mixins, prop } from "../component/Queen";
 import { Transition, h, withDirectives, vShow } from "vue";
 class Props {
   message!: string
@@ -17,10 +17,10 @@ class Props {
   })
 }
 @Options({
-  name: "VgToast"
+  name: "QToast"
 })
-export default class VgToast extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgToast";
+export default class QToast extends mixins(Queen).with(Props) {
+  public static componentName = "QToast";
   public visible = false;
   public closed = false;
   public timer = 0;
@@ -36,11 +36,11 @@ export default class VgToast extends mixins(VueGgy).with(Props) {
     callback && (typeof callback === "function") && callback();
   }
   render() {
-    return h(Transition, { name: "vg-toast-pop" }, { default: () => [
+    return h(Transition, { name: "Q-toast-pop" }, { default: () => [
       withDirectives(h(
         "div",
         {
-          class: ["vg-toast-container", `located-at-${this.position}`]
+          class: ["q-toast-container", `located-at-${this.position}`]
         },
         {
           default: () => [h("span", { class: "toast-text" }, { default: () => this.message })]

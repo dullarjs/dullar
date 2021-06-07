@@ -2,16 +2,16 @@
 * @Author: Just be free
 * @Date:   2020-11-10 10:42:06
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-11-10 16:51:25
+* @Last Modified time: 2021-06-07 16:06:48
 */
-.vg-tabs {
-  .vg-tabs-nav {
+.q-tabs {
+  .q-tabs-nav {
     height: 44px;
     border-bottom: 1px solid $border-color;
     line-height: 44px;
     overflow: hidden;
     cursor: pointer;
-    .vg-tab-text {
+    .q-tab-text {
       display: inline-block;
       height: calc(100% - 4px);
       color: $text-color;

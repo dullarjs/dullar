@@ -2,13 +2,13 @@
 * @Author: Just be free
 * @Date:   2020-11-02 14:26:49
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-15 18:10:40
+* @Last Modified time: 2021-06-07 16:24:19
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { EventEmulator, EventCallbackOptions } from "../component/EventEmulator";
 import { preventDefault } from "../utils/event";
-import VgIcon from "../icon";
+import QIcon from "../icon";
 import { h } from "vue";
 class Props {
   max = prop<number|string>({ default: Number.MAX_VALUE })
@@ -26,11 +26,11 @@ class Props {
 }
 
 @Options({
-  name: "VgCounter",
+  name: "QCounter",
   emits: ["update:modelValue", "change"]
 })
-export default class VgCounter extends mixins(VueGgy, EventEmulator).with(Props) {
-  public static componentName = "VgCounter";
+export default class QCounter extends mixins(Queen, EventEmulator).with(Props) {
+  public static componentName = "QCounter";
   public count = Number(this.modelValue);
   isEqual(val1: string|number, val2: string|number): boolean {
     return Number(val2) === Number(val1);
@@ -55,7 +55,7 @@ export default class VgCounter extends mixins(VueGgy, EventEmulator).with(Props)
   initEvent(): void {
     let timer: null|number = null;
     const that = this;
-    const addButton = this.$refs.addButton as VgIcon;
+    const addButton = this.$refs.addButton as QIcon;
     this.bindEvent(addButton.$el, {
       start(event: EventCallbackOptions) {
         preventDefault(event.e, true);
@@ -69,7 +69,7 @@ export default class VgCounter extends mixins(VueGgy, EventEmulator).with(Props)
         clearTimeout(timer as number);
       }
     });
-    const minusButton = this.$refs.minusButton as VgIcon;
+    const minusButton = this.$refs.minusButton as QIcon;
     this.bindEvent(minusButton.$el, {
       start(event: EventCallbackOptions) {
         preventDefault(event.e, true);
@@ -98,23 +98,23 @@ export default class VgCounter extends mixins(VueGgy, EventEmulator).with(Props)
       const rightButtonClass = this.isEqual(this.modelValue, this.max)
         ? "disabled"
         : "";
-      return h("div", { class: ["vg-counter"] }, {
+      return h("div", { class: ["q-counter"] }, {
         default: () => [
-          h(VgIcon,
+          h(QIcon,
             {
               ref: "minusButton",
-              class: ["vg-counter-subtract", leftButtonClass],
+              class: ["q-counter-subtract", leftButtonClass],
               cursor: "pointer",
               name: "minus",
               size: 15
             },
             { default: () => [] }
           ),
-          h("span", { class: ["vg-counter-screen"] }, { default: () => [this.count] }),
-          h(VgIcon,
+          h("span", { class: ["q-counter-screen"] }, { default: () => [this.count] }),
+          h(QIcon,
             {
               ref: "addButton",
-              class: ["vg-counter-plus", rightButtonClass],
+              class: ["q-counter-plus", rightButtonClass],
               cursor: "pointer",
               name: "add",
               size: 15

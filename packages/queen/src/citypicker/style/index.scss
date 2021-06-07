@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-10-22 14:42:31
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-10-22 14:58:47
+* @Last Modified time: 2021-06-07 16:07:53
 */
-.vg-city-picker {
-  .vg-city-picker-cities {
+.q-city-picker {
+  .q-city-picker-cities {
     padding: 0 10px;
     .city-item {
       text-align: center;
@@ -52,10 +52,10 @@
       }
     }
   }
-  .vg-city-picker-content {
+  .q-city-picker-content {
     height: 100%;
     user-select: none;
-    .vg-city-picker-input-search {
+    .q-city-picker-input-search {
       height: 34px;
       margin: 5px auto;
       padding: 0 10px;
@@ -95,8 +95,8 @@
         border-radius: 0 5px 5px 0;
       }
     }
-    .vg-city-picker-header {
-      .vg-city-picker-header-title {
+    .q-city-picker-header {
+      .q-city-picker-header-title {
         height: 44px;
         display: block;
         text-align: center;
@@ -105,27 +105,27 @@
         color: $text-color;
         background: $white;
       }
-      .vg-city-picker-close {
+      .q-city-picker-close {
         cursor: pointer;
         position: absolute;
         right: 8px;
         top: 8px;
       }
-      .vg-city-picker-tab-bar {
+      .q-city-picker-tab-bar {
         background: $white;
         border-bottom: 1px solid $border-color;
-        .vg-city-picker-tab-item {
+        .q-city-picker-tab-item {
           text-align: center;
           font-size: 15px;
           height: 44px;
           line-height: 44px;
           overflow: hidden;
-          .vg-city-picker-tab-text {
+          .q-city-picker-tab-text {
             color: $text-color;
           }
         }
-        .vg-city-picker-tab-item.active {
-          .vg-city-picker-tab-text {
+        .q-city-picker-tab-item.active {
+          .q-city-picker-tab-text {
             color: $theme-color;
             display: inline-block;
             height: 42px;
@@ -134,21 +134,21 @@
         }
       }
     }
-    .vg-city-picker-body {
+    .q-city-picker-body {
       height: 100%;
       overflow: auto; /* winphone8和android4+ */
       -webkit-overflow-scrolling: touch; /* ios5+ */
-      .vg-city-picker-block-title {
+      .q-city-picker-block-title {
         line-height: 20px;
         color: #9a9a9a;
         font-size: 14px;
         margin: 8px 11px;
         text-align: left;
       }
-      .vg-city-picker-searched-area {
+      .q-city-picker-searched-area {
         text-align: center;
       }
-      .vg-city-picker-alpha-beta {
+      .q-city-picker-alpha-beta {
         padding: 0 10px;
         .alpha-beta {
           width: 17%;
@@ -167,7 +167,7 @@
         }
       }
     }
-    .vg-city-picker-input-search-result {
+    .q-city-picker-input-search-result {
       > ul {
         margin: 0;
         padding: 0 5px;
@@ -194,7 +194,7 @@
       }
     }
   }
-  .vg-city-picker-content.limited {
+  .q-city-picker-content.limited {
     background: $white;
   }
 }

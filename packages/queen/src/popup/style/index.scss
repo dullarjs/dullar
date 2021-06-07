@@ -1,4 +1,4 @@
-.v-vgpopup-modal {
+.v-qpopup-modal {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
@@ -9,7 +9,7 @@
   right: 0;
   bottom: 0;
 }
-.vg-popup {
+.q-popup {
   width: 100%;
   max-height: 100%;
   position: fixed;
@@ -21,7 +21,7 @@
   transform: translate3d(-50%, -50%, 0);
   backface-visibility: hidden;
   transition: all 0.2s ease-out;
-  .vg-popup-closeicon {
+  .q-popup-closeicon {
     height: 44px;
     text-align: right;
     // margin-right: 8px;
@@ -40,64 +40,64 @@
     }
   }
 }
-.vg-popup-top {
+.q-popup-top {
   top: 0;
   right: auto;
   bottom: auto;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
 }
-.vg-popup-right {
+.q-popup-right {
   top: 50%;
   right: 0;
   bottom: auto;
   left: auto;
   transform: translate3d(0, -50%, 0);
 }
-.vg-popup-bottom {
+.q-popup-bottom {
   top: auto;
   right: auto;
   bottom: 0;
   left: 50%;
   transform: translate3d(-50%, 0, 0);
 }
-.vg-popup-left {
+.q-popup-left {
   top: 50%;
   right: auto;
   bottom: auto;
   left: 0;
   transform: translate3d(0, -50%, 0);
 }
-.vg-popup-middle {
+.q-popup-middle {
   top: 50%;
   right: auto;
   bottom: auto;
   left: 50%;
   opacity: 1;
 }
-.vg-popup-slide-top-enter-to,
-.vg-popup-slide-top-enter-active,
-.vg-popup-slide-top-leave-active {
+.q-popup-slide-top-enter-to,
+.q-popup-slide-top-enter-active,
+.q-popup-slide-top-leave-active {
   transform: translate3d(-50%, -100%, 0);
 }
-.vg-popup-slide-right-enter-to,
-.vg-popup-slide-right-enter-active,
-.vg-popup-slide-right-leave-active {
+.q-popup-slide-right-enter-to,
+.q-popup-slide-right-enter-active,
+.q-popup-slide-right-leave-active {
   transform: translate3d(100%, -50%, 0);
 }
-.vg-popup-slide-bottom-enter-to,
-.vg-popup-slide-bottom-enter-active,
-.vg-popup-slide-bottom-leave-active {
+.q-popup-slide-bottom-enter-to,
+.q-popup-slide-bottom-enter-active,
+.q-popup-slide-bottom-leave-active {
   transform: translate3d(-50%, 100%, 0);
 }
-.vg-popup-slide-left-enter,
-.vg-popup-slide-left-enter-active,
-.vg-popup-slide-left-leave-active {
+.q-popup-slide-left-enter,
+.q-popup-slide-left-enter-active,
+.q-popup-slide-left-leave-active {
   transform: translate3d(-100%, -50%, 0);
 }
-.vg-popup-slide-middle-enter-to,
-.vg-popup-slide-middle-enter-active,
-.vg-popup-slide-middle-leave-active {
+.q-popup-slide-middle-enter-to,
+.q-popup-slide-middle-enter-active,
+.q-popup-slide-middle-leave-active {
   opacity: 0;
   transform: translate3d(-50%, 0, 0);
 }

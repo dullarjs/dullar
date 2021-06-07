@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-10-28 12:10:18
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-10-28 12:18:37
+* @Last Modified time: 2021-06-07 16:08:06
 */
-.vg-action-sheet {
-  .vg-action-sheet-title {
+.q-action-sheet {
+  .q-action-sheet-title {
     height: 50px;
     margin: 0;
     line-height: 50px;
@@ -14,7 +14,7 @@
     font-size: 16px;
     user-select: none;
   }
-  .vg-action-sheet-content {
+  .q-action-sheet-content {
     padding: 0;
     margin: 0;
     text-align: center;
@@ -38,7 +38,7 @@
       -webkit-transform: scale(0.5);
       transform: scale(0.5);
     }
-    > li.vg-action-sheet-cancel::before {
+    > li.q-action-sheet-cancel::before {
       display: block;
       height: 8px;
       background-color: #f7f8fa;
@@ -48,7 +48,7 @@
       color: #c8c9cc;
       cursor: not-allowed;
     }
-    .vg-action-sheet-loading-warpper {
+    .q-action-sheet-loading-warpper {
       line-height: normal;
       > .loading {
         display: inline-block;

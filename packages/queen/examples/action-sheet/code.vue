@@ -10,25 +10,25 @@
   import { Options, Vue } from 'vue-class-component';
   const htmlCode =
   `
-  <vg-action-sheet
+  <q-action-sheet
     v-model="basic"
     :actions="basicActions"
     v-on:getselected="getSelect"
-  ></vg-action-sheet>
-  <vg-action-sheet
+  ></q-action-sheet>
+  <q-action-sheet
     v-model="cancel"
     :actions="cancelActions"
     v-on:getselected="getSelect"
     showCancel
-  ></vg-action-sheet>
-  <vg-action-sheet
+  ></q-action-sheet>
+  <q-action-sheet
     v-model="async"
     :loading="loading"
     @beforeenter="handleBeforeEnter"
     :actions="asyncActions"
     v-on:getselected="getSelect"
     showCancel
-  ></vg-action-sheet>
+  ></q-action-sheet>
   `;
   const jsCode =
   `

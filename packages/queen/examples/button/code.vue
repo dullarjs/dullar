@@ -10,17 +10,17 @@
   import { Options, Vue } from 'vue-class-component';
   const exampleCode =
   `
-  <vg-button>default text</vg-button>
-  <vg-button type="primary">primary text</vg-button>
-  <vg-button disabled>disabled text</vg-button>
-  <vg-button type="dashed">dashed</vg-button>
-  <vg-button danger>danger default</vg-button>
-  <vg-button danger type="primary">danger primary</vg-button>
-  <vg-button danger type="dashed">danger dashed</vg-button>
-  <vg-button loading type="primary">Loading</vg-button>
-  <vg-button @click="handleClick" :loading="loadingStatus" type="primary">Loading</vg-button>
-  <vg-button loading danger type="default">danger primary</vg-button>
-  <vg-button textHideWhenLoading loading type="default">default</vg-button>
+  <q-button>default text</q-button>
+  <q-button type="primary">primary text</q-button>
+  <q-button disabled>disabled text</q-button>
+  <q-button type="dashed">dashed</q-button>
+  <q-button danger>danger default</q-button>
+  <q-button danger type="primary">danger primary</q-button>
+  <q-button danger type="dashed">danger dashed</q-button>
+  <q-button loading type="primary">Loading</q-button>
+  <q-button @click="handleClick" :loading="loadingStatus" type="primary">Loading</q-button>
+  <q-button loading danger type="default">danger primary</q-button>
+  <q-button textHideWhenLoading loading type="default">default</q-button>
   `;
   const jsCode =
   `

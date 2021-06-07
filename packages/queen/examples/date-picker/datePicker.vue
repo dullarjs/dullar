@@ -5,13 +5,13 @@
         <li @click="handleClick(1)">默认</li>
         <li @click="handleClick(2)">指定起止日期</li>
       </ul>
-      <vg-date-picker v-model="show1" @confirm="handleConfirm"></vg-date-picker>
-      <vg-date-picker
+      <q-date-picker v-model="show1" @confirm="handleConfirm"></q-date-picker>
+      <q-date-picker
         v-model="show2"
         start="1995-03-08"
         end="2022-03-22"
         @confirm="handleConfirm"
-      ></vg-date-picker>
+      ></q-date-picker>
     </div>
   </div>
 </template>

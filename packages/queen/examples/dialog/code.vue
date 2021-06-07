@@ -19,7 +19,7 @@
          <li @click="asyncConfirm">sync confirm</li>
          <li @click="handleClick(2)">Advanced</li>
        </ul>
-       <vg-dialog v-model="dialog2" closeModelOnClick>里面是各种内容</vg-dialog>
+       <q-dialog v-model="dialog2" closeModelOnClick>里面是各种内容</q-dialog>
      </div>
    </div>
  </template>

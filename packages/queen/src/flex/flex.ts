@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-22 15:24:40
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 15:29:13
+* @Last Modified time: 2021-06-07 16:27:14
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { hyphenate, camelize } from "../utils";
 import { ValidFlexAttribute } from "./types";
 import { h } from "vue";
@@ -22,10 +22,10 @@ class Props {
   fixBottomLine = prop<boolean>({ default: false })
 }
 @Options({
-  name: "VgFlex"
+  name: "QFlex"
 })
-export default class VgFlex extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgFlex";
+export default class QFlex extends mixins(Queen).with(Props) {
+  public static componentName = "QFlex";
   isValidColumnsAttribute(key: ValidFlexAttribute): boolean {
     const validates = ["xs", "sm", "md", "lg"];
     return validates.indexOf(key) > -1;
@@ -57,7 +57,7 @@ export default class VgFlex extends mixins(VueGgy).with(Props) {
     };
     return (key in validates) && validates[key].indexOf(value) > -1;
   }
-  translateAttrsToClassName(prefix = "vg-"): Array<string> {
+  translateAttrsToClassName(prefix = "q-"): Array<string> {
     const className: string[] = [];
     for (let [attribute, value] of Object.entries(this.$props)) {
       if (this.isValidColumnsAttribute(attribute as ValidFlexAttribute)) {
@@ -74,7 +74,7 @@ export default class VgFlex extends mixins(VueGgy).with(Props) {
   }
   render() {
     const className = this.translateAttrsToClassName();
-    const fix = this.fixBottomLine ? "vg-flex-fix-bottom-line" : "";
-    return h("div", { class: ["vg-flex", ...className, fix] }, { default: () => this.getSlots() });
+    const fix = this.fixBottomLine ? "q-flex-fix-bottom-line" : "";
+    return h("div", { class: ["q-flex", ...className, fix] }, { default: () => this.getSlots() });
   }
 }

@@ -2,15 +2,15 @@
 * @Author: Just be free
 * @Date:   2020-10-28 12:10:05
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 17:05:49
+* @Last Modified time: 2021-06-07 16:20:19
 * @E-mail: justbefree@126.com
 */
 import { h, withDirectives, vShow, VNode } from "vue";
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
-import VgPopup from "../popup";
-import VgSpin from "../spin";
+import Queen, { mixins, prop, Options } from "../component/Queen";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
+import QPopup from "../popup";
+import QSpin from "../spin";
 class Props {
   modelValue = prop<boolean>({ default: false })
   title = prop<string>({ default: "标题" })
@@ -24,11 +24,11 @@ class Props {
 }
 
 @Options({
-  name: "VgActionSheet",
+  name: "QActionSheet",
   emits: ["update:modelValue", "getselected", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave"]
 })
-export default class VgActionSheet extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgActionSheet";
+export default class QActionSheet extends mixins(Queen).with(Props) {
+  public static componentName = "QActionSheet";
   handleChange(e: boolean): void {
     this.$emit("update:modelValue", e);
   }
@@ -46,8 +46,8 @@ export default class VgActionSheet extends mixins(VueGgy).with(Props) {
     const list = [];
     if (this.loading) {
       list.push(
-        h("li", { class: ["vg-action-sheet-loading-warpper"] }, [
-          h(VgSpin,
+        h("li", { class: ["q-action-sheet-loading-warpper"] }, [
+          h(QSpin,
             {
               class: ["loading"],
               type: this.iconType,
@@ -83,7 +83,7 @@ export default class VgActionSheet extends mixins(VueGgy).with(Props) {
         h(
           "li",
           {
-            class: ["vg-action-sheet-cancel"],
+            class: ["q-action-sheet-cancel"],
             onClick: this.handleCancel
           },
           { default: () => [h("span", {}, { default: () => this.cancelText })] }
@@ -114,8 +114,8 @@ export default class VgActionSheet extends mixins(VueGgy).with(Props) {
     this.handleChange(false);
   }
   render() {
-    return h("div", { class: ["vg-action-sheet"] }, [
-      withDirectives(h(VgPopup,
+    return h("div", { class: ["q-action-sheet"] }, [
+      withDirectives(h(QPopup,
         {
           onInput: this.handleInput,
           onBeforeenter: this.handleBeforeEnter,
@@ -129,8 +129,8 @@ export default class VgActionSheet extends mixins(VueGgy).with(Props) {
         },
         {
           default: () => [
-            h("h3", { class: ["vg-action-sheet-title"] }, { default: () => this.title }),
-            h("ul", { class: ["vg-action-sheet-content"] }, {
+            h("h3", { class: ["q-action-sheet-title"] }, { default: () => this.title }),
+            h("ul", { class: ["q-action-sheet-content"] }, {
               default: () => [this.createList()]
             })
           ]

@@ -2,19 +2,19 @@
 * @Author: Just be free
 * @Date:   2020-10-28 14:38:23
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-04-13 17:09:17
+* @Last Modified time: 2021-06-07 16:31:10
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/VueGgy";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { hyphenate, isPromise, hasOwnProperty } from "../utils";
 import { h, VNode, withDirectives, vShow } from "vue";
-import VgPopup from "../popup";
-import VgButton from "../button";
-import VgIcon from "../icon";
-import VgFlex from "../flex";
-import VgFlexItem from "../flex-item";
-import VgRadiobox from "../radiobox";
-import VgCheckbox from "../checkbox";
+import QPopup from "../popup";
+import QButton from "../button";
+import QIcon from "../icon";
+import QFlex from "../flex";
+import QFlexItem from "../flex-item";
+import QRadiobox from "../radiobox";
+import QCheckbox from "../checkbox";
 export interface StepItemObject {
   label?: string;
   type?: string;
@@ -40,14 +40,14 @@ class Props {
   closeOnClickModal = prop<boolean>({ default: false })
 }
 @Options({
-  name: "VgPickyStepper",
+  name: "QPickyStepper",
   emits: ["update:modelValue", "input", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave", "success"],
   watch: {
     steps: "initData"
   }
 })
-export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
-  public static componentName = "VgPickyStepper";
+export default class QPickyStepper extends mixins(Queen).with(Props) {
+  public static componentName = "QPickyStepper";
   public title = "";
   public caculateSteps = [] as any;
   public currentStep = {} as any;
@@ -121,9 +121,9 @@ export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
       previousNode !== undefined &&
       previousNode !== ""
     ) {
-      return [h(VgIcon,
+      return [h(QIcon,
         {
-          class: ["vg-picky-stepper-back"],
+          class: ["q-picky-stepper-back"],
           name: "back",
           size: 20,
           onClick: this.stepBack
@@ -136,14 +136,14 @@ export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
   createTitle() {
     return h(
       "span",
-      { class: ["vg-picky-stepper-title"] },
+      { class: ["q-picky-stepper-title"] },
       { default: () => this.currentStep.title }
     );
   }
   createClose(): VNode {
-    return h(VgIcon,
+    return h(QIcon,
       {
-        class: ["vg-picky-stepper-close"],
+        class: ["q-picky-stepper-close"],
         name: "close",
         size: 24,
         cursor: "pointer",
@@ -153,7 +153,7 @@ export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
     );
   }
   createHeader(): VNode {
-    return h("div", { class: ["vg-picky-stepper-header"] }, {
+    return h("div", { class: ["q-picky-stepper-header"] }, {
       default: () => [
         ...this.createBack(),
         this.createTitle(),
@@ -169,7 +169,7 @@ export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
   }
   createCustomeElement({ item, step, stepIndex, key, display }: CreateCustomeElementOptions) {
     if (item.type && item.type === "input" && display === "inline") {
-      return h(VgFlexItem, { flex: 1 }, {
+      return h(QFlexItem, { flex: 1 }, {
         default: () => [
           h(
             "input",
@@ -293,7 +293,7 @@ export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
     return h(
       "div",
       {
-        class: ["vg-picky-stepper-content", show ? "show" : "hide"]
+        class: ["q-picky-stepper-content", show ? "show" : "hide"]
       },
       {
         default: () => [
@@ -315,22 +315,22 @@ export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
                   },
                   {
                     default: () => [
-                      h(VgFlex, {}, {
+                      h(QFlex, {}, {
                         default: () => [
-                          h(VgFlexItem, {}, {
+                          h(QFlexItem, {}, {
                             default: () => [
                               step.multiple
-                                ? h(VgCheckbox,
+                                ? h(QCheckbox,
                                     { modelValue: item.checked, size: 20 },
                                     { default: () => [] }
                                   )
-                                : h(VgRadiobox,
+                                : h(QRadiobox,
                                     { modelValue: item.checked, size: 20 },
                                     { default: () => [] }
                                   )
                             ]
                           }),
-                          h(VgFlexItem, {}, {
+                          h(QFlexItem, {}, {
                             default: () => [
                               h("span", { class: ["text"] }, { default: () => item.label }),
                             ]
@@ -382,9 +382,9 @@ export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
     return this.submitLoading || !actived;
   }
   createFooter(): VNode {
-    return h("div", { class: ["vg-picky-stepper-footer"] }, {
+    return h("div", { class: ["q-picky-stepper-footer"] }, {
       default: () => [
-        h(VgButton,
+        h(QButton,
           {
             onClick: this.handleStepConfirm,
             class: ["step-confirm"],
@@ -400,8 +400,8 @@ export default class VgPickyStepper extends mixins(VueGgy).with(Props) {
     });
   }
   render() {
-    return h("div", { class: ["vg-picky-stepper"] }, [
-     withDirectives(h(VgPopup,
+    return h("div", { class: ["q-picky-stepper"] }, [
+     withDirectives(h(QPopup,
         {
           onInput: this.handleInput,
           onBeforeenter: this.handleBeforeEnter,

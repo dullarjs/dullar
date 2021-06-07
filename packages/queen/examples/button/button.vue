@@ -2,17 +2,17 @@
   <div class="button-view">
     <div id="container">
       <ul>
-        <li><vg-button>default text</vg-button></li>
-        <li><vg-button type="primary">primary text</vg-button></li>
-        <li><vg-button disabled>disabled text</vg-button></li>
-        <li><vg-button type="dashed">dashed</vg-button></li>
-        <li><vg-button danger>danger default</vg-button></li>
-        <li><vg-button danger type="primary">danger primary</vg-button></li>
-        <li><vg-button danger type="dashed">danger dashed</vg-button></li>
-        <li><vg-button loading type="primary">Loading</vg-button></li>
-        <li><vg-button @click="handleClick" :loading="loadingStatus" type="primary">Loading</vg-button></li>
-        <li><vg-button loading danger type="default">danger primary</vg-button></li>
-        <li><vg-button textHideWhenLoading loading type="default">default</vg-button></li>
+        <li><q-button>default text</q-button></li>
+        <li><q-button type="primary">primary text</q-button></li>
+        <li><q-button disabled>disabled text</q-button></li>
+        <li><q-button type="dashed">dashed</q-button></li>
+        <li><q-button danger>danger default</q-button></li>
+        <li><q-button danger type="primary">danger primary</q-button></li>
+        <li><q-button danger type="dashed">danger dashed</q-button></li>
+        <li><q-button loading type="primary">Loading</q-button></li>
+        <li><q-button @click="handleClick" :loading="loadingStatus" type="primary">Loading</q-button></li>
+        <li><q-button loading danger type="default">danger primary</q-button></li>
+        <li><q-button textHideWhenLoading loading type="default">default</q-button></li>
       </ul>
     </div>
   </div>
