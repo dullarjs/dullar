@@ -1,6 +1,9 @@
 {
   "name": "@dullar/cube",
   "version": "0.1.9",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "",
   "main": "lib/index.js",
   "typings": "es/index.d.ts",
@@ -29,5 +32,6 @@
       "parser": "@typescript-eslint/parser"
     },
     "rules": {}
-  }
+  },
+  "gitHead": "b678dda6c5380e4273671ac82fe37689a7fe4069"
 }
