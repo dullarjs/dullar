@@ -1,6 +1,6 @@
 {
   "name": "@dullar/cube",
-  "version": "0.0.0",
+  "version": "0.1.9",
   "description": "",
   "main": "lib/index.js",
   "typings": "es/index.d.ts",
