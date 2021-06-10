@@ -1,6 +1,6 @@
 # @dullar/cli
 
-A tools for you to create a webfront template project based on Vue2/Vue3 + TypeScript
+A tools for you to build your web project based on Vue2/3
 
 
 ## Usage
