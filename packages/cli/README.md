@@ -1,11 +1,12 @@
-# `vue-framework`
+# @dullar/cli
 
-> TODO: description
+A tools for you to create a webfront template project based on Vue2/Vue3 + TypeScript
+
 
 ## Usage
 
-```
-const vueFramework = require('vue-framework');
+```js
+npm install @dullar/cli -g
 
-// TODO: DEMONSTRATE API
+dullar-cli --help
 ```
