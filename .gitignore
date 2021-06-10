@@ -1,3 +1,5 @@
 lerna-debug.log
 packages/**/.DS_Store
+packages/queen/lib
+packages/cube/lib
 node_modules
