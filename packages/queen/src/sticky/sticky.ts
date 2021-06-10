@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-09-28 11:18:21
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:35:26
+* @Last Modified time: 2021-06-10 14:49:57
 * @E-mail: justbefree@126.com
 */
 import Queen, { mixins, prop, Options } from "../component/Queen";
-import { hyphenate } from "../utils";
+import { hyphenate } from "@dullar/cube";
 import { getScroller } from "../utils/dom/scroller";
 import { getOffset, getScrollTop } from "../utils/dom";
 import { h, VNode } from "vue";

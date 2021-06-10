@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-11-05 13:44:32
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:30:49
+* @Last Modified time: 2021-06-10 14:50:04
 * @E-mail: justbefree@126.com
 */
 export interface ColumnObject {
@@ -15,7 +15,7 @@ import Queen, { mixins, prop, Options } from "../component/Queen";
 import { EventEmulator, EventCallbackOptions } from "../component/EventEmulator";
 import { deepClone } from "../utils/deep-clone";
 import { getElementsTranslate } from "../utils/dom";
-import { isObject } from "../utils";
+import { isObject } from "@dullar/cube";
 import { h } from "vue";
 const DEFAULT_DURATION = 200;
 const MOMENTUM_LIMIT_TIME = 300;

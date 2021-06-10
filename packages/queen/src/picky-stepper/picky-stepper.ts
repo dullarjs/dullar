@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-10-28 14:38:23
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:31:10
+* @Last Modified time: 2021-06-10 14:50:03
 * @E-mail: justbefree@126.com
 */
 import Queen, { mixins, prop, Options } from "../component/Queen";
-import { hyphenate, isPromise, hasOwnProperty } from "../utils";
+import { hyphenate, isPromise, hasOwnProperty } from "@dullar/cube";
 import { h, VNode, withDirectives, vShow } from "vue";
 import QPopup from "../popup";
 import QButton from "../button";

@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-09-22 15:24:40
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:27:14
+* @Last Modified time: 2021-06-10 14:50:06
 * @E-mail: justbefree@126.com
 */
 import Queen, { mixins, prop, Options } from "../component/Queen";
-import { hyphenate, camelize } from "../utils";
+import { hyphenate, camelize } from "@dullar/cube";
 import { ValidFlexAttribute } from "./types";
 import { h } from "vue";
 class Props {
