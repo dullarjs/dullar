@@ -1,5 +1,5 @@
 {
-  "name": "@dullar/vue-framework",
+  "name": "@dullar/cli",
   "version": "0.1.11",
   "publishConfig": {
     "access": "public"
@@ -14,9 +14,9 @@
   "author": "Just be free <justbefree@126.com>",
   "homepage": "https://github.com/dullarjs/dullar#readme",
   "license": "ISC",
-  "main": "lib/vue-framework.js",
+  "main": "lib/cli.js",
   "bin": {
-    "dullar-vue-framework": "bin/vue-framework"
+    "dullar-cli": "bin/cli"
   },
   "directories": {
     "lib": "lib",
