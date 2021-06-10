@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+process.env.NODE_PATH = __dirname + '/../node_modules/'
+
+const { program } = require('commander');
+const greeting = require("../lib/greeting");
+const docs = require("../lib/docs");
+const ValidTemplate = ["vue"];
+const parseProject = (value, previous) => {
+  if (value === "") {
+    program.help()
+    return;
+  }
+  if (ValidTemplate.indexOf(value) === -1) {
+    throw new Error(`${value} is not a valid option! Valid option is one of [${ValidTemplate.join(',')}]`);
+  }
+  return value;
+}
+program
+  .version(require('../package.json').version)
+  .usage('<command> [options]')
+program
+  .command('list')
+  .description('View all avaliable templates')
+  .alias('l')
+  .action(() => {
+    require('../lib/list')()
+  })
+program
+  .command('docs')
+  .description('View docs online')
+  .alias('d')
+  .action(() => {
+    docs.online();
+  })
+// program
+//   .command('wechat')
+//   .description('Wechat QR code ^_^')
+//   .alias('w')
+//   .action(() => {
+//     greeting.wechat();
+//   })
+program
+  .command('create')
+  .option('-p, --project <value>', `Template type, all supported types [${ValidTemplate}]`, parseProject)
+  .description(`Create a (${ValidTemplate.join(",")}) project!`)
+  .alias('c')
+  .action((env, options) => {
+    if (env.project === "vue") {
+      require('../lib/cli')()
+    }
+  })
+program
+  .parse(process.argv)
+
+if(!program.args.length){
+  program.help()
+}
