@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-09-23 17:32:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 15:54:32
+* @Last Modified time: 2021-06-10 14:50:09
 * @E-mail: justbefree@126.com
 */
 const pkg = require("../../package.json");
@@ -10,7 +10,7 @@ import { Vue, mixins, prop, createDecorator, setup, Options } from "vue-class-co
 import { VNode } from "vue";
 import { EventBus } from "../utils/event/bus";
 import { on, off } from "../utils/event";
-import { throttle } from "../utils";
+import { throttle } from "@dullar/cube";
 export type VisibilityChangeStatus = "hidden" | "visible";
 class Props {}
 export default class Queen extends Vue.with(Props) {

@@ -2,13 +2,13 @@
 * @Author: Just be free
 * @Date:   2020-10-23 16:35:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:32:53
+* @Last Modified time: 2021-06-10 14:50:02
 * @E-mail: justbefree@126.com
 */
 import { h, withDirectives, vShow, VNode, nextTick, Transition } from "vue";
 import Queen, { mixins, prop, Options } from "../component/Queen";
 import { EventEmulator, EventCallbackOptions } from "../component/EventEmulator";
-import { isObject, getCharLength, hasOwnProperty } from "../utils";
+import { isObject, getCharLength, hasOwnProperty } from "@dullar/cube";
 import { preventDefault } from "../utils/event";
 import { getOffset } from "../utils/dom";
 

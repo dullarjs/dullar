@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-10-30 09:51:13
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-11-02 10:41:58
+* @Last Modified time: 2021-06-10 14:52:47
 * @E-mail: justbefree@126.com
 */
 
-import { isDef, isObject } from "../";
+import { isDef, isObject } from "@dullar/cube";
 interface AnyObject {
   [propName: string]: any;
 }

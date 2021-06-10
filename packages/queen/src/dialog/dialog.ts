@@ -2,13 +2,13 @@
 * @Author: Just be free
 * @Date:   2020-09-23 16:16:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:52:56
+* @Last Modified time: 2021-06-10 14:50:08
 * @E-mail: justbefree@126.com
 */
 import Queen, { Options, mixins, prop } from "../component/Queen";
 import { Transition, h, withDirectives, vShow, VNode } from "vue";
 import { addClass } from "../utils/dom";
-import { isPromise } from "../utils";
+import { isPromise } from "@dullar/cube";
 import QButton from "../button";
 class Props {
   beforeOpen?: Function

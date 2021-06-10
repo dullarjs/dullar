@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-09-28 11:18:21
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 18:35:28
+* @Last Modified time: 2021-06-10 14:50:01
 * @E-mail: justbefree@126.com
 */
 import Queen, { mixins, prop, Options } from "../component/Queen";
-import { hyphenate } from "../utils";
+import { hyphenate } from "@dullar/cube";
 import { h, VNode } from "vue";
 // export type SpinType = "snake" | "rotate" | "triple-bounce";
 
