@@ -1,0 +1,33 @@
+{
+  "name": "@dullar/cube",
+  "version": "0.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "typings": "es/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.umd.json"
+  },
+  "keywords": [],
+  "author": "Just be free",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "amd": true,
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser"
+    },
+    "rules": {}
+  }
+}

@@ -1,0 +1,15 @@
+export declare const hasOwnProperty: (obj: any, props: string) => boolean;
+export declare const hyphenate: (str: string) => string;
+export declare const camelize: (str: string) => string;
+export declare const capitalize: (str: string) => string;
+export declare const isString: (value: any) => boolean;
+export declare const isPromise: (obj: any) => boolean;
+export declare const isObject: (value: any) => boolean;
+export declare const isDef: (value: any) => boolean;
+export declare const getCharLength: (str: string) => number;
+export declare const drop: (arr: string[] | string, ele: string[] | string) => void;
+export declare const push: (arr: string[] | string, ele: string[] | string) => void;
+export declare const getProperty: <T extends object, K extends keyof T>(o: T, attr: K) => T[K];
+export declare const setProperty: <T extends object, K extends string, V extends unknown>(o: T, k: K, v: V) => void;
+export declare const isChineseCharacters: (str: string) => boolean;
+export declare const throttle: (callback: Function, delay?: number) => Function;
