@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-11-19 17:56:43
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:21:10
+* @Last Modified time: 2021-06-11 15:08:06
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/Queen";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h, Transition, withDirectives, vShow, VNode } from "vue";
 
 class Props {
@@ -20,7 +20,7 @@ class Props {
     }
   }
 })
-export default class QAnimationListItem extends mixins(VueGgy).with(Props) {
+export default class QAnimationListItem extends mixins(Queen).with(Props) {
   public static componentName = "QAnimationListItem";
   public show = false;
   private entered = false;

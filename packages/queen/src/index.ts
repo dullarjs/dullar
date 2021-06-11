@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-09-22 15:24:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 18:31:49
+* @Last Modified time: 2021-06-11 15:08:03
 * @E-mail: justbefree@126.com
 */
 import { version } from "../package.json";
@@ -47,10 +47,10 @@ import QSubmitBarValue from "./submit-bar-value";
 import QSubmitBarText from "./submit-bar-text";
 import QField from "./field";
 import QDropdown from "./dropdown";
-export interface VueggyConfigOptions {
+export interface QueenConfigOptions {
   [propName: string]: any;
 }
-const configOptions = {} as VueggyConfigOptions;
+const configOptions = {} as QueenConfigOptions;
 const components = [QDropdown, QField, QSubmitBarText, QSubmitBarValue, QSubmitBarPopupContent, QSubmitBar, QSwipeItem, QSwipe, QAnimationListItem, QAnimationList, QTabItem, QTabs, QDatePicker, QPicker, QSkeleton, QPullRefresh, QCounter, QPickyStepper, QActionSheet, QSlider, QCitypicker, QLayout, QCalendar, QSticky, QButton, QFlex, QFlexItem, QSpin, QPopup, QIcon, QCheckbox, QRadiobox, QDialog];
 const install = (app: any, options: any) => {
   components.map(component => {
@@ -67,7 +67,7 @@ const install = (app: any, options: any) => {
   app.config.globalProperties.Indicator = QIndicator;
   app.config.isCustomElement = (tag: string) => tag.startsWith("q-");
 };
-const config = (options: VueggyConfigOptions) => {
+const config = (options: QueenConfigOptions) => {
   Object.keys(options).forEach((attr: string) => {
     configOptions[attr] = options[attr];
   });

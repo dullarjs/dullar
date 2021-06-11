@@ -83,7 +83,7 @@
   const jsCode =
   `
  const data = require("./cities.json").result;
- // import VueGgy from "../../src/component/VueGgy";
+ // import Queen from "../../src/component/Queen";
  export default class Citypicker extends Vue {
    public data = data;
    public picker1 = false;

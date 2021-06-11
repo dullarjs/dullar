@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
-// import VueGgy from "../../src/component/VueGgy";
+// import Queen from "../../src/component/Queen";
 export default class Indicator extends Vue {
   indicator(spinType: string, transparent: boolean) {
     if (spinType === "rotate") {

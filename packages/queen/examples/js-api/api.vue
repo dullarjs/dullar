@@ -17,7 +17,7 @@ import { Vue } from "vue-class-component";
 const examples = [
   `const a = { name: "zhangsan", age: 20, getName() { return this.name; } };
 console.log(a);
-const b = Vueggy.Tools.deepClone(a);
+const b = Queen.Tools.deepClone(a);
 a.name = "张三";
 a.getName = function() {
   return this.name + ",名字被修改了";
@@ -25,21 +25,21 @@ a.getName = function() {
 console.log(a, b);
 console.log(a.getName(), b.getName());`
 ];
-import Vueggy from "@";
+import Queen from "@";
 import { EventBus } from "@/utils/event/bus";
 EventBus.on("testevent", (...args) => {
   console.log("事件返回", ...args);
 });
 EventBus.emit("testevent", "this is the first argument", "this is the second argument");
-console.log("api vueggy", Vueggy.Tools);
+console.log("api Queen", Queen.Tools);
 export default class JSapi extends Vue {
-  public tools = Vueggy.Tools;
+  public tools = Queen.Tools;
   public exampleCode = examples;
   mounted() {
     document.querySelectorAll("pre code").forEach(block => window.Prism.highlightElement(block));
     const a = { name: "zhangsan", age: 20, getName() { return this.name; } };
     console.log(a);
-    const b = Vueggy.Tools.deepClone(a);
+    const b = Queen.Tools.deepClone(a);
     a.name = "张三";
     a.getName = function() {
       return this.name + ",名字被修改了";

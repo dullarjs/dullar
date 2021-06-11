@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
-// import VueGgy from "../../src/component/VueGgy";
+// import Queen from "../../src/component/Queen";
 export default class Tabs extends Vue {
   public active0 = "111111";
   public active = "tab-1";

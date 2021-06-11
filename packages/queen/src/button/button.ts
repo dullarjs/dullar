@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-10-12 15:56:53
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:21:42
+* @Last Modified time: 2021-06-11 15:08:07
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/Queen";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import QIcon from "../icon";
 import { h } from "vue";
 class Props {
@@ -19,7 +19,7 @@ class Props {
 @Options({
   name: "QButton"
 })
-export default class QButton extends mixins(VueGgy).with(Props) {
+export default class QButton extends mixins(Queen).with(Props) {
   public static componentName = "QButton";
   validType(type: string): boolean {
     return ["default", "primary", "dashed"].indexOf(type) > -1;

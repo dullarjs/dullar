@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
-// import VueGgy from "../../src/component/VueGgy";
+// import Queen from "../../src/component/Queen";
 export default class DatePicker extends Vue {
   public show1 = false;
   public show2 = false;

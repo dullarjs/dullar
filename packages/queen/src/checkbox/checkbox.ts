@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-22 15:24:40
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:23:04
+* @Last Modified time: 2021-06-11 15:07:11
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/Queen";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import QIcon from "../icon";
 import { h, computed, ref } from "vue";
 
@@ -18,7 +18,7 @@ class Props {
   emits: ["update:modelValue"],
   name: "QCheckbox"
 })
-export default class QCheckbox extends mixins(VueGgy).with(Props) {
+export default class QCheckbox extends mixins(Queen).with(Props) {
   public static componentName = "QCheckbox";
   public status = ref(this.modelValue).value;
   toggle(): void {

@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-05-06 14:45:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-11-24 09:52:00
+* @Last Modified time: 2021-06-11 15:07:21
 * @E-mail: justbefree@126.com
 */
 process.env.VUE_APP_VERSION = require('./package.json').version;
@@ -44,7 +44,7 @@ module.exports = {
       entry: "examples/main.ts",
       template: "examples/index.html",
       filename: "index.html",
-      title: "Examples for vueggy components"
+      title: "Examples for Queen components"
     }
   }
 };

@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
-// import VueGgy from "../../src/component/VueGgy";
+// import Queen from "../../src/component/Queen";
 const dataList = [];
 for (let i = 0; i < 100; i++) {
   dataList.push(i);

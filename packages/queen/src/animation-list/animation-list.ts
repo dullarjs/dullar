@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-11-19 17:53:44
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:20:40
+* @Last Modified time: 2021-06-11 15:08:04
 * @E-mail: justbefree@126.com
 */
-import VueGgy, { mixins, prop, Options } from "../component/Queen";
+import Queen, { mixins, prop, Options } from "../component/Queen";
 import { h, VNode } from "vue";
 import QFlex from "../flex";
 import QFlexItem from "../flex-item";
@@ -31,7 +31,7 @@ class Props {
     }
   }
 })
-export default class QAnimationList extends mixins(VueGgy).with(Props) {
+export default class QAnimationList extends mixins(Queen).with(Props) {
   public static componentName = "QAnimationList";
   public stackList: VNode[] = [];
   infinite(slots: VNode[]) {
