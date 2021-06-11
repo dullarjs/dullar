@@ -18,17 +18,22 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "types"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dullarjs/dullar.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "tsc",
+    "watch": "tsc -w"
   },
   "bugs": {
     "url": "https://github.com/dullarjs/dullar/issues"
   },
-  "gitHead": "e0435ec19fb70fd1217089d6884a8e3b4aa9e356"
+  "gitHead": "e0435ec19fb70fd1217089d6884a8e3b4aa9e356",
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  }
 }
