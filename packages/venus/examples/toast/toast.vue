@@ -6,6 +6,8 @@
         <li @click="t('bottom', 'bottom')">bottom</li>
         <li @click="t('top', 'top')">top</li>
         <li @click="t('bottom', '提示文案最好控制在十六个字以内')">max length text</li>
+        <li @click="t('middle', 'success', 'success')">success icon</li>
+        <li @click="t('middle', 'fail', 'fail')">fail icon</li>
       </ul>
     </div>
   </div>
@@ -15,8 +17,8 @@
 import { Vue } from "vue-class-component";
 // import Queen from "../../src/component/Queen";
 export default class Toast extends Vue {
-  t(position: string, message: string): void  {
-    this.Toast({ position, message });
+  t(position: string, message: string, type?: string): void  {
+    this.Toast({ position, message, type });
   }
 }
 </script>
