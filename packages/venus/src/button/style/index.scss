@@ -1,0 +1,88 @@
+/*
+* @Author: Just be free
+* @Date:   2020-10-12 15:56:45
+* @Last Modified by:   Just be free
+* @Last Modified time: 2021-06-23 14:07:59
+*/
+.v-button {
+  user-select: none;
+  appearance: none;
+  border-radius: $base-radius;
+  border: 1px solid $border-color;
+  box-sizing: border-box;
+  color: inherit;
+  display: block;
+  outline: 0;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  &.loading {
+    opacity: 0.8;
+  }
+  &.large {
+    width: 100%;
+    height: 44px;
+    font-size: 16px;
+  }
+  &.middle {
+    height: 36px;
+    font-size: 14px;
+    padding: 0 16px;
+  }
+  &.small {
+    height: 28px;
+    font-size: 12px;
+    padding: 0 12px;
+  }
+}
+
+.v-button[disabled] {
+  cursor: not-allowed;
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.v-button-default {
+  color: #161823;
+  background-color: $white;
+  &:active {
+    background-color: #F5F5F5;
+    color: #2E4E7E;
+  }
+  &[disabled] {
+    color: #ccc;
+    background-color: $white;
+  }
+}
+.v-button-primary {
+  background-color: $theme-color;
+  border-color: $theme-color;
+  color: $white;
+  &:active {
+    background-color: #2E4E7E;
+  }
+  &[disabled] {
+    color: $disable-color;
+    background-color: #DADCE0;
+    border-color: #DADCE0;
+  }
+}
+.v-button-loading {
+  img {
+    animation: v-infinite-rotate 0.8s infinite linear;
+    border: 0px solid transparent;
+    border-radius: 50%;
+    margin-right: 5px;
+    // vertical-align: middle;
+  }
+}
+@keyframes v-infinite-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
