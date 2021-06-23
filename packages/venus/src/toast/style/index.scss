@@ -1,0 +1,51 @@
+/*
+* @Author: Just be free
+* @Date:   2020-09-23 16:16:34
+* @Last Modified by:   Just be free
+* @Last Modified time: 2021-06-23 15:05:45
+*/
+
+.v-toast-container {
+  position: fixed;
+  min-width: 120px;
+  max-width: 80%;
+  box-sizing: border-box;
+  text-align: center;
+  color: $white;
+  min-height: 36px;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+  padding: 8px 12px;
+  .toast-text {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+.v-toast-container.located-at-top {
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.v-toast-container.located-at-bottom {
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.v-toast-container.located-at-middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.v-toast-pop-enter-active,
+.v-toast-pop-leave-active {
+  transition: opacity 0.3s ease;
+}
+.v-toast-pop-enter-from,
+.v-toast-pop-leave-active,
+.v-toast-pop-leave-to {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
