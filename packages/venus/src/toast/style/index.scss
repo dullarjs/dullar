@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-09-23 16:16:34
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-23 15:05:45
+* @Last Modified time: 2021-06-23 16:27:34
 */
 
 .v-toast-container {
@@ -22,6 +22,13 @@
     display: block;
     text-align: center;
     font-size: 14px;
+  }
+  &.typed {
+    width: 120px;
+    height: 120px;
+    .toast-icon {
+      margin: 20px 0 5px 0;
+    }
   }
 }
 .v-toast-container.located-at-top {
