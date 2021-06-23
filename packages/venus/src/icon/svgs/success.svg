@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="20px" viewBox="0 0 28 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>success</title>
+    <defs>
+        <path d="M0.298933349,11.865668 C-0.0505502996,11.5167009 -0.10706069,10.9740864 0.200993903,10.5857265 L0.921279236,9.67767338 C1.21652208,9.30546506 1.76880719,9.21198092 2.1591664,9.47252572 L8.39345407,13.6335937 C8.72230785,13.8530867 9.28826605,13.824501 9.59530339,13.5754018 L26.0689057,0.210382046 C26.4391768,-0.0900185707 27.0191822,-0.0644156664 27.3437243,0.259646712 L27.7495085,0.66483122 C28.1026463,1.01744705 28.0769746,1.57718167 27.7067816,1.94682757 L10.0257565,19.6017209 C9.47565344,20.1510109 8.57247136,20.1269781 8.00619486,19.5615385 L0.298933349,11.865668 Z" id="path-1"></path>
+    </defs>
+    <g id="组件/消息反馈" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="移动端-反馈02" transform="translate(-299.000000, -439.000000)">
+            <g id="编组" transform="translate(93.000000, 403.000000)">
+                <g id="轻提示-/-带图标样式-/-成功" transform="translate(160.000000, 0.000000)">
+                    <g id="success" transform="translate(46.000000, 36.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g fill-rule="nonzero"></g>
+                        <g id="color" mask="url(#mask-2)" fill="#FFFFFF">
+                            <g transform="translate(-4.000000, -7.000000)" id="矩形">
+                                <rect x="0" y="0" width="36" height="36"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
