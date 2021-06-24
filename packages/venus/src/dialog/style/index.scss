@@ -1,0 +1,80 @@
+/*
+* @Author: Just be free
+* @Date:   2020-10-13 17:18:37
+* @Last Modified by:   Just be free
+* @Last Modified time: 2021-06-24 17:06:46
+*/
+.v-qdialog-modal {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.v-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  background-color: #fff;
+  width: 85%;
+  border-radius: 10px;
+  font-size: 16px;
+  -webkit-user-select: none;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transition: all 0.2s ease;
+  .v-dialog-title {
+    padding-top: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    color: $text-color;
+  }
+  .v-dialog-content {
+    padding: 20px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 20px;
+    white-space: pre-wrap;
+    text-align: center;
+    word-wrap: break-word;
+    -webkit-overflow-scrolling: touch;
+    color: $text-color;
+  }
+  .v-dialog-buttons {
+    display: flex;
+    height: 45px;
+    .v-dialog-cancel-button,
+    .v-dialog-confirm-button {
+      height: 45px;
+      line-height: 45px;
+      flex: 1;
+      background: #fff;
+      border-radius: 0px;
+      border-bottom: none;
+      &.vertical-line {
+        border-left: none;
+      }
+    }
+    .v-dialog-cancel-button {
+      color: $text-color;
+      border-left: none;
+    }
+    .v-dialog-confirm-button {
+      color: $theme-color;
+      border-right: none;
+    }
+  }
+}
+.v-dialog-bounce-enter-active {
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.7);
+}
+.v-dialog-bounce-leave-active {
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.9);
+}
