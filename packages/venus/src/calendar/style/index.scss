@@ -1,0 +1,120 @@
+/*
+* @Author: Just be free
+* @Date:   2020-10-19 09:51:37
+* @Last Modified by:   Just be free
+* @Last Modified time: 2021-06-24 18:13:02
+*/
+.v-calendar {
+  .v-calendar-content {
+    height: 100%;
+    // width: 98%;
+    margin: 0 auto;
+    .v-calendar-header {
+      user-select: none;
+      .v-calendar-close {
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      .v-calendar-header-title {
+        height: 44px;
+        text-align: center;
+        line-height: 44px;
+        color: $text-color;
+        font-size: 16px;
+      }
+      box-shadow: 0 2px 10px rgba(125, 126, 128, 0.16);
+      .v-calendar-week-bar {
+        height: 44px;
+        line-height: 44px;
+        color: $text-color;
+      }
+    }
+    .v-calendar-body {
+      height: 100%;
+      overflow: auto; /* winphone8和android4+ */
+      -webkit-overflow-scrolling: touch; /* ios5+ */
+      .v-calendar-month {
+        border-bottom: 1px solid $border-color;
+        padding-bottom: 14px;
+        box-sizing: border-box;
+        .v-calendar-month-title {
+          text-align: center;
+          height: 44px;
+          line-height: 44px;
+          font-weight: 500;
+          color: $text-color;
+          margin: 0 5px;
+        }
+        .v-calendar-date {
+          width: calc(100% / 7);
+          text-align: center;
+          // height: 64px;
+          height: 54px;
+          margin: 1px 0;
+          color: $text-color2;
+          .v-calendar-dvte-festival,.q-calendar-date-mark {
+            height: 18px;
+            font-size: 9px;
+            line-height: 18px;
+          }
+          .v-calendar-date-text {
+            height: 18px;
+            line-height: 18px;
+            font-size: 18px;
+          }
+          .v-calendar-date-mark {
+            // font-size: 10px;
+            // height: 18px;
+            // line-height: 18px;
+          }
+        }
+        .v-calendar-date.disable {
+          color: $disable-color;
+          cursor: default;
+        }
+        .v-calendar-date.clickable {
+          cursor: pointer;
+        }
+        .v-calendar-date.active {
+          background: $theme-color;
+          color: $white;
+        }
+        .v-calendar-date.active.single-mode {
+          border-radius: 10%;
+        }
+        .v-calendar-date.start {
+          border-bottom-left-radius: 10%;
+          border-top-left-radius: 10%;
+        }
+        .v-calendar-date.end {
+          border-bottom-right-radius: 10%;
+          border-top-right-radius: 10%;
+        }
+        .v-calendar-date.during-active {
+          background: rgba(0, 122, 255, 0.15);
+          color: $text-color2;
+        }
+      }
+    }
+    .v-calendar-footer {
+      height: 50px;
+      .v-calendar-confirm-button {
+        width: 90%;
+        margin: 0 auto;
+        height: 36px;
+        border-radius: 18px;
+        line-height: 36px;
+        text-align: center;
+        color: $white;
+      }
+      .v-calendar-confirm-button.active {
+        background: $theme-color;
+      }
+      .v-calendar-confirm-button.disable {
+        background: $disable-color;
+      }
+    }
+  }
+}
