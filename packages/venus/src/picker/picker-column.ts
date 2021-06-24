@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-11-05 13:44:32
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 17:45:31
+* @Last Modified time: 2021-06-24 17:53:04
 * @E-mail: justbefree@126.com
 */
 export interface ColumnObject {
@@ -206,7 +206,7 @@ export default class VPickerColumn extends mixins(Queen, EventEmulator).with(Pro
       transitionProperty: this.duration ? "all" : "none",
       lineHeight: `${this.itemHeight}px`
     };
-    return h("div", { class: "q-picker-column", ref: "pickerColumn" }, {
+    return h("div", { class: "v-picker-column", ref: "pickerColumn" }, {
       default: () => [
         h(
           "ul",
