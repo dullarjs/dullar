@@ -7,7 +7,7 @@
   "description": "Lightweight Mobile UI Components built on Vue3",
   "author": "just be free <justbefree@126.com>",
   "scripts": {
-    "build:components": "vue-cli-service build --mode production --target lib --name @dullar/queen --dest lib src/index.ts",
+    "build:components": "vue-cli-service build --mode production --target lib --name @dullar/venus --dest lib src/index.ts",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
