@@ -1,5 +1,6 @@
 lerna-debug.log
 packages/**/.DS_Store
 packages/queen/lib
+packages/venus/lib
 node_modules
 .DS_Store

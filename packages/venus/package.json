@@ -33,7 +33,7 @@
     "sass-loader": "^10.0.2",
     "typescript": "~3.9.3"
   },
-  "main": "lib/@dullar/queen.umd.min.js",
+  "main": "lib/@dullar/venus.umd.min.js",
   "types": "types/index.d.ts",
   "files": [
     "lib",
