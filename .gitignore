@@ -2,3 +2,4 @@ lerna-debug.log
 packages/**/.DS_Store
 packages/queen/lib
 node_modules
+.DS_Store
