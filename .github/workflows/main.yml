@@ -46,6 +46,7 @@ jobs:
 
       - name: Move queen to root docs
         run: |
+          mkdir docs
           mkdir docs/queen
           mv packages/queen/docs/* docs/queen
 
