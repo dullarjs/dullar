@@ -2,13 +2,15 @@
 # @Author: Just be free
 # @Date:   2021-06-29 13:45:56
 # @Last Modified by:   Just be free
-# @Last Modified time: 2021-06-29 15:12:11
+# @Last Modified time: 2021-06-29 15:53:07
 
 
 function build {
   cd packages/$1
   npm run build
+  echo "build success"
   cd ../..
+  rm -rf docs/$1
   mkdir docs/$1
   mv packages/$1/docs/* docs/$1
 }
