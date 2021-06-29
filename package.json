@@ -4,7 +4,8 @@
   "scripts": {
     "publish": "lerna publish",
     "publish:nopush": "lerna publish --no-push",
-    "publish:force": "lerna publish --no-push --force-publish"
+    "publish:force": "lerna publish --no-push --force-publish",
+    "build:ui": "node build/ci.js"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
