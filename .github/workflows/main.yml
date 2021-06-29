@@ -26,12 +26,12 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Install dependences
-        run: npm install
+      # - name: Install dependences
+      #   run: npm install
 
       # Runs a single command using the runners shell
-      - name: Lerna bootstrap
-        run: npm run bootstrap
+      # - name: Lerna bootstrap
+      #   run: npm run bootstrap
 
       # Runs a single command using the runners shell
       # - name: Build UI component examples
@@ -39,6 +39,7 @@ jobs:
       - name: Build queen
         run: |
           cd packages/queen
+          npm install
           npm run build
 
       - name: Move queen to root docs
@@ -49,6 +50,7 @@ jobs:
 
       - name: Build venus
         run: |
+          npm install
           cd packages/venus
           npm run build
 
