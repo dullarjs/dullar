@@ -2,11 +2,12 @@
 # @Author: Just be free
 # @Date:   2021-06-29 13:45:56
 # @Last Modified by:   Just be free
-# @Last Modified time: 2021-06-29 14:33:48
+# @Last Modified time: 2021-06-29 14:43:23
 
 
 function build {
   cd packages/$1
+  npm ci
   npm run build
   cd ../..
   mkdir docs/$1
