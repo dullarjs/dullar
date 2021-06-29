@@ -36,6 +36,7 @@ jobs:
       # Runs a single command using the runners shell
       # - name: Build UI component examples
       #   run: npm run build:ui
+      # https://github.com/vuejs/vue-cli/issues/2866  Questions on why install eslint?
       - name: Build queen
         run: |
           cd packages/queen
