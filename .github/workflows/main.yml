@@ -31,7 +31,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Lerna bootstrap
-        run: leran bootstrap
+        run: npm run bootstrap
 
       # Runs a single command using the runners shell
       - name: Build UI component examples
