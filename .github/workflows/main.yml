@@ -34,5 +34,27 @@ jobs:
         run: npm run bootstrap
 
       # Runs a single command using the runners shell
-      - name: Build UI component examples
-        run: npm run build:ui
+      # - name: Build UI component examples
+      #   run: npm run build:ui
+      - name: Build queen
+        run: |
+          cd packages/queen
+          npm run build
+
+      - name: Move queen to root docs
+        run: |
+          cd ../..
+          mkdir docs/queen
+          mv packages/queen/docs/* docs/queen
+
+      - name: Build venus
+        run: |
+          cd packages/venus
+          npm run build
+
+      - name: Move venus to root docs
+        run: |
+          cd ../..
+          mkdir docs/venus
+          mv packages/venus/docs/* docs/venus
+
