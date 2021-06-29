@@ -29,9 +29,6 @@ jobs:
       - name: Install dependences
         run: npm install
 
-      - name: Install lerna
-        run: npm install lerna -g
-
       # Runs a single command using the runners shell
       - name: Lerna bootstrap
         run: leran bootstrap

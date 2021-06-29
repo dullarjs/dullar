@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "publish": "lerna publish",
     "publish:nopush": "lerna publish --no-push",
     "publish:force": "lerna publish --no-push --force-publish",
