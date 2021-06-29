@@ -27,7 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install dependences
-        run: npm run install
+        run: npm install
 
       # Runs a single command using the runners shell
       - name: Lerna bootstrap
