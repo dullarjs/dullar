@@ -26,5 +26,13 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Build component UI examples
+      - name: Install dependences
+        run: npm run install
+
+      # Runs a single command using the runners shell
+      - name: Lerna bootstrap
+        run: leran bootstrap
+
+      # Runs a single command using the runners shell
+      - name: Build UI component examples
         run: npm run build:ui
