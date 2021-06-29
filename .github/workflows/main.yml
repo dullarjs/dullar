@@ -39,7 +39,7 @@ jobs:
       - name: Build queen
         run: |
           cd packages/queen
-          npm install eslint --save-dev
+          npm install eslint-plugin-vue --save-dev
           npm run build
 
       - name: Move queen to root docs
@@ -51,7 +51,7 @@ jobs:
       - name: Build venus
         run: |
           cd packages/venus
-          npm install eslint --save-dev
+          npm install eslint-plugin-vue --save-dev
           npm run build
 
       - name: Move venus to root docs
