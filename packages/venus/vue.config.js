@@ -2,12 +2,12 @@
 * @Author: Just be free
 * @Date:   2020-05-06 14:45:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-11 15:07:21
+* @Last Modified time: 2021-06-29 18:07:34
 * @E-mail: justbefree@126.com
 */
 process.env.VUE_APP_VERSION = require('./package.json').version;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const publicPath = process.env.NODE_ENV === 'production' ? "/" : "/local/";
+const publicPath = process.env.NODE_ENV === 'production' ? "/venus/" : "/local/";
 module.exports = {
   publicPath,
   outputDir: "docs",
