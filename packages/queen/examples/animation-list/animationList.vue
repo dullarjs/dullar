@@ -2,7 +2,7 @@
   <div class="animation-list-view">
     <div id="container">
       <q-button @click="filter">数组反转</q-button>
-      <q-animation-list :dataList="asyncData" :animation="animation">
+      <q-animation-list>
         <q-animation-list-item v-for="i in asyncData" :key="i.index">
           <!-- <div style="height: 100px;" :class="[i.index % 2 === 0 ? 'hide' : '']">这是第{{i.index}}个元素</div> -->
           <div style="height: 80px;" v-if="i.index === 5">
