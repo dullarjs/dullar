@@ -1,0 +1,40 @@
+@import "../../theme/variable.less";
+.yn-toast-container {
+  position: fixed;
+  min-width: 20px;
+  max-width: 80%;
+  box-sizing: border-box;
+  text-align: center;
+  color: #fff;
+  min-height: 35px;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 1s linear;
+  border-radius: 5px;
+  padding: 10px;
+  .toast-text {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+.yn-toast-container.located-at-bottom {
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.yn-toast-container.located-at-middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.yn-toast-pop-enter-active,
+.yn-toast-pop-leave-active {
+  transition: opacity 0.3s linear;
+}
+.yn-toast-pop-enter,
+.yn-toast-pop-leave-active,
+.yn-toast-pop-leave-to {
+  transition: opacity 0.3s linear;
+  opacity: 0;
+}

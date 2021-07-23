@@ -1,0 +1,138 @@
+{
+  "name": "@dullar/mercury",
+  "version": "0.1.23",
+  "description": "Advanced and highly reusable Mobile UI Components built on Vue2 & You can define your own UI library by yourself.",
+  "keywords": [
+    "Vue2",
+    "@dullar/mercury"
+  ],
+  "author": "Just be free <justbefree@126.com>",
+  "homepage": "https://github.com/dullarjs/dullar#readme",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dullarjs/dullar.git"
+  },
+  "scripts": {
+    "build:components": "node bin/serve && vue-cli-service build --mode production --target lib --name @dullar/mercury --dest lib src/index.js",
+    "serve": "node bin/serve && vue-cli-service serve --mode development",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,vue,ts,less,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "main": "lib/@dullar/mercury.umd.min.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "lib/*.js",
+    "types/*.d.ts"
+  ],
+  "dependencies": {
+    "core-js": "^3.6.4",
+    "moment": "^2.25.3",
+    "vue": "^2.6.10",
+    "vue-router": "^3.1.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.3.0",
+    "@vue/cli-plugin-eslint": "~4.3.0",
+    "@vue/cli-plugin-unit-jest": "^4.5.10",
+    "@vue/cli-service": "~4.3.0",
+    "@vue/test-utils": "^1.0.3",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-import": "^1.13.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "husky": "^4.2.5",
+    "less": "^3.11.1",
+    "less-loader": "^6.0.0",
+    "lint-staged": "^10.2.7",
+    "mini-css-extract-plugin": "^0.9.0",
+    "prettier": "^2.0.5",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {},
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "bugs": {
+    "url": "https://github.com/dullarjs/dullar/issues"
+  }
+}

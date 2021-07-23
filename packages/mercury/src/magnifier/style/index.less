@@ -1,0 +1,112 @@
+.yn-magnifier {
+  width: 400px;
+  height: 489px;
+  border: 1px solid #ccc;
+  .preview {
+    width: 398px;
+    height: 398px;
+    position: relative;
+    text-align: center;
+    a {
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+      width: auto;
+      height: auto;
+      &:hover {
+        cursor: crosshair;
+      }
+      img {
+        max-width: 398px;
+        max-height: 398px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .crosshair {
+        position: absolute;
+        background: url("../imgs/zoom-point.png") repeat repeat;
+        top: 0;
+        left: 0;
+        &.hide {
+          display: none;
+        }
+      }
+    }
+    .magnifier-preview {
+      position: absolute;
+      transition: all ease;
+      left: calc(100% + 10px);
+      top: 0;
+      opacity: 1;
+    }
+  }
+  .preview-list-wrap {
+    margin-top: 15px;
+    .prev-button,
+    .next-button {
+      width: 32px;
+      height: 32px;
+      background: #000;
+      display: inline-block;
+    }
+    .list-box {
+      width: 320px;
+      height: 60px;
+      overflow: hidden;
+      display: inline-block;
+      ul {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        transition: all ease 500ms;
+        li {
+          width: 58px;
+          height: 58px;
+          margin-right: 5px;
+          display: inline-block;
+          border: 1px solid #000;
+          &:hover {
+            border-color: red;
+          }
+          a {
+            display: inline-block;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .yn-popup {
+    background: transparent;
+    // pointer-events: none;
+  }
+  .zoom-image {
+    user-select: none;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    text-align: center;
+    a {
+      transition: all ease 0.5s;
+      display: inline-block;
+      img {
+        transition: all ease 0.5s;
+        &.hide {
+          display: none;
+        }
+        // margin: 0 auto;
+        height: 100%;
+        width: auto;
+        display: block;
+      }
+    }
+  }
+}
+
+.magnifier-fade-enter,
+.magnifier-fade-leave-active {
+  opacity: 0;
+}

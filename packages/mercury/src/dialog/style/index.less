@@ -1,0 +1,69 @@
+@import "../../theme/variable.less";
+.v-yndialog-modal {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.yn-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  background-color: #fff;
+  width: 85%;
+  border-radius: 10px;
+  font-size: 16px;
+  -webkit-user-select: none;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transition: all 0.2s ease;
+  .yn-dialog-title {
+    padding-top: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    color: @text-color;
+  }
+  .yn-dialog-content {
+    padding: 20px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 20px;
+    white-space: pre-wrap;
+    text-align: center;
+    word-wrap: break-word;
+    -webkit-overflow-scrolling: touch;
+    color: @text-color;
+  }
+  .yn-dialog-buttons {
+    display: flex;
+    height: 45px;
+    .yn-dialog-cancel-button,
+    .yn-dialog-confirm-button {
+      height: 45px;
+      line-height: 45px;
+      flex: 1;
+      background: #fff;
+      border-radius: 0px;
+    }
+    .yn-dialog-cancel-button {
+      color: @text-color;
+    }
+    .yn-dialog-confirm-button {
+      color: @theme-color;
+    }
+  }
+}
+.yn-dialog-bounce-enter {
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.7);
+}
+.yn-dialog-bounce-leave-active {
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.9);
+}
