@@ -72,7 +72,6 @@ jobs:
 
       - name: Move mercury to root docs
         run: |
-          mkdir docs
           mkdir docs/mercury
           mv packages/mercury/docs/* docs/mercury
 
