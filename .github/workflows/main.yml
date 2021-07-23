@@ -64,6 +64,18 @@ jobs:
           mkdir docs/venus
           mv packages/venus/docs/* docs/venus
 
+      - name: Build mercury
+        run: |
+          cd packages/mercury
+          npm install
+          npm run build
+
+      - name: Move mercury to root docs
+        run: |
+          mkdir docs
+          mkdir docs/mercury
+          mv packages/mercury/docs/* docs/mercury
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
