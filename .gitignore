@@ -4,6 +4,8 @@ packages/queen/lib
 packages/queen/docs
 packages/venus/lib
 packages/venus/docs
+packages/mercury/lib
+packages/mercury/docs
 node_modules
 .DS_Store
 docs/queen
