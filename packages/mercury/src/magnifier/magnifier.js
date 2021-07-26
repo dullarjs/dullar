@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-23 15:24:58
+ * @Last Modified time: 2021-07-26 17:02:31
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -11,11 +11,12 @@ import { getOffset } from "../modules/dom";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 import Popup from "../popup";
+import Iconfont from "../iconfont";
 const VIEWBOX_WIDTH = 400;
 const VIEWBOX_HEIGHT = 529;
 export default defineComponent({
   name: "Magnifier",
-  components: { Flex, FlexItem, Popup },
+  components: { Flex, FlexItem, Popup, Iconfont },
   props: {
     images: Array,
     zoom: {
@@ -227,7 +228,21 @@ export default defineComponent({
                   },
                   class: ["prev-button", this.steps === 0 ? "disabled" : ""],
                 },
-                []
+                [
+                  h(
+                    genComponentName("iconfont"),
+                    {
+                      class: [],
+                      props: {
+                        name: `magnifier-left-arrow${
+                          this.steps === 0 ? "" : "-active"
+                        }`,
+                        size: 16,
+                      },
+                    },
+                    []
+                  ),
+                ]
               ),
             ]),
             h(genComponentName("flex-item"), {}, [
@@ -240,6 +255,7 @@ export default defineComponent({
                       "li",
                       {
                         attrs: { dataIndex: index },
+                        class: [index === this.previewIndex ? "selected" : ""],
                         on: {
                           mouseenter: this.handlePreviewMouseEnter.bind(
                             this,
@@ -276,7 +292,21 @@ export default defineComponent({
                     5 - this.steps === this.images.length ? "disabled" : "",
                   ],
                 },
-                []
+                [
+                  h(
+                    genComponentName("iconfont"),
+                    {
+                      class: [],
+                      props: {
+                        name: `magnifier-right-arrow${
+                          5 - this.steps === this.images.length ? "" : "-active"
+                        }`,
+                        size: 16,
+                      },
+                    },
+                    []
+                  ),
+                ]
               ),
             ]),
           ]

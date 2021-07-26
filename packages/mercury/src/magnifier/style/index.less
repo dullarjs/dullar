@@ -46,8 +46,10 @@
     .next-button {
       width: 32px;
       height: 32px;
-      background: #000;
       display: inline-block;
+      text-align: center;
+      line-height: 32px;
+      margin-top: 16px;
     }
     .list-box {
       width: 320px;
@@ -65,8 +67,8 @@
           height: 58px;
           margin-right: 5px;
           display: inline-block;
-          border: 1px solid #000;
-          &:hover {
+          border: 1px solid transparent;
+          &.selected {
             border-color: red;
           }
           a {
