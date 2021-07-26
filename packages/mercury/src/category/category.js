@@ -2,13 +2,15 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-21 14:27:32
+ * @Last Modified time: 2021-07-26 14:30:04
  * @E-mail: justbefree@126.com
  */
-import { defineComponent } from "../modules/component";
-// genComponentName
+import { defineComponent, genComponentName } from "../modules/component";
+import Iconfont from "../iconfont";
+
 export default defineComponent({
   name: "Category",
+  components: { Iconfont },
   props: {
     categories: Array,
   },
@@ -22,7 +24,7 @@ export default defineComponent({
       this.currentCategory = index;
     },
     handleMouseLeave() {
-      this.currentCategory = -1;
+      // this.currentCategory = -1;
     },
   },
   render(h) {
@@ -52,7 +54,17 @@ export default defineComponent({
                 },
                 Array.apply(null, cate.sub).map((sub) => {
                   return h("dl", { class: [] }, [
-                    h("dt", {}, sub.label),
+                    h("dt", {}, [
+                      h("span", {}, sub.label),
+                      h(
+                        genComponentName("iconfont"),
+                        {
+                          class: ["yn-calendar-close"],
+                          props: { name: "right-arrow", size: 12 },
+                        },
+                        []
+                      ),
+                    ]),
                     h(
                       "dd",
                       {},
