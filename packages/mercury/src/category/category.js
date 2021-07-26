@@ -2,12 +2,13 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-26 14:58:39
+ * @Last Modified time: 2021-07-26 15:28:32
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
+import { stopPropagation } from "../modules/event";
 import Iconfont from "../iconfont";
-
+let timer = null;
 export default defineComponent({
   name: "Category",
   components: { Iconfont },
@@ -21,9 +22,19 @@ export default defineComponent({
   },
   methods: {
     handleMouseEnter(index) {
+      clearTimeout(timer);
       this.currentCategory = index;
     },
     handleMouseLeave() {
+      timer = setTimeout(() => {
+        this.currentCategory = -1;
+      }, 500);
+    },
+    handlePanelMouseEnter(e) {
+      clearTimeout(timer);
+      stopPropagation(e);
+    },
+    handlePanelMouseLeave() {
       this.currentCategory = -1;
     },
   },
@@ -47,6 +58,10 @@ export default defineComponent({
               h(
                 "div",
                 {
+                  on: {
+                    mouseenter: this.handlePanelMouseEnter.bind(this),
+                    mouseleave: this.handlePanelMouseLeave.bind(this),
+                  },
                   class: [
                     "result-panel",
                     this.currentCategory === index ? "" : "hide",
