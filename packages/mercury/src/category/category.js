@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-26 15:28:32
+ * @Last Modified time: 2021-07-26 17:04:58
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -74,7 +74,7 @@ export default defineComponent({
                       h(
                         genComponentName("iconfont"),
                         {
-                          class: ["yn-calendar-close"],
+                          class: [],
                           props: { name: "right-arrow", size: 12 },
                         },
                         []
