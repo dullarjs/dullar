@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-21 14:33:03
+ * @Last Modified time: 2021-07-29 13:48:50
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -39,6 +39,7 @@ import Skeleton from "./skeleton/skeleton.vue";
 import AnimationList from "./animation-list/list.vue";
 import Category from "./category/category.vue";
 import Magnifier from "./magnifier/magnifier.vue";
+import ShippingAddress from "./shipping-address/shippingAddress.vue";
 const router = new Router({
   routes: [
     {
@@ -200,6 +201,11 @@ const router = new Router({
       path: "/magnifier",
       name: "magnifier",
       component: Magnifier
+    },
+    {
+      path: "/shipping-address",
+      name: "shippingAddress",
+      component: ShippingAddress
     }
   ]
 });

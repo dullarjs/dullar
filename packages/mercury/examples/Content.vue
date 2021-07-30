@@ -32,6 +32,7 @@
         <li @click="jump('animationList')">animationList</li>
         <li @click="jump('category')">category</li>
         <li @click="jump('magnifier')">magnifier</li>
+        <li @click="jump('shippingAddress')">shippingAddress</li>
       </ul>
   </div>
 </template>
