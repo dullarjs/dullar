@@ -1,9 +1,9 @@
 /*
- * @Author: Just be free
- * @Date:   2020-05-13 17:29:33
- * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-15 10:09:40
- * @E-mail: justbefree@126.com
+ * @Author: yegl
+ * @Date: 2021-08-02 09:17:29
+ * @Last Modified by: yegl
+ * @Last Modified time: 2021-08-02 18:14:27
+ * @E-mail: yglgzyx@126.com
  */
 import { install } from "../modules/component";
 import YnCategorySelect from "./category-select";

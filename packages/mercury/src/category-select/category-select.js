@@ -1,9 +1,9 @@
 /*
- * @Author: Just be free
- * @Date:   2020-04-21 14:25:00
- * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-14 18:49:45
- * @E-mail: justbefree@126.com
+ * @Author: yegl
+ * @Date: 2021-08-02 09:17:29
+ * @Last Modified by: yegl
+ * @Last Modified time: 2021-08-02 18:14:17
+ * @E-mail: yglgzyx@126.com
  */
 import { defineComponent } from "../modules/component";
 export default defineComponent({
@@ -48,6 +48,9 @@ export default defineComponent({
       this.categories.forEach((category, index) => {
         const key = index;
         const selected = category.selected || false;
+        if (this.selected === -1 && selected) {
+          this.selected = key;
+        }
         const className = selected ? "current" : "";
         list.push(
           h(
