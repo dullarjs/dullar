@@ -11,6 +11,7 @@ import AnimationListItem from "./animation-list-item";
 import Button from "./button";
 import Calendar from "./calendar";
 import Category from "./category";
+import CategorySelect from "./category-select";
 import Checkbox from "./checkbox";
 import CityPicker from "./city-picker";
 import Counter from "./counter";
@@ -53,6 +54,7 @@ const components = [
   Button,
   Calendar,
   Category,
+  CategorySelect,
   Checkbox,
   CityPicker,
   Counter,
@@ -135,6 +137,7 @@ export { AnimationListItem as YnAnimationListItem };
 export { Button as YnButton };
 export { Calendar as YnCalendar };
 export { Category as YnCategory };
+export { CategorySelect as YnCategorySelect };
 export { Checkbox as YnCheckbox };
 export { CityPicker as YnCityPicker };
 export { Counter as YnCounter };

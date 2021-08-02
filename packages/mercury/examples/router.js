@@ -39,6 +39,7 @@ import Skeleton from "./skeleton/skeleton.vue";
 import AnimationList from "./animation-list/list.vue";
 import Category from "./category/category.vue";
 import Magnifier from "./magnifier/magnifier.vue";
+import CategorySelect from "./category-select/categorySelect.vue";
 const router = new Router({
   routes: [
     {
@@ -200,6 +201,12 @@ const router = new Router({
       path: "/magnifier",
       name: "magnifier",
       component: Magnifier
+    }
+    ,
+    {
+      path: "/category-select",
+      name: "categorySelect",
+      component: CategorySelect
     }
   ]
 });
