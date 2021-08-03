@@ -43,6 +43,7 @@ import { YnSwipe } from "./swipe";
 import { YnSwipeItem } from "./swipe-item";
 import { YnTabs } from "./tabs";
 import { YnTabItem } from "./tab-item";
+import { YnCategorySelect } from "./category-select";
 export {
   Toast,
   Indicator,
@@ -78,7 +79,8 @@ export {
   YnSwipe,
   YnSwipeItem,
   YnTabs,
-  YnTabItem
+  YnTabItem,
+  YnCategorySelect
 };
 export function install(vue: typeof Vue): void;
 export function config(options: any): void;
