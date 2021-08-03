@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-27 13:32:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-30 14:08:08
+ * @Last Modified time: 2021-08-02 15:01:27
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -90,14 +90,41 @@ export default defineComponent({
     handleItemClick(option) {
       console.log(option);
       if (option.region_type === "1") {
+        if (this.provinces === option.region_name) {
+          this.currentTab = "";
+          return;
+        }
         this.provinces = option.region_name;
+        this.cities = "请选择";
+        this.citiesArr = [];
+        this.districts = "请选择";
+        this.districtsArr = [];
+        this.streets = "请选择";
+        this.streetsArr = [];
         this.getCities(option.region_id);
+        this.currentTab = "cities";
       } else if (option.region_type === "2") {
+        if (this.cities === option.region_name) {
+          this.currentTab = "";
+          return;
+        }
+        this.districts = "请选择";
+        this.districtsArr = [];
+        this.streets = "请选择";
+        this.streetsArr = [];
         this.cities = option.region_name;
         this.getDistricts(option.region_id);
+        this.currentTab = "districts";
       } else if (option.region_type === "3") {
+        if (this.districts === option.region_name) {
+          this.currentTab = "";
+          return;
+        }
+        this.streets = "请选择";
+        this.streetsArr = [];
         this.districts = option.region_name;
         this.getStreets(option.region_id);
+        this.currentTab = "streets";
       } else if (option.region_type === "4") {
         this.streets = option.region_name;
         this.currentTab = "";
@@ -105,8 +132,6 @@ export default defineComponent({
     },
   },
   render(h) {
-    // console.log("dddd", this.processedSources.provinces);
-    // console.log(Object.keys(this.processedSources));
     return h("div", { class: ["yn-shipping-address"] }, [
       h("div", { class: ["address-selection"] }, [
         h("ul", {}, [
