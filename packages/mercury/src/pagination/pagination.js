@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-05 07:45:55
+ * @Last Modified time: 2021-08-05 09:10:46
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -343,10 +343,13 @@ export default defineComponent({
       this.init();
     },
     jumpToPage(e) {
-      this.toPage("jump", parseInt(e.target.value));
+      e.target.value && this.toPage("jump", parseInt(e.target.value));
     },
     enterToPage(e) {
-      e.keyCode === 13 && this.toPage("jump", parseInt(e.target.value));
+      e.target.value = e.target.value.replace(/[^\d]/g, "");
+      e.keyCode === 13 &&
+        e.target.value &&
+        this.toPage("jump", parseInt(e.target.value));
     },
   },
   render(h) {
