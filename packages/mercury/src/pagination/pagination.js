@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-05 09:10:46
+ * @Last Modified time: 2021-08-05 09:38:05
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -318,6 +318,7 @@ export default defineComponent({
     setPageSize(pageSize) {
       this.pageSize = pageSize;
       this.page = 1;
+      this.$emit("pageSizeChange", pageSize);
       this.init();
     },
     toPage(type, toPage) {
@@ -340,6 +341,7 @@ export default defineComponent({
           }
           break;
       }
+      this.$emit("pageChange", this.page);
       this.init();
     },
     jumpToPage(e) {

@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-02 18:49:02
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-05 07:17:50
+ * @Last Modified time: 2021-08-05 09:39:49
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -80,11 +80,11 @@ export default {
         };
     },
     methods: {
-        handlePageSizeChange(e) {
-            console.log(e);
+        handlePageSizeChange(pageSize) {
+            console.log(pageSize);
         },
-        handlePageChange(e) {
-            console.log(e);
+        handlePageChange(page) {
+            console.log(page);
         }
     }
     };
