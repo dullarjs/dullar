@@ -28,6 +28,7 @@ import Iconfont from "./iconfont";
 import Indicator from "./indicator";
 import Layout from "./layout";
 import Magnifier from "./magnifier";
+import Pagination from "./pagination";
 import Picker from "./picker";
 import PickyStepper from "./picky-stepper";
 import Popup from "./popup";
@@ -71,6 +72,7 @@ const components = [
   Indicator,
   Layout,
   Magnifier,
+  Pagination,
   Picker,
   PickyStepper,
   Popup,
@@ -154,6 +156,7 @@ export { Iconfont as YnIconfont };
 export { Indicator as YnIndicator };
 export { Layout as YnLayout };
 export { Magnifier as YnMagnifier };
+export { Pagination as YnPagination };
 export { Picker as YnPicker };
 export { PickyStepper as YnPickyStepper };
 export { Popup as YnPopup };

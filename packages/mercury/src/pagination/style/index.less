@@ -1,0 +1,139 @@
+.yn-pagination {
+  height: 30px;
+  padding: 5px 0;
+  font-size: 12px;
+  color: @text-color2;
+  -moz-user-select: none; /*火狐*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -ms-user-select: none; /*IE10*/
+  -khtml-user-select: none; /*早期浏览器*/
+  user-select: none;
+  min-width: 400px;
+  max-width: 800px;
+  padding: 10px 20px;
+  width: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  .yn-pagination-content {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #000000d9;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: "tnum";
+    .yn-pagination-button {
+      display: inline-block;
+      min-width: 32px;
+      height: 32px;
+      color: #000000d9;
+      line-height: 32px;
+      text-align: center;
+      vertical-align: middle;
+      list-style: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid #d9d9d9;
+      margin-right: 8px;
+    }
+    .yn-pagination-button:hover {
+      border: 1px solid @theme-color;
+      color: @theme-color;
+    }
+    .yn-pagination-item-ellipsis {
+      display: inline-block;
+      min-width: 32px;
+      height: 32px;
+      color: #00000040;
+      line-height: 32px;
+      text-align: center;
+      vertical-align: middle;
+      list-style: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-right: 8px;
+      border: none;
+    }
+    .active {
+      font-weight: 500;
+      background: #fff;
+      border-color: @theme-color;
+      color: @theme-color;
+    }
+    .yn-pagination-item-padding-5 {
+      padding: 0 5px;
+    }
+    .yn-pagination-selection {
+      position: relative;
+      width: 95px;
+      padding: 0;
+      .yn-pagination-selection-item {
+        margin-left: 10px;
+        color: #000000d9 !important;
+        > i {
+          margin-left: 5px;
+        }
+      }
+      .yn-pagination-selection-list {
+        position: absolute;
+        color: #000000d9 !important;
+        top: 38px;
+        width: 100%;
+        border: 1px solid #d9d9d9;
+        display: none;
+        z-index: 9999;
+        background-color: white;
+        > span {
+          height: 30px;
+          line-height: 30px;
+          padding: 0;
+          margin: 0;
+          display: inline-block;
+          width: 100%;
+        }
+        & :hover {
+          background-color: @background-color;
+        }
+        .selected {
+          background-color: #e7f5fd;
+        }
+      }
+      .yn-pagination-selection-mark {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        height: 20px;
+        display: block;
+        z-index: -1px;
+        background-color: transparent;
+      }
+    }
+    .yn-pagination-quick-jumper {
+      border: none !important;
+      color: #000000d9 !important;
+      > input {
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        min-width: 0;
+        padding: 4px 11px;
+        color: #000000d9;
+        font-size: 14px;
+        line-height: 1.5715;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #d9d9d9;
+        border-radius: 2px;
+        transition: all 0.3s;
+        width: 50px;
+        height: 34px;
+        margin: -1px 8px;
+        outline: 0;
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 /*
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
- * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-21 14:33:03
+ * @Last Modified by:   yegl
+ * @Last Modified time: 2021-08-04 10:12:47
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -40,6 +40,7 @@ import AnimationList from "./animation-list/list.vue";
 import Category from "./category/category.vue";
 import Magnifier from "./magnifier/magnifier.vue";
 import CategorySelect from "./category-select/categorySelect.vue";
+import Pagination from "./pagination/pagination.vue";
 const router = new Router({
   routes: [
     {
@@ -201,12 +202,16 @@ const router = new Router({
       path: "/magnifier",
       name: "magnifier",
       component: Magnifier
-    }
-    ,
+    },
     {
       path: "/category-select",
       name: "categorySelect",
       component: CategorySelect
+    },
+    {
+      path: "/pagination",
+      name: "pagination",
+      component: Pagination
     }
   ]
 });
