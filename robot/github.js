@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-08-03 09:56:19
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-08-06 18:58:25
+* @Last Modified time: 2021-08-06 19:12:42
 * @E-mail: justbefree@126.com
 */
 const axios = require("axios");
@@ -32,5 +32,5 @@ const send = (content = "") => {
   });
 }
 
-send(`${title} ${link}`);
+send();
 
