@@ -2,16 +2,13 @@
  * @Author: Just be free
  * @Date:   2021-07-27 13:32:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-02 15:01:27
+ * @Last Modified time: 2021-08-06 18:26:27
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
-// import Tabs from "../tabs";
-// import TabItem from "../tab-item";
 // genComponentName
 export default defineComponent({
   name: "ShippingAddress",
-  // components: { Tabs, TabItem },
   props: {
     sources: Array,
   },
@@ -20,11 +17,11 @@ export default defineComponent({
       currentTab: "",
       provinces: "请选择",
       provincesArr: [],
-      cities: "请选择",
+      cities: "",
       citiesArr: [],
-      districts: "请选择",
+      districts: "",
       districtsArr: [],
-      streets: "请选择",
+      streets: "",
       streetsArr: [],
     };
   },
@@ -61,69 +58,66 @@ export default defineComponent({
       if (tab === "provinces") {
         this.provincesArr = this.processedSources.provinces;
       }
-      console.log("tab", tab);
     },
-    getCities(parentId) {
-      this.citiesArr = [];
-      this.processedSources.cities.forEach((city) => {
-        if (city.parent_id === parentId) {
-          this.citiesArr.push(city);
+    getData(parentId, attr) {
+      this[`${attr}Arr`] = [];
+      this.processedSources[attr].forEach((area) => {
+        if (area.parent_id === parentId) {
+          this[`${attr}Arr`].push(area);
         }
       });
     },
-    getDistricts(parentId) {
-      this.districtsArr = [];
-      this.processedSources.districts.forEach((district) => {
-        if (district.parent_id === parentId) {
-          this.districtsArr.push(district);
-        }
-      });
-    },
-    getStreets(parentId) {
-      this.streetsArr = [];
-      this.processedSources.streets.forEach((street) => {
-        if (street.parent_id === parentId) {
-          this.streetsArr.push(street);
-        }
-      });
+    clearTab(index = -1) {
+      const arr = Object.keys(this.processedSources);
+      if (index > -1) {
+        arr.forEach((a, i) => {
+          if (i >= index) {
+            this[a] = "";
+          }
+        });
+      }
     },
     handleItemClick(option) {
-      console.log(option);
       if (option.region_type === "1") {
         if (this.provinces === option.region_name) {
           this.currentTab = "";
           return;
         }
+        this.clearTab(parseInt(option.region_type) - 1);
         this.provinces = option.region_name;
-        this.cities = "请选择";
         this.citiesArr = [];
-        this.districts = "请选择";
-        this.districtsArr = [];
-        this.streets = "请选择";
-        this.streetsArr = [];
-        this.getCities(option.region_id);
+        this.getData(option.region_id, "cities");
+        if (this.citiesArr.length > 0) {
+          this.cities = "请选择";
+        }
         this.currentTab = "cities";
       } else if (option.region_type === "2") {
         if (this.cities === option.region_name) {
           this.currentTab = "";
           return;
         }
-        this.districts = "请选择";
-        this.districtsArr = [];
-        this.streets = "请选择";
-        this.streetsArr = [];
+        this.clearTab(parseInt(option.region_type) - 1);
         this.cities = option.region_name;
-        this.getDistricts(option.region_id);
+        this.districtsArr = [];
+        this.getData(option.region_id, "districts");
+        if (this.districtsArr.length > 0) {
+          this.districts = "请选择";
+        }
         this.currentTab = "districts";
       } else if (option.region_type === "3") {
         if (this.districts === option.region_name) {
           this.currentTab = "";
           return;
         }
-        this.streets = "请选择";
-        this.streetsArr = [];
+        this.clearTab(parseInt(option.region_type) - 1);
         this.districts = option.region_name;
-        this.getStreets(option.region_id);
+        this.streetsArr = [];
+        this.getData(option.region_id, "streets");
+        if (this.streetsArr.length > 0) {
+          this.streets = "请选择";
+        } else {
+          this.streets = "";
+        }
         this.currentTab = "streets";
       } else if (option.region_type === "4") {
         this.streets = option.region_name;
@@ -139,7 +133,10 @@ export default defineComponent({
             (attr, index) => {
               return h(
                 "li",
-                { attrs: { "data-index": index, "data-name": attr } },
+                {
+                  attrs: { "data-index": index, "data-name": attr },
+                  class: [index !== 0 && this[attr] === "" ? "hide" : ""],
+                },
                 [
                   h(
                     "span",
