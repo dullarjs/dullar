@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-06 18:29:37
+ * @Last Modified time: 2021-08-06 18:44:52
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -34,12 +34,9 @@ import Skeleton from "./skeleton/skeleton.vue";
 import AnimationList from "./animation-list/list.vue";
 import Category from "./category/category.vue";
 import Magnifier from "./magnifier/magnifier.vue";
-<<<<<<< HEAD
 import CategorySelect from "./category-select/categorySelect.vue";
 import Pagination from "./pagination/pagination.vue";
-=======
 import ShippingAddress from "./shipping-address/shippingAddress.vue";
->>>>>>> shiping-address
 const router = new Router({
   routes: [
     {
