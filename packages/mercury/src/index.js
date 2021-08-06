@@ -29,6 +29,7 @@ import PickyStepper from "./picky-stepper";
 import Popup from "./popup";
 import PullRefresh from "./pull-refresh";
 import Radiobox from "./radiobox";
+import ShippingAddress from "./shipping-address";
 import Skeleton from "./skeleton";
 import Slider from "./slider";
 import Spin from "./spin";
@@ -64,6 +65,7 @@ const components = [
   Popup,
   PullRefresh,
   Radiobox,
+  ShippingAddress,
   Skeleton,
   Slider,
   Spin,
@@ -139,6 +141,7 @@ export { PickyStepper as YnPickyStepper };
 export { Popup as YnPopup };
 export { PullRefresh as YnPullRefresh };
 export { Radiobox as YnRadiobox };
+export { ShippingAddress as YnShippingAddress };
 export { Skeleton as YnSkeleton };
 export { Slider as YnSlider };
 export { Spin as YnSpin };

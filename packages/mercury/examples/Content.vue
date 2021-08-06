@@ -30,6 +30,7 @@
         <li @click="jump('magnifier')">magnifier</li>
         <li @click="jump('categorySelect')">categorySelect</li>
         <li @click="jump('pagination')">pagination</li>
+        <li @click="jump('shippingAddress')">shippingAddress</li>
       </ul>
   </div>
 </template>
