@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-12-18 16:15:42
+ * @Last Modified time: 2021-08-12 16:21:39
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -129,6 +129,9 @@ export default defineComponent({
         return false;
       }
     },
+    handleKeydown(e) {
+      this.$emit("keydown", e);
+    },
     createInput(h) {
       const maxlength = this.maxlength ? Number(this.maxlength) : null;
       const area = [];
@@ -155,6 +158,7 @@ export default defineComponent({
         focus: this.handleOnFocus,
         blur: this.handleOnBlur,
         input: this.handleInput,
+        keydown: this.handleKeydown,
       };
       const className = [];
       if (this.disabled) {
