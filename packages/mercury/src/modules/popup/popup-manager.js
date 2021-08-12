@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-25 14:19:11
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-12 15:39:38
+ * @Last Modified time: 2021-08-11 14:29:44
  */
 class PopuoManager {
   constructor() {
@@ -47,9 +47,7 @@ class PopuoManager {
     this.nextZindex();
   }
   addEvent(modal) {
-    console.log("addEvent", modal);
     modal.onclick = () => {
-      console.log("modal . onclick");
       this.onModalClick();
     };
   }
