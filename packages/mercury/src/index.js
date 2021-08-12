@@ -36,6 +36,7 @@ import Sticky from "./sticky";
 import Swipe from "./swipe";
 import SwipeItem from "./swipe-item";
 import TabItem from "./tab-item";
+import Table from "./table";
 import Tabs from "./tabs";
 import Toast from "./toast";
 
@@ -71,6 +72,7 @@ const components = [
   Swipe,
   SwipeItem,
   TabItem,
+  Table,
   Tabs,
   Toast,
 ];
@@ -146,5 +148,6 @@ export { Sticky as YnSticky };
 export { Swipe as YnSwipe };
 export { SwipeItem as YnSwipeItem };
 export { TabItem as YnTabItem };
+export { Table as YnTable };
 export { Tabs as YnTabs };
 export { Toast as YnToast };

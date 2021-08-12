@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-05 08:55:55
+ * @Last Modified time: 2021-08-05 10:12:57
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -36,6 +36,7 @@ import Category from "./category/category.vue";
 import Magnifier from "./magnifier/magnifier.vue";
 import CategorySelect from "./category-select/categorySelect.vue";
 import Pagination from "./pagination/pagination.vue";
+import Table from "./table/table.vue";
 const router = new Router({
   routes: [
     {
@@ -182,6 +183,11 @@ const router = new Router({
       path: "/pagination",
       name: "pagination",
       component: Pagination
+    },
+    {
+      path: "/table",
+      name: "table",
+      component: Table
     }
   ]
 });
