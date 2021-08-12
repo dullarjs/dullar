@@ -32,6 +32,7 @@
         <li @click="jump('pagination')">pagination</li>
         <li @click="jump('table')">table</li>
         <li @click="jump('shippingAddress')">shippingAddress</li>
+        <li @click="jump('elasticSearch')">elasticSearch</li>
       </ul>
   </div>
 </template>
