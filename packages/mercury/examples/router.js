@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-06 18:44:52
+ * @Last Modified time: 2021-08-11 13:44:05
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -37,6 +37,7 @@ import Magnifier from "./magnifier/magnifier.vue";
 import CategorySelect from "./category-select/categorySelect.vue";
 import Pagination from "./pagination/pagination.vue";
 import ShippingAddress from "./shipping-address/shippingAddress.vue";
+import ElasticSearch from "./elastic-serach/elasticSearch.vue";
 const router = new Router({
   routes: [
     {
@@ -188,6 +189,11 @@ const router = new Router({
       path: "/shipping-address",
       name: "shippingAddress",
       component: ShippingAddress
+    },
+    {
+      path: "/elastic-serach",
+      name: "elasticSearch",
+      component: ElasticSearch
     }
   ]
 });
