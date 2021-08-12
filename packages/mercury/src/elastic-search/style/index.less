@@ -1,0 +1,124 @@
+.yn-elastic-search {
+  .search-warrper {
+    height: 48px;
+    background: @theme-color;
+    box-sizing: border-box;
+    text-align: center;
+    .input {
+      width: 90%;
+      padding: 0;
+      height: 28px;
+      line-height: 28px;
+      display: inline-block;
+      margin: 10px auto;
+      background: @white;
+      border-radius: 14px;
+      font-size: 12px;
+      text-align: left;
+      color: #666;
+      :first-child {
+        margin: -2px 4px 0 3px;
+        vertical-align: middle;
+      }
+    }
+  }
+  .search-panel {
+    width: 100%;
+    height: 100%;
+    background: @white;
+    .search-head {
+      width: 100%;
+      height: 50px;
+      position: relative;
+      .search-head-flex {
+        position: absolute;
+        top: 10px;
+        left: 3%;
+        width: 94%;
+        // height: 32px;
+        margin: 0 auto;
+        .input-flex {
+          width: 100%;
+          .input-field {
+            // padding: 0;
+            height: 30px;
+            margin: 0;
+            // padding: 0 0 0 5px;
+            padding: 0 10px;
+            border-radius: 15px;
+            border: 1px solid @theme-color;
+            outline: none;
+            text-indent: 5px;
+            line-height: 30px;
+            &::after {
+              border: none;
+            }
+            .input-ele {
+              font-size: 12px;
+            }
+          }
+        }
+        .cancel-flex {
+          line-height: 32px;
+          text-align: right;
+          width: 50px;
+          font-size: 12px;
+        }
+      }
+    }
+    .search-body {
+      &.loading {
+        text-align: center;
+      }
+      .hisotry-spin {
+        display: inline-block;
+      }
+      .histroy-record {
+        width: 94%;
+        margin: 0 auto;
+        .history-flex {
+          width: 100%;
+          .history-label {
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+          }
+          .records {
+            .record {
+              color: #666;
+              background: #f6f6f6;
+              color: #000;
+              margin: 3px;
+              padding: 3px 10px;
+              font-size: 12px;
+              border-radius: 10px;
+              .record-clear {
+                &::before {
+                  content: "";
+                  display: inline-block;
+                  height: 8px;
+                  border-left: 1px solid @border-color;
+                  margin: 0 3px;
+                }
+              }
+            }
+          }
+        }
+        .delete-flex {
+          width: 120px;
+          text-align: right;
+          .operation {
+            font-size: 12px;
+            .delete-all:after {
+              content: "";
+              border-left: 1px solid @border-color;
+              height: 8px;
+              margin: 0 3px;
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
