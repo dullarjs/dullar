@@ -3,10 +3,11 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "publish": "lerna publish",
-    "publish:nopush": "lerna publish --no-push",
-    "publish:force": "lerna publish --no-push --force-publish",
-    "build:ui": "node build/ci.js"
+    "publish": "lerna publish && npm run npmpublish",
+    "publish:nopush": "lerna publish --no-push && npm run npmpublish",
+    "publish:force": "lerna publish --no-push --force-publish && npm run npmpublish",
+    "build:ui": "node build/ci.js",
+    "npmpublish": "node ./robot/ynpm.js"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

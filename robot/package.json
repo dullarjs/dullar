@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "robot:notice": "node index.js"
+    "robot:github": "node github.js",
+    "robot:npm": "node ynpm.js"
   },
   "keywords": [],
   "author": "Just be free",
