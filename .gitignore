@@ -6,8 +6,6 @@ packages/venus/lib
 packages/venus/docs
 packages/mercury/lib
 packages/mercury/docs
-packages/mercury/src/index.less
-packages/mercury/src/index.js
 node_modules
 .DS_Store
 docs/queen
