@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-12 16:45:24
+ * @Last Modified time: 2021-08-12 18:18:50
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -39,6 +39,7 @@ import Pagination from "./pagination/pagination.vue";
 import Table from "./table/table.vue";
 import ShippingAddress from "./shipping-address/shippingAddress.vue";
 import ElasticSearch from "./elastic-serach/elasticSearch.vue";
+import CategoryMobile from "./category-mobile/categoryMobile.vue";
 const router = new Router({
   routes: [
     {
@@ -200,6 +201,11 @@ const router = new Router({
       path: "/elastic-serach",
       name: "elasticSearch",
       component: ElasticSearch
+    },
+    {
+      path: "/category-mobile",
+      name: "categoryMobile",
+      component: CategoryMobile
     }
   ]
 });
