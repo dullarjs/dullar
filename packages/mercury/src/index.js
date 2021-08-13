@@ -10,6 +10,7 @@ import AnimationList from "./animation-list";
 import AnimationListItem from "./animation-list-item";
 import Button from "./button";
 import Category from "./category";
+import CategoryMobile from "./category-mobile";
 import CategorySelect from "./category-select";
 import Checkbox from "./checkbox";
 import Counter from "./counter";
@@ -48,6 +49,7 @@ const components = [
   AnimationListItem,
   Button,
   Category,
+  CategoryMobile,
   CategorySelect,
   Checkbox,
   Counter,
@@ -126,6 +128,7 @@ export { AnimationList as YnAnimationList };
 export { AnimationListItem as YnAnimationListItem };
 export { Button as YnButton };
 export { Category as YnCategory };
+export { CategoryMobile as YnCategoryMobile };
 export { CategorySelect as YnCategorySelect };
 export { Checkbox as YnCheckbox };
 export { Counter as YnCounter };
