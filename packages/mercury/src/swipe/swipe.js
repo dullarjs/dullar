@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-13 09:35:39
+ * @Last Modified time: 2021-08-13 13:51:18
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -45,12 +45,13 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    imageViewer: {
+      type: Boolean,
+      default: true,
+    },
   },
   watch: {
-    showPopup: function (val, oldValue) {
-      // this.Toast(`val = ${val}, oldValue = ${oldValue}`);
-      console.log(`val = ${val}, oldValue = ${oldValue}`);
-      console.log("counts = ", this.counts);
+    showPopup: function () {
       this.counts++;
     },
   },
@@ -126,7 +127,6 @@ export default defineComponent({
       let startTime = 0;
       this.bindEvent(el, {
         start() {
-          console.log("swipe.js start()");
           that.stop();
           that.dragging = true;
           startTime = Date.now();
@@ -161,7 +161,6 @@ export default defineComponent({
           curEle.style[attr] = `${num * that.size + value}px`;
         },
         stop() {
-          console.log("swipe.js stop()");
           that.paly();
           that.dragging = false;
           that.delayActivedIndex = that.activedIndex;
@@ -289,6 +288,7 @@ export default defineComponent({
       }
     },
     openImageViewer() {
+      if (!this.imageViewer) return;
       this.counts++;
       this.stop();
       this.fullScreen = true;
@@ -299,8 +299,7 @@ export default defineComponent({
         this.drag();
       });
     },
-    closeImageViewer(e) {
-      this.Toast(`close imageViewer ${e}`);
+    closeImageViewer() {
       this.unbindAllEvent();
       this.showPopup = false;
     },
