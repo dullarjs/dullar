@@ -1,0 +1,44 @@
+.yn-address {
+  .address-popup {
+    height: 80%;
+  }
+  .address-container {
+    // height: 80%;
+    background: @white;
+    // height: calc(100% - 40px);
+    height: 100%;
+    .address-flex {
+      height: 100%;
+      .address-header {
+        height: 40px;
+
+        font-size: 14px;
+        span {
+          display: inline-block;
+          margin: 0 3px;
+          line-height: 40px;
+          &.active {
+            color: #c66c57;
+            border-bottom: 2px solid #c66c57;
+          }
+        }
+      }
+      .address-body {
+        height: calc(100% - 40px);
+        .ul-container {
+          height: 100%;
+          overflow: scroll;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          > li {
+            line-height: 28px;
+            font-size: 14px;
+            text-indent: 5px;
+            // border-bottom: 1px solid @border-color;
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import "./index.less";
 import "./window-events";
 
 import ActionSheet from "./action-sheet";
+import Address from "./address";
 import AnimationList from "./animation-list";
 import AnimationListItem from "./animation-list-item";
 import Button from "./button";
@@ -45,6 +46,7 @@ import Toast from "./toast";
 
 const components = [
   ActionSheet,
+  Address,
   AnimationList,
   AnimationListItem,
   Button,
@@ -124,6 +126,7 @@ export default {
   config,
 };
 export { ActionSheet as YnActionSheet };
+export { Address as YnAddress };
 export { AnimationList as YnAnimationList };
 export { AnimationListItem as YnAnimationListItem };
 export { Button as YnButton };
