@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 12:51:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-01-14 13:49:00
+ * @Last Modified time: 2021-08-16 17:06:34
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Iconfont from "../iconfont";
@@ -18,6 +18,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    disableClick: {
+      type: Boolean,
+      default: false,
+    },
   },
   model: {
     prop: "checked",
@@ -28,7 +32,7 @@ export default defineComponent({
   },
   methods: {
     handleClick() {
-      if (!this.disabled) {
+      if (!this.disabled && !this.disableClick) {
         this.$emit("change", !this.checked);
       }
     },
