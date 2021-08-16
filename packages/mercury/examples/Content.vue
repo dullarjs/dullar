@@ -34,6 +34,7 @@
         <li @click="jump('shippingAddress')">shippingAddress</li>
         <li @click="jump('elasticSearch')">elasticSearch</li>
         <li @click="jump('categoryMobile')">categoryMobile</li>
+        <li @click="jump('address')">address</li>
       </ul>
   </div>
 </template>
