@@ -1,27 +1,32 @@
 <template>
   <div class="shipping-address-box">
-    <h2>yn-shipping-address</h2>
+    <h2>yn-address</h2>
     <!-- <yn-field-group>
       <yn-field v-model="address" placeholder="请选择地址" @click="onoff"></yn-field>
     </yn-field-group> -->
     <yn-button @click="onoff">请选择地址</yn-button>
+    <p>{{ detailAddress.join(",") }}</p>
     <yn-address v-model="showAddress" @done="handleDone" :address="getAddressObject()"></yn-address>
   </div>
 </template>
 <script>
 const sources = require("./area.json").RECORDS;
 export default {
-  name: "YnShippingAddressPage",
+  name: "YnAddressPage",
   data() {
     return {
       sources,
       address: "",
-      showAddress: false
+      showAddress: false,
+      detailAddress: []
     }
   },
   methods: {
     handleDone(args) {
-      console.log("已选择", args);
+      this.detailAddress = [];
+      args.forEach(address => {
+        this.detailAddress.push(address.region_name);
+      });
     },
     onoff() {
       this.showAddress = !this.showAddress;
@@ -57,8 +62,7 @@ export default {
       return {
         params: { a: 1, b: 2, c: 3 },
         action: this.getAddress,
-        parse: (e, params) => {
-          console.log(e, params);
+        parse: (e) => {
           return e.region_name;
         }
       }
