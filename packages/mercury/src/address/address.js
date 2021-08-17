@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-16 15:27:10
+ * @Last Modified time: 2021-08-16 18:15:18
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -52,12 +52,6 @@ export default defineComponent({
   },
   methods: {
     updateRegionList(list, region) {
-      if (list.length > 0) {
-        this.regionList = list;
-      } else {
-        this.$emit("input", false);
-        this.$emit("done", this.regionHeader);
-      }
       if (this.regionHeader.length === 0) {
         this.regionHeader.push(this.label);
       } else {
@@ -65,6 +59,12 @@ export default defineComponent({
         if (list.length === 0) {
           this.regionHeader.pop();
         }
+      }
+      if (list.length > 0) {
+        this.regionList = list;
+      } else {
+        this.$emit("input", false);
+        this.$emit("done", this.regionHeader);
       }
     },
     setCache(type, region, res) {
