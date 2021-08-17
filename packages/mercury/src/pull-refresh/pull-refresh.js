@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-28 15:42:16
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-06-28 15:49:06
+ * @Last Modified time: 2021-08-17 18:04:27
  * @E-mail: justbefree@126.com
  */
 
@@ -11,6 +11,7 @@ import { getScrollTop } from "../modules/dom";
 import { getScroller } from "../modules/dom/scroll";
 import { slotsMixins } from "../mixins/slots";
 import { touchMixins } from "../mixins/touch";
+import { on, off } from "../modules/event";
 import Spin from "../spin";
 export default defineComponent({
   name: "PullRefresh",
@@ -18,10 +19,16 @@ export default defineComponent({
   components: { Spin },
   props: {
     loadingText: String,
-    draggingTip: {
+    topDraggingTip: {
       type: String,
       default: "松手下拉刷新",
     },
+    topTipFixed: Boolean,
+    bottomDraggingTip: {
+      type: String,
+      default: "松手刷新",
+    },
+    bottomTipFixed: Boolean,
     loading: Boolean,
   },
   data() {
@@ -36,15 +43,19 @@ export default defineComponent({
     this.pull();
   },
   beforeDestroy() {
-    this.scrollElement.removeEventListener("scroll", this.handleScroll, false);
+    off(this.scrollElement, "scroll", this.handleScroll);
   },
   methods: {
+    setScrollTop(top) {
+      this.scrollElement.scrollTop = top;
+    },
     handleScroll(e) {
       this.scrollTop = getScrollTop(e.target);
+      this.$emit("scroll", e);
     },
     scroll() {
       this.scrollElement = getScroller(this.$el);
-      this.scrollElement.addEventListener("scroll", this.handleScroll, false);
+      on(this.scrollElement, "scroll", this.handleScroll);
     },
     pull() {
       this.scroll();
@@ -52,19 +63,44 @@ export default defineComponent({
       this.bindEvent(this.$el, {
         dragging(event) {
           const { target } = event;
-          if (!that.loading && that.deltaY > 0 && that.scrollTop <= 10) {
-            that.dragging = true;
-            that.className = "none";
-            target.style.transform = `translate3D(0, ${that.bounceDeltaY}px, 0)`;
+          if (!that.loading) {
+            if (that.deltaY > 0 && that.scrollTop <= 10) {
+              that.dragging = true;
+              that.className = "none";
+              target.style.transform = `translate3D(0, ${that.bounceDeltaY}px, 0)`;
+            } else if (
+              that.deltaY < 0 &&
+              that.scrollTop -
+                target.scrollHeight +
+                that.scrollElement.offsetHeight >=
+                0
+            ) {
+              that.dragging = true;
+              that.className = "none";
+              target.style.transform = `translate3D(0, ${that.bounceDeltaY}px, 0)`;
+            }
           }
         },
         stop(event) {
-          if (!that.loading && that.deltaY > 0 && that.scrollTop <= 10) {
-            that.$emit("pullRefresh", true);
-            const { target } = event;
-            that.className = "";
-            that.dragging = false;
-            target.style.transform = "translate3D(0, 0, 0)";
+          const { target } = event;
+          if (!that.loading) {
+            if (that.deltaY > 0 && that.scrollTop <= 10) {
+              that.$emit("pullRefresh", { direction: "top" });
+              that.className = "";
+              that.dragging = false;
+              target.style.transform = "translate3D(0, 0, 0)";
+            } else if (
+              that.deltaY < 0 &&
+              that.scrollTop -
+                target.scrollHeight +
+                that.scrollElement.offsetHeight >=
+                0
+            ) {
+              that.$emit("pullRefresh", { direction: "bottom" });
+              that.className = "";
+              that.dragging = false;
+              target.style.transform = "translate3D(0, 0, 0)";
+            }
           }
         },
       });
@@ -77,19 +113,34 @@ export default defineComponent({
         ]);
       }
     },
-    genDraggingText(h) {
-      if (this.dragging && this.deltaY >= 20) {
-        return h("div", { class: ["yn-pull-refresh-draggin-text"] }, [
-          h("span", {}, [this.draggingTip]),
-        ]);
+    genDraggingTip(h, direction) {
+      const text =
+        this.direction === "top" ? this.topDraggingTip : this.bottomDraggingTip;
+      return h("div", { class: ["yn-pull-refresh-draggin-text", direction] }, [
+        h("span", {}, [text]),
+      ]);
+    },
+    genDraggingText(h, direction) {
+      if (this.topTipFixed) {
+        return this.genDraggingTip(h, direction);
+      }
+      if (this.dragging) {
+        if (this.deltaY >= 20 && direction === "top") {
+          return this.genDraggingTip(h, direction);
+        } else if (this.deltaY <= 0 && direction === "bottom") {
+          return this.genDraggingTip(h, direction);
+        }
       }
     },
   },
   render(h) {
     return h("div", { class: ["yn-pull-refresh", this.className] }, [
       this.genLoading(h),
-      this.genDraggingText(h),
+      this.genDraggingText(h, "top"),
       this.slots(),
+      h("div", { class: ["bottom-dragging-tip-box"] }, [
+        this.genDraggingText(h, "bottom"),
+      ]),
     ]);
   },
 });
