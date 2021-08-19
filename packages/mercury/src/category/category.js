@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-19 15:50:04
+ * @Last Modified time: 2021-08-19 18:13:09
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -41,7 +41,7 @@ export default defineComponent({
   methods: {
     requestCategory(cat) {
       this.isLoading = true;
-      const params = { ...this.category.params };
+      const params = { ...this.category.params, cat };
       const promise = this.category.action(params);
       promise
         .then((res) => {
