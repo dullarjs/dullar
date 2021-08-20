@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-12 16:07:07
+ * @Last Modified time: 2021-08-20 19:51:57
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -37,6 +37,14 @@ export default defineComponent({
     height: {
       type: Number,
       default: null,
+    },
+    okText: {
+      type: String,
+      default: "确定",
+    },
+    resetText: {
+      type: String,
+      default: "重置",
     },
   },
   data() {
@@ -410,8 +418,8 @@ export default defineComponent({
       return list;
     },
     filtersChecked(checkboxKey, h) {
-      this.dropDownInfo.filters[checkboxKey].checked = !this.dropDownInfo
-        .filters[checkboxKey].checked;
+      this.dropDownInfo.filters[checkboxKey].checked =
+        !this.dropDownInfo.filters[checkboxKey].checked;
       const dropDownInfo = this.dropDownInfo;
       for (let item of this.fieldsList) {
         if (dropDownInfo.key === item.key) {
@@ -596,21 +604,29 @@ export default defineComponent({
         ]);
       } else {
         const renderList = column.render;
-        if (renderList.on && renderList.on.click) {
+        const _noed = renderList.compentName
+          ? genComponentName(renderList.compentName)
+          : renderList.tagName || "";
+        if (renderList.on) {
+          const _on = this.getBoundEvent(renderList.on, value, record);
           return h(
-            renderList.tagName || "",
+            _noed,
             {
               style: renderList.style || {},
-              on: {
-                click: () => this.$emit(renderList.on.click, { value, record }),
-              },
+              on: _on,
+              attrs: renderList.attrs || {},
+              props: renderList.props || {},
             },
             [this.serializationColumnList(renderList.content, value, record)]
           );
         } else {
           return h(
-            renderList.tagName || "",
-            { style: renderList.style || {} },
+            _noed,
+            {
+              style: renderList.style || {},
+              attrs: renderList.attrs || {},
+              props: renderList.props || {},
+            },
             [this.serializationColumnList(renderList.content, value, record)]
           );
         }
@@ -631,8 +647,12 @@ export default defineComponent({
     serializationColumnList(content, value, record) {
       const contentList = [];
       const h = this.$createElement;
-      content.length > 0 &&
+      content &&
+        content.length > 0 &&
         content.forEach((item) => {
+          const _noed = item.compentName
+            ? genComponentName(item.compentName)
+            : item.tagName || "";
           let _tag;
           if (typeof item === "string") {
             _tag = item;
@@ -642,19 +662,16 @@ export default defineComponent({
             item.setContent
           ) {
             _tag = item.setContent(value, record);
-          } else if (
-            typeof item === "object" &&
-            item !== null &&
-            item.tagName
-          ) {
-            if (item.on && item.on.click) {
+          } else if (typeof item === "object" && item !== null && _noed) {
+            if (item.on) {
+              const _on = this.getBoundEvent(item.on, value, record);
               _tag = h(
-                item.tagName,
+                _noed,
                 {
                   style: item.style || {},
-                  on: {
-                    click: () => this.$emit(item.on.click, { value, record }),
-                  },
+                  on: { ..._on },
+                  attrs: item.attrs || {},
+                  props: item.props || {},
                 },
                 [
                   item.content &&
@@ -662,16 +679,31 @@ export default defineComponent({
                 ]
               );
             } else {
-              _tag = h(item.tagName, { style: item.style || {} }, [
-                item.content &&
-                  this.serializationColumnList(item.content, value, record),
-              ]);
+              _tag = h(
+                _noed,
+                {
+                  style: item.style || {},
+                  attrs: item.attrs || {},
+                  props: item.props || {},
+                },
+                [
+                  item.content &&
+                    this.serializationColumnList(item.content, value, record),
+                ]
+              );
             }
           }
           contentList.push(_tag);
         });
       const result = contentList.length > 0 ? contentList : "";
       return result;
+    },
+    getBoundEvent(list, value, record) {
+      const _on = {};
+      for (const key in list) {
+        _on[key] = () => this.$emit(list[key], { value, record });
+      }
+      return _on;
     },
     getFilterList() {
       const fieldSList = this.fieldsList;
@@ -815,7 +847,7 @@ export default defineComponent({
                   },
                   [
                     h("span", { on: { click: this.reset.bind(this, h) } }, [
-                      "重置",
+                      this.resetText,
                     ]),
                   ]
                 ),
@@ -831,7 +863,7 @@ export default defineComponent({
                     h(
                       "span",
                       { on: { click: () => this.checkDropDownChage } },
-                      ["确定"]
+                      [this.okText]
                     ),
                   ]
                 ),

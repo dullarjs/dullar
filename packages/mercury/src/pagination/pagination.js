@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-05 09:38:05
+ * @Last Modified time: 2021-08-20 19:24:59
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -307,7 +307,13 @@ export default defineComponent({
     },
     onPageSelection(e) {
       if (e && e.target && e.target.children && e.target.children[1]) {
+        const _bottom = window.innerHeight - e.clientY;
+        const _mark = e.target.querySelector(".yn-pagination-selection-mark");
         e.target.children[1].style.display = "block";
+        if (_bottom < 150) {
+          e.target.children[1].style.top = "-135px";
+          _mark.style.top = "-10px";
+        }
       }
     },
     outPageSelection(e) {
