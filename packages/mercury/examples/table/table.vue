@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-12 16:29:32
+ * @Last Modified time: 2021-08-20 19:53:52
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -11,9 +11,12 @@
         <h3>普通表格</h3>
         <yn-table
             :columns="columns1"
-            :bordered="true"
+            :bordered="false"
             :dataSource="dataSource1"
             :rowSelection="rowSelection1"
+            v-on:handleCkChange="handleCkChange"
+            v-on:handleClick="handleClick"
+            :pagination="pagination"
         >
         </yn-table>
         <h3>基础功能齐全table</h3>
@@ -28,6 +31,8 @@
             v-on:handleChange="handleChange"
             :pagination="pagination"
             :height="600"
+            :okText="okText"
+            :resetText="resetText"
         >
         </yn-table>
     </div>
@@ -104,6 +109,9 @@ export default {
                         },
                         on: {
                             click: "handleClick",
+                        },
+                        attrs: {
+                            title: "zssg-g"
                         },
                         content: [
                             "a标签内容1",
@@ -300,6 +308,38 @@ export default {
                     width: 200
                 },
                 {
+                    title: 'picture',
+                    dataIndex: '',
+                    key: 'picture',
+                    width: 200,
+                    render: {
+                        tagName: 'img',
+                        attrs: {
+                            src: 'https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/171769/14/12515/117439/60b4d115E010780e1/6a74fc1f3b92de32.jpg',
+                            class: "img-class"
+                        },
+                        style:{
+                            width: '58px',
+                            height: '58px'
+                        },
+                        content: []
+                    }
+                },
+                {
+                    title: 'test',
+                    dataIndex: 'test',
+                    key: 'test',
+                    width: 200,
+                    render: {
+                        compentName: "iconfont",
+                        props: {
+                            size: 12,
+                            name: "clear",
+                        },
+                        attrs: { "column-key": 12 }
+                    }
+                },
+                {
                     title: 'Tags',
                     key: 'tags',
                     width: 160,
@@ -316,6 +356,9 @@ export default {
                                     margin: "0 5px",
                                     cursor: "pointer"
                                 },
+                                on: {
+                                    click: "handleClick",
+                                },
                                 content: ["Success"]
                             },
                             {
@@ -327,6 +370,9 @@ export default {
                                     padding: "5px 20px",
                                     margin: "0 5px",
                                     cursor: "pointer"
+                                },
+                                on: {
+                                    click: "handleClick",
                                 },
                                 content: ["Error"]
                             }
@@ -360,6 +406,8 @@ export default {
                 onChange: this.handleSelectChange, // 选中之后提供数据调整入口
                 type: "radio", // radio 或者checkbox
             },
+            okText: "搜索",
+            resetText: "重置"
         };
     },
     methods: {
@@ -369,6 +417,10 @@ export default {
         handleDelete(e) {
             console.log(e);
             this.dataSource.splice(e.key, 1);
+        },
+        handleCkChange(e){
+            console.log(e)
+            console.log(2)
         },
         handleDelete1(e){
             console.log(e);
@@ -417,7 +469,6 @@ export default {
                 address: "",
                 gender: '',
             })
-            console.log("新增数据")
         },
     }
     };
