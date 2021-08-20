@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-20 19:34:41
+ * @Last Modified time: 2021-08-20 19:53:52
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -31,6 +31,8 @@
             v-on:handleChange="handleChange"
             :pagination="pagination"
             :height="600"
+            :okText="okText"
+            :resetText="resetText"
         >
         </yn-table>
     </div>

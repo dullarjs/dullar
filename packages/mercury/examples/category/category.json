@@ -1,101 +1,1723 @@
-[
-  {
-    "label": "清凉季",
-    "sub": [
-      {
-        "label": "清凉季",
-        "list": ["清凉季"]
-      }
-    ]
-  },
-  {
-    "label": "数码通讯",
-    "sub": [
-      {
-        "label": "摄影摄像",
-        "list": ["微单相机", "单反相机", "摄像机", "拍立得", "运动相机", "镜头", "户外器材", "影棚器材", "冲印服务", "数码相框"]
-      },
-      {
-        "label": "数码配件",
-        "list": ["储存卡", "读卡器", "滤镜", "闪光灯/手柄", "相机包", "三脚架/云台", "相机清洁/贴膜", "机身附件", "镜头附件", "电池/充电器", "数码支架"]
-      },
-      {
-        "label": "智能设备",
-        "list": ["只能手环", "只能手表", "VR眼镜", "运动跟踪器", "健康监测", "智能配饰", "智能家居", "体感车", "其他配件", "只能机器人", "无人机", "监控摄像"]
-      },
-      {
-        "label": "影音娱乐",
-        "list": ["MP3/PM4", "耳机/耳麦", "音箱/音响", "收音机", "麦克风", "专业音频", "苹果配件"]
-      },
-      {
-        "label": "电子教育",
-        "list": ["学生平板", "点读机/笔", "早教益智", "录音笔", "电子书", "电子词典", "复读机", "翻译器"]
-      },
-      {
-        "label": "手机",
-        "list": ["手机"]
-      },
-      {
-        "label": "手机配件",
-        "list": ["移动电源", "蓝牙耳机", "苹果周边", "手机耳机", "手机贴膜", "手机存储卡", "充电器", "数据线", "手机壳/保护套",  "手机电池", "创意配件", "便携/无线音响", "手机饰品", "拍照配件", "手机支架", "手机信号增强器", "手机屏幕"]
-      },
-      {
-        "label": "对讲机",
-        "list": ["模拟对讲机", "数字对讲机", "公网对讲机", "对讲机配件"]
-      }
-    ]
-  },
-  {
-    "label": "电脑办公电器箱包",
-    "sub": [
-      {
-        "label": "办公设备",
-        "list": ["投影机", "投影配件", "打印机", "传真设备", "验钞/点钞机", "扫描仪", "复合机碎纸机", "考勤机", "收银机", "会议音频视频", "保险柜/箱", "装订/封装", "机工业安防监控", "白板条码扫描"]
-      },
-      {
-        "label": "文具",
-        "list": ["办公文具", "学生文具", "财会用品", "文件管理", "本册/便签", "计算器", "笔类画具", "画材", "文房四宝"]
-      },
-      {
-        "label": "办公耗材",
-        "list": ["刻录", "碟片", "纸类", "硒鼓", "墨盒", "色带"]
-      },
-      {
-        "label": "电脑整机",
-        "list": ["笔记本", "游戏本", "平板电脑", "平板电脑配件", "台式机", "服务器/工作站", "笔记本配件", "一体机"]
-      },
-      {
-        "label": "电脑组件",
-        "list": ["CPU", "主板", "显卡", "硬盘", "SSD固态硬盘", "内存", "机箱", "电源显示器", "刻录机/光驱", "散热器", "声卡/扩展卡", "装机配件", "主板", "CPU套装", "组装电脑", "显示器支架"]
-      },
-      {
-        "label": "外设产品",
-        "list": ["移动硬盘", "U盘", "鼠标", "键盘", "鼠标垫", "摄像头", "手写板", "硬盘盒", "插座线缆", "UPS", "电源", "电脑工具", "电脑清洁", "网络仪表", "仪器"]
-      },
-      {
-        "label": "网络产品",
-        "list": ["路由器", "网卡", "交换机", "网络存储", "5G/4G上网", "网络盒子", "网络配件"]
-      },
-      {
-        "label": "游戏设备",
-        "list": ["游戏耳机", "手柄/方向盘", "游戏软件", "游戏周边"]
-      },
-      {
-        "label": "服务产品",
-        "list": ["京东服务"]
-      },
-      {
-        "label": "大 家 电",
-        "list": ["平板电视", "空调", "中央空调", "冰箱", "洗衣机", "冷柜/冰吧", "酒柜", "洗烘套装", "烘干机"]
-      },
-      {
-        "label": "厨卫大电",
-        "list": ["燃气灶", "油烟机", "消毒柜集成", "烹饪中心", "蒸箱", "洗碗机", "电热水器", "燃气热水器", "空气能热水器", "太阳能热水器", "嵌入式微蒸烤"]
-      },
-      {
-        "label": "厨房小电",
-        "list": ["面条机", "榨汁机/原汁机", "电饭煲", "电压力锅", "豆浆机", "咖啡机", "微波炉", "电烤箱", "电磁炉", "面包机", "煮蛋器", "酸奶机", "电炖锅", "电水壶/热水瓶", "电饼铛", "电烧烤炉", "其它厨房电器", "养生壶/煎药壶", "电热饭盒", "空气炸锅", "电陶炉", "果蔬解毒机", "多用途锅料理机", "破壁机", "绞肉机", "打蛋器", "厨师机/和面机"]
-      }
-    ]
-  }
-]
+{
+    "status": 0,
+    "code": "000000",
+    "message": "OK",
+    "data": [
+        {
+            "catId": 10,
+            "catName": "数码",
+            "catDesc": "一级分类",
+            "parentId": 0,
+            "children": [
+                {
+                    "catId": 1000,
+                    "catName": "摄影摄像",
+                    "catDesc": "二级分类",
+                    "parentId": 10,
+                    "children": []
+                },
+                {
+                    "catId": 1001,
+                    "catName": "数码配件",
+                    "catDesc": "二级分类",
+                    "parentId": 10,
+                    "children": [
+                        {
+                            "catId": 100100,
+                            "catName": "存储卡",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100101,
+                            "catName": "读卡器",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100102,
+                            "catName": "滤镜",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100103,
+                            "catName": "闪光灯/手柄",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100104,
+                            "catName": "相机包",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100105,
+                            "catName": "三脚架/云台",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100106,
+                            "catName": "相机清洁/贴膜",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100107,
+                            "catName": "机身附件",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100108,
+                            "catName": "镜头附件",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100109,
+                            "catName": "电池/充电器",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        },
+                        {
+                            "catId": 100110,
+                            "catName": "数码支架",
+                            "catDesc": "三级分类",
+                            "parentId": 1001,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1002,
+                    "catName": "智能设备",
+                    "catDesc": "二级分类",
+                    "parentId": 10,
+                    "children": [
+                        {
+                            "catId": 100200,
+                            "catName": "智能手环",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100201,
+                            "catName": "智能手表",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100202,
+                            "catName": "VR眼镜",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100203,
+                            "catName": "运动跟踪器",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100204,
+                            "catName": "健康监测",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100205,
+                            "catName": "智能配饰",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100206,
+                            "catName": "智能家居",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100207,
+                            "catName": "体感车",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100208,
+                            "catName": "其他配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100209,
+                            "catName": "智能机器人",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100210,
+                            "catName": "无人机",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        },
+                        {
+                            "catId": 100211,
+                            "catName": "监控摄像",
+                            "catDesc": "三级分类",
+                            "parentId": 1002,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1003,
+                    "catName": "影音娱乐",
+                    "catDesc": "二级分类",
+                    "parentId": 10,
+                    "children": [
+                        {
+                            "catId": 100300,
+                            "catName": "MP3/MP4",
+                            "catDesc": "三级分类",
+                            "parentId": 1003,
+                            "children": []
+                        },
+                        {
+                            "catId": 100301,
+                            "catName": "耳机/耳麦",
+                            "catDesc": "三级分类",
+                            "parentId": 1003,
+                            "children": []
+                        },
+                        {
+                            "catId": 100302,
+                            "catName": "音箱/音响",
+                            "catDesc": "三级分类",
+                            "parentId": 1003,
+                            "children": []
+                        },
+                        {
+                            "catId": 100303,
+                            "catName": "收音机",
+                            "catDesc": "三级分类",
+                            "parentId": 1003,
+                            "children": []
+                        },
+                        {
+                            "catId": 100304,
+                            "catName": "麦克风",
+                            "catDesc": "三级分类",
+                            "parentId": 1003,
+                            "children": []
+                        },
+                        {
+                            "catId": 100305,
+                            "catName": "专业音频",
+                            "catDesc": "三级分类",
+                            "parentId": 1003,
+                            "children": []
+                        },
+                        {
+                            "catId": 100306,
+                            "catName": "苹果配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1003,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1004,
+                    "catName": "电子教育",
+                    "catDesc": "二级分类",
+                    "parentId": 10,
+                    "children": [
+                        {
+                            "catId": 100400,
+                            "catName": "学生平板",
+                            "catDesc": "三级分类",
+                            "parentId": 1004,
+                            "children": []
+                        },
+                        {
+                            "catId": 100401,
+                            "catName": "点读机/笔",
+                            "catDesc": "三级分类",
+                            "parentId": 1004,
+                            "children": []
+                        },
+                        {
+                            "catId": 100402,
+                            "catName": "早教益智",
+                            "catDesc": "三级分类",
+                            "parentId": 1004,
+                            "children": []
+                        },
+                        {
+                            "catId": 100403,
+                            "catName": "录音笔",
+                            "catDesc": "三级分类",
+                            "parentId": 1004,
+                            "children": []
+                        },
+                        {
+                            "catId": 100404,
+                            "catName": "电纸书",
+                            "catDesc": "三级分类",
+                            "parentId": 1004,
+                            "children": []
+                        },
+                        {
+                            "catId": 100405,
+                            "catName": "电子词典",
+                            "catDesc": "三级分类",
+                            "parentId": 1004,
+                            "children": []
+                        },
+                        {
+                            "catId": 100406,
+                            "catName": "复读机",
+                            "catDesc": "三级分类",
+                            "parentId": 1004,
+                            "children": []
+                        },
+                        {
+                            "catId": 100407,
+                            "catName": "翻译机",
+                            "catDesc": "三级分类",
+                            "parentId": 1004,
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "catId": 11,
+            "catName": "电脑、办公",
+            "catDesc": "一级分类",
+            "parentId": 0,
+            "children": [
+                {
+                    "catId": 1100,
+                    "catName": "电脑整机",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": [
+                        {
+                            "catId": 110000,
+                            "catName": "笔记本",
+                            "catDesc": "三级分类",
+                            "parentId": 1100,
+                            "children": []
+                        },
+                        {
+                            "catId": 110001,
+                            "catName": "游戏本",
+                            "catDesc": "三级分类",
+                            "parentId": 1100,
+                            "children": []
+                        },
+                        {
+                            "catId": 110002,
+                            "catName": "平板电脑",
+                            "catDesc": "三级分类",
+                            "parentId": 1100,
+                            "children": []
+                        },
+                        {
+                            "catId": 110003,
+                            "catName": "平板电脑配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1100,
+                            "children": []
+                        },
+                        {
+                            "catId": 110004,
+                            "catName": "台式机",
+                            "catDesc": "三级分类",
+                            "parentId": 1100,
+                            "children": []
+                        },
+                        {
+                            "catId": 110005,
+                            "catName": "服务器/工作站",
+                            "catDesc": "三级分类",
+                            "parentId": 1100,
+                            "children": []
+                        },
+                        {
+                            "catId": 110006,
+                            "catName": "笔记本配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1100,
+                            "children": []
+                        },
+                        {
+                            "catId": 110007,
+                            "catName": "一体机",
+                            "catDesc": "三级分类",
+                            "parentId": 1100,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1101,
+                    "catName": "电脑组件",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": [
+                        {
+                            "catId": 110100,
+                            "catName": "CPU",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110101,
+                            "catName": "主板",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110102,
+                            "catName": "显卡",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110103,
+                            "catName": "硬盘",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110104,
+                            "catName": "SSD固态硬盘",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110105,
+                            "catName": "内存",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110106,
+                            "catName": "机箱",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110107,
+                            "catName": "电源",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110108,
+                            "catName": "显示器",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110109,
+                            "catName": "刻录机/光驱",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110110,
+                            "catName": "散热器",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110111,
+                            "catName": "声卡/扩展卡",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110112,
+                            "catName": "装机配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110113,
+                            "catName": "主板CPU套装",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110114,
+                            "catName": "组装电脑",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        },
+                        {
+                            "catId": 110115,
+                            "catName": "显示器支架",
+                            "catDesc": "三级分类",
+                            "parentId": 1101,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1102,
+                    "catName": "外设产品",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": [
+                        {
+                            "catId": 110200,
+                            "catName": "移动硬盘",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110201,
+                            "catName": "U盘",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110202,
+                            "catName": "鼠标",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110203,
+                            "catName": "键盘",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110204,
+                            "catName": "鼠标垫",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110205,
+                            "catName": "摄像头",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110206,
+                            "catName": "手写板",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110207,
+                            "catName": "硬盘盒",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110208,
+                            "catName": "插座",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110209,
+                            "catName": "线缆",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110210,
+                            "catName": "UPS电源",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110211,
+                            "catName": "电脑工具",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110212,
+                            "catName": "电脑清洁",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        },
+                        {
+                            "catId": 110213,
+                            "catName": "网络仪表仪器",
+                            "catDesc": "三级分类",
+                            "parentId": 1102,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1103,
+                    "catName": "游戏设备",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": [
+                        {
+                            "catId": 110301,
+                            "catName": "游戏耳机",
+                            "catDesc": "三级分类",
+                            "parentId": 1103,
+                            "children": []
+                        },
+                        {
+                            "catId": 110302,
+                            "catName": "手柄/方向盘",
+                            "catDesc": "三级分类",
+                            "parentId": 1103,
+                            "children": []
+                        },
+                        {
+                            "catId": 110303,
+                            "catName": "游戏软件",
+                            "catDesc": "三级分类",
+                            "parentId": 1103,
+                            "children": []
+                        },
+                        {
+                            "catId": 110304,
+                            "catName": "游戏周边",
+                            "catDesc": "三级分类",
+                            "parentId": 1103,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1104,
+                    "catName": "网络产品",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": [
+                        {
+                            "catId": 110400,
+                            "catName": "路由器",
+                            "catDesc": "三级分类",
+                            "parentId": 1104,
+                            "children": []
+                        },
+                        {
+                            "catId": 110401,
+                            "catName": "网卡",
+                            "catDesc": "三级分类",
+                            "parentId": 1104,
+                            "children": []
+                        },
+                        {
+                            "catId": 110402,
+                            "catName": "交换机",
+                            "catDesc": "三级分类",
+                            "parentId": 1104,
+                            "children": []
+                        },
+                        {
+                            "catId": 110403,
+                            "catName": "网络存储",
+                            "catDesc": "三级分类",
+                            "parentId": 1104,
+                            "children": []
+                        },
+                        {
+                            "catId": 110404,
+                            "catName": "5G/4G上网",
+                            "catDesc": "三级分类",
+                            "parentId": 1104,
+                            "children": []
+                        },
+                        {
+                            "catId": 110405,
+                            "catName": "网络盒子",
+                            "catDesc": "三级分类",
+                            "parentId": 1104,
+                            "children": []
+                        },
+                        {
+                            "catId": 110406,
+                            "catName": "网络配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1104,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1105,
+                    "catName": "办公设备",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": [
+                        {
+                            "catId": 110500,
+                            "catName": "投影机",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110501,
+                            "catName": "投影配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110502,
+                            "catName": "打印机",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110503,
+                            "catName": "传真设备",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110504,
+                            "catName": "验钞/点钞机",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110505,
+                            "catName": "扫描仪",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110506,
+                            "catName": "复合机",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110507,
+                            "catName": "碎纸机",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110508,
+                            "catName": "考勤机",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110509,
+                            "catName": "收银机",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110510,
+                            "catName": "会议音频视频",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110511,
+                            "catName": "保险柜/箱",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110512,
+                            "catName": "装订/封装机",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110513,
+                            "catName": "工业安防监控",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110514,
+                            "catName": "白板",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        },
+                        {
+                            "catId": 110515,
+                            "catName": "条码扫描",
+                            "catDesc": "三级分类",
+                            "parentId": 1105,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1106,
+                    "catName": "文具",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": [
+                        {
+                            "catId": 110600,
+                            "catName": "办公文具",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        },
+                        {
+                            "catId": 110601,
+                            "catName": "学生文具",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        },
+                        {
+                            "catId": 110602,
+                            "catName": "财会用品",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        },
+                        {
+                            "catId": 110603,
+                            "catName": "文件管理",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        },
+                        {
+                            "catId": 110604,
+                            "catName": "本册/便签",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        },
+                        {
+                            "catId": 110605,
+                            "catName": "计算器",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        },
+                        {
+                            "catId": 110606,
+                            "catName": "笔类",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        },
+                        {
+                            "catId": 110607,
+                            "catName": "画具画材",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        },
+                        {
+                            "catId": 110608,
+                            "catName": "文房四宝",
+                            "catDesc": "三级分类",
+                            "parentId": 1106,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1107,
+                    "catName": "办公耗材",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": [
+                        {
+                            "catId": 110700,
+                            "catName": "刻录碟片",
+                            "catDesc": "三级分类",
+                            "parentId": 1107,
+                            "children": []
+                        },
+                        {
+                            "catId": 110701,
+                            "catName": "纸类",
+                            "catDesc": "三级分类",
+                            "parentId": 1107,
+                            "children": []
+                        },
+                        {
+                            "catId": 110702,
+                            "catName": "硒鼓",
+                            "catDesc": "三级分类",
+                            "parentId": 1107,
+                            "children": []
+                        },
+                        {
+                            "catId": 110703,
+                            "catName": "墨盒",
+                            "catDesc": "三级分类",
+                            "parentId": 1107,
+                            "children": []
+                        },
+                        {
+                            "catId": 110704,
+                            "catName": "色带",
+                            "catDesc": "三级分类",
+                            "parentId": 1107,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1108,
+                    "catName": "服务产品",
+                    "catDesc": "二级分类",
+                    "parentId": 11,
+                    "children": []
+                }
+            ]
+        },
+        {
+            "catId": 17,
+            "catName": "食品饮料",
+            "catDesc": "一级分类",
+            "parentId": 0,
+            "children": [
+                {
+                    "catId": 1700,
+                    "catName": "进口食品",
+                    "catDesc": "二级分类",
+                    "parentId": 17,
+                    "children": [
+                        {
+                            "catId": 170000,
+                            "catName": "饼干蛋糕",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170001,
+                            "catName": "糖果/巧克力",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170002,
+                            "catName": "休闲零食",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170003,
+                            "catName": "冲调品",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170004,
+                            "catName": "米面调味",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170005,
+                            "catName": "牛奶乳品",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170006,
+                            "catName": "水",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170007,
+                            "catName": "饮料",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170008,
+                            "catName": "咖啡",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170009,
+                            "catName": "油",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        },
+                        {
+                            "catId": 170010,
+                            "catName": "方便食品",
+                            "catDesc": "三级分类",
+                            "parentId": 1700,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1701,
+                    "catName": "地方特产",
+                    "catDesc": "二级分类",
+                    "parentId": 17,
+                    "children": [
+                        {
+                            "catId": 170100,
+                            "catName": "其他特产",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170101,
+                            "catName": "新疆",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170102,
+                            "catName": "北京",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170103,
+                            "catName": "山西",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170104,
+                            "catName": "内蒙古",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170105,
+                            "catName": "福建",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170106,
+                            "catName": "湖南",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170107,
+                            "catName": "四川",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170108,
+                            "catName": "云南",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        },
+                        {
+                            "catId": 170109,
+                            "catName": "东北",
+                            "catDesc": "三级分类",
+                            "parentId": 1701,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1702,
+                    "catName": "休闲食品",
+                    "catDesc": "二级分类",
+                    "parentId": 17,
+                    "children": [
+                        {
+                            "catId": 170200,
+                            "catName": "熟食腊味",
+                            "catDesc": "三级分类",
+                            "parentId": 1702,
+                            "children": []
+                        },
+                        {
+                            "catId": 170201,
+                            "catName": "休闲零食",
+                            "catDesc": "三级分类",
+                            "parentId": 1702,
+                            "children": []
+                        },
+                        {
+                            "catId": 170202,
+                            "catName": "坚果炒货",
+                            "catDesc": "三级分类",
+                            "parentId": 1702,
+                            "children": []
+                        },
+                        {
+                            "catId": 170203,
+                            "catName": "肉干肉脯",
+                            "catDesc": "三级分类",
+                            "parentId": 1702,
+                            "children": []
+                        },
+                        {
+                            "catId": 170204,
+                            "catName": "蜜饯果干",
+                            "catDesc": "三级分类",
+                            "parentId": 1702,
+                            "children": []
+                        },
+                        {
+                            "catId": 170205,
+                            "catName": "糖果/巧克力",
+                            "catDesc": "三级分类",
+                            "parentId": 1702,
+                            "children": []
+                        },
+                        {
+                            "catId": 170206,
+                            "catName": "饼干蛋糕",
+                            "catDesc": "三级分类",
+                            "parentId": 1702,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1703,
+                    "catName": "粮油调味",
+                    "catDesc": "二级分类",
+                    "parentId": 17,
+                    "children": [
+                        {
+                            "catId": 170300,
+                            "catName": "面",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        },
+                        {
+                            "catId": 170301,
+                            "catName": "杂粮",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        },
+                        {
+                            "catId": 170302,
+                            "catName": "烘焙原料",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        },
+                        {
+                            "catId": 170303,
+                            "catName": "米",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        },
+                        {
+                            "catId": 170304,
+                            "catName": "食用油",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        },
+                        {
+                            "catId": 170305,
+                            "catName": "调味品",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        },
+                        {
+                            "catId": 170306,
+                            "catName": "南北干货",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        },
+                        {
+                            "catId": 170307,
+                            "catName": "方便食品",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        },
+                        {
+                            "catId": 170308,
+                            "catName": "有机食品",
+                            "catDesc": "三级分类",
+                            "parentId": 1703,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1704,
+                    "catName": "饮料冲调",
+                    "catDesc": "二级分类",
+                    "parentId": 17,
+                    "children": [
+                        {
+                            "catId": 170400,
+                            "catName": "饮用水",
+                            "catDesc": "三级分类",
+                            "parentId": 1704,
+                            "children": []
+                        },
+                        {
+                            "catId": 170401,
+                            "catName": "饮料",
+                            "catDesc": "三级分类",
+                            "parentId": 1704,
+                            "children": []
+                        },
+                        {
+                            "catId": 170402,
+                            "catName": "牛奶乳品",
+                            "catDesc": "三级分类",
+                            "parentId": 1704,
+                            "children": []
+                        },
+                        {
+                            "catId": 170403,
+                            "catName": "咖啡/奶茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1704,
+                            "children": []
+                        },
+                        {
+                            "catId": 170404,
+                            "catName": "冲饮谷物",
+                            "catDesc": "三级分类",
+                            "parentId": 1704,
+                            "children": []
+                        },
+                        {
+                            "catId": 170405,
+                            "catName": "蜂蜜/柚子茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1704,
+                            "children": []
+                        },
+                        {
+                            "catId": 170406,
+                            "catName": "成人奶粉",
+                            "catDesc": "三级分类",
+                            "parentId": 1704,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1705,
+                    "catName": "食品礼券",
+                    "catDesc": "二级分类",
+                    "parentId": 17,
+                    "children": [
+                        {
+                            "catId": 170500,
+                            "catName": "月饼",
+                            "catDesc": "三级分类",
+                            "parentId": 1705,
+                            "children": []
+                        },
+                        {
+                            "catId": 170501,
+                            "catName": "粽子",
+                            "catDesc": "三级分类",
+                            "parentId": 1705,
+                            "children": []
+                        },
+                        {
+                            "catId": 170502,
+                            "catName": "卡券",
+                            "catDesc": "三级分类",
+                            "parentId": 1705,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1706,
+                    "catName": "茗茶",
+                    "catDesc": "二级分类",
+                    "parentId": 17,
+                    "children": [
+                        {
+                            "catId": 170600,
+                            "catName": "铁观音",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170601,
+                            "catName": "普洱",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170602,
+                            "catName": "龙井",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170603,
+                            "catName": "绿茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170604,
+                            "catName": "红茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170605,
+                            "catName": "乌龙茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170606,
+                            "catName": "花草茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170607,
+                            "catName": "花果茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170608,
+                            "catName": "养生茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170609,
+                            "catName": "黑茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170610,
+                            "catName": "白茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170611,
+                            "catName": "其它茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        },
+                        {
+                            "catId": 170612,
+                            "catName": "茉莉花茶",
+                            "catDesc": "三级分类",
+                            "parentId": 1706,
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "catId": 19,
+            "catName": "礼品",
+            "catDesc": "一级分类",
+            "parentId": 0,
+            "children": [
+                {
+                    "catId": 1900,
+                    "catName": "礼品",
+                    "catDesc": "二级分类",
+                    "parentId": 19,
+                    "children": [
+                        {
+                            "catId": 190000,
+                            "catName": "礼品文具",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        },
+                        {
+                            "catId": 190001,
+                            "catName": "军刀军具",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        },
+                        {
+                            "catId": 190002,
+                            "catName": "收藏品",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        },
+                        {
+                            "catId": 190003,
+                            "catName": "工艺礼品",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        },
+                        {
+                            "catId": 190004,
+                            "catName": "创意礼品",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        },
+                        {
+                            "catId": 190005,
+                            "catName": "礼盒礼券",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        },
+                        {
+                            "catId": 190006,
+                            "catName": "婚庆节庆",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        },
+                        {
+                            "catId": 190007,
+                            "catName": "熏香",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        },
+                        {
+                            "catId": 190008,
+                            "catName": "美妆礼品",
+                            "catDesc": "三级分类",
+                            "parentId": 1900,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1901,
+                    "catName": "奢侈品",
+                    "catDesc": "二级分类",
+                    "parentId": 19,
+                    "children": [
+                        {
+                            "catId": 190100,
+                            "catName": "箱包",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190101,
+                            "catName": "钱包",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190102,
+                            "catName": "服饰",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190103,
+                            "catName": "腰带",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190104,
+                            "catName": "太阳镜/眼镜框",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190105,
+                            "catName": "配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190106,
+                            "catName": "鞋靴",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190107,
+                            "catName": "饰品",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190108,
+                            "catName": "名品腕表",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        },
+                        {
+                            "catId": 190109,
+                            "catName": "高档化妆品",
+                            "catDesc": "三级分类",
+                            "parentId": 1901,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1902,
+                    "catName": "火机烟具",
+                    "catDesc": "二级分类",
+                    "parentId": 19,
+                    "children": [
+                        {
+                            "catId": 190200,
+                            "catName": "电子烟",
+                            "catDesc": "三级分类",
+                            "parentId": 1902,
+                            "children": []
+                        },
+                        {
+                            "catId": 190201,
+                            "catName": "烟油",
+                            "catDesc": "三级分类",
+                            "parentId": 1902,
+                            "children": []
+                        },
+                        {
+                            "catId": 190202,
+                            "catName": "打火机",
+                            "catDesc": "三级分类",
+                            "parentId": 1902,
+                            "children": []
+                        },
+                        {
+                            "catId": 190203,
+                            "catName": "烟嘴",
+                            "catDesc": "三级分类",
+                            "parentId": 1902,
+                            "children": []
+                        },
+                        {
+                            "catId": 190204,
+                            "catName": "烟斗",
+                            "catDesc": "三级分类",
+                            "parentId": 1902,
+                            "children": []
+                        },
+                        {
+                            "catId": 190205,
+                            "catName": "烟盒",
+                            "catDesc": "三级分类",
+                            "parentId": 1902,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1903,
+                    "catName": "婚庆",
+                    "catDesc": "二级分类",
+                    "parentId": 19,
+                    "children": [
+                        {
+                            "catId": 190300,
+                            "catName": "婚嫁首饰",
+                            "catDesc": "三级分类",
+                            "parentId": 1903,
+                            "children": []
+                        },
+                        {
+                            "catId": 190301,
+                            "catName": "婚纱礼服",
+                            "catDesc": "三级分类",
+                            "parentId": 1903,
+                            "children": []
+                        },
+                        {
+                            "catId": 190302,
+                            "catName": "婚庆礼品/用品",
+                            "catDesc": "三级分类",
+                            "parentId": 1903,
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "catId": 1904,
+                    "catName": "鲜花速递",
+                    "catDesc": "二级分类",
+                    "parentId": 19,
+                    "children": [
+                        {
+                            "catId": 190400,
+                            "catName": "鲜花",
+                            "catDesc": "三级分类",
+                            "parentId": 1904,
+                            "children": []
+                        },
+                        {
+                            "catId": 190401,
+                            "catName": "永生花",
+                            "catDesc": "三级分类",
+                            "parentId": 1904,
+                            "children": []
+                        },
+                        {
+                            "catId": 190402,
+                            "catName": "香皂花",
+                            "catDesc": "三级分类",
+                            "parentId": 1904,
+                            "children": []
+                        },
+                        {
+                            "catId": 190403,
+                            "catName": "卡通花束",
+                            "catDesc": "三级分类",
+                            "parentId": 1904,
+                            "children": []
+                        },
+                        {
+                            "catId": 190404,
+                            "catName": "干花",
+                            "catDesc": "三级分类",
+                            "parentId": 1904,
+                            "children": []
+                        },
+                        {
+                            "catId": 190405,
+                            "catName": "花材配件",
+                            "catDesc": "三级分类",
+                            "parentId": 1904,
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "timestamp": 1629355713551
+}

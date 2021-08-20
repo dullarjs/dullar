@@ -6,10 +6,12 @@ import "./index.less";
 import "./window-events";
 
 import ActionSheet from "./action-sheet";
+import Address from "./address";
 import AnimationList from "./animation-list";
 import AnimationListItem from "./animation-list-item";
 import Button from "./button";
 import Category from "./category";
+import CategoryMobile from "./category-mobile";
 import CategorySelect from "./category-select";
 import Checkbox from "./checkbox";
 import Counter from "./counter";
@@ -44,10 +46,12 @@ import Toast from "./toast";
 
 const components = [
   ActionSheet,
+  Address,
   AnimationList,
   AnimationListItem,
   Button,
   Category,
+  CategoryMobile,
   CategorySelect,
   Checkbox,
   Counter,
@@ -122,10 +126,12 @@ export default {
   config,
 };
 export { ActionSheet as YnActionSheet };
+export { Address as YnAddress };
 export { AnimationList as YnAnimationList };
 export { AnimationListItem as YnAnimationListItem };
 export { Button as YnButton };
 export { Category as YnCategory };
+export { CategoryMobile as YnCategoryMobile };
 export { CategorySelect as YnCategorySelect };
 export { Checkbox as YnCheckbox };
 export { Counter as YnCounter };

@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:19:49
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-27 19:44:18
+ * @Last Modified time: 2021-08-18 15:20:02
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -21,7 +21,15 @@ export default defineComponent({
   initPropsToData() {
     return [{ key: "currentTab", value: "value" }];
   },
+  watch: {
+    value: function (v) {
+      this.setCurrentTab(v);
+    },
+  },
   methods: {
+    setCurrentTab(val) {
+      this.currentTab = val;
+    },
     getTitles(slots = []) {
       const tabs = [];
       slots.forEach((slot, index) => {
@@ -37,6 +45,7 @@ export default defineComponent({
       }
       if (this.currentTab !== tab.index) {
         this.$emit("change", tab);
+        this.$emit("input", tab.index);
       }
       this.currentTab = tab.index;
     },

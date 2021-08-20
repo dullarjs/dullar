@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-08-03 09:56:19
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-08-06 19:27:32
+* @Last Modified time: 2021-08-12 16:47:30
 * @E-mail: justbefree@126.com
 */
 const axios = require("axios");
@@ -16,7 +16,7 @@ const send = (content = "") => {
                "title" : "Dullar moves the technology",
                "description" : "UI component examples have been updated",
                "url" : "https://dullar.xyz/",
-               "picurl" : "https://dullar.xyz/img/logo.0c32abe4.png"
+               "picurl" : "https://dullar.xyz/img/dullar.c4096cd5.png"
            }
         ]
     }
