@@ -15,6 +15,7 @@ import Checkbox from "./checkbox";
 import Counter from "./counter";
 import DatePicker from "./date-picker";
 import Dialog from "./dialog";
+import ElasticSearch from "./elastic-search";
 import Field from "./field";
 import FieldGroup from "./field-group";
 import Flex from "./flex";
@@ -52,6 +53,7 @@ const components = [
   Counter,
   DatePicker,
   Dialog,
+  ElasticSearch,
   Field,
   FieldGroup,
   Flex,
@@ -129,6 +131,7 @@ export { Checkbox as YnCheckbox };
 export { Counter as YnCounter };
 export { DatePicker as YnDatePicker };
 export { Dialog as YnDialog };
+export { ElasticSearch as YnElasticSearch };
 export { Field as YnField };
 export { FieldGroup as YnFieldGroup };
 export { Flex as YnFlex };
