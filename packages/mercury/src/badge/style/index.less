@@ -1,0 +1,37 @@
+.yn-badge {
+  position: relative;
+
+  .yn-badge-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .position {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transform: translate(50%, -50%);
+    transform-origin: 100% 0;
+  }
+
+  sub {
+    vertical-align: sub;
+    font-size: smaller;
+  }
+
+  .yn-badge-count {
+    min-width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 10px;
+    color: @white;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    text-align: center;
+    transform: rotate(0.8);
+  }
+}

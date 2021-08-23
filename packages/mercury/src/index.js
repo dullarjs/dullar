@@ -9,6 +9,7 @@ import ActionSheet from "./action-sheet";
 import Address from "./address";
 import AnimationList from "./animation-list";
 import AnimationListItem from "./animation-list-item";
+import Badge from "./badge";
 import Button from "./button";
 import Category from "./category";
 import CategoryMobile from "./category-mobile";
@@ -26,6 +27,7 @@ import Iconfont from "./iconfont";
 import Indicator from "./indicator";
 import Layout from "./layout";
 import Magnifier from "./magnifier";
+import Modal from "./modal";
 import Pagination from "./pagination";
 import Picker from "./picker";
 import PickyStepper from "./picky-stepper";
@@ -43,12 +45,14 @@ import TabItem from "./tab-item";
 import Table from "./table";
 import Tabs from "./tabs";
 import Toast from "./toast";
+import Tooltip from "./tooltip";
 
 const components = [
   ActionSheet,
   Address,
   AnimationList,
   AnimationListItem,
+  Badge,
   Button,
   Category,
   CategoryMobile,
@@ -66,6 +70,7 @@ const components = [
   Indicator,
   Layout,
   Magnifier,
+  Modal,
   Pagination,
   Picker,
   PickyStepper,
@@ -83,6 +88,7 @@ const components = [
   Table,
   Tabs,
   Toast,
+  Tooltip,
 ];
 const install = (Vue) => {
   if (install.installed) return;
@@ -129,6 +135,7 @@ export { ActionSheet as YnActionSheet };
 export { Address as YnAddress };
 export { AnimationList as YnAnimationList };
 export { AnimationListItem as YnAnimationListItem };
+export { Badge as YnBadge };
 export { Button as YnButton };
 export { Category as YnCategory };
 export { CategoryMobile as YnCategoryMobile };
@@ -146,6 +153,7 @@ export { Iconfont as YnIconfont };
 export { Indicator as YnIndicator };
 export { Layout as YnLayout };
 export { Magnifier as YnMagnifier };
+export { Modal as YnModal };
 export { Pagination as YnPagination };
 export { Picker as YnPicker };
 export { PickyStepper as YnPickyStepper };
@@ -163,3 +171,4 @@ export { TabItem as YnTabItem };
 export { Table as YnTable };
 export { Tabs as YnTabs };
 export { Toast as YnToast };
+export { Tooltip as YnTooltip };

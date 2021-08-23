@@ -41,9 +41,11 @@ import ShippingAddress from "./shipping-address/shippingAddress.vue";
 import ElasticSearch from "./elastic-serach/elasticSearch.vue";
 import CategoryMobile from "./category-mobile/categoryMobile.vue";
 import Address from "./address/address.vue";
+import Modal from "./modal/modal.vue";
+import Badge from "./badge/badge.vue";
+import Tooltip from "./tooltip/tooltip.vue";
 const router = new Router({
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "content",
       component: Content
@@ -52,6 +54,21 @@ const router = new Router({
       path: "/toast",
       name: "toast",
       component: Toast
+    },
+    {
+      path: "/tooltip",
+      name: "tooltip",
+      component: Tooltip
+    },
+    {
+      path: "/badge",
+      name: "badge",
+      component: Badge
+    },
+    {
+      path: "/modal",
+      name: "modal",
+      component: Modal
     },
     {
       path: "/indicator",
