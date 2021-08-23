@@ -9,7 +9,6 @@
       >
         <yn-button class="mt30" type="text">top</yn-button>
       </yn-tooltip>
-      <!-- <div class="middle"> -->
       <div>
         <yn-tooltip
           trigger="hover"
@@ -27,7 +26,6 @@
       >
         <yn-button class="mt30" type="text">right</yn-button>
       </yn-tooltip>
-      <!-- </div> -->
       <yn-tooltip
         trigger="hover"
         placement="bottom"
