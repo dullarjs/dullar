@@ -37,14 +37,14 @@
       </yn-tooltip>
       <div class="bottom">
         <yn-tooltip content="我是tooltip" trigger="click">
-          <yn-button class="mt30" type="text">点我试试click</yn-button>
+          <yn-button class="mt30" type="text">click</yn-button>
         </yn-tooltip>
         <yn-tooltip trigger="focus" effect="light">
-          <yn-button class="mt30" type="text">鼠标focus</yn-button>
-          <div slot="content">我是内容分发的conent。</div>
+          <yn-button class="mt30" type="text">focus</yn-button>
+          <div slot="content">我是内容分发的focus。</div>
         </yn-tooltip>
         <yn-tooltip placement="right" effect="light" trigger="hover">
-          <yn-button class="mt30" type="text">鼠标hover</yn-button>
+          <yn-button class="mt30" type="text">hover 插槽</yn-button>
           <div slot="content">
             <p>我是tooltip我是tooltip</p>
             <p>我是tooltip我是tooltip</p>
