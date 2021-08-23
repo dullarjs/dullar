@@ -1,0 +1,127 @@
+@import "../../theme/variable.less";
+
+.yn-tooltip {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  font-feature-settings: "tnum";
+  // position: absolute;
+  display: block;
+
+  .yn-tooltip-content {
+    z-index: 1060;
+    position: absolute;
+    visibility: hidden;
+    width: max-content;
+
+    &.visible {
+      visibility: visible;
+    }
+
+    .yn-tooltip-arrow {
+      position: absolute;
+      display: block;
+      width: 13px;
+      height: 13px;
+      overflow: hidden;
+      background: transparent;
+      pointer-events: none;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      &::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 8px;
+        height: 8px;
+        margin: auto;
+        transform: translateX(-6px) rotate(45deg);
+        content: "";
+        background-color: rgba(0, 0, 0, 0.75);
+        pointer-events: auto;
+      }
+    }
+
+    .yn-tooltip-inner {
+      width: fit-content;
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      display: inline-block;
+      padding: 6px 8px;
+      min-width: 30px;
+      max-width: 250px;
+      color: @white;
+      text-align: left;
+      text-decoration: none;
+      word-wrap: break-word;
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 4px;
+    }
+  }
+}
+
+.yn-tooltip-light {
+  .yn-tooltip-content {
+    box-shadow: 0 1px 6px 0 rgb(200, 200, 200, 0.8) !important;
+
+    .yn-tooltip-inner {
+      background-color: @white;
+      color: @text-color !important;
+    }
+
+    .yn-tooltip-arrow {
+      &::before {
+        background-color: @white;
+        box-shadow: 0 1px 6px 0 rgb(200, 200, 200, 0.8) !important;
+      }
+    }
+  }
+}
+
+.yn-tooltip-placement-left {
+  padding-right: 8px;
+}
+
+.yn-tooltip-placement-top {
+  .yn-tooltip-arrow {
+    top: 100% !important;
+    left: 50% !important;
+    transform: rotate(90deg) !important;
+  }
+}
+
+.yn-tooltip-placement-right {
+  .yn-tooltip-arrow {
+    top: 50% !important;
+    left: -12px !important;
+    transform: rotate(180deg) translateY(50%) !important;
+  }
+}
+
+.yn-tooltip-placement-bottom {
+  .yn-tooltip-arrow {
+    top: -12px !important;
+    left: 50% !important;
+    transform: rotate(-90deg) translateY(50%) !important;
+  }
+}
+
+// .tooltip {
+//   position: absolute;
+//   // visibility: hidden;
+
+//   &.visible {
+//     visibility: visible;
+//   }
+// }
