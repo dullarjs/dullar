@@ -270,10 +270,11 @@ export default defineComponent({
                                               "span",
                                               {
                                                 on: {
-                                                  click: this.handleRecordClick.bind(
-                                                    this,
-                                                    record
-                                                  ),
+                                                  click:
+                                                    this.handleRecordClick.bind(
+                                                      this,
+                                                      record
+                                                    ),
                                                 },
                                               },
                                               this.history.parse(record, {
@@ -290,13 +291,14 @@ export default defineComponent({
                                                       size: 12,
                                                     },
                                                     on: {
-                                                      click: this.handleDelete.bind(
-                                                        this,
-                                                        {
-                                                          type: "single",
-                                                          record,
-                                                        }
-                                                      ),
+                                                      click:
+                                                        this.handleDelete.bind(
+                                                          this,
+                                                          {
+                                                            type: "single",
+                                                            record,
+                                                          }
+                                                        ),
                                                     },
                                                   },
                                                   []
