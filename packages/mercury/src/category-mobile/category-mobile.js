@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-17 18:05:03
+ * @Last Modified time: 2021-08-23 10:42:45
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -97,94 +97,110 @@ export default defineComponent({
   },
   render(h) {
     return h("div", { class: ["yn-category-mobile"] }, [
-      h(genComponentName("flex"), { class: ["category-flex"] }, [
-        h(genComponentName("flex-item"), { class: ["left-column"] }, [
-          h(
-            "ul",
-            { class: ["ul-scroll"] },
-            Array.apply(null, this.categories).map((cat, key) => {
-              return h(
-                "li",
-                {
-                  key,
-                  on: { click: this.handleListClick.bind(this, { cat, key }) },
-                  class: [this.currentTab === key ? "active" : ""],
-                },
-                [cat.cat_name]
-              );
-            })
-          ),
-        ]),
-        h(genComponentName("flex-item"), { class: ["right-column"] }, [
-          h("div", { class: ["right-scroll", this.loading ? "loading" : ""] }, [
-            this.loading
-              ? h(
-                  genComponentName("spin"),
+      h(
+        genComponentName("flex"),
+        { class: ["category-flex"], props: { justifyContent: "spaceBetween" } },
+        [
+          h(genComponentName("flex-item"), { class: ["left-column"] }, [
+            h(
+              "ul",
+              { class: ["ul-scroll"] },
+              Array.apply(null, this.categories).map((cat, key) => {
+                return h(
+                  "li",
                   {
-                    class: ["category-loading"],
-                    props: { type: "rotate-svg", size: 40 },
-                  },
-                  []
-                )
-              : h(
-                  genComponentName("pull-refresh"),
-                  {
-                    ref: "pullRefresh",
+                    key,
                     on: {
-                      pullRefresh: this.handlePull,
+                      click: this.handleListClick.bind(this, { cat, key }),
                     },
+                    class: [this.currentTab === key ? "active" : ""],
                   },
-                  [
-                    Array.apply(null, this.categoryList).map((cat) => {
-                      return [
-                        h("h4", { key: `title-${cat.id}` }, cat.name),
-                        h(
-                          genComponentName("flex"),
-                          {
-                            key: `content-${cat.id}`,
-                            props: { flexWrap: "wrap" },
-                          },
-                          [
-                            ...Array.apply(null, cat.cat_id).map((subCat) => {
-                              return h(
-                                genComponentName("flex-item"),
-                                { key: subCat.id, class: ["goods-item"] },
-                                [
-                                  h(
-                                    "a",
-                                    {
-                                      on: {
-                                        click: this.handleItemClick.bind(
-                                          this,
-                                          subCat
-                                        ),
-                                      },
-                                      class: ["hypelink"],
-                                      attrs: { href: "javascript:;" },
-                                    },
-                                    [
-                                      h(
-                                        "img",
-                                        { attrs: { src: subCat.cat_img } },
-                                        []
-                                      ),
-                                      h("span", { class: ["goods-name"] }, [
-                                        subCat.name,
-                                      ]),
-                                    ]
-                                  ),
-                                ]
-                              );
-                            }),
-                          ]
-                        ),
-                      ];
-                    }),
-                  ]
-                ),
+                  [cat.cat_name]
+                );
+              })
+            ),
           ]),
-        ]),
-      ]),
+          h(genComponentName("flex-item"), { class: ["right-column"] }, [
+            h(
+              "div",
+              { class: ["right-scroll", this.loading ? "loading" : ""] },
+              [
+                this.loading
+                  ? h(
+                      genComponentName("spin"),
+                      {
+                        class: ["category-loading"],
+                        props: { type: "rotate-svg", size: 40 },
+                      },
+                      []
+                    )
+                  : h(
+                      genComponentName("pull-refresh"),
+                      {
+                        ref: "pullRefresh",
+                        on: {
+                          pullRefresh: this.handlePull,
+                        },
+                      },
+                      [
+                        Array.apply(null, this.categoryList).map((cat) => {
+                          return [
+                            h("h4", { key: `title-${cat.id}` }, cat.name),
+                            h(
+                              genComponentName("flex"),
+                              {
+                                key: `content-${cat.id}`,
+                                props: { flexWrap: "wrap" },
+                              },
+                              [
+                                ...Array.apply(null, cat.cat_id).map(
+                                  (subCat) => {
+                                    return h(
+                                      genComponentName("flex-item"),
+                                      { key: subCat.id, class: ["goods-item"] },
+                                      [
+                                        h(
+                                          "a",
+                                          {
+                                            on: {
+                                              click: this.handleItemClick.bind(
+                                                this,
+                                                subCat
+                                              ),
+                                            },
+                                            class: ["hypelink"],
+                                            attrs: { href: "javascript:;" },
+                                          },
+                                          [
+                                            h(
+                                              "img",
+                                              {
+                                                attrs: { src: subCat.cat_img },
+                                              },
+                                              []
+                                            ),
+                                            h(
+                                              "span",
+                                              { class: ["goods-name"] },
+                                              [subCat.name]
+                                            ),
+                                          ]
+                                        ),
+                                      ]
+                                    );
+                                  }
+                                ),
+                              ]
+                            ),
+                          ];
+                        }),
+                      ]
+                    ),
+              ]
+            ),
+          ]),
+        ]
+      ),
     ]);
   },
 });
