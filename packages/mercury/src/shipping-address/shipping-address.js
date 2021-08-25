@@ -2,178 +2,206 @@
  * @Author: Just be free
  * @Date:   2021-07-27 13:32:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-06 18:26:27
+ * @Last Modified time: 2021-08-25 18:56:07
  * @E-mail: justbefree@126.com
  */
-import { defineComponent } from "../modules/component";
-// genComponentName
+import { defineComponent, genComponentName } from "../modules/component";
+import Spin from "../spin";
 export default defineComponent({
   name: "ShippingAddress",
+  components: { Spin },
   props: {
-    sources: Array,
+    staticAddress: Array,
+    label: {
+      type: String,
+      default: "请选择",
+    },
+    address: {
+      type: Object,
+      default: () => {
+        return {
+          params: {},
+          action: () => {
+            return Promise.resolve();
+          },
+          parse: (e) => {
+            return e;
+          },
+        };
+      },
+    },
   },
   data() {
     return {
-      currentTab: "",
-      provinces: "请选择",
-      provincesArr: [],
-      cities: "",
-      citiesArr: [],
-      districts: "",
-      districtsArr: [],
-      streets: "",
-      streetsArr: [],
+      currentTab: 0,
+      isLoading: false,
+      regionList: [],
+      CACHE: [],
+      CACHE_1: {},
+      CACHE_2: {},
+      CACHE_3: {},
+      CACHE_4: {},
     };
   },
-  computed: {
-    processedSources() {
-      let provinces = [];
-      let cities = [];
-      let districts = [];
-      let streets = [];
-      if (Array.isArray(this.sources) && this.sources.length > 0) {
-        this.sources.forEach((area) => {
-          if (area.region_type === "1") {
-            provinces.push(area);
-          } else if (area.region_type === "2") {
-            cities.push(area);
-          } else if (area.region_type === "3") {
-            districts.push(area);
-          } else if (area.region_type === "4") {
-            streets.push(area);
-          }
-        });
-        return {
-          provinces,
-          cities,
-          districts,
-          streets,
-        };
-      }
-    },
+  initPropsToData() {
+    return [{ key: "regionHeaders", value: "staticAddress" }];
   },
   methods: {
-    handleSwitchTab(tab) {
-      this.currentTab = tab;
-      if (tab === "provinces") {
-        this.provincesArr = this.processedSources.provinces;
+    handleSwitchTab(tab, index) {
+      this.currentTab = index;
+      // tab页签切换的时候，小于要清除后面的label
+      if (index === 0) {
+        this.regionList = this.CACHE;
+      } else {
+        const tempList = this[`CACHE_${index}`][tab.parent_id];
+        if (tempList && Array.isArray(tempList)) {
+          this.regionList = this[`CACHE_${index}`][tab.parent_id];
+        } else {
+          this.requestAddress(tab, tab);
+        }
       }
     },
-    getData(parentId, attr) {
-      this[`${attr}Arr`] = [];
-      this.processedSources[attr].forEach((area) => {
-        if (area.parent_id === parentId) {
-          this[`${attr}Arr`].push(area);
+    setCache(region, res) {
+      if (this.currentTab === 0) {
+        this.CACHE = res;
+      } else {
+        if (!this[`CACHE_${region.region_type}`][region.region_id]) {
+          this[`CACHE_${region.region_type}`][region.region_id] = res;
         }
-      });
+      }
     },
-    clearTab(index = -1) {
-      const arr = Object.keys(this.processedSources);
-      if (index > -1) {
-        arr.forEach((a, i) => {
-          if (i >= index) {
-            this[a] = "";
-          }
-        });
+    replaceItem(type, option) {
+      if (type === 1) {
+        this.regionHeaders = [];
+        this.regionHeaders.push(option);
+        this.regionHeaders.push(this.label);
+      } else {
+        // this.regionHeaders.splice(this.regionHeaders.length - 1, 0, option);
+        const length = this.regionHeaders.length;
+        this.regionHeaders.splice(type - 1, length, option);
+        if (this.regionList.length > 0) {
+          this.regionHeaders.push(this.label);
+        }
+      }
+    },
+    updateRegionList(option) {
+      const type = parseInt(option.region_type);
+      const length = this.regionHeaders.length;
+      this.regionHeaders.splice(type - 1, length, option);
+      if (this.regionList.length > 0) {
+        this.regionHeaders.push(this.label);
+      }
+      const tempList = this[`CACHE_${option.region_type}`][option.region_id];
+      if (Array.isArray(tempList) && tempList.length > 0) {
+        this.regionList = tempList;
+      } else {
+        this.requestAddress(option, option);
       }
     },
     handleItemClick(option) {
-      if (option.region_type === "1") {
-        if (this.provinces === option.region_name) {
-          this.currentTab = "";
-          return;
-        }
-        this.clearTab(parseInt(option.region_type) - 1);
-        this.provinces = option.region_name;
-        this.citiesArr = [];
-        this.getData(option.region_id, "cities");
-        if (this.citiesArr.length > 0) {
-          this.cities = "请选择";
-        }
-        this.currentTab = "cities";
-      } else if (option.region_type === "2") {
-        if (this.cities === option.region_name) {
-          this.currentTab = "";
-          return;
-        }
-        this.clearTab(parseInt(option.region_type) - 1);
-        this.cities = option.region_name;
-        this.districtsArr = [];
-        this.getData(option.region_id, "districts");
-        if (this.districtsArr.length > 0) {
-          this.districts = "请选择";
-        }
-        this.currentTab = "districts";
-      } else if (option.region_type === "3") {
-        if (this.districts === option.region_name) {
-          this.currentTab = "";
-          return;
-        }
-        this.clearTab(parseInt(option.region_type) - 1);
-        this.districts = option.region_name;
-        this.streetsArr = [];
-        this.getData(option.region_id, "streets");
-        if (this.streetsArr.length > 0) {
-          this.streets = "请选择";
-        } else {
-          this.streets = "";
-        }
-        this.currentTab = "streets";
-      } else if (option.region_type === "4") {
-        this.streets = option.region_name;
-        this.currentTab = "";
+      const regionType = parseInt(option.region_type);
+      const currentRegion = this.regionHeaders[regionType - 1];
+      if (this.address.parse(currentRegion) === this.address.parse(option)) {
+        return;
       }
+      this.currentTab = regionType;
+      this.updateRegionList(option);
+      // this.replaceItem(regionType, option);
+      // this.requestAddress({ regionType: regionType, regionId: option.region_id }, option, "item");
     },
+    requestAddress(args, region) {
+      this.isLoading = true;
+      // const { regionType } = args;
+      const params = { ...this.address.params, ...args };
+      const promise = this.address.action(params);
+      promise
+        .then((res) => {
+          this.isLoading = false;
+          this.regionList = res;
+          this.setCache(region, res);
+        })
+        .catch(() => {
+          this.isLoading = false;
+        });
+    },
+  },
+  mounted() {
+    this.requestAddress(
+      { region_type: "1", region_id: "10" },
+      this.regionHeaders[0]
+    );
   },
   render(h) {
     return h("div", { class: ["yn-shipping-address"] }, [
       h("div", { class: ["address-selection"] }, [
         h("ul", {}, [
-          Array.apply(null, Object.keys(this.processedSources)).map(
-            (attr, index) => {
-              return h(
-                "li",
-                {
-                  attrs: { "data-index": index, "data-name": attr },
-                  class: [index !== 0 && this[attr] === "" ? "hide" : ""],
+          Array.apply(null, this.regionHeaders).map((attr, index) => {
+            return h(
+              "li",
+              {
+                attrs: {
+                  "data-id": attr.region_id,
+                  "data-parent-id": attr.parent_id,
                 },
-                [
-                  h(
-                    "span",
-                    {
-                      class: [
-                        "label",
-                        this.currentTab === attr ? "active" : "",
-                      ],
-                      on: {
-                        click: this.handleSwitchTab.bind(this, attr),
-                      },
+                class: [index !== 0 && this[attr] === "" ? "hide" : ""],
+              },
+              [
+                h(
+                  "span",
+                  {
+                    class: ["label", this.currentTab === index ? "active" : ""],
+                    on: {
+                      click: this.handleSwitchTab.bind(this, attr, index),
                     },
-                    [this[attr]]
-                  ),
-                  h(
-                    "div",
-                    {
-                      class: ["result", this.currentTab === attr ? "" : "hide"],
-                    },
-                    Array.apply(null, this[`${attr}Arr`]).map((option, key) => {
-                      return h(
-                        "span",
-                        {
-                          class: ["option"],
-                          key,
-                          on: {
-                            click: this.handleItemClick.bind(this, option),
+                  },
+                  [this.address.parse(attr)]
+                ),
+                h(
+                  "div",
+                  {
+                    class: [
+                      "result",
+                      this.currentTab === index ? "" : "hide",
+                      this.isLoading ? "loading" : "",
+                    ],
+                  },
+                  [
+                    this.isLoading
+                      ? h(
+                          genComponentName("spin"),
+                          {
+                            class: ["shipping-address-loading"],
+                            props: { type: "rotate-svg", size: 40 },
                           },
-                        },
-                        option.region_name
-                      );
-                    })
-                  ),
-                ]
-              );
-            }
-          ),
+                          []
+                        )
+                      : Array.apply(null, this.regionList).map(
+                          (option, key) => {
+                            return h(
+                              "span",
+                              {
+                                attrs: {
+                                  "data-id": option.region_id,
+                                  "data-parent-id": option.parent_id,
+                                },
+                                class: ["option"],
+                                key,
+                                on: {
+                                  click: this.handleItemClick.bind(
+                                    this,
+                                    option
+                                  ),
+                                },
+                              },
+                              [this.address.parse(option)]
+                            );
+                          }
+                        ),
+                  ]
+                ),
+              ]
+            );
+          }),
         ]),
       ]),
     ]);
