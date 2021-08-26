@@ -2,7 +2,7 @@
   <div class="shipping-address-box">
     <h2>yn-shipping-address</h2>
     <div class="address-box">
-      <yn-shipping-address :address="getAddressObject()" :staticAddress="staticAddress"></yn-shipping-address>
+      <yn-shipping-address :address="getAddressObject()" :staticAddress="staticAddress" @done="handleDone"></yn-shipping-address>
     </div>
   </div>
 </template>
@@ -43,6 +43,9 @@ export default {
     }
   },
   methods: {
+    handleDone(address) {
+      console.log("获取到的地址", address);
+    },
     getAddress(args) {
       console.log("args = ", args);
       const result = [];
