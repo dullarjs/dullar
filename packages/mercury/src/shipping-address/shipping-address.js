@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-27 13:32:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-25 18:56:07
+ * @Last Modified time: 2021-08-26 11:30:35
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -70,20 +70,6 @@ export default defineComponent({
         }
       }
     },
-    replaceItem(type, option) {
-      if (type === 1) {
-        this.regionHeaders = [];
-        this.regionHeaders.push(option);
-        this.regionHeaders.push(this.label);
-      } else {
-        // this.regionHeaders.splice(this.regionHeaders.length - 1, 0, option);
-        const length = this.regionHeaders.length;
-        this.regionHeaders.splice(type - 1, length, option);
-        if (this.regionList.length > 0) {
-          this.regionHeaders.push(this.label);
-        }
-      }
-    },
     updateRegionList(option) {
       const type = parseInt(option.region_type);
       const length = this.regionHeaders.length;
@@ -106,18 +92,18 @@ export default defineComponent({
       }
       this.currentTab = regionType;
       this.updateRegionList(option);
-      // this.replaceItem(regionType, option);
-      // this.requestAddress({ regionType: regionType, regionId: option.region_id }, option, "item");
     },
     requestAddress(args, region) {
       this.isLoading = true;
-      // const { regionType } = args;
       const params = { ...this.address.params, ...args };
       const promise = this.address.action(params);
       promise
         .then((res) => {
           this.isLoading = false;
           this.regionList = res;
+          if (res.length === 0) {
+            this.$emit("done", this.regionHeaders);
+          }
           this.setCache(region, res);
         })
         .catch(() => {
