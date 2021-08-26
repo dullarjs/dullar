@@ -46,6 +46,7 @@ import Table from "./table";
 import Tabs from "./tabs";
 import Toast from "./toast";
 import Tooltip from "./tooltip";
+import Input from "./input"
 
 const components = [
   ActionSheet,
@@ -68,6 +69,7 @@ const components = [
   FlexItem,
   Iconfont,
   Indicator,
+    Input,
   Layout,
   Magnifier,
   Modal,
