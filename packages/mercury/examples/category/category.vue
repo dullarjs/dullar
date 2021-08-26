@@ -1,7 +1,7 @@
 <template>
   <div class="category-content">
     <h2>yn-category</h2>
-    <yn-category :categories="category2" :category="getCategory()"></yn-category>
+    <yn-category :categories="category2" :category="getCategory()" @pick="handlePicked"></yn-category>
   </div>
 </template>
 <script type="text/javascript">
@@ -19,6 +19,9 @@ export default {
     console.log(this.processingData(category));
   },
   methods: {
+    handlePicked(item) {
+      console.log("item = ", item);
+    },
     processingData() {
       // 处理数据
       const result = [];
