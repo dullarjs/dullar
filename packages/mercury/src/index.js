@@ -25,6 +25,7 @@ import Flex from "./flex";
 import FlexItem from "./flex-item";
 import Iconfont from "./iconfont";
 import Indicator from "./indicator";
+import Input from "./input";
 import Layout from "./layout";
 import Magnifier from "./magnifier";
 import Modal from "./modal";
@@ -46,7 +47,6 @@ import Table from "./table";
 import Tabs from "./tabs";
 import Toast from "./toast";
 import Tooltip from "./tooltip";
-import Input from "./input"
 
 const components = [
   ActionSheet,
@@ -69,7 +69,7 @@ const components = [
   FlexItem,
   Iconfont,
   Indicator,
-    Input,
+  Input,
   Layout,
   Magnifier,
   Modal,
@@ -153,6 +153,7 @@ export { Flex as YnFlex };
 export { FlexItem as YnFlexItem };
 export { Iconfont as YnIconfont };
 export { Indicator as YnIndicator };
+export { Input as YnInput };
 export { Layout as YnLayout };
 export { Magnifier as YnMagnifier };
 export { Modal as YnModal };

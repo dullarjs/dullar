@@ -45,5 +45,8 @@ module.exports = {
       filename: "index.html",
       title: "Examples for @dullar/mercury components"
     }
+  },
+  devServer:{
+	port:8070
   }
 };
