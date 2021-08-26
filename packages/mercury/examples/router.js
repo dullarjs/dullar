@@ -44,6 +44,7 @@ import Address from "./address/address.vue";
 import Modal from "./modal/modal.vue";
 import Badge from "./badge/badge.vue";
 import Tooltip from "./tooltip/tooltip.vue";
+import Input from "./input/input";
 const router = new Router({
   routes: [{
       path: "/",
@@ -229,6 +230,12 @@ const router = new Router({
       path: "/address",
       name: "address",
       component: Address
+    }
+    ,
+    {
+      path: "/input",
+      name: "input",
+      component: Input
     }
   ]
 });
