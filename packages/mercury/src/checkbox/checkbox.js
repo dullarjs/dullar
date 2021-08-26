@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 12:49:59
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-16 17:04:33
+ * @Last Modified time: 2021-08-26 17:27:32
  */
 import Iconfont from "../iconfont";
 import { defineComponent, genComponentName } from "../modules/component";
@@ -23,6 +23,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    indeterminate: {
+      default: false,
+      type: Boolean,
+    },
   },
   model: {
     prop: "checked",
@@ -35,8 +39,18 @@ export default defineComponent({
       }
     },
   },
+  computed: {
+    iconfontName() {
+      const disabled = !this.indeterminate && this.disabled ? "-disabled" : "";
+      if (this.indeterminate) {
+        return "indeterminate";
+      }
+      return this.checked
+        ? `checkbox-checked${disabled}`
+        : `checkbox-uncheck${disabled}`;
+    },
+  },
   render(h) {
-    const disabled = this.disabled ? "-disabled" : "";
     return h(
       "span",
       {
@@ -49,9 +63,7 @@ export default defineComponent({
           {
             props: {
               size: this.size,
-              name: this.checked
-                ? `checkbox-checked${disabled}`
-                : `checkbox-uncheck${disabled}`,
+              name: this.iconfontName,
             },
           },
           []
