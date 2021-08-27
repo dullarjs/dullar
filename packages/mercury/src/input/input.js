@@ -5,8 +5,10 @@
  * @Last Modified time: 2020-08-25 13:38:06
  */
 import { defineComponent, genComponentName } from "../modules/component";
+import { slotsMixins } from "@/mixins/slots";
 export default defineComponent({
   name: "Input",
+  mixins: [slotsMixins],
   model: {
     prop: "value",
     event: "input",
@@ -144,7 +146,7 @@ export default defineComponent({
       let ev = e || window.event; //标准化事件处理
       switch (ev.keyCode) {
         case 13:
-          console.log(this.value);
+          this.$emit("change", this.value);
           break;
       }
     },
@@ -162,9 +164,8 @@ export default defineComponent({
             h(
               "div",
               {
-                domProps: {
-                  class: "icon",
-                },
+                domProps: {},
+                class: "icon",
               },
               [
                 h(genComponentName("iconfont"), {
@@ -211,17 +212,13 @@ export default defineComponent({
             h(
               "div",
               {
-                domProps: {
-                  class: "clearIcon",
-                },
+                class: "clearIcon",
               },
               [
                 h(
                   "div",
                   {
-                    domProps: {
-                      class: "icon",
-                    },
+                    class: "icon",
                   },
                   [
                     h(genComponentName("iconfont"), {
@@ -276,9 +273,9 @@ export default defineComponent({
       return temp;
     },
     createInput(h) {
-      console.log(this.maxlength);
       const temp = [];
       temp.push(
+        this.slots("prepend", {}, null),
         ...this.createPrefixOrSuffixIcon(h, "prefixIcon"),
         h("input", {
           domProps: {
@@ -300,7 +297,8 @@ export default defineComponent({
         }),
         ...this.createClearIcon(h),
         ...this.createShowPwdIcon(h),
-        ...this.createPrefixOrSuffixIcon(h, "DataSuffixIcon", this.searchBtn)
+        ...this.createPrefixOrSuffixIcon(h, "DataSuffixIcon", this.searchBtn),
+        this.slots("append", {}, null)
       );
       return temp;
     },
