@@ -1,7 +1,7 @@
 <template>
   <div class="tree-box">
     <h2>yn-tree</h2>
-    <yn-tree :data="data"></yn-tree>
+    <yn-tree :data="data" @pick="handlePicked"></yn-tree>
   </div>
 </template>
 <script>
@@ -46,7 +46,11 @@ export default {
       }]
     };
   },
-  methods: {},
+  methods: {
+    handlePicked(selected) {
+      console.log("已选择的是", selected);
+    }
+  },
 };
 </script>
 <style type="text/css">
