@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-20 19:47:10
+ * @Last Modified time: 2021-08-28 17:05:44
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -45,6 +45,7 @@ import Modal from "./modal/modal.vue";
 import Badge from "./badge/badge.vue";
 import Tooltip from "./tooltip/tooltip.vue";
 import Input from "./input/input";
+import Tree from "./tree/tree.vue";
 const router = new Router({
   routes: [{
       path: "/",
@@ -230,6 +231,11 @@ const router = new Router({
       path: "/address",
       name: "address",
       component: Address
+    },
+    {
+      path: "/tree",
+      name: "tree",
+      component: Tree
     }
     ,
     {

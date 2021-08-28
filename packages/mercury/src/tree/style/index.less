@@ -1,0 +1,29 @@
+.yn-tree {
+  .yn-tree-leaf {
+    .leaf-group {
+      backface-visibility: hidden;
+      transition: all 0.3s ease;
+      // height: 100px;
+    }
+    font-size: 14px;
+    // line-height: 25px;
+    cursor: pointer;
+    margin-left: 15px;
+    user-select: none;
+    overflow: hidden;
+    .yn-tree-leaf-label {
+      height: 26px;
+      line-height: 26px;
+      .tree-checkbox {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+.yn-tree-expand-enter,
+.yn-tree-expand-leave-active {
+  // transform: translate3d(-50%, 100%, 0);
+  // display: none;
+  // height: 100px;
+  height: 0;
+}
