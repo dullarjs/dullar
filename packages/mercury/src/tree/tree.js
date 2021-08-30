@@ -2,18 +2,22 @@
  * @Author: Just be free
  * @Date:   2021-08-26 13:48:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-28 16:59:57
+ * @Last Modified time: 2021-08-30 14:37:30
  * @E-mail: justbefree@126.com
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
 import Checkbox from "../checkbox";
 import { push, drop } from "../modules/utils";
-// import { move } from "../modules/dom/animate/move";
+import Iconfont from "../iconfont";
 export default defineComponent({
   name: "Tree",
-  components: { Checkbox },
+  components: { Checkbox, Iconfont },
   props: {
+    showCheckbox: {
+      default: false,
+      type: Boolean,
+    },
     data: {
       default: () => {
         return [];
@@ -75,6 +79,7 @@ export default defineComponent({
         node.expanded = !node.expanded;
         this.updateTreeNode(node, "expanded", false);
       }
+      this.$emit("pick", node);
     },
     handleEnter(el) {
       el.style.height = "auto";
@@ -109,17 +114,33 @@ export default defineComponent({
         this.flatNodes[leaf.id] = leaf;
         return h("div", { key, class: ["yn-tree-leaf"], style: {} }, [
           h("div", { class: ["yn-tree-leaf-label"] }, [
-            h(
-              genComponentName("checkbox"),
-              {
-                on: {
-                  change: this.handleChange.bind(this, leaf),
-                },
-                class: ["tree-checkbox"],
-                props: { size: 14, checked: leaf.checked },
-              },
-              []
-            ),
+            this.showCheckbox
+              ? h(
+                  genComponentName("checkbox"),
+                  {
+                    on: {
+                      change: this.handleChange.bind(this, leaf),
+                    },
+                    class: ["tree-front-icon"],
+                    props: { size: 14, checked: leaf.checked },
+                  },
+                  []
+                )
+              : Array.isArray(leaf.children) &&
+                h(
+                  genComponentName("iconfont"),
+                  {
+                    class: ["tree-front-icon", leaf.expanded ? "expanded" : ""],
+                    props: {
+                      name: "solid-arrow",
+                      size: 8,
+                    },
+                    on: {
+                      click: this.handleExpand.bind(this, leaf),
+                    },
+                  },
+                  []
+                ),
             h(
               "span",
               {
@@ -133,7 +154,6 @@ export default defineComponent({
           h(
             "transition",
             {
-              name: "yn-tree-expand",
               on: {
                 enter: this.handleEnter.bind(this),
                 afterEnter: this.handleAfterEnter.bind(this),

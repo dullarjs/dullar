@@ -14,16 +14,14 @@
     .yn-tree-leaf-label {
       height: 26px;
       line-height: 26px;
-      .tree-checkbox {
+      .tree-front-icon {
         margin-right: 10px;
+        transition: all 0.3s ease;
+        transform: rotate(90deg);
+        &.expanded {
+          transform: rotate(180deg);
+        }
       }
     }
   }
-}
-.yn-tree-expand-enter,
-.yn-tree-expand-leave-active {
-  // transform: translate3d(-50%, 100%, 0);
-  // display: none;
-  // height: 100px;
-  height: 0;
 }
