@@ -75,6 +75,17 @@ jobs:
           mkdir docs/mercury
           mv packages/mercury/docs/* docs/mercury
 
+      - nam: Build earth
+        run: |
+          cd packages/earth
+          npm install
+          npm run build
+
+      - name: Move earth to root docs
+        run: |
+          mkdir docs/earth
+          mv packages/earth/docs/* docs/earth
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
