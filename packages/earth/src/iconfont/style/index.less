@@ -1,0 +1,19 @@
+@import "../../theme/variable.less";
+i.yn-iconfont-wrap {
+  display: inline-block;
+}
+.yn-iconfont {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  each(range(100), {
+    &.yn-iconfont-size-@{value} {
+      font-size: calc(@value * 1px);
+    }
+  });
+}
+.yn-iconfont-size-0 {
+  font-size: 0;
+}

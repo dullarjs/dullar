@@ -1,0 +1,81 @@
+@import "../../theme/variable.less";
+.yn-submit-action {
+  user-select: none;
+  height: 48px;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid @border-color;
+  border-bottom: 1px solid @border-color;
+  line-height: 48px;
+  &.fixed {
+    position: fixed;
+    bottom: 0;
+    border-bottom: none;
+  }
+  .yn-submit-action-flex {
+    width: 94%;
+    margin: 0 auto;
+    .custom-value {
+      text-align: left;
+    }
+  }
+  .yn-submit-action-total-text {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+  }
+  .yn-submit-value-description {
+    font-size: 12px;
+    color: #666;
+  }
+  .yn-submit-action-currency {
+    cursor: pointer;
+    color: @currency-color;
+    margin: 0 4px;
+    display: inline-block;
+    &.line-height-26 {
+      line-height: 20px;
+      margin: 0;
+    }
+    small {
+      font-size: 12px;
+    }
+    b {
+      margin-left: 3px;
+      font-size: 22px;
+    }
+  }
+  .yn-submit-value-description {
+    // margin-bottom: 2px;
+  }
+  .yn-submit-action-icon {
+    vertical-align: top;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  .yn-submit-action-button {
+    margin: 4px auto;
+  }
+  .yn-submit-action-popup {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    overflow: hidden;
+    > .v-ynpopup-modal {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      right: 0;
+    }
+    .yn-submit-action-content {
+      background: #fff;
+      width: 94%;
+      margin: 0 auto;
+    }
+  }
+}

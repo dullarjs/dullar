@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="14.5" cy="14.5" r="14.5"></circle>
+        <filter x="-14.7%" y="-18.1%" width="136.2%" height="136.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="0.25" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="1" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.132784194 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="酒店" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="5" transform="translate(-246.000000, -478.000000)">
+            <g id="Group-6" transform="translate(248.000000, 481.000000)">
+                <g id="Group-7">
+                    <g id="Oval">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use stroke="#E3E3E3" stroke-width="0.5" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <rect id="Rectangle-6" fill="#E3E3E3" x="10" y="10" width="1" height="9"></rect>
+                    <rect id="Rectangle-6-Copy" fill="#E3E3E3" x="14" y="10" width="1" height="9"></rect>
+                    <rect id="Rectangle-6-Copy-2" fill="#E3E3E3" x="18" y="10" width="1" height="9"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
