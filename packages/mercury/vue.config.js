@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-05-06 14:45:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-07-23 16:28:59
+* @Last Modified time: 2021-08-30 09:30:15
 * @E-mail: justbefree@126.com
 */
 process.env.VUE_APP_VERSION = require('./package.json').version;
@@ -45,8 +45,5 @@ module.exports = {
       filename: "index.html",
       title: "Examples for @dullar/mercury components"
     }
-  },
-  devServer:{
-	port:8070
   }
 };
