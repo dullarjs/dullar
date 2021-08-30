@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-08-25 11:04:33
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-02-23 15:02:32
+* @Last Modified time: 2021-08-30 09:24:00
 * @E-mail: justbefree@126.com
 */
 import Vue from "vue";
@@ -44,6 +44,9 @@ import { YnSwipeItem } from "./swipe-item";
 import { YnTabs } from "./tabs";
 import { YnTabItem } from "./tab-item";
 import { YnCategorySelect } from "./category-select";
+import { YnAddress } from "./address";
+import { YnShippingAddress } from "./shipping-address";
+import { YnTree } from "./tree";
 export {
   Toast,
   Indicator,
@@ -80,7 +83,10 @@ export {
   YnSwipeItem,
   YnTabs,
   YnTabItem,
-  YnCategorySelect
+  YnCategorySelect,
+  YnAddress,
+  YnShippingAddress,
+  YnTree
 };
 export function install(vue: typeof Vue): void;
 export function config(options: any): void;
