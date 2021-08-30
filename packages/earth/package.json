@@ -124,8 +124,8 @@
     }
   },
   "keywords": [
-    "vue component",
-    "yui-components"
+    "vue ui component",
+    "@dullar/earth"
   ],
   "license": "ISC",
   "lint-staged": {
