@@ -75,7 +75,7 @@ jobs:
           mkdir docs/mercury
           mv packages/mercury/docs/* docs/mercury
 
-      - nam: Build earth
+      - name: Build earth
         run: |
           cd packages/earth
           npm install
