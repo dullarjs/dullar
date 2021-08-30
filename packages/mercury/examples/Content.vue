@@ -39,6 +39,7 @@
       <li @click="jump('badge')">badge</li>
       <li @click="jump('tooltip')">tooltip</li>
       <li @click="jump('input')">input</li>
+      <li @click="jump('tree')">tree</li>
     </ul>
   </div>
 </template>

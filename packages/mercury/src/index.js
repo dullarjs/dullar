@@ -47,6 +47,7 @@ import Table from "./table";
 import Tabs from "./tabs";
 import Toast from "./toast";
 import Tooltip from "./tooltip";
+import Tree from "./tree";
 
 const components = [
   ActionSheet,
@@ -91,6 +92,7 @@ const components = [
   Tabs,
   Toast,
   Tooltip,
+  Tree,
 ];
 const install = (Vue) => {
   if (install.installed) return;
@@ -175,3 +177,4 @@ export { Table as YnTable };
 export { Tabs as YnTabs };
 export { Toast as YnToast };
 export { Tooltip as YnTooltip };
+export { Tree as YnTree };
