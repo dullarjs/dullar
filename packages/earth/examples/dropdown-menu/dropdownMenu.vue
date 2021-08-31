@@ -15,12 +15,29 @@
           :titleChangealbe="true"
         ></yn-dropdown-menu-item>
         <yn-dropdown-menu-item
+          v-model="value5"
+          :mapStatus="mapStatus"
+          :titleChangealbe="true"
+          @change="handleChange"
+          :fixed="true"
+          ref="mapStatus"
+        ></yn-dropdown-menu-item>
+        <yn-dropdown-menu-item
+          v-model="value7"
+          :mapOption="mapOption"
+          :titleChangealbe="true"
+          @change="handleChange"
+          ref="mapOption"
+        ></yn-dropdown-menu-item>
+        <yn-dropdown-menu-item
           v-model="value3"
           ref="menuItem"
           @beforeEnter="handleBeforeEnter"
         >
           <div>
             <span>这里面是自定义内容</span>
+            <yn-button type="primary" @click="changeData4(true)">设置筛选</yn-button>
+            <yn-button type="primary" @click="changeData4(false)">取消筛选</yn-button>
             <yn-button type="primary" @click="close1">关闭</yn-button>
           </div>
         </yn-dropdown-menu-item>
@@ -35,11 +52,10 @@
         ></yn-dropdown-menu-item>
         <yn-dropdown-menu-item
           v-model="value5"
-          :mapStatus="mapStatus"
+          :mapStatus="mapStatusB"
           :titleChangealbe="true"
           @change="handleChange"
-          :fixed="true"
-          ref="mapStatus"
+          ref="mapStatusB"
         ></yn-dropdown-menu-item>
         <yn-dropdown-menu-item
           v-model="value4"
@@ -61,6 +77,9 @@
       <div></div>
       <yn-button type="primary" @click="changeData3(true)">直接选中【自定义内容】</yn-button>
       <yn-button type="primary" @click="changeData3(false)">取消选中【自定义内容】</yn-button>
+      <div></div>
+      <yn-button type="primary" @click="changeData5(0)">直接选中 无弹框mapOption</yn-button>
+      <yn-button type="primary" @click="changeData5(-1)">取消选中 无弹框mapOption</yn-button>
       <div></div>
       <yn-button type="primary" @click="switchTo(1)">切换</yn-button>
     </div>
@@ -94,7 +113,7 @@ export default {
         { text: "Option C", value: "c" }
       ],
       value5: "默认文案",
-      mapStatus: {
+      mapStatusB: {
         checked: {
           value: 1,
           label: "选中文案"
@@ -103,7 +122,28 @@ export default {
           value: 2,
           label: "未选中文案"
         }
-      }
+      },
+      mapStatus: {
+        checked: {
+          value: 1,
+          label: "合标航班"
+        },
+        unchecked: {
+          value: 2,
+          label: "全部航班"
+        }
+      },
+      value7: "按时间",
+      mapOption: [
+        {
+          value: 1,
+          label: "从早到晚"
+        },
+        {
+          value: 2,
+          label: "从晚到早"
+        }
+      ]
     };
   },
   methods: {
@@ -151,6 +191,12 @@ export default {
     },
     changeData3(e) {
       this.$refs.closeAble.check(e);
+    },
+    changeData4(e) {
+      this.$refs.menuItem.setIsFiltered(e);
+    },
+    changeData5(e) {
+      this.$refs.mapOption.checkMapOption(e);
     },
     switchTo(i) {
       this.$refs.switchTo.switchTab(i, true);
