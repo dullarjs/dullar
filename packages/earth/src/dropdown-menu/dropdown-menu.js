@@ -70,11 +70,11 @@ export default defineComponent({
         [key]: status,
       };
     },
-    slideUp() {
-      this.currentTabStauts = false;
+    slideUp(flag = false) {
+      this.currentTabStauts = flag;
       this.tabs = {
         ...this.tabs,
-        [this.currentTab]: false,
+        [this.currentTab]: flag,
       };
     },
     handleTabSwitch(args) {
@@ -129,24 +129,28 @@ export default defineComponent({
             item.componentOptions.propsData.direction = this.direction;
             item.componentOptions.propsData.index = key;
             const mapStatus = item.componentOptions.propsData.mapStatus || {};
-            const fixed = item.componentOptions.propsData.fixed || false;
+            const mapOption = item.componentOptions.propsData.mapOption || [];
+            // const fixed = item.componentOptions.propsData.fixed || false;
             const text = item.data.model.value;
             const down = this.tabs[key];
             const directionIcon =
               item.componentOptions.propsData.hideDirectionIcon || false;
             const showDirectionIcon =
-              !(Object.keys(mapStatus).length > 0) && !directionIcon;
+              !(Object.keys(mapStatus).length > 0) &&
+              !(mapOption.length > 0) &&
+              !directionIcon;
             // const active = this.currentTab === key;
             let active = false;
-            if (showDirectionIcon) {
-              active = this.currentTab === key;
-            } else {
-              if (fixed) {
-                active = this.tabs[key];
-              } else {
-                active = this.currentTab === key && this.currentTabStauts;
-              }
-            }
+            // if (showDirectionIcon) {
+            //   active = this.currentTab === key && this.currentTabStauts;
+            // } else {
+            //   if (fixed) {
+            //     active = this.tabs[key];
+            //   } else {
+            //     active = this.currentTab === key && this.currentTabStauts;
+            //   }
+            // }
+            active = this.tabs[key];
             return h(
               genComponentName("flex-item"),
               {
