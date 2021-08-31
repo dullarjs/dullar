@@ -41,6 +41,12 @@ export default defineComponent({
         return {};
       },
     },
+    mapOption: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
     direction: String,
     hideDirectionIcon: {
       type: Boolean,
@@ -68,6 +74,9 @@ export default defineComponent({
   },
   data() {
     return {
+      originLabel: "",
+      currentOptionIndex: -1,
+      isFiltered: false,
       show: false,
       menuStatus: false,
       bodyOverflow: null,
@@ -113,6 +122,7 @@ export default defineComponent({
         });
         this.$emit("input", option.value);
       }
+      this.switchTab(this.index, this.getStatus());
     },
     createMask(h) {
       return h(
@@ -137,10 +147,47 @@ export default defineComponent({
     },
     getStatus() {
       if (this.hasOptions()) {
-        return this.show;
+        if (this.slots().length > 0) {
+          // 自定义内容
+          return this.show || this.isFiltered;
+        } else {
+          return this.show || this.currentSelected > -1;
+        }
       } else {
-        return this.checked;
+        return this.checked || this.currentOptionIndex > -1;
       }
+    },
+    setIsFiltered(flag) {
+      this.isFiltered = flag;
+    },
+    getNextOptionIndex() {
+      const len = this.mapOption.length;
+      if (this.currentOptionIndex + 1 < len) {
+        this.currentOptionIndex++;
+      } else {
+        this.currentOptionIndex = 0;
+      }
+    },
+    checkMapOption(index = 0, options = {}) {
+      if (this.currentOptionIndex === -1) {
+        this.currentOptionIndex = --index;
+        this.toggle(options);
+        this.$parent.switchTo(this.index);
+      } else {
+        this.currentOptionIndex = index;
+        const { disableEmit = false } = options;
+        if (this.titleChangealbe) {
+          if (this.currentOptionIndex === -1) {
+            this.$emit("input", this.originLabel);
+          } else {
+            this.$emit("input", this.mapOption[this.currentOptionIndex].label);
+          }
+        }
+        if (!disableEmit) {
+          this.$emit("unchange", this.mapStatus[this.currentOptionIndex] || {});
+        }
+      }
+      this.switchTab(this.index, this.getStatus());
     },
     check(selected = false, options = {}) {
       if (this.hasOptions()) {
@@ -160,19 +207,37 @@ export default defineComponent({
           }
         }
       }
+      this.switchTab(this.index, this.getStatus());
     },
     toggle(options = {}) {
       const { disableEmit = false } = options;
       if (this.hasOptions()) {
         this.show = !this.show;
       } else {
-        this.checked = !this.checked;
-        const status = this.checked ? "checked" : "unchecked";
-        if (this.titleChangealbe) {
-          this.$emit("input", this.mapStatus[status].label);
-        }
-        if (!disableEmit) {
-          this.$emit("change", this.mapStatus[status]);
+        if (this.mapOption.length > 0) {
+          this.getNextOptionIndex();
+          if (this.titleChangealbe) {
+            if (this.currentOptionIndex === -1) {
+              this.$emit("input", this.originLabel);
+            } else {
+              this.$emit(
+                "input",
+                this.mapOption[this.currentOptionIndex].label
+              );
+            }
+          }
+          if (!disableEmit) {
+            this.$emit("change", this.mapOption[this.currentOptionIndex] || {});
+          }
+        } else {
+          this.checked = !this.checked;
+          const status = this.checked ? "checked" : "unchecked";
+          if (this.titleChangealbe) {
+            this.$emit("input", this.mapStatus[status].label);
+          }
+          if (!disableEmit) {
+            this.$emit("change", this.mapStatus[status]);
+          }
         }
       }
     },
@@ -182,9 +247,18 @@ export default defineComponent({
       }
       this.show = false;
     },
+    switchTab(key, status) {
+      const { switchTab } = this.parent;
+      switchTab && typeof switchTab === "function" && switchTab(key, status);
+    },
+    slideUp(flag = false) {
+      const { slideUp } = this.parent;
+      slideUp && typeof slideUp === "function" && slideUp(flag);
+    },
     closeTab() {
       this.close();
-      this.$parent.closeTab();
+      this.slideUp(this.getStatus());
+      // this.$parent.closeTab();
     },
     expandDirection() {
       const parent = this.$parent.$el;
@@ -218,11 +292,9 @@ export default defineComponent({
     handleItemClick(args) {
       const { option, key } = args;
       const { currentSelected, selections } = this;
-      const { slideUp } = this.parent;
       if (key === currentSelected) {
         return false;
       }
-      slideUp && typeof slideUp === "function" && slideUp();
       if (this.currentSelected > -1) {
         const currnetItem = selections[currentSelected];
         selections.splice(currentSelected, 1, {
@@ -236,6 +308,7 @@ export default defineComponent({
       if (this.titleChangealbe) {
         this.$emit("input", option.value);
       }
+      this.slideUp(this.getStatus());
       this.close();
     },
     getContent(h) {
@@ -296,6 +369,7 @@ export default defineComponent({
     },
   },
   mounted() {
+    this.originLabel = this.value;
     if (isObject(this.options) && typeof this.options.action === "function") {
       const { action, params, parse } = this.options;
       if (typeof action === "function" && typeof parse === "function") {
