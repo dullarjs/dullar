@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-31 10:30:51
+ * @Last Modified time: 2021-08-31 15:29:01
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -54,6 +54,12 @@ export default defineComponent({
       categoryList: [],
     };
   },
+  watch: {
+    categories: function(v) {
+      const firstCategory = v[this.currentTab];
+      this.requestCategory({ parentId: firstCategory[this.mapKeys["id"]] });
+    }
+  },
   methods: {
     handleListClick(e) {
       const { key, cat } = e;
@@ -100,10 +106,6 @@ export default defineComponent({
       const cat = this.categories[currentTab];
       this.handleListClick({ cat, key: currentTab });
     },
-  },
-  created() {
-    const firstCategory = this.categories[this.currentTab];
-    this.requestCategory({ parentId: firstCategory[this.mapKeys["id"]] });
   },
   render(h) {
     return h("div", { class: ["yn-category-mobile"] }, [
