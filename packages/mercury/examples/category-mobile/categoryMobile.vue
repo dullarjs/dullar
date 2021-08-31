@@ -16,6 +16,10 @@ categories.forEach(cat => {
     firstClassCategory.push(cat);
   }
 });
+firstClassCategory.forEach(cat => {
+  cat.id = cat.cat_id;
+  cat.label = cat.cat_name;
+});
 console.log(firstClassCategory);
 export default {
   name: "YnCategoryMobilePage",
@@ -28,6 +32,14 @@ export default {
     requestCategory(params) {
       console.log(params);
       return new Promise((resolve, reject) => {
+        secCategory.forEach(cat => {
+          cat.children = cat.cat_id;
+          Array.isArray(cat.children) && cat.children.forEach(subCat => {
+            subCat.imgUrl = subCat.cat_img;
+          });
+          cat.label = cat.name;
+          cat.imgUrl = cat.cat_img;
+        });
         console.log(reject);
         setTimeout(() => {
           resolve(secCategory);
