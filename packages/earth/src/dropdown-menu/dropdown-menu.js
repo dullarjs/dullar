@@ -28,6 +28,7 @@ export default defineComponent({
       currentTab: "",
       currentTabStauts: true,
       tabs: {},
+      tabsIcon: {},
     };
   },
   methods: {
@@ -70,6 +71,12 @@ export default defineComponent({
         [key]: status,
       };
     },
+    setCollapsedIconStatus(key, status) {
+      this.tabsIcon = {
+        ...this.tabsIcon,
+        [key]: status,
+      };
+    },
     slideUp(flag = false) {
       this.currentTabStauts = flag;
       this.tabs = {
@@ -105,7 +112,7 @@ export default defineComponent({
       }
       this.currentTab = key;
     },
-    getProperlyIcon(slideDown = false, active = false) {
+    getProperlyIcon(slideDown, active = false) {
       if (slideDown) {
         if (active) {
           return "collapsed-selected";
@@ -132,7 +139,7 @@ export default defineComponent({
             const mapOption = item.componentOptions.propsData.mapOption || [];
             // const fixed = item.componentOptions.propsData.fixed || false;
             const text = item.data.model.value;
-            const down = this.tabs[key];
+            const down = this.tabsIcon[key];
             const directionIcon =
               item.componentOptions.propsData.hideDirectionIcon || false;
             const showDirectionIcon =
