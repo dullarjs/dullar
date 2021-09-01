@@ -201,6 +201,11 @@ export default defineComponent({
       this.$emit("input", e);
     },
     handlePick(e) {
+      const { disableClick = false } = e;
+      if (disableClick) {
+        // 不允许点击城市
+        return;
+      }
       if (this.isSearching) {
         // 搜索完结果后，点击结果需清当前搜索记录，以及搜索结果
         this.clearSearchKeywords();
@@ -333,8 +338,8 @@ export default defineComponent({
         return false;
       }
       this.rendered(() => {
-        const scrollElement =
-          this.$refs[`scrollElement-${this.currentTab}`].$el;
+        const scrollElement = this.$refs[`scrollElement-${this.currentTab}`]
+          .$el;
         const lastChild = scrollElement.lastElementChild;
         scrollElement.scrollTop = lastChild.offsetTop;
       });
