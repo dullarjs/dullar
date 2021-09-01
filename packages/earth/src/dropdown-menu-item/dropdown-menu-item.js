@@ -159,6 +159,7 @@ export default defineComponent({
     },
     setIsFiltered(flag) {
       this.isFiltered = flag;
+      this.switchTab(this.index, this.getStatus());
     },
     getNextOptionIndex() {
       const len = this.mapOption.length;
@@ -255,6 +256,12 @@ export default defineComponent({
       const { slideUp } = this.parent;
       slideUp && typeof slideUp === "function" && slideUp(flag);
     },
+    setCollapsedIconStatus(key, status) {
+      const { setCollapsedIconStatus } = this.parent;
+      setCollapsedIconStatus &&
+        typeof setCollapsedIconStatus === "function" &&
+        setCollapsedIconStatus(key, status);
+    },
     closeTab() {
       this.close();
       this.slideUp(this.getStatus());
@@ -270,6 +277,7 @@ export default defineComponent({
       }
     },
     handleBeforeEnter() {
+      this.setCollapsedIconStatus(this.index, true);
       this.expandDirection();
       this.menuStatus = true;
       this.$emit("beforeEnter");
@@ -282,6 +290,7 @@ export default defineComponent({
       if (this.closingWithoutAnimation) {
         this.menuStatus = false;
       }
+      this.setCollapsedIconStatus(this.index, false);
     },
     handleAfterLeave() {
       this.$emit("afterLeave");
