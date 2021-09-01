@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-01 16:07:49
+ * @Last Modified time: 2021-09-01 18:09:14
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -187,7 +187,7 @@ export default defineComponent({
                             click: this.handleItemClick.bind(this, region),
                           },
                         },
-                        region.region_name
+                        this.address.parse(region)
                       );
                     })
                   ),
