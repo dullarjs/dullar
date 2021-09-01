@@ -1,6 +1,6 @@
 {
   "name": "@dullar/cube",
-  "version": "0.1.60",
+  "version": "0.1.63",
   "publishConfig": {
     "access": "public"
   },
@@ -33,5 +33,5 @@
     },
     "rules": {}
   },
-  "gitHead": "028c266949d4a6b911c35453200621f8ece104a4"
+  "gitHead": "2141483b591208aa465119d391db4ec7c5f3da7f"
 }

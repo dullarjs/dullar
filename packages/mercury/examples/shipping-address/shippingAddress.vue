@@ -2,7 +2,7 @@
   <div class="shipping-address-box">
     <h2>yn-shipping-address</h2>
     <div class="address-box">
-      <yn-shipping-address :address="getAddressObject()" :staticAddress="staticAddress" @done="handleDone"></yn-shipping-address>
+      <yn-shipping-address :attributeMapping="attributeMapping" :defaultParams="defaultParams" :address="getAddressObject()" :staticAddress="staticAddress" @done="handleDone"></yn-shipping-address>
     </div>
   </div>
 </template>
@@ -39,7 +39,13 @@ export default {
   data() {
     return {
       sources,
-      staticAddress
+      staticAddress: staticAddress,
+      defaultParams: { region_type: "1", region_id: "10" },
+      attributeMapping: {
+        id: "region_id",
+        parentId: "parent_id",
+        type: "region_type"
+      }
     }
   },
   methods: {
@@ -47,7 +53,7 @@ export default {
       console.log("获取到的地址", address);
     },
     getAddress(args) {
-      console.log("args = ", args);
+      console.log("点击请求的参数args = ", args);
       const result = [];
       sources.forEach((region) => {
         if (!args.region_id) {

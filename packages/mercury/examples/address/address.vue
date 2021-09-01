@@ -6,7 +6,7 @@
     </yn-field-group> -->
     <yn-button @click="onoff">请选择地址</yn-button>
     <p>{{ detailAddress.join(",") }}</p>
-    <yn-address v-model="showAddress" @done="handleDone" :address="getAddressObject()"></yn-address>
+    <yn-address :attributeMapping="attributeMapping" :defaultParams="defaultParams" v-model="showAddress" @done="handleDone" :address="getAddressObject()"></yn-address>
   </div>
 </template>
 <script>
@@ -18,7 +18,13 @@ export default {
       sources,
       address: "",
       showAddress: false,
-      detailAddress: []
+      detailAddress: [],
+      defaultParams: { region_type: "1", region_id: "10" },
+      attributeMapping: {
+        id: "region_id",
+        parentId: "parent_id",
+        type: "region_type"
+      }
     }
   },
   methods: {
@@ -33,15 +39,15 @@ export default {
     },
     getAddress(args) {
       console.log("args = ", args);
-      const { regionType, regionId } = args;
+      // const { type, id } = args;
       const result = [];
       sources.forEach((region) => {
-        if (!regionId) {
-          if (region.region_type === regionType) {
+        if (!args.region_id) {
+          if (region.region_type === args.region_type) {
             result.push(region);
           }
         } else {
-          if (region.parent_id === regionId) {
+          if (region.parent_id === args.region_id) {
             result.push(region);
           }
         }

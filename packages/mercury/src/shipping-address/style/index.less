@@ -1,4 +1,5 @@
 .yn-shipping-address {
+  min-width: 324px;
   .address-selection {
     ul {
       list-style: none;
@@ -42,31 +43,32 @@
             border-left: 1px solid @border-color;
           }
         }
-        .result {
-          width: 324px;
-          border: 1px solid @border-color;
-          position: absolute;
-          top: 34px;
-          left: 0;
-          &.loading {
-            text-align: center;
-          }
-          .shipping-address-loading {
-            display: inline-block;
-          }
-          &.hide {
-            display: none;
-          }
-          .option {
-            &:hover {
-              color: #f42424;
-            }
-            text-align: center;
-            display: inline-block;
-            margin: 5px 0;
-            width: 33%;
-          }
+        
+      }
+    }
+    .address-result {
+      width: 324px;
+      border: 1px solid @border-color;
+      &.loading {
+        text-align: center;
+      }
+      .shipping-address-loading {
+        display: inline-block;
+      }
+      &.hide {
+        display: none;
+      }
+      .option {
+        font-size: 12px;
+        color: #666;
+        &:hover {
+          color: #f42424;
+          cursor: pointer;
         }
+        text-align: center;
+        display: inline-block;
+        margin: 5px 0;
+        width: 33%;
       }
     }
   }

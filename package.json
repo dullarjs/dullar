@@ -6,7 +6,8 @@
     "publish": "lerna publish && npm run npmpublish",
     "publish:nopush": "lerna publish --no-push && npm run npmpublish",
     "publish:force": "lerna publish --no-push --force-publish && npm run npmpublish",
-    "build:ui": "node build/ci.js",
+    "build:examples": "node build/ci.js type=examples",
+    "build:pkg": "node build/ci.js type=pkg",
     "npmpublish": "node ./robot/ynpm.js"
   },
   "devDependencies": {

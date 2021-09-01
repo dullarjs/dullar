@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-16 18:15:18
+ * @Last Modified time: 2021-09-01 16:07:49
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -15,6 +15,22 @@ export default defineComponent({
   components: { Popup, Flex, FlexItem },
   props: {
     value: Boolean,
+    defaultParams: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+    attributeMapping: {
+      type: Object,
+      default: () => {
+        return {
+          id: "id",
+          type: "type",
+          parentId: "parentId"
+        };
+      }
+    },
     label: {
       type: String,
       default: "请选择",
@@ -42,12 +58,7 @@ export default defineComponent({
     return {
       regionList: [],
       regionHeader: [],
-      CACHE: [],
-      CACHE_1: {},
-      CACHE_2: {},
-      CACHE_3: {},
-      CACHE_4: {},
-      CACHE_5: {},
+      CACHE: {}
     };
   },
   methods: {
@@ -67,56 +78,41 @@ export default defineComponent({
         this.$emit("done", this.regionHeader);
       }
     },
-    setCache(type, region, res) {
-      if (type === "1") {
-        this.CACHE = res;
-      } else {
-        if (!this[`CACHE_${region.region_type}`][region.region_id]) {
-          this[`CACHE_${region.region_type}`][region.region_id] = res;
-        }
+    setCache(region, res) {
+      if (!this.CACHE[region[this.attributeMapping["id"]]]) {
+        this.CACHE[region[this.attributeMapping["id"]]] = res;
       }
     },
     requestAddress(args) {
-      const { region } = args;
-      const { regionType } = args.params;
-      const params = { ...this.address.params, ...args.params };
+      const params = { ...this.address.params, ...args };
       const promise = this.address.action(params);
       promise
         .then((res) => {
-          this.updateRegionList(res, region);
-          this.setCache(regionType, region, res);
+          this.updateRegionList(res, args);
+          this.setCache(args, res);
         })
         .catch(() => {});
     },
     handleBeforeEnter() {
       if (this.regionList.length === 0) {
-        this.requestAddress({ params: { regionType: "1" } });
+        this.requestAddress(this.defaultParams);
       }
     },
     handleInput() {
       this.$emit("input", false);
     },
     handleItemClick(region) {
-      const cache = this[`CACHE_${region.region_type}`][region.region_id];
-      if (cache) {
+      const cache = this.CACHE[region[this.attributeMapping["id"]]];
+      if (Array.isArray(cache)) {
         this.updateRegionList(cache, region);
         return;
       }
-      const currentRegionType = parseInt(region.region_type);
-      const nextRegionType = String(currentRegionType + 1);
-      this.requestAddress({
-        region,
-        params: { regionType: nextRegionType, regionId: region.region_id },
-      });
+      this.requestAddress(region);
     },
     handleTabClick({ region, key }) {
       this.regionHeader.splice(key);
       this.regionHeader.push(this.label);
-      if (key === 0) {
-        this.regionList = this.CACHE;
-      } else {
-        this.regionList = this[`CACHE_${key}`][region.parent_id];
-      }
+      this.regionList = this.CACHE[region[this.attributeMapping["id"]]];
     },
   },
   render(h) {
@@ -161,7 +157,7 @@ export default defineComponent({
                                 {
                                   on: {
                                     click: this.handleTabClick.bind(this, {
-                                      region,
+                                      region: { [this.attributeMapping["id"]]: region[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: region[this.attributeMapping["type"]] },
                                       key,
                                     }),
                                   },
