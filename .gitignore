@@ -10,5 +10,4 @@ packages/earth/lib
 packages/earth/docs
 node_modules
 .DS_Store
-docs/queen
-docs/venus
+docs/*
