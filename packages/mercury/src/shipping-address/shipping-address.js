@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-27 13:32:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-26 11:30:35
+ * @Last Modified time: 2021-09-01 15:02:16
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -12,6 +12,20 @@ export default defineComponent({
   components: { Spin },
   props: {
     staticAddress: Array,
+    attributeMapping: {
+      type: Object,
+      default: () => {
+        return {
+          id: "id",
+          type: "type",
+          parentId: "parentId"
+        };
+      }
+    },
+    defaultParams: {
+      type: Object,
+      default: {}
+    },
     label: {
       type: String,
       default: "请选择",
@@ -36,11 +50,7 @@ export default defineComponent({
       currentTab: 0,
       isLoading: false,
       regionList: [],
-      CACHE: [],
-      CACHE_1: {},
-      CACHE_2: {},
-      CACHE_3: {},
-      CACHE_4: {},
+      CACHE: {}
     };
   },
   initPropsToData() {
@@ -49,43 +59,34 @@ export default defineComponent({
   methods: {
     handleSwitchTab(tab, index) {
       this.currentTab = index;
-      // tab页签切换的时候，小于要清除后面的label
-      if (index === 0) {
-        this.regionList = this.CACHE;
+      const tempList = this.CACHE[tab[this.attributeMapping["id"]]];
+      if (tempList && Array.isArray(tempList)) {
+        this.regionList = this.CACHE[tab[this.attributeMapping["id"]]];
       } else {
-        const tempList = this[`CACHE_${index}`][tab.parent_id];
-        if (tempList && Array.isArray(tempList)) {
-          this.regionList = this[`CACHE_${index}`][tab.parent_id];
-        } else {
-          this.requestAddress(tab, tab);
-        }
+        this.requestAddress(tab, tab);
       }
     },
     setCache(region, res) {
-      if (this.currentTab === 0) {
-        this.CACHE = res;
-      } else {
-        if (!this[`CACHE_${region.region_type}`][region.region_id]) {
-          this[`CACHE_${region.region_type}`][region.region_id] = res;
-        }
+      if (!this.CACHE[region[this.attributeMapping["id"]]]) {
+        this.CACHE[region[this.attributeMapping["id"]]] = res;
       }
     },
     updateRegionList(option) {
-      const type = parseInt(option.region_type);
+      const type = parseInt(option[this.attributeMapping["type"]]);
       const length = this.regionHeaders.length;
       this.regionHeaders.splice(type - 1, length, option);
       if (this.regionList.length > 0) {
         this.regionHeaders.push(this.label);
       }
-      const tempList = this[`CACHE_${option.region_type}`][option.region_id];
+      const tempList = this.CACHE[option[this.attributeMapping["id"]]];
       if (Array.isArray(tempList) && tempList.length > 0) {
         this.regionList = tempList;
       } else {
-        this.requestAddress(option, option);
+        this.requestAddress(option);
       }
     },
     handleItemClick(option) {
-      const regionType = parseInt(option.region_type);
+      const regionType = parseInt(option[this.attributeMapping["type"]]);
       const currentRegion = this.regionHeaders[regionType - 1];
       if (this.address.parse(currentRegion) === this.address.parse(option)) {
         return;
@@ -93,7 +94,7 @@ export default defineComponent({
       this.currentTab = regionType;
       this.updateRegionList(option);
     },
-    requestAddress(args, region) {
+    requestAddress(args) {
       this.isLoading = true;
       const params = { ...this.address.params, ...args };
       const promise = this.address.action(params);
@@ -104,21 +105,18 @@ export default defineComponent({
           if (res.length === 0) {
             this.$emit("done", this.regionHeaders);
           }
-          this.setCache(region, res);
+          this.setCache(args, res);
         })
         .catch(() => {
           this.isLoading = false;
         });
     },
   },
-  mounted() {
-    this.requestAddress(
-      { region_type: "1", region_id: "10" },
-      this.regionHeaders[0]
-    );
+  created() {
+    this.requestAddress(this.defaultParams);
   },
   render(h) {
-    return h("div", { class: ["yn-shipping-address"] }, [
+    return h("div", { class: ["yn-shipping-address"], ref: "container" }, [
       h("div", { class: ["address-selection"] }, [
         h("ul", {}, [
           Array.apply(null, this.regionHeaders).map((attr, index) => {
@@ -126,8 +124,8 @@ export default defineComponent({
               "li",
               {
                 attrs: {
-                  "data-id": attr.region_id,
-                  "data-parent-id": attr.parent_id,
+                  "data-id": attr[this.attributeMapping["id"]],
+                  "data-parent-id": attr[this.attributeMapping["parentId"]],
                 },
                 class: [index !== 0 && this[attr] === "" ? "hide" : ""],
               },
@@ -137,58 +135,50 @@ export default defineComponent({
                   {
                     class: ["label", this.currentTab === index ? "active" : ""],
                     on: {
-                      click: this.handleSwitchTab.bind(this, attr, index),
+                      click: this.handleSwitchTab.bind(this, { [this.attributeMapping["id"]]: attr[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: attr[this.attributeMapping["type"]] }, index),
                     },
                   },
                   [this.address.parse(attr)]
-                ),
-                h(
-                  "div",
-                  {
-                    class: [
-                      "result",
-                      this.currentTab === index ? "" : "hide",
-                      this.isLoading ? "loading" : "",
-                    ],
-                  },
-                  [
-                    this.isLoading
-                      ? h(
-                          genComponentName("spin"),
-                          {
-                            class: ["shipping-address-loading"],
-                            props: { type: "rotate-svg", size: 40 },
-                          },
-                          []
-                        )
-                      : Array.apply(null, this.regionList).map(
-                          (option, key) => {
-                            return h(
-                              "span",
-                              {
-                                attrs: {
-                                  "data-id": option.region_id,
-                                  "data-parent-id": option.parent_id,
-                                },
-                                class: ["option"],
-                                key,
-                                on: {
-                                  click: this.handleItemClick.bind(
-                                    this,
-                                    option
-                                  ),
-                                },
-                              },
-                              [this.address.parse(option)]
-                            );
-                          }
-                        ),
-                  ]
                 ),
               ]
             );
           }),
         ]),
+        h("div", { class: ["address-result", this.isLoading ? "loading" : ""] },
+          [
+            this.isLoading
+              ? h(
+                  genComponentName("spin"),
+                  {
+                    class: ["shipping-address-loading"],
+                    props: { type: "rotate-svg", size: 40 },
+                  },
+                  []
+                )
+              : Array.apply(null, this.regionList).map(
+                  (option, key) => {
+                    return h(
+                      "span",
+                      {
+                        attrs: {
+                          "data-id": option[this.attributeMapping["id"]],
+                          "data-parent-id": option[this.attributeMapping["parentId"]],
+                        },
+                        class: ["option"],
+                        key,
+                        on: {
+                          click: this.handleItemClick.bind(
+                            this,
+                            option
+                          ),
+                        },
+                      },
+                      [this.address.parse(option)]
+                    );
+                  }
+                ),
+          ]
+        )
       ]),
     ]);
   },
