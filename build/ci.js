@@ -2,13 +2,14 @@
 * @Author: Just be free
 * @Date:   2021-06-29 13:43:20
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-29 14:17:26
+* @Last Modified time: 2021-09-01 11:00:22
 * @E-mail: justbefree@126.com
 */
 const { execFile } = require('child_process');
 const fs = require("fs");
 const path = require("path");
-const components = ["queen", "venus"];
+// const components = ["queen"];
+const components = ["queen", "venus", "mercury", "earth"];
 
 const ci = (components = []) => {
   if (components && Array.isArray(components) && components.length > 0) {
