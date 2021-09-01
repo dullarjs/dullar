@@ -78,6 +78,9 @@
       <yn-button type="primary" @click="changeData3(true)">直接选中【自定义内容】</yn-button>
       <yn-button type="primary" @click="changeData3(false)">取消选中【自定义内容】</yn-button>
       <div></div>
+      <yn-button type="primary" @click="changeData31(true)">直接高亮【自定义内容】</yn-button>
+      <yn-button type="primary" @click="changeData31(false)">取消高亮【自定义内容】</yn-button>
+      <div></div>
       <yn-button type="primary" @click="changeData5(0)">直接选中 无弹框mapOption</yn-button>
       <yn-button type="primary" @click="changeData5(-1)">取消选中 无弹框mapOption</yn-button>
       <div></div>
@@ -190,7 +193,10 @@ export default {
       this.$refs.slide.check(e);
     },
     changeData3(e) {
-      this.$refs.closeAble.check(e);
+     this.$refs.closeAble.check(e);
+    },
+    changeData31(e) {
+      this.$refs.closeAble.setIsFiltered(e);
     },
     changeData4(e) {
       this.$refs.menuItem.setIsFiltered(e);

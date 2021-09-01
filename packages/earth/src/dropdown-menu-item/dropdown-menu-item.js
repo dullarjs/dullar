@@ -159,6 +159,7 @@ export default defineComponent({
     },
     setIsFiltered(flag) {
       this.isFiltered = flag;
+      this.switchTab(this.index, this.getStatus());
     },
     getNextOptionIndex() {
       const len = this.mapOption.length;
