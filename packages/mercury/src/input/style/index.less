@@ -1,0 +1,34 @@
+.yn-input-wrap {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #c6c6c6;
+  border-radius: 4px;
+  padding: 2px 0px;
+  > .icon {
+    cursor: pointer;
+    padding-right: 2px;
+    padding-left: 1px;
+  }
+  .clearIcon {
+    width: 18px;
+  }
+  > input {
+    flex-grow: 1;
+    flex-shrink: 1;
+    border: none;
+    margin: 0 2px 0 4px;
+    &:focus {
+      outline: none;
+    }
+  }
+  textarea {
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    height: 100%;
+    &:focus {
+      outline: none;
+    }
+  }
+}

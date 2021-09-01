@@ -8,7 +8,7 @@
 </template>
 <script type="text/javascript">
 const categories = require("./categories.json").RECORDS;
-const secCategory = require("./sec-category.json").category;
+const secCategory = require("./sec-category.json").data;
 console.log("sec = ", secCategory);
 const firstClassCategory = [];
 categories.forEach(cat => {
@@ -16,21 +16,49 @@ categories.forEach(cat => {
     firstClassCategory.push(cat);
   }
 });
+firstClassCategory.forEach(cat => {
+  cat.id = cat.cat_id;
+  cat.label = cat.cat_name;
+});
 console.log(firstClassCategory);
 export default {
   name: "YnCategoryMobilePage",
   data() {
     return {
-      categories: firstClassCategory
+      categories: [],
     };
   },
+  created() {
+    setTimeout(() => {
+      this.categories = firstClassCategory;
+    }, 1000);
+  },
   methods: {
+    processingData(category) {
+      // 处理数据
+      const result = [];
+      category.forEach(cat => {
+        result.push(...cat.children);
+      });
+      return result;
+    },
     requestCategory(params) {
       console.log(params);
+      const category = this.processingData(secCategory);
+      console.log("category = ", category);
       return new Promise((resolve, reject) => {
+        category.forEach(cat => {
+          cat.id = cat.catId;
+          cat.label = cat.catName;
+          Array.isArray(cat.children) && cat.children.forEach(subCat => {
+            console.log("ddd", subCat);
+            subCat.id = subCat.catId;
+            subCat.label = subCat.catName;
+          });
+        });
         console.log(reject);
         setTimeout(() => {
-          resolve(secCategory);
+          resolve(category);
         }, 1000);
       }).catch((err) => {
         // reject(err);

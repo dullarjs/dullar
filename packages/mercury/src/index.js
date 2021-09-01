@@ -25,6 +25,7 @@ import Flex from "./flex";
 import FlexItem from "./flex-item";
 import Iconfont from "./iconfont";
 import Indicator from "./indicator";
+import Input from "./input";
 import Layout from "./layout";
 import Magnifier from "./magnifier";
 import Modal from "./modal";
@@ -46,6 +47,7 @@ import Table from "./table";
 import Tabs from "./tabs";
 import Toast from "./toast";
 import Tooltip from "./tooltip";
+import Tree from "./tree";
 
 const components = [
   ActionSheet,
@@ -68,6 +70,7 @@ const components = [
   FlexItem,
   Iconfont,
   Indicator,
+  Input,
   Layout,
   Magnifier,
   Modal,
@@ -89,6 +92,7 @@ const components = [
   Tabs,
   Toast,
   Tooltip,
+  Tree,
 ];
 const install = (Vue) => {
   if (install.installed) return;
@@ -151,6 +155,7 @@ export { Flex as YnFlex };
 export { FlexItem as YnFlexItem };
 export { Iconfont as YnIconfont };
 export { Indicator as YnIndicator };
+export { Input as YnInput };
 export { Layout as YnLayout };
 export { Magnifier as YnMagnifier };
 export { Modal as YnModal };
@@ -172,3 +177,4 @@ export { Table as YnTable };
 export { Tabs as YnTabs };
 export { Toast as YnToast };
 export { Tooltip as YnTooltip };
+export { Tree as YnTree };

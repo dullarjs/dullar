@@ -18,6 +18,10 @@
         <yn-checkbox v-model="value" disabled></yn-checkbox>
         <span>此状态不可修改{{ value }}</span>
       </li>
+      <li>
+        <yn-checkbox indeterminate></yn-checkbox>
+        <span>retraction</span>
+      </li>
     </ul>
   </div>
 </template>

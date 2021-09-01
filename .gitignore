@@ -6,6 +6,8 @@ packages/venus/lib
 packages/venus/docs
 packages/mercury/lib
 packages/mercury/docs
+packages/earth/lib
+packages/earth/docs
 node_modules
 .DS_Store
 docs/queen

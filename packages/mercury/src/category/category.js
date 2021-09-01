@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-19 18:13:09
+ * @Last Modified time: 2021-08-26 11:54:13
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -76,6 +76,10 @@ export default defineComponent({
     handlePanelMouseLeave() {
       this.currentCategory = -1;
     },
+    itemClick(item, e) {
+      stopPropagation(e);
+      this.$emit("pick", item);
+    },
   },
   render(h) {
     return h("div", { class: ["yn-category"] }, [
@@ -88,6 +92,7 @@ export default defineComponent({
             {
               class: ["yn-category-li"],
               on: {
+                click: this.itemClick.bind(this, cat),
                 mouseenter: this.handleMouseEnter.bind(this, { index, cat }),
                 mouseleave: this.handleMouseLeave.bind(this, index),
               },
@@ -123,7 +128,11 @@ export default defineComponent({
                   : Array.apply(null, this.subCatList).map((sub) => {
                       return h("dl", { class: [] }, [
                         h("dt", {}, [
-                          h("span", {}, this.category.parse(sub)),
+                          h(
+                            "span",
+                            { on: { click: this.itemClick.bind(this, sub) } },
+                            this.category.parse(sub)
+                          ),
                           h(
                             genComponentName("iconfont"),
                             {
@@ -137,7 +146,13 @@ export default defineComponent({
                           "dd",
                           {},
                           Array.apply(null, sub.children).map((list) => {
-                            return h("span", {}, this.category.parse(list));
+                            return h(
+                              "span",
+                              {
+                                on: { click: this.itemClick.bind(this, list) },
+                              },
+                              this.category.parse(list)
+                            );
                           })
                         ),
                       ]);

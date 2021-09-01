@@ -51,6 +51,7 @@ export default {
         console.log(reject);
         setTimeout(() => {
           this.Indicator.close();
+          console.log("result是", result);
           resolve(result);
         }, 1000);
       }).catch(err => {
@@ -63,7 +64,7 @@ export default {
         params: { a: 1, b: 2, c: 3 },
         action: this.getAddress,
         parse: (e) => {
-          return e.region_name;
+          return e.region_name ? e.region_name : e;
         }
       }
     },
