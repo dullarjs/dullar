@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-31 15:51:53
+ * @Last Modified time: 2021-09-02 15:13:55
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -588,7 +588,6 @@ export default defineComponent({
       if (currentPageKeys.length === 0) {
         let _emptyContent;
         _emptyContent = this.emptyContent ? this.emptyContent : this.emptyText;
-        console.log(_emptyContent);
         rowContent.push(
           h("tr", { class: ["yn-table-empty-row"] }, [
             h(
@@ -656,12 +655,16 @@ export default defineComponent({
 
       fieldsList.forEach((item) => {
         const value = item.dataIndex ? rowDatas[item.dataIndex] : "";
+        let _content;
+        if (item.renderVNode) {
+          _content = item.renderVNode;
+        } else if (item.render || item.editable) {
+          _content = this.renderCell(item, value, rowDatas);
+        } else {
+          _content = value;
+        }
         fieldContentList.push(
-          h("td", { class: ["yn-table-cell"] }, [
-            item.render || item.editable
-              ? this.renderCell(item, value, rowDatas)
-              : value,
-          ])
+          h("td", { class: ["yn-table-cell"] }, [_content])
         );
       });
       return fieldContentList;
@@ -675,6 +678,9 @@ export default defineComponent({
             "input",
             {
               attrs: { value: value },
+              domProps: {
+                value: value,
+              },
               on: {
                 change: (e) => this.onHandleChage(e, value, record, column),
               },
@@ -689,6 +695,7 @@ export default defineComponent({
           : renderList.tagName || "";
         if (renderList.on) {
           const _on = this.getBoundEvent(renderList.on, value, record);
+          _on.listeners = this.$listeners;
           return h(
             _noed,
             {
@@ -718,6 +725,7 @@ export default defineComponent({
       if (column.beforeChage) {
         const reseult = column.beforeChage(resetValue, record, column);
         e.target.value = resetValue = reseult === true ? resetValue : value;
+        record[column.dataIndex] = e.target.value;
         reseult === true &&
           this.$emit(column.onchange, resetValue, record, column);
       } else {
@@ -781,7 +789,7 @@ export default defineComponent({
     getBoundEvent(list, value, record) {
       const _on = {};
       for (const key in list) {
-        _on[key] = () => this.$emit(list[key], { value, record });
+        _on[key] = (e) => this.$emit(list[key], { e, value, record });
       }
       return _on;
     },
