@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:53
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-09 11:06:18
+ * @Last Modified time: 2021-09-02 15:13:16
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { renderedMixins } from "../mixins/rendered";
@@ -542,7 +542,7 @@ export default defineComponent({
         genComponentName("iconfont"),
         {
           class: ["yn-city-picker-close"],
-          props: { name: "close", size: 24 },
+          props: { name: "close", size: 12 },
           on: { click: this.close },
         },
         []

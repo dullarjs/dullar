@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-06-01 12:18:25
+ * @Last Modified time: 2021-09-02 15:12:36
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -543,7 +543,7 @@ export default defineComponent({
         genComponentName("iconfont"),
         {
           class: ["yn-calendar-close"],
-          props: { name: "close", size: 24 },
+          props: { name: "close", size: 12 },
           nativeOn: { click: this.close },
         },
         []
