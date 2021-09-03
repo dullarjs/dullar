@@ -37,9 +37,9 @@ export default defineComponent({
     },
     parse: {
       type: Function,
-      default: (city, nameSpace) => {
+      default: (h, city, nameSpace) => {
         if (!nameSpace) nameSpace = "";
-        return city.CityName;
+        return h("span", {}, city.CityName);
       },
     },
     limited: {
@@ -416,10 +416,6 @@ export default defineComponent({
         return [];
       }
     },
-    createInputSearchListItem(h, itemData) {
-      const innerHTML = this.parse(itemData, "search-result");
-      return [h("span", { domProps: { innerHTML } }, [])];
-    },
     createInputSearchList(h) {
       return h(
         "ul",
@@ -428,7 +424,7 @@ export default defineComponent({
           return h(
             "li",
             { key, on: { click: this.handlePick.bind(this, listItem) } },
-            [this.createInputSearchListItem(h, listItem)]
+            [this.parse(h, listItem, "search-result")]
           );
         })
       );
@@ -578,7 +574,9 @@ export default defineComponent({
           },
           [
             Array.apply(null, cities).map((city, key) => {
-              const text = this.parse(city, nameSpace);
+              const textEle = this.parse(h, city, nameSpace);
+              const text = textEle.children[0].text;
+              console.log("text:", text);
               const textLength = text.length;
               let fontSize = this.textBoxWidth / textLength;
               const textOverflow = [];
@@ -604,7 +602,7 @@ export default defineComponent({
                     ...textOverflow,
                   ],
                 },
-                [h("span", {}, text)]
+                [textEle]
               );
             }),
           ]
