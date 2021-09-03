@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-20 19:53:52
+ * @Last Modified time: 2021-09-02 16:38:09
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -15,26 +15,36 @@
             :dataSource="dataSource1"
             :rowSelection="rowSelection1"
             v-on:handleCkChange="handleCkChange"
-            v-on:handleClick="handleClick"
-            :pagination="pagination"
+            v-on:handleReset="handleReset"
+            v-on:handleHideHeader="handleHideHeader"
+            v-on:handleClicka="handleClicka"
+            :loading="loading"
+            :iconType="iconType"
+            :iconSize="iconSize"
+            :hideHeader="hideHeader"
         >
         </yn-table>
         <h3>基础功能齐全table</h3>
-        <yn-table
-            :columns="columns"
-            :rowSelection="rowSelection"
-            :bordered="true"
-            :dataSource="dataSource"
-            v-on:handleClick="handleClick"
-            v-on:handleDelete="handleDelete"
-            v-on:handleAdd="handleAdd"
-            v-on:handleChange="handleChange"
-            :pagination="pagination"
-            :height="600"
-            :okText="okText"
-            :resetText="resetText"
-        >
-        </yn-table>
+        <div style="padding: 10px; margin: 10px;">
+            <yn-table
+                :columns="columns"
+                :rowSelection="rowSelection"
+                :bordered="true"
+                :dataSource="dataSource"
+                v-on:handleClick="handleClick"
+                v-on:handleDelete="handleDelete"
+                v-on:handleAdd="handleAdd"
+                v-on:handleChange="handleChange"
+                v-on:handleColumnChange="handleColumnChange"
+                :pagination="pagination"
+                :height="600"
+                :okText="okText"
+                :resetText="resetText"
+                :emptyContent="emptyContent"
+                :emptyText="emptyText"
+            >
+            </yn-table>
+        </div>
     </div>
 </template>
 <script type="text/javascript">
@@ -267,6 +277,17 @@ export default {
                                     click: "handleAdd",
                                 },
                                 content: ["新增"]
+                            },
+                            {
+                                tagName: "p",
+                                style: {
+                                    color: "blue",
+                                    fontSize: "12px",
+                                },
+                                on: {
+                                    click: "handleColumnChange",
+                                },
+                                content: ["表头变更"]
                             }
                         ]
                     },
@@ -282,10 +303,38 @@ export default {
             // 分页
             pagination: {
                 defaultCurrent: 1,
-                defaultPageSize: 15,
+                defaultPageSize: 10,
                 total: data.length
             },
             columns1:[
+                {
+                    title: 'picture',
+                    dataIndex: '',
+                    key: 'picture',
+                    width: 200,
+                    render: {
+                        tagName: 'div',
+                        attrs: {
+                            class: "img-class"
+                        },
+                        content: [
+                            {
+                                setContent: (value, record) => {
+                                    return (
+                                        <div onClick={ () => this.handleClicka(value, record) }>
+                                            <img 
+                                                src={record.img}
+                                                class="img-class"
+                                                style="width: 58px;height: 58px"
+                                            />
+                                            <span>{record.dsc}</span>
+                                        </div>
+                                    )
+                                }
+                            }
+                        ]
+                    }
+                },
                 {
                     title: 'Name',
                     dataIndex: 'name',
@@ -307,38 +356,23 @@ export default {
                     beforeChage: this.beforeChangeB,
                     width: 200
                 },
-                {
-                    title: 'picture',
-                    dataIndex: '',
-                    key: 'picture',
-                    width: 200,
-                    render: {
-                        tagName: 'img',
-                        attrs: {
-                            src: 'https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/171769/14/12515/117439/60b4d115E010780e1/6a74fc1f3b92de32.jpg',
-                            class: "img-class"
-                        },
-                        style:{
-                            width: '58px',
-                            height: '58px'
-                        },
-                        content: []
-                    }
-                },
-                {
-                    title: 'test',
-                    dataIndex: 'test',
-                    key: 'test',
-                    width: 200,
-                    render: {
-                        compentName: "iconfont",
-                        props: {
-                            size: 12,
-                            name: "clear",
-                        },
-                        attrs: { "column-key": 12 }
-                    }
-                },
+                // {
+                //     title: 'test',
+                //     dataIndex: 'test',
+                //     key: 'test',
+                //     width: 200,
+                //     render: {
+                //         compentName: "checkbox",
+                //         props: {
+                //             size: 12,
+                //             name: "clear",
+                //         },
+                //         on: {
+                //             change: "handleClicka",
+                //         },
+                //         attrs: { "column-key": 12 }
+                //     }
+                // },
                 {
                     title: 'Tags',
                     key: 'tags',
@@ -357,9 +391,9 @@ export default {
                                     cursor: "pointer"
                                 },
                                 on: {
-                                    click: "handleClick",
+                                    click: "handleReset",
                                 },
-                                content: ["Success"]
+                                content: ["Reset"]
                             },
                             {
                                 tagName: "span",
@@ -372,32 +406,47 @@ export default {
                                     cursor: "pointer"
                                 },
                                 on: {
-                                    click: "handleClick",
+                                    click: "handleHideHeader",
                                 },
-                                content: ["Error"]
+                                content: ["NoHeader"]
                             }
                         ]
                     }
                 },
+                {
+                    title: 'Action',
+                    key: 'Action',
+                    width: 160,
+                    renderVNode: (<yn-button type="primary" onclick={() => {return this.handleClicka()}}>主题色</yn-button>)
+                }
             ],
             dataSource1: [
                 {
                     key: 1,
                     name: '名1',
                     age: 30,
-                    address: '武汉市1(编辑下试试)'
+                    address: '武汉市1(编辑下试试)',
+                    img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/190947/6/8975/84588/60cc46b4Edc1b4e04/bb6d78e8707624a1.jpg",
+                    dsc: "斯得弗（STRYFER）",
+                    test: false
                 },
                 {
                     key: 2,
                     name: '名2',
                     age: 23,
-                    address: '武汉市3(编辑下试试)'
+                    address: '武汉市3(编辑下试试)',
+                    img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/190088/33/8488/135210/60c9cb40Eb71a7dd9/65ba2694595c2e72.jpg",
+                    dsc: "松深入墨 骁龙865 ",
+                    test: false
                 },
                 {
                     key: 3,
                     name: '名3',
                     age: 15,
-                    address: '武汉市3(编辑下试试)'
+                    address: '武汉市3(编辑下试试)',
+                    img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/121150/33/8284/68362/5f22f0a4Eee68fcd2/51cd7445e9429892.jpg",
+                    dsc: "黑鲨移动电源",
+                    test: false
                 },
             ],
             // 选择系列
@@ -407,7 +456,152 @@ export default {
                 type: "radio", // radio 或者checkbox
             },
             okText: "搜索",
-            resetText: "重置"
+            resetText: "重置",
+            columns2: [
+                {
+                    title: "Name",
+                    dataIndex: "name",
+                    width: 100,
+                    // 列渲染调整
+                    render: {
+                        tagName: "a",
+                        style: {
+                            color: "red",
+                            fontSize: "12px",
+                        },
+                        on: {
+                            click: "handleClick",
+                        },
+                        attrs: {
+                            title: "zssg-g"
+                        },
+                        content: [
+                            {
+                                tagName: "span",
+                                style: {
+                                    color: "pink",
+                                    fontSize: "12px",
+                                },
+                                content:[{setContent: (value, record) => { return record.name + '-----' + value }}]
+                            }
+                        ],
+                    },
+                    // 列过滤选项卡
+                    filters: [
+                        { text: '张三', value: '张三' },
+                        { text: '李四', value: '李四' },
+                        { text: '王五', value: '王五' }
+                    ],
+                    // 字段的搜索功能 运行函数
+                    onFilter: (value, record) => { return record.name.indexOf(value) >= 0 },
+                    // fixed: 'left', 暂不支持 商城目前需求不是很需要，暂不处理
+                },
+                {
+                    title: 'Other',
+                    children: [
+                        {
+                            title: 'Age',
+                            dataIndex: 'age',
+                            key: 'age',
+                            width: 150,
+                        },
+                        {
+                            title: 'Address',
+                            children: [
+                            {
+                                title: 'Street',
+                                dataIndex: 'street',
+                                key: 'street',
+                                width: 120,
+                            },
+                            {
+                                title: 'Block',
+                                children: [
+                                    {
+                                        title: 'Building（editable）',
+                                        dataIndex: 'building',
+                                        key: 'building',
+                                        width: 150,
+                                        // 编辑功能  beforeChage 只在有editable 才生效， 用于单元格数据校验
+                                        editable: true,
+                                        beforeChage: this.beforeChange,
+                                        onchange: "handleChange",
+                                    },
+                                    {
+                                        title: 'Door No.',
+                                        dataIndex: 'number',
+                                        key: 'number',
+                                        width: 100,
+                                    },
+                                ],
+                            },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    title: 'Company',
+                    children: [
+                        {
+                            title: 'Company Address',
+                            dataIndex: 'companyAddress',
+                            key: 'companyAddress',
+                            width: 150,
+                        },
+                        {
+                            title: 'Company Name',
+                            dataIndex: 'companyName',
+                            key: 'companyName',
+                            width: 150,
+                        },
+                    ],
+                },
+                {
+                    title: "address",
+                    dataIndex: "address",
+                },
+                {
+                    title: 'gender',
+                    dataIndex: "gender",
+                    // 列过滤选项卡
+                    filters: [
+                        { text: '男', value: '男' },
+                        { text: '女', value: '女' }
+                    ],
+                },
+                {
+                    title: "Action",
+                    dataIndex: "",
+                    render: {
+                        tagName: "div",
+                        style: {
+                            color: "red",
+                            fontSize: "12px",
+                        },
+                        width: 200,
+                        content: [
+                            {
+                                tagName: "p",
+                                style: {
+                                    color: "red",
+                                    fontSize: "12px",
+                                },
+                                on: {
+                                    click: "handleDelete",
+                                },
+                                content: ["删除"]
+                            }
+                        ]
+                    },
+                }
+            ],
+            // emptyContent: <div style="height: 200px; color: pink">这里什么都没有<i style="color: deeppink">什么都没有找到</i></div>,
+            emptyContent: null,
+            emptyText: "空空如也",
+            loading: false,
+            hideHeader: false,
+            iconType: "fadingCircle",
+            iconSize: 50
         };
     },
     methods: {
@@ -470,6 +664,22 @@ export default {
                 gender: '',
             })
         },
+        handleColumnChange() {
+            this.columns = this.columns2;
+        },
+        handleReset() {
+            this.loading = true;
+            setTimeout(() => {
+                this.loading = false;
+            }, 3000)
+        },
+        handleHideHeader() {
+            this.hideHeader = !this.hideHeader;
+        },
+        handleClicka(e, record) {
+            console.log(e);
+            console.log(record);
+        }
     }
     };
 </script>

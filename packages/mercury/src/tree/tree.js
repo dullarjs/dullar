@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-26 13:48:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-30 14:37:30
+ * @Last Modified time: 2021-08-30 17:17:41
  * @E-mail: justbefree@126.com
  */
 
@@ -10,13 +10,32 @@ import { defineComponent, genComponentName } from "../modules/component";
 import Checkbox from "../checkbox";
 import { push, drop } from "../modules/utils";
 import Iconfont from "../iconfont";
+import Spin from "../spin";
 export default defineComponent({
   name: "Tree",
-  components: { Checkbox, Iconfont },
+  components: { Checkbox, Iconfont, Spin },
   props: {
     showCheckbox: {
       default: false,
       type: Boolean,
+    },
+    lazy: {
+      default: false,
+      type: Boolean,
+    },
+    load: {
+      type: Object,
+      default: () => {
+        return {
+          params: {},
+          action: () => {
+            return Promise.resolve();
+          },
+          parse: (e) => {
+            return e;
+          },
+        };
+      },
     },
     data: {
       default: () => {
@@ -63,7 +82,13 @@ export default defineComponent({
     },
     updateTreeNode(node, attr, loop, callback) {
       const path = node.id.split("-").map((i) => parseInt(i));
-      this.updateLeaf(node, attr, node[attr], loop);
+      if (Array.isArray(attr)) {
+        attr.forEach((iAttr) => {
+          this.updateLeaf(node, iAttr, node[iAttr], loop);
+        });
+      } else {
+        this.updateLeaf(node, attr, node[attr], loop);
+      }
       const changedNode = this.dataSource[path[0]];
       this.dataSource.splice(path[0], 1, changedNode);
       callback && typeof callback === "function" && callback();
@@ -75,9 +100,34 @@ export default defineComponent({
       });
     },
     handleExpand(node) {
-      if (Array.isArray(node.children)) {
-        node.expanded = !node.expanded;
-        this.updateTreeNode(node, "expanded", false);
+      if (this.lazy && !node.loaded) {
+        const params = { ...this.load.params, node };
+        const promise = this.load.action(params);
+        node.loading = !node.loading;
+        this.updateTreeNode(node, "loading", false);
+        promise
+          .then((data) => {
+            node.children = data;
+            this.updateTreeNode(node, "children", false, () => {
+              node.expanded = !node.expanded;
+              node.loaded = !node.loaded;
+              node.loading = !node.loading;
+              this.updateTreeNode(
+                node,
+                ["expanded", "loaded", "loading"],
+                false
+              );
+            });
+          })
+          .catch(() => {
+            node.loading = !node.loading;
+            this.updateTreeNode(node, "loading", false);
+          });
+      } else {
+        if (Array.isArray(node.children)) {
+          node.expanded = !node.expanded;
+          this.updateTreeNode(node, "expanded", false);
+        }
       }
       this.$emit("pick", node);
     },
@@ -101,6 +151,55 @@ export default defineComponent({
     handleAfterLeave(el) {
       el.style.height = null;
     },
+    genIcon(h, leaf) {
+      const loading = h(
+        genComponentName("spin"),
+        {
+          class: ["tree-loading-icon"],
+          props: { type: "fading-circle", size: 14 },
+        },
+        []
+      );
+      const checkbox = h(
+        genComponentName("checkbox"),
+        {
+          on: {
+            change: this.handleChange.bind(this, leaf),
+          },
+          class: ["tree-front-icon"],
+          props: { size: 14, checked: leaf.checked },
+        },
+        []
+      );
+      const iconfont = h(
+        genComponentName("iconfont"),
+        {
+          class: ["tree-front-icon", leaf.expanded ? "expanded" : ""],
+          props: {
+            name: "solid-arrow",
+            size: 8,
+          },
+          on: {
+            click: this.handleExpand.bind(this, leaf),
+          },
+        },
+        []
+      );
+      const results = [];
+      if (this.lazy && this.showCheckbox) {
+        results.push(iconfont, checkbox);
+        if (leaf.loading) {
+          results.push(loading);
+        }
+      } else if (this.showCheckbox) {
+        results.push(checkbox);
+      } else {
+        if (Array.isArray(leaf.children)) {
+          results.push(iconfont);
+        }
+      }
+      return results;
+    },
     genTreeNode(h, source, parentId) {
       return Array.apply(null, source).map((leaf, key) => {
         if (!leaf.checked) {
@@ -111,36 +210,17 @@ export default defineComponent({
         if (!leaf.expanded) {
           leaf.expanded = false;
         }
+        if (!leaf.loaded) {
+          leaf.loaded = false;
+        }
+        if (!leaf.loading) {
+          leaf.loading = false;
+        }
         this.flatNodes[leaf.id] = leaf;
         return h("div", { key, class: ["yn-tree-leaf"], style: {} }, [
           h("div", { class: ["yn-tree-leaf-label"] }, [
-            this.showCheckbox
-              ? h(
-                  genComponentName("checkbox"),
-                  {
-                    on: {
-                      change: this.handleChange.bind(this, leaf),
-                    },
-                    class: ["tree-front-icon"],
-                    props: { size: 14, checked: leaf.checked },
-                  },
-                  []
-                )
-              : Array.isArray(leaf.children) &&
-                h(
-                  genComponentName("iconfont"),
-                  {
-                    class: ["tree-front-icon", leaf.expanded ? "expanded" : ""],
-                    props: {
-                      name: "solid-arrow",
-                      size: 8,
-                    },
-                    on: {
-                      click: this.handleExpand.bind(this, leaf),
-                    },
-                  },
-                  []
-                ),
+            ...this.genIcon(h, leaf),
+            null,
             h(
               "span",
               {

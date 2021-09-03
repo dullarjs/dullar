@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-23 10:42:45
+ * @Last Modified time: 2021-08-31 15:29:01
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -15,6 +15,17 @@ export default defineComponent({
   name: "CategoryMobile",
   components: { Flex, FlexItem, Spin, PullRefresh },
   props: {
+    mapKeys: {
+      type: Object,
+      default: () => {
+        return {
+          id: "id",
+          label: "label",
+          imgUrl: "imgUrl",
+          children: "children"
+        }
+      }
+    },
     categories: {
       type: Array,
       default: () => {
@@ -43,18 +54,23 @@ export default defineComponent({
       categoryList: [],
     };
   },
+  watch: {
+    categories: function(v) {
+      const firstCategory = v[this.currentTab];
+      this.requestCategory({ parentId: firstCategory[this.mapKeys["id"]] });
+    }
+  },
   methods: {
     handleListClick(e) {
-      // console.log("list click", e);
       const { key, cat } = e;
       this.currentTab = key;
-      if (CAT_CACHE[cat.cat_id]) {
-        this.categoryList = CAT_CACHE[cat.cat_id];
+      if (CAT_CACHE[cat[this.mapKeys["id"]]]) {
+        this.categoryList = CAT_CACHE[cat[this.mapKeys["id"]]];
         // scroll top
         this.$refs.pullRefresh.setScrollTop(0);
         return;
       }
-      this.requestCategory({ parentId: cat.cat_id });
+      this.requestCategory({ parentId: cat[this.mapKeys["id"]] });
     },
     requestCategory(args) {
       const { parentId } = args;
@@ -91,10 +107,6 @@ export default defineComponent({
       this.handleListClick({ cat, key: currentTab });
     },
   },
-  created() {
-    const firstCategory = this.categories[this.currentTab];
-    this.requestCategory({ parentId: firstCategory.cat_id });
-  },
   render(h) {
     return h("div", { class: ["yn-category-mobile"] }, [
       h(
@@ -115,7 +127,7 @@ export default defineComponent({
                     },
                     class: [this.currentTab === key ? "active" : ""],
                   },
-                  [cat.cat_name]
+                  [cat[this.mapKeys["label"]]]
                 );
               })
             ),
@@ -145,7 +157,7 @@ export default defineComponent({
                       [
                         Array.apply(null, this.categoryList).map((cat) => {
                           return [
-                            h("h4", { key: `title-${cat.id}` }, cat.name),
+                            h("h4", { key: `title-${cat.id}` }, cat[this.mapKeys["label"]]),
                             h(
                               genComponentName("flex"),
                               {
@@ -153,11 +165,11 @@ export default defineComponent({
                                 props: { flexWrap: "wrap" },
                               },
                               [
-                                ...Array.apply(null, cat.cat_id).map(
+                                ...Array.apply(null, cat[this.mapKeys["children"]]).map(
                                   (subCat) => {
                                     return h(
                                       genComponentName("flex-item"),
-                                      { key: subCat.id, class: ["goods-item"] },
+                                      { key: subCat[this.mapKeys["id"]], class: ["goods-item"] },
                                       [
                                         h(
                                           "a",
@@ -175,14 +187,14 @@ export default defineComponent({
                                             h(
                                               "img",
                                               {
-                                                attrs: { src: subCat.cat_img },
+                                                attrs: { src: subCat[this.mapKeys["imgUrl"]] },
                                               },
                                               []
                                             ),
                                             h(
                                               "span",
                                               { class: ["goods-name"] },
-                                              [subCat.name]
+                                              [subCat[this.mapKeys["label"]]]
                                             ),
                                           ]
                                         ),

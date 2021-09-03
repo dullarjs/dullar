@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-20 19:51:57
+ * @Last Modified time: 2021-09-02 15:13:55
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -46,6 +46,31 @@ export default defineComponent({
       type: String,
       default: "重置",
     },
+    emptyText: {
+      type: String,
+      default: "这里什么都没有",
+    },
+    emptyContent: {
+      type: Object,
+      default: null,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    iconType: {
+      type: String,
+      default: "tripleBounce",
+    },
+    iconSize: {
+      type: Number,
+      default: 36,
+    },
+    hideHeader: {
+      type: Boolean,
+      default: false,
+    },
+    iconColor: String,
   },
   data() {
     return {
@@ -55,7 +80,6 @@ export default defineComponent({
       nextSerializaThead: [], // 下一步需要序列化的表头
       filterContent: [], // 头部列搜索是否显示
       dropDownInfo: {}, // 显示的搜索的列数据
-      dropDownStyle: {},
       dropDownElement: null,
       resetDisabled: true,
       tableKey: "-v",
@@ -69,6 +93,7 @@ export default defineComponent({
       pageInfoObj: {},
       randNum: null,
       currentPageKeys: [],
+      dropDownTitle: "", // 当前显示的搜索列的title
     };
   },
   created() {
@@ -88,12 +113,12 @@ export default defineComponent({
     },
   },
   watch: {
-    dropDownStyle: "setDropDownStyle",
     dataList: "setPagination",
     dataSource: "getNewDataList",
     "clientRect.top": function (val) {
       this.fixed.top = val < 0;
     },
+    columns: "serializationThead",
   },
   mounted() {
     document.addEventListener("click", (e) => {
@@ -142,10 +167,16 @@ export default defineComponent({
     },
     initDropDownList() {
       this.checkDropDownChage();
-      this.dropDownStyle = {};
       this.dropDownInfo = {};
       this.resetDisabled = true;
       this.dropDownInfoSelectRows = [];
+      const dropDownTitle = this.dropDownTitle;
+      if (dropDownTitle) {
+        const _dropDownModal = document.getElementById(
+          "yn-table-dropdown-container" + dropDownTitle
+        );
+        _dropDownModal.style.display = "none";
+      }
     },
     serializationThead() {
       const columns = deepClone(this.columns);
@@ -241,53 +272,35 @@ export default defineComponent({
         this.resetDisabled = selectRowNums === 0;
       }
     },
-    showDropDownFun(event, h) {
-      if (Object.keys(this.dropDownStyle).length > 0) {
-        this.initDropDownList();
-      } else {
-        const columnName =
-          event.target.getAttribute("column-key") ||
-          event.target.parentNode.getAttribute("column-key");
-        const columnInfo = {};
-        const dropDownStyle = {};
-        for (let item of this.fieldsList) {
-          if (columnName === item.key) {
-            columnInfo.filters = item.filters;
-            columnInfo.onFilter = item.onFilter ? item.onFilter : null;
-            dropDownStyle.left =
-              event.target.getBoundingClientRect().left +
-              document.documentElement.scrollLeft +
-              event.target.offsetWidth +
-              4 -
-              160 +
-              "px";
-            dropDownStyle.top =
-              event.target.getBoundingClientRect().top +
-              document.documentElement.scrollTop +
-              event.target.offsetHeight / 2 +
-              14 +
-              "px";
-            columnInfo.key = item.key;
-            break;
-          }
-        }
-        this.dropDownInfoSelectRows = deepClone(columnInfo.filters);
-        this.dropDownInfo = { ...columnInfo };
-        this.filterContent = this.getDropDowmList(h);
-        this.dropDownStyle = { ...dropDownStyle };
-        this.checkResetDisabled();
+    showDropDownFun(key, title) {
+      const h = this.$createElement;
+      const dropDownTitle = this.dropDownTitle;
+      if (dropDownTitle) {
+        const _oldDropDownModal = document.getElementById(
+          "yn-table-dropdown-container" + dropDownTitle
+        );
+        _oldDropDownModal.style.display = "none";
       }
-    },
-    setDropDownStyle() {
-      const _dom = document.getElementById(
-        "yn-table-dropdown-container" + this.tableKey
+      const columnName = key;
+      const _dropDownModal = document.getElementById(
+        "yn-table-dropdown-container" + title
       );
-      const dropDownStyle = this.dropDownStyle;
-      if (Object.keys(dropDownStyle).length > 0) {
-        _dom.setAttribute("style", dropDownStyle);
-      } else {
-        _dom.removeAttribute("style");
+      const columnInfo = {};
+      for (let item of this.fieldsList) {
+        if (columnName === item.key) {
+          columnInfo.filters = item.filters;
+          columnInfo.onFilter = item.onFilter ? item.onFilter : null;
+          columnInfo.key = item.key;
+          break;
+        }
       }
+
+      _dropDownModal.style.display = "block";
+      this.dropDownInfoSelectRows = deepClone(columnInfo.filters);
+      this.dropDownInfo = { ...columnInfo };
+      this.dropDownTitle = title;
+      this.filterContent = this.getDropDowmList(h);
+      this.checkResetDisabled();
     },
     // table头单元格
     renderTheadCell(column, h) {
@@ -300,7 +313,6 @@ export default defineComponent({
             {
               class: ["yn-table-filter-trigger"],
               attrs: { "column-key": column.key },
-              on: { click: (e) => this.showDropDownFun(e, h) },
             },
             [
               h(
@@ -311,9 +323,61 @@ export default defineComponent({
                     size: 12,
                     name: "search",
                   },
-                  attrs: { "column-key": column.key },
+                  on: {
+                    click: () => this.showDropDownFun(column.key, column.title),
+                  },
                 },
                 []
+              ),
+
+              h(
+                "div",
+                {
+                  class: ["yn-dropdown"],
+                  style: { diplay: "none" },
+                  attrs: { id: "yn-table-dropdown-container" + column.title },
+                },
+                [
+                  h("div", { class: ["yn-table-filter-dropdown"] }, [
+                    h("ul", { class: ["yn-dropdown-menu"] }, [
+                      ...this.filterContent,
+                    ]),
+                    h("div", { class: ["yn-table-filter-dropdown-btns"] }, [
+                      h(
+                        genComponentName("button"),
+                        {
+                          props: {
+                            disabled: this.resetDisabled,
+                            size: "small",
+                          },
+                        },
+                        [
+                          h(
+                            "span",
+                            { on: { click: this.reset.bind(this, h) } },
+                            [this.resetText]
+                          ),
+                        ]
+                      ),
+                      h(
+                        genComponentName("button"),
+                        {
+                          props: {
+                            type: "primary",
+                            size: "small",
+                          },
+                        },
+                        [
+                          h(
+                            "span",
+                            { on: { click: () => this.checkDropDownChage } },
+                            [this.okText]
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                ]
               ),
             ]
           ),
@@ -520,6 +584,21 @@ export default defineComponent({
       }
       this.currentPageKeys = currentPageKeys;
 
+      // 为空的时候
+      if (currentPageKeys.length === 0) {
+        let _emptyContent;
+        _emptyContent = this.emptyContent ? this.emptyContent : this.emptyText;
+        rowContent.push(
+          h("tr", { class: ["yn-table-empty-row"] }, [
+            h(
+              "td",
+              { class: [], attrs: { colspan: this.fieldsList.length + 2 } },
+              [_emptyContent]
+            ),
+          ])
+        );
+      }
+
       return rowContent;
     },
     renderFieldList(rowDatas) {
@@ -576,12 +655,16 @@ export default defineComponent({
 
       fieldsList.forEach((item) => {
         const value = item.dataIndex ? rowDatas[item.dataIndex] : "";
+        let _content;
+        if (item.renderVNode) {
+          _content = item.renderVNode;
+        } else if (item.render || item.editable) {
+          _content = this.renderCell(item, value, rowDatas);
+        } else {
+          _content = value;
+        }
         fieldContentList.push(
-          h("td", { class: ["yn-table-cell"] }, [
-            item.render || item.editable
-              ? this.renderCell(item, value, rowDatas)
-              : value,
-          ])
+          h("td", { class: ["yn-table-cell"] }, [_content])
         );
       });
       return fieldContentList;
@@ -595,6 +678,9 @@ export default defineComponent({
             "input",
             {
               attrs: { value: value },
+              domProps: {
+                value: value,
+              },
               on: {
                 change: (e) => this.onHandleChage(e, value, record, column),
               },
@@ -609,6 +695,7 @@ export default defineComponent({
           : renderList.tagName || "";
         if (renderList.on) {
           const _on = this.getBoundEvent(renderList.on, value, record);
+          _on.listeners = this.$listeners;
           return h(
             _noed,
             {
@@ -638,6 +725,7 @@ export default defineComponent({
       if (column.beforeChage) {
         const reseult = column.beforeChage(resetValue, record, column);
         e.target.value = resetValue = reseult === true ? resetValue : value;
+        record[column.dataIndex] = e.target.value;
         reseult === true &&
           this.$emit(column.onchange, resetValue, record, column);
       } else {
@@ -701,7 +789,7 @@ export default defineComponent({
     getBoundEvent(list, value, record) {
       const _on = {};
       for (const key in list) {
-        _on[key] = () => this.$emit(list[key], { value, record });
+        _on[key] = (e) => this.$emit(list[key], { e, value, record });
       }
       return _on;
     },
@@ -778,6 +866,8 @@ export default defineComponent({
       ? { "max-height": this.height + "px", overflow: "scroll" }
       : "";
     const pageInfoObj = this.pageInfoObj && { ...this.pageInfoObj };
+    const loading = this.loading;
+    const hideHeader = this.hideHeader;
     return h(
       "div",
       {
@@ -798,15 +888,16 @@ export default defineComponent({
             [
               h("div", { class: ["yn-table-container"] }, [
                 h("table", { style: { "table-layout": "auto" } }, [
-                  h(
-                    "thead",
-                    {
-                      attrs: { id: `yn-table-thead-${this.randNum}` },
-                      class: ["yn-table-thead"],
-                      style: { ...this.theadStyle },
-                    },
-                    [this.getThead(h)]
-                  ),
+                  !hideHeader &&
+                    h(
+                      "thead",
+                      {
+                        attrs: { id: `yn-table-thead-${this.randNum}` },
+                        class: ["yn-table-thead"],
+                        style: { ...this.theadStyle },
+                      },
+                      [this.getThead(h)]
+                    ),
                   h("tbody", { class: ["yn-table-tbody"] }, [
                     this.initTableRows(),
                   ]),
@@ -824,53 +915,23 @@ export default defineComponent({
               class: ["yn-table-pagination"],
               ref: `yn-pagination`,
             }),
-        ]),
 
-        h(
-          "div",
-          {
-            class: ["yn-dropdown"],
-            style: { ...this.dropDownStyle },
-            attrs: { id: "yn-table-dropdown-container" + this.tableKey },
-          },
-          [
-            h("div", { class: ["yn-table-filter-dropdown"] }, [
-              h("ul", { class: ["yn-dropdown-menu"] }, [...this.filterContent]),
-              h("div", { class: ["yn-table-filter-dropdown-btns"] }, [
-                h(
-                  genComponentName("button"),
-                  {
-                    props: {
-                      disabled: this.resetDisabled,
-                      size: "small",
-                    },
+          loading &&
+            h("div", { class: ["yn-table-loading"] }, [
+              h(
+                genComponentName("spin"),
+                {
+                  class: ["loading"],
+                  props: {
+                    type: this.iconType,
+                    size: this.iconSize,
+                    color: this.iconColor,
                   },
-                  [
-                    h("span", { on: { click: this.reset.bind(this, h) } }, [
-                      this.resetText,
-                    ]),
-                  ]
-                ),
-                h(
-                  genComponentName("button"),
-                  {
-                    props: {
-                      type: "primary",
-                      size: "small",
-                    },
-                  },
-                  [
-                    h(
-                      "span",
-                      { on: { click: () => this.checkDropDownChage } },
-                      [this.okText]
-                    ),
-                  ]
-                ),
-              ]),
+                },
+                []
+              ),
             ]),
-          ]
-        ),
+        ]),
       ]
     );
   },

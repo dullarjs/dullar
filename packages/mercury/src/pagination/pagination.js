@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-20 19:24:59
+ * @Last Modified time: 2021-09-02 10:53:13
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -40,6 +40,9 @@ export default defineComponent({
   },
   created() {
     this.init();
+  },
+  watch: {
+    total: "init",
   },
   methods: {
     init() {

@@ -1,0 +1,86 @@
+@import "../../theme/variable.less";
+.yn-button {
+  appearance: none;
+  border-radius: 4px;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  display: block;
+  font-size: 16px;
+  height: 38px;
+  outline: 0;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+.yn-button-disable {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.yn-button-large {
+  display: block;
+  width: 100%;
+}
+.yn-button-normal {
+  display: inline-block;
+  padding: 0 12px;
+}
+.yn-button-small {
+  display: inline-block;
+  font-size: 14px;
+  padding: 0 12px;
+  height: 33px;
+}
+.yn-button-default {
+  color: #656b79;
+  background-color: #f6f8fa;
+  box-shadow: 0 0 1px #b8bbbf;
+}
+.yn-button-primary {
+  background-color: @theme-color;
+  color: @white;
+}
+.yn-button-warning {
+  background-color: @warn-color;
+  color: @white;
+}
+.yn-button-danger {
+  color: @white;
+  background-color: @danger-color;
+}
+.yn-button-default.is-plain {
+  border: 1px solid @border-color;
+  background-color: transparent;
+  box-shadow: none;
+  color: @border-color;
+}
+.yn-button-primary.is-plain {
+  border: 1px solid @theme-color;
+  background-color: transparent;
+  color: @theme-color;
+}
+.yn-button-danger.is-plain {
+  border: 1px solid @danger-color;
+  background-color: transparent;
+  color: @danger-color;
+}
+.yn-button-warning.is-plain {
+  border: 1px solid @warn-color;
+  background-color: transparent;
+  color: @warn-color;
+}
+.yn-button-loading {
+  cursor: default;
+  .yn-button-text {
+    margin-left: 5px;
+  }
+}
+.yn-button-loading-icon,
+.yn-button-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+.yn-button-text {
+  // line-height: 44px;
+}
