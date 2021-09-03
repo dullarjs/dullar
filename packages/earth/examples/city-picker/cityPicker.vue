@@ -90,6 +90,16 @@
       v-model="picker8"
       column="3"
     ></yn-city-picker>
+    <yn-city-picker
+      :search="getSearch()"
+      :alphaBeta="getAlphaBeta()"
+      :history="getHistory()"
+      :hotCity="getHotCity()"
+      showHistory
+      @pick="handlePick"
+      v-model="picker10"
+      :parse="parse"
+    ></yn-city-picker>
   </div>
 </template>
 
@@ -99,6 +109,7 @@ export default {
   name: "YnCityPickerPage",
   data() {
     return {
+      keywords: "天津",
       data,
       picker1: false,
       picker2: false,
@@ -109,13 +120,28 @@ export default {
       picker7: false,
       picker8: false,
       picker9: false,
+      picker10: false,
       tabs1: [{ label: "中国", key: "mainland-china" }],
       tabs2: [{ label: "非中国大陆(国际/港澳台)", key: "overseas" }]
     };
   },
   methods: {
     parse(city, nameSpace) {
-      return `${nameSpace} ${city.CityName}`;
+      console.log(nameSpace);
+      if (nameSpace === "search-result") {
+        // const ele = `<span class="hightlight-city">城市</span>
+        //   <span class="city-province">${city.CityName}-${city.CountryName}</span>
+        //   <span class="distance">无机场</span>`;
+        let eleStr = `${city.CityName}-${city.CountryName}`;
+        eleStr = eleStr.replace(
+            new RegExp(this.keywords, "ig"),
+            `<i>${this.keywords}</i>`
+          );
+        const ele = `${eleStr}`;
+        return ele;
+      } else {
+        return `${nameSpace} ${city.CityName}`;
+      }
     },
     getHistory() {
       return {
