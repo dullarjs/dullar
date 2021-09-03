@@ -126,21 +126,23 @@ export default {
     };
   },
   methods: {
-    parse(city, nameSpace) {
+    parse(h, city, nameSpace) {
       console.log(nameSpace);
       if (nameSpace === "search-result") {
-        // const ele = `<span class="hightlight-city">城市</span>
-        //   <span class="city-province">${city.CityName}-${city.CountryName}</span>
-        //   <span class="distance">无机场</span>`;
-        let eleStr = `${city.CityName}-${city.CountryName}`;
-        eleStr = eleStr.replace(
-            new RegExp(this.keywords, "ig"),
-            `<i>${this.keywords}</i>`
-          );
-        const ele = `${eleStr}`;
-        return ele;
+        return  h("span", {}, [
+          h("span", {
+            class:["hightlight-city"]
+          }, "城市"),
+          h("span", {
+            class:["city-province"]
+          }, `${city.CityName}-${city.CountryName}`),
+          h("span", {
+            class:["distance"]
+          }, "无机场")
+        ]);
       } else {
-        return `${nameSpace} ${city.CityName}`;
+        const str = `${nameSpace} ${city.CityName}`;
+        return h("span", {}, str);
       }
     },
     getHistory() {
