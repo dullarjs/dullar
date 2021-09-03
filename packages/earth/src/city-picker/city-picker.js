@@ -416,19 +416,19 @@ export default defineComponent({
         return [];
       }
     },
+    createInputSearchListItem(h, itemData) {
+      const innerHTML = this.parse(itemData, "search-result");
+      return [h("span", { domProps: { innerHTML } }, [])];
+    },
     createInputSearchList(h) {
       return h(
         "ul",
         {},
         Array.apply(null, this.searchList).map((listItem, key) => {
-          const innerHTML = this.parse(listItem, "search-result").replace(
-            new RegExp(this.keywords, "ig"),
-            `<i>${this.keywords}</i>`
-          );
           return h(
             "li",
             { key, on: { click: this.handlePick.bind(this, listItem) } },
-            [h("span", { domProps: { innerHTML } }, [])]
+            [this.createInputSearchListItem(h, listItem)]
           );
         })
       );
