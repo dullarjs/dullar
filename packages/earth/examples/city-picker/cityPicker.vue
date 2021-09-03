@@ -127,7 +127,6 @@ export default {
   },
   methods: {
     parse(h, city, nameSpace) {
-      console.log(nameSpace);
       if (nameSpace === "search-result") {
         return  h("span", {}, [
           h("span", {

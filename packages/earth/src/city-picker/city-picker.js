@@ -576,7 +576,6 @@ export default defineComponent({
             Array.apply(null, cities).map((city, key) => {
               const textEle = this.parse(h, city, nameSpace);
               const text = textEle.children[0].text;
-              console.log("text:", text);
               const textLength = text.length;
               let fontSize = this.textBoxWidth / textLength;
               const textOverflow = [];
