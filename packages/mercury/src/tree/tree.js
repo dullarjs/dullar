@@ -2,13 +2,14 @@
  * @Author: Just be free
  * @Date:   2021-08-26 13:48:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-30 17:17:41
+ * @Last Modified time: 2021-09-04 09:01:07
  * @E-mail: justbefree@126.com
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
 import Checkbox from "../checkbox";
 import { push, drop } from "../modules/utils";
+import { deepClone } from "../modules/utils/deepClone";
 import Iconfont from "../iconfont";
 import Spin from "../spin";
 export default defineComponent({
@@ -57,7 +58,9 @@ export default defineComponent({
     notification() {
       const result = [];
       this.selected.forEach((id) => {
-        result.push(this.flatNodes[id]);
+        const node = deepClone(this.flatNodes[id]);
+        delete node.children;
+        result.push(node);
       });
       this.$emit("pick", result);
     },
@@ -70,7 +73,9 @@ export default defineComponent({
     },
     updateLeaf(node, attr, value, loop) {
       node[attr] = value;
-      this.updateSelected(node.id, value);
+      if (attr === "checked") {
+        this.updateSelected(node.id, value);
+      }
       if (loop) {
         if (Array.isArray(node.children)) {
           node.children.forEach((leaf) => {
@@ -129,7 +134,9 @@ export default defineComponent({
           this.updateTreeNode(node, "expanded", false);
         }
       }
-      this.$emit("pick", node);
+      if (!this.showCheckbox) {
+        this.$emit("pick", node);
+      }
     },
     handleEnter(el) {
       el.style.height = "auto";
