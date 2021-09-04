@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-12 16:25:32
+ * @Last Modified time: 2021-09-04 08:04:10
  * @E-mail: justbefree@126.com
  */
 
@@ -104,8 +104,14 @@ export default defineComponent({
       const promise = this.delete.action(params);
       promise
         .then((res) => {
-          if (this.delete.parse(res)) {
-            this.historyRecords = [];
+          if (type === "single") {
+            const index = this.historyRecords.findIndex(r => r.id === record.id);
+            this.historyRecords.splice(index, 1);
+          } else {
+            if (this.delete.parse(res)) {
+              this.isEdit = false;
+              this.historyRecords = [];
+            }
           }
         })
         .catch(() => {});
