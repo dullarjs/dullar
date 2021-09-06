@@ -8,6 +8,7 @@
 import Vue from "vue";
 import "./vue";
 import { Toast } from "./toast";
+import { Modal } from "./modal";
 import { Indicator } from "./indicator";
 import { YnActionSheet } from "./action-sheet";
 import { YnAnimationList } from "./animation-list";
@@ -45,6 +46,7 @@ import { YnShippingAddress } from "./shipping-address";
 import { YnTree } from "./tree";
 export {
   Toast,
+  Modal,
   Indicator,
   YnActionSheet,
   YnAnimationList,
