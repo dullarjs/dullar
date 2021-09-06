@@ -112,6 +112,7 @@ const install = (Vue) => {
   });
   Vue.prototype.Toast = Toast;
   Vue.prototype.Dialog = Dialog;
+  Vue.prototype.Modal = Modal;
   Vue.prototype.Indicator = Indicator;
 };
 if (typeof window !== "undefined" && window.Vue) {
