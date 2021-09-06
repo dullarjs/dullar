@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-06 11:56:21
+ * @Last Modified time: 2021-09-06 13:44:10
  * @E-mail: justbefree@126.com
  */
 
@@ -16,6 +16,8 @@ import Popup from "../popup";
 export default defineComponent({
   name: "ElasticSearch",
   props: {
+    value: String,
+    closeWhenSearch: Boolean,
     placeholder: String,
     cancelText: {
       type: String,
@@ -66,7 +68,6 @@ export default defineComponent({
     return {
       showSearchPanel: false,
       historyRecords: [],
-      inputValue: "",
       historyStatus: false,
       isEdit: false,
     };
@@ -117,7 +118,7 @@ export default defineComponent({
         .catch(() => {});
     },
     handleOnInput(e) {
-      this.inputValue = e;
+      this.$emit("input", e);
     },
     historyRequest() {
       const params = { ...this.history.params, type: "request" };
@@ -135,18 +136,21 @@ export default defineComponent({
     handleRecordClick(e) {
       if (this.isEdit) return;
       this.$refs.input.$el.getElementsByTagName("input")[0].focus();
-      this.inputValue = this.history.parse(e, { type: "parser" });
+      this.$emit("input", this.history.parse(e, { type: "parser" }));
       this.$emit("fireSearch", e);
     },
     handleKeydown(e) {
       if (Number(e.keyCode) === 13) {
         // fire http request
-        this.showSearchPanel = false;
-        this.$emit("fireSearch", this.inputValue);
+        if (this.closeWhenSearch) {
+          this.showSearchPanel = false;
+        }
+        this.$emit("fireSearch", this.value);
       }
     },
   },
   render(h) {
+    const hasDefault = this.value && this.value !== "";
     return h("div", { class: ["yn-elastic-search"] }, [
       h("div", { class: ["search-warrper"] }, [
         h(
@@ -163,7 +167,7 @@ export default defineComponent({
               { props: { name: "search", size: 16 } },
               []
             ),
-            h("span", {}, this.placeholder),
+            h("span", { class: [hasDefault ? "value" : "placeholder"] }, hasDefault ? this.value : this.placeholder),
           ]
         ),
       ]),
@@ -198,7 +202,7 @@ export default defineComponent({
                             props: {
                               placeholder: this.placeholder,
                               clearable: true,
-                              value: this.inputValue,
+                              value: this.value,
                               type: "text",
                             },
                             on: {
@@ -209,7 +213,6 @@ export default defineComponent({
                           },
                           []
                         ),
-                        // h("input", { ref: "input", attrs: { placeholder: this.placeholder } }, [])
                       ]
                     ),
                     h(
