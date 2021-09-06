@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>yn-elastic-search</h2>
-    <yn-elastic-search :history="getHistory()" :delete="deleteHistory()" placeholder="请输入要搜索的商品"></yn-elastic-search>
+    <yn-elastic-search closeWhenSearch v-model="keywords" :history="getHistory()" :delete="deleteHistory()" placeholder="请输入要搜索的商品"></yn-elastic-search>
   </div>
 </template>
 <script type="text/javascript">
@@ -10,6 +10,7 @@
     name: "YnElasticSearchPage",
     data() {
       return {
+        keywords: "搜个苹果"
       };
     },
     methods: {
