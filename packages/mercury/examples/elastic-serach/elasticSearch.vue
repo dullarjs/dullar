@@ -1,15 +1,16 @@
 <template>
   <div>
     <h2>yn-elastic-search</h2>
-    <yn-elastic-search :history="getHistory()" :delete="deleteHistory()" placeholder="请输入要搜索的商品"></yn-elastic-search>
+    <yn-elastic-search closeWhenSearch v-model="keywords" :history="getHistory()" :delete="deleteHistory()" placeholder="请输入要搜索的商品"></yn-elastic-search>
   </div>
 </template>
 <script type="text/javascript">
-  const data = [{ label: "电饭锅" }, { label: "我和我的祖国" }, { label: "男短裤" }, { label: "夏季专用坐垫橘黄色" }];
+  const data = [{ label: "电饭锅", id: 1 }, { label: "我和我的祖国", id: 2 }, { label: "男短裤", id: 3 }, { label: "夏季专用坐垫橘黄色", id: 4 }];
   export default {
     name: "YnElasticSearchPage",
     data() {
       return {
+        keywords: "搜个苹果"
       };
     },
     methods: {

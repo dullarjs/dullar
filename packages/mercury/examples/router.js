@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-28 17:05:44
+ * @Last Modified time: 2021-09-03 20:04:35
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -29,6 +29,7 @@ import Tabs from "./tabs/tabs.vue";
 import Slider from "./slider/slider.vue";
 import PullRefresh from "./pull-refresh/pullRefresh.vue";
 import DatePicker from "./date-picker/datePicker.vue";
+import Calendar from "./calendar/calendar.vue";
 import Counter from "./counter/counter.vue";
 import Skeleton from "./skeleton/skeleton.vue";
 import AnimationList from "./animation-list/list.vue";
@@ -242,6 +243,11 @@ const router = new Router({
       path: "/input",
       name: "input",
       component: Input
+    },
+    {
+      path: "/calendar",
+      name: "calendar",
+      component: Calendar
     }
   ]
 });

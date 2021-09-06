@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-31 15:56:30
+ * @Last Modified time: 2021-09-04 21:49:56
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -17,10 +17,12 @@
             v-on:handleCkChange="handleCkChange"
             v-on:handleReset="handleReset"
             v-on:handleHideHeader="handleHideHeader"
+            v-on:handleClicka="handleClicka"
             :loading="loading"
             :iconType="iconType"
             :iconSize="iconSize"
             :hideHeader="hideHeader"
+            :checkBoxSize="12"
         >
         </yn-table>
         <h3>基础功能齐全table</h3>
@@ -41,6 +43,7 @@
                 :resetText="resetText"
                 :emptyContent="emptyContent"
                 :emptyText="emptyText"
+                :checkBoxSize="15"
             >
             </yn-table>
         </div>
@@ -302,10 +305,38 @@ export default {
             // 分页
             pagination: {
                 defaultCurrent: 1,
-                defaultPageSize: 15,
+                defaultPageSize: 10,
                 total: data.length
             },
             columns1:[
+                {
+                    title: 'picture',
+                    dataIndex: '',
+                    key: 'picture',
+                    width: 200,
+                    render: {
+                        tagName: 'div',
+                        attrs: {
+                            class: "img-class"
+                        },
+                        content: [
+                            {
+                                setContent: (value, record) => {
+                                    return (
+                                        <div onClick={ () => this.handleClicka(value, record) }>
+                                            <img 
+                                                src={record.img}
+                                                class="img-class"
+                                                style="width: 58px;height: 58px"
+                                            />
+                                            <span>{record.dsc}</span>
+                                        </div>
+                                    )
+                                }
+                            }
+                        ]
+                    }
+                },
                 {
                     title: 'Name',
                     dataIndex: 'name',
@@ -327,38 +358,23 @@ export default {
                     beforeChage: this.beforeChangeB,
                     width: 200
                 },
-                {
-                    title: 'picture',
-                    dataIndex: '',
-                    key: 'picture',
-                    width: 200,
-                    render: {
-                        tagName: 'img',
-                        attrs: {
-                            src: 'https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/171769/14/12515/117439/60b4d115E010780e1/6a74fc1f3b92de32.jpg',
-                            class: "img-class"
-                        },
-                        style:{
-                            width: '58px',
-                            height: '58px'
-                        },
-                        content: []
-                    }
-                },
-                {
-                    title: 'test',
-                    dataIndex: 'test',
-                    key: 'test',
-                    width: 200,
-                    render: {
-                        compentName: "iconfont",
-                        props: {
-                            size: 12,
-                            name: "clear",
-                        },
-                        attrs: { "column-key": 12 }
-                    }
-                },
+                // {
+                //     title: 'test',
+                //     dataIndex: 'test',
+                //     key: 'test',
+                //     width: 200,
+                //     render: {
+                //         compentName: "checkbox",
+                //         props: {
+                //             size: 12,
+                //             name: "clear",
+                //         },
+                //         on: {
+                //             change: "handleClicka",
+                //         },
+                //         attrs: { "column-key": 12 }
+                //     }
+                // },
                 {
                     title: 'Tags',
                     key: 'tags',
@@ -399,25 +415,40 @@ export default {
                         ]
                     }
                 },
+                {
+                    title: 'Action',
+                    key: 'Action',
+                    width: 160,
+                    renderVNode: (<yn-button type="primary" onclick={() => {return this.handleClicka()}}>主题色</yn-button>)
+                }
             ],
             dataSource1: [
                 {
                     key: 1,
                     name: '名1',
                     age: 30,
-                    address: '武汉市1(编辑下试试)'
+                    address: '武汉市1(编辑下试试)',
+                    img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/190947/6/8975/84588/60cc46b4Edc1b4e04/bb6d78e8707624a1.jpg",
+                    dsc: "斯得弗（STRYFER）",
+                    test: false
                 },
                 {
                     key: 2,
                     name: '名2',
                     age: 23,
-                    address: '武汉市3(编辑下试试)'
+                    address: '武汉市3(编辑下试试)',
+                    img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/190088/33/8488/135210/60c9cb40Eb71a7dd9/65ba2694595c2e72.jpg",
+                    dsc: "松深入墨 骁龙865 ",
+                    test: false
                 },
                 {
                     key: 3,
                     name: '名3',
                     age: 15,
-                    address: '武汉市3(编辑下试试)'
+                    address: '武汉市3(编辑下试试)',
+                    img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/121150/33/8284/68362/5f22f0a4Eee68fcd2/51cd7445e9429892.jpg",
+                    dsc: "黑鲨移动电源",
+                    test: false
                 },
             ],
             // 选择系列
@@ -646,6 +677,10 @@ export default {
         },
         handleHideHeader() {
             this.hideHeader = !this.hideHeader;
+        },
+        handleClicka(e, record) {
+            console.log(e);
+            console.log(record);
         }
     }
     };

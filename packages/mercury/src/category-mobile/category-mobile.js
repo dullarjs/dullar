@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-31 15:29:01
+ * @Last Modified time: 2021-09-03 17:38:49
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -70,11 +70,11 @@ export default defineComponent({
         this.$refs.pullRefresh.setScrollTop(0);
         return;
       }
-      this.requestCategory({ parentId: cat[this.mapKeys["id"]] });
+      this.requestCategory({ parentId: cat[this.mapKeys["id"]] }, cat);
     },
-    requestCategory(args) {
+    requestCategory(args, cat = {}) {
       const { parentId } = args;
-      const params = { ...this.category.params };
+      const params = { ...this.category.params, cat };
       const promise = this.category.action(params);
       this.loading = true;
       promise

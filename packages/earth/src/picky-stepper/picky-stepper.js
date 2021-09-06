@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-03-23 13:29:50
+ * @Last Modified time: 2021-09-02 15:14:41
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -113,7 +113,7 @@ export default defineComponent({
         genComponentName("iconfont"),
         {
           class: ["yn-picky-stepper-close"],
-          props: { name: "close", size: 24 },
+          props: { name: "close", size: 12 },
           on: { click: this.close },
         },
         []
