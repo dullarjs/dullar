@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-04 08:04:10
+ * @Last Modified time: 2021-09-06 11:56:21
  * @E-mail: justbefree@126.com
  */
 
@@ -139,8 +139,9 @@ export default defineComponent({
       this.$emit("fireSearch", e);
     },
     handleKeydown(e) {
-      if (e.keyCode === 13) {
+      if (Number(e.keyCode) === 13) {
         // fire http request
+        this.showSearchPanel = false;
         this.$emit("fireSearch", this.inputValue);
       }
     },
