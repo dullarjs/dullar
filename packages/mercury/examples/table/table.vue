@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-09-02 16:38:09
+ * @Last Modified time: 2021-09-04 21:49:56
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -22,6 +22,7 @@
             :iconType="iconType"
             :iconSize="iconSize"
             :hideHeader="hideHeader"
+            :checkBoxSize="12"
         >
         </yn-table>
         <h3>基础功能齐全table</h3>
@@ -42,6 +43,7 @@
                 :resetText="resetText"
                 :emptyContent="emptyContent"
                 :emptyText="emptyText"
+                :checkBoxSize="15"
             >
             </yn-table>
         </div>
