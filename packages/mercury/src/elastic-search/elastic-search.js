@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-06 13:44:10
+ * @Last Modified time: 2021-09-07 19:36:09
  * @E-mail: justbefree@126.com
  */
 
@@ -137,6 +137,7 @@ export default defineComponent({
       if (this.isEdit) return;
       this.$refs.input.$el.getElementsByTagName("input")[0].focus();
       this.$emit("input", this.history.parse(e, { type: "parser" }));
+      this.showSearchPanel = false;
       this.$emit("fireSearch", e);
     },
     handleKeydown(e) {
