@@ -223,6 +223,13 @@ export default defineComponent({
     clearSearchResult() {
       this.searchList = [];
     },
+    clearAlphaBetaSearchKeywords() {
+      this.selectedAlphaBeta = "";
+      this.clearAlphaBetaSearchResult();
+    },
+    clearAlphaBetaSearchResult() {
+      this.alphaBetaCities = [];
+    },
     onComposeStart() {
       this.isCompose = true;
     },
@@ -309,9 +316,12 @@ export default defineComponent({
       }
       this.selectedAlphaBeta = e;
       this.alphaBetaCities = [];
-      if (this.cachedAlphaBeta[e] && this.cachedAlphaBeta[e].length) {
+      if (
+        this.cachedAlphaBeta[e + this.currentTab] &&
+        this.cachedAlphaBeta[e + this.currentTab].length
+      ) {
         this.alphaBetaLoading = false;
-        this.alphaBetaCities = this.cachedAlphaBeta[e];
+        this.alphaBetaCities = this.cachedAlphaBeta[e + this.currentTab];
       } else {
         this.alphaBetaLoading = true;
         const params = { ...this.alphaBeta.params, alphaBeta: e };
@@ -323,7 +333,10 @@ export default defineComponent({
               // this.cachedAlphaBeta[e] = data;
               this.alphaBetaCities = data;
               // deepClone, 防止城市组件缓存的数据共享
-              this.cachedAlphaBeta = { ...this.cachedAlphaBeta, [e]: data };
+              this.cachedAlphaBeta = {
+                ...this.cachedAlphaBeta,
+                [e + this.currentTab]: data,
+              };
               this.setAlphaBetaScrollTop();
             }
             this.alphaBetaLoading = false;
@@ -348,7 +361,12 @@ export default defineComponent({
       if (ele.active) {
         return false;
       }
-      this.clearSearchResult();
+      if (this.isSearching) {
+        this.clearSearchKeywords();
+      }
+      if (this.selectedAlphaBeta) {
+        this.clearAlphaBetaSearchKeywords();
+      }
       this.caculatedTabs.forEach((tab) => {
         if (tab.key === ele.key) {
           tab.active = true;
