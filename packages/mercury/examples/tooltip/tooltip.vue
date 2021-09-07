@@ -7,7 +7,7 @@
         placement="top"
         content="top我是tooltip撒旦发生口角是否数据库恢复瑟夫数据返回上课时间发货时间看"
       >
-        <yn-button class="mt30" type="text">top</yn-button>
+        <yn-button class="mt30 new-position" type="text">top</yn-button>
       </yn-tooltip>
       <!-- <div class="middle"> -->
       <div>
@@ -64,13 +64,13 @@ export default {
   methods: {},
 };
 </script>
-<style type="text/css">
+<style type="text/css" scoped="scoped">
 .tooltip-box-main {
-  width: 100px;
   text-align: center;
   margin-left: 500px;
   margin-top: 300px;
   transform: translate(-50%, -50%);
+  position: relative;
 }
 .middle {
   display: flex;
@@ -80,5 +80,12 @@ export default {
 }
 .mt30 {
   margin-top: 30px;
+}
+.new-position {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  /* bottom: 0; */
+  /* right: 100px; */
 }
 </style>
