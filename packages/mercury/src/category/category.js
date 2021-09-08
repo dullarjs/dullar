@@ -2,11 +2,10 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-26 11:54:13
+ * @Last Modified time: 2021-09-08 10:42:56
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
-import { stopPropagation } from "../modules/event";
 import Iconfont from "../iconfont";
 import Spin from "../spin";
 let timer = null;
@@ -36,6 +35,7 @@ export default defineComponent({
       currentCategory: -1,
       subCatList: [],
       isLoading: false,
+      showPanel: false
     };
   },
   methods: {
@@ -57,6 +57,7 @@ export default defineComponent({
     },
     handleMouseEnter({ index, cat }) {
       clearTimeout(timer);
+      this.showPanel = true;
       this.currentCategory = index;
       if (CAT_CACHE[cat.id]) {
         this.subCatList = CAT_CACHE[cat.id];
@@ -67,17 +68,17 @@ export default defineComponent({
     handleMouseLeave() {
       timer = setTimeout(() => {
         this.currentCategory = -1;
+        this.showPanel = false;
       }, 500);
     },
-    handlePanelMouseEnter(e) {
+    handlePanelMouseEnter() {
       clearTimeout(timer);
-      stopPropagation(e);
     },
     handlePanelMouseLeave() {
       this.currentCategory = -1;
+      this.showPanel = false;
     },
-    itemClick(item, e) {
-      stopPropagation(e);
+    itemClick(item) {
       this.$emit("pick", item);
     },
   },
@@ -90,7 +91,7 @@ export default defineComponent({
           return h(
             "li",
             {
-              class: ["yn-category-li"],
+              class: ["yn-category-li", index === this.currentCategory ? "active" : ""],
               on: {
                 click: this.itemClick.bind(this, cat),
                 mouseenter: this.handleMouseEnter.bind(this, { index, cat }),
@@ -101,67 +102,67 @@ export default defineComponent({
               h("div", { class: ["label"] }, [
                 h("span", {}, this.category.parse(cat)),
               ]),
-              h(
-                "div",
-                {
-                  on: {
-                    mouseenter: this.handlePanelMouseEnter.bind(this),
-                    mouseleave: this.handlePanelMouseLeave.bind(this),
-                  },
-                  class: [
-                    "result-panel",
-                    this.isLoading ? "loading" : "",
-                    this.currentCategory === index ? "" : "hide",
-                  ],
-                },
-                this.isLoading
-                  ? [
-                      h(
-                        genComponentName("spin"),
-                        {
-                          class: ["category-loading"],
-                          props: { type: "rotate-svg", size: 40 },
-                        },
-                        []
-                      ),
-                    ]
-                  : Array.apply(null, this.subCatList).map((sub) => {
-                      return h("dl", { class: [] }, [
-                        h("dt", {}, [
-                          h(
-                            "span",
-                            { on: { click: this.itemClick.bind(this, sub) } },
-                            this.category.parse(sub)
-                          ),
-                          h(
-                            genComponentName("iconfont"),
-                            {
-                              class: [],
-                              props: { name: "right-arrow", size: 12 },
-                            },
-                            []
-                          ),
-                        ]),
-                        h(
-                          "dd",
-                          {},
-                          Array.apply(null, sub.children).map((list) => {
-                            return h(
-                              "span",
-                              {
-                                on: { click: this.itemClick.bind(this, list) },
-                              },
-                              this.category.parse(list)
-                            );
-                          })
-                        ),
-                      ]);
-                    })
-              ),
             ]
           );
         })
       ),
+      h(
+        "div",
+        {
+          on: {
+            mouseenter: this.handlePanelMouseEnter.bind(this),
+            mouseleave: this.handlePanelMouseLeave.bind(this),
+          },
+          class: [
+            "result-panel",
+            this.isLoading ? "loading" : "",
+            this.showPanel ? "" : "hide"
+          ],
+        },
+        this.isLoading
+          ? [
+              h(
+                genComponentName("spin"),
+                {
+                  class: ["category-loading"],
+                  props: { type: "rotate-svg", size: 40 },
+                },
+                []
+              ),
+            ]
+          : Array.apply(null, this.subCatList).map((sub) => {
+              return h("dl", { class: [] }, [
+                h("dt", {}, [
+                  h(
+                    "span",
+                    { on: { click: this.itemClick.bind(this, sub) } },
+                    this.category.parse(sub)
+                  ),
+                  h(
+                    genComponentName("iconfont"),
+                    {
+                      class: [],
+                      props: { name: "right-arrow", size: 12 },
+                    },
+                    []
+                  ),
+                ]),
+                h(
+                  "dd",
+                  {},
+                  Array.apply(null, sub.children).map((list) => {
+                    return h(
+                      "span",
+                      {
+                        on: { click: this.itemClick.bind(this, list) },
+                      },
+                      this.category.parse(list)
+                    );
+                  })
+                ),
+              ]);
+            })
+      )
     ]);
   },
 });

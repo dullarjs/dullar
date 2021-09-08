@@ -1,4 +1,6 @@
 .yn-category {
+  width: 165px;
+  position: relative;
   .yn-category-ul {
     list-style: none;
     width: 163px;
@@ -6,7 +8,6 @@
     margin: 0;
     cursor: pointer;
     border-left: 2px solid #292e3f;
-    position: relative;
     font-size: 14px;
     color: @text-color;
     font-weight: 400;
@@ -15,57 +16,56 @@
       padding-left: 10px;
       line-height: 30px;
       height: 30px;
-      &:hover {
+      overflow: auto;
+      &.active {
         background: #dfe9f7;
       }
-      .label {
-        span {
-          // &:hover {
-          //   color: #f42424;
-          // }
+    }
+  }
+  .result-panel {
+    padding: 10px 40px;
+    position: absolute;
+    box-shadow: 0px 2px 7px -2px rgba(0, 6, 50, 0.3);
+    margin: 0;
+    top: 0;
+    left: 165px;
+    width: 960px;
+    height: 380px;
+    overflow: auto;
+    &.loading {
+      text-align: center;
+    }
+    .category-loading {
+      display: inline-block;
+    }
+    &.hide {
+      display: none;
+    }
+    dl {
+      font-size: 12px;
+      display: flex;
+      dt {
+        min-width: 60px;
+        text-align: right;
+        height: 100%;
+        font-weight: 400;
+        color: @text-color;
+        display: inline-block;
+        span:hover {
+          cursor: pointer;
+          color: @text-color;
         }
       }
-      .result-panel {
-        padding: 10px 40px;
-        position: absolute;
-        box-shadow: 0px 2px 7px -2px rgba(0, 6, 50, 0.3);
-        margin: 0;
-        top: 0;
-        left: 163px;
-        width: 960px;
-        height: 380px;
-        overflow: auto;
-        &.loading {
-          text-align: center;
+      dd {
+        color: #666;
+        display: inline-block;
+        margin-left: 20px;
+        span {
+          margin-right: 20px;
         }
-        .category-loading {
-          display: inline-block;
-        }
-        &.hide {
-          display: none;
-        }
-        dl {
-          font-size: 12px;
-          display: flex;
-          dt {
-            min-width: 60px;
-            text-align: right;
-            height: 100%;
-            font-weight: 400;
-            color: @text-color;
-            display: inline-block;
-          }
-          dd {
-            color: #666;
-            display: inline-block;
-            margin-left: 20px;
-            span {
-              margin-right: 20px;
-            }
-            span:hover {
-              color: @text-color;
-            }
-          }
+        span:hover {
+          cursor: pointer;
+          color: @text-color;
         }
       }
     }
