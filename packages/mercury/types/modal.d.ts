@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-07 09:08:32
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-07 09:11:38
+* @Last Modified time: 2021-09-08 18:21:47
 * @E-mail: justbefree@126.com
 */
 
@@ -29,3 +29,9 @@ export interface Modal {
 }
 
 export const Modal: Modal;
+
+declare module 'vue/types/vue' {
+    interface Vue {
+        Modal: Modal
+    }
+}

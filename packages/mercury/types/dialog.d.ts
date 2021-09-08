@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-08 16:00:09
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-08 16:09:44
+* @Last Modified time: 2021-09-08 18:21:59
 * @E-mail: justbefree@126.com
 */
 
@@ -26,3 +26,9 @@ export interface Dialog {
 }
 
 export const Dialog: Dialog;
+
+declare module 'vue/types/vue' {
+    interface Vue {
+        Dialog: Dialog
+    }
+}

@@ -69,6 +69,7 @@ const install = (Vue) => {
   Vue.prototype.Toast = Toast;
   Vue.prototype.Dialog = Dialog;
   Vue.prototype.Indicator = Indicator;
+  Vue.prototype.Modal = Modal;
 };
 if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
