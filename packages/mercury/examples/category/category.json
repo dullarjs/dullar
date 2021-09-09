@@ -11,7 +11,7 @@
             "children": [
                 {
                     "catId": 1000,
-                    "catName": "摄影摄像",
+                    "catName": "摄影摄像我的名字很长吧",
                     "catDesc": "二级分类",
                     "parentId": 10,
                     "children": []

@@ -55,5 +55,6 @@ export default {
 <style type="text/css" scoped="scoped">
 .category-content {
   margin: 20px;
+  background: #eee;
 }
 </style>
