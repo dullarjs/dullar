@@ -2,24 +2,30 @@
   .yn-counter-subtract,
   .yn-counter-screen,
   .yn-counter-plus {
-    border-radius: 4px;
-    color: #4a4a4a;
-    height: 30px;
+    color: #2a2a2a;
+    height: 28px;
     display: inline-block;
-    background: rgba(242, 242, 242, 1);
-    min-width: 32px;
+    background: #ffffff;
     text-align: center;
-    line-height: 30px;
+    line-height: 28px;
     cursor: pointer;
-    margin: 0 0.5px;
-    font-size: 15px;
+    font-size: 14px;
     user-select: none;
-    &.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
   }
   .yn-counter-screen {
-    padding: 0 5px;
+    min-width: 30px;
+    border-top: 1px solid #e5e6e8;
+    border-bottom: 1px solid #e5e6e8;
+  }
+  .yn-counter-subtract,
+  .yn-counter-plus {
+    width: 30px;
+    border: 1px solid #e5e6e8;
+  }
+  .yn-counter-subtract {
+    border-radius: 2px 0px 0px 2px;
+  }
+  .yn-counter-plus {
+    border-radius: 0px 2px 2px 0px;
   }
 }
