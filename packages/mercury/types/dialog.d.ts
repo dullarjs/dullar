@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-08 16:00:09
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-08 18:21:59
+* @Last Modified time: 2021-09-09 11:59:53
 * @E-mail: justbefree@126.com
 */
 
@@ -19,6 +19,10 @@ export type DialogOptions = {
   closeModelOnClick?: boolean;
   zIndex?: number;
   className?: string;
+  beforeOpen?: () => void;
+  afterOpen?: () => void;
+  beforeClose?: (e: string) => void;
+  afterClose?: (e: string) => void;
 }
 export interface Dialog {
   alert(options: DialogOptions): void;
