@@ -7,6 +7,7 @@
           v-model="value1"
           :options="option1"
           @change="handleChange"
+          :borderRadius="10"
         ></yn-dropdown-menu-item>
         <yn-dropdown-menu-item
           v-model="value2"
@@ -33,6 +34,7 @@
           v-model="value3"
           ref="menuItem"
           @beforeEnter="handleBeforeEnter"
+          :borderRadius="10"
         >
           <div>
             <span>这里面是自定义内容</span>

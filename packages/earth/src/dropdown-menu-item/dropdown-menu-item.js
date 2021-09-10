@@ -20,6 +20,10 @@ export default defineComponent({
   mixins: [slotsMixins, injectMixins("parent", { indexKey: "indexKey" })],
   components: { Popup, FlexItem, Flex, Iconfont },
   props: {
+    borderRadius: {
+      type: Number,
+      default: 0,
+    },
     index: [String, Number],
     value: {
       type: [String, Number],
@@ -423,6 +427,7 @@ export default defineComponent({
               },
               style: { position: "absolute" },
               props: {
+                borderRadius: this.borderRadius,
                 position: this.position,
                 value: this.show,
                 singleton: true,
