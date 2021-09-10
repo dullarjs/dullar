@@ -2,17 +2,19 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-08 10:42:56
+ * @Last Modified time: 2021-09-10 17:51:47
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Iconfont from "../iconfont";
 import Spin from "../spin";
+import Flex from "../flex";
+import FlexItem from "../flex-item";
 let timer = null;
 const CAT_CACHE = {};
 export default defineComponent({
   name: "Category",
-  components: { Iconfont, Spin },
+  components: { Iconfont, Spin, Flex, FlexItem },
   props: {
     categories: Array,
     category: {
@@ -131,21 +133,35 @@ export default defineComponent({
               ),
             ]
           : Array.apply(null, this.subCatList).map((sub) => {
+              const text = this.category.parse(sub).split("");
+              if (text.length > 8) {
+                text.splice(8, 0, "<br/>");
+              }
+              console.log("text = ", this.category.parse(sub).split(""), text);
               return h("dl", { class: [] }, [
                 h("dt", {}, [
-                  h(
-                    "span",
-                    { on: { click: this.itemClick.bind(this, sub) } },
-                    this.category.parse(sub)
-                  ),
-                  h(
-                    genComponentName("iconfont"),
-                    {
-                      class: [],
-                      props: { name: "right-arrow", size: 12 },
-                    },
-                    []
-                  ),
+                  h(genComponentName("flex"), { class: ["text-wrapper"], props: { justifyContent: "spaceBetween" } }, [
+                    h(genComponentName("flex-item"), { props: { flex: 1 } }, [
+                      h(
+                        "span",
+                        {
+                          on: { click: this.itemClick.bind(this, sub) },
+                          domProps: { innerHTML: text.join("") }
+                        },
+                        []
+                      )
+                    ]),
+                    h(genComponentName("flex-item"), {}, [
+                      h(
+                        genComponentName("iconfont"),
+                        {
+                          class: [],
+                          props: { name: "right-arrow", size: 12 },
+                        },
+                        []
+                      )
+                    ])
+                  ])
                 ]),
                 h(
                   "dd",

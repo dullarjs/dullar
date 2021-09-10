@@ -47,7 +47,7 @@
       font-size: 12px;
       display: flex;
       dt {
-        min-width: 60px;
+        width: 100px;
         text-align: right;
         height: 100%;
         font-weight: 400;
@@ -57,8 +57,12 @@
           cursor: pointer;
           color: @text-color;
         }
+        .text-wrapper {
+          width: 100%;
+        }
       }
       dd {
+        width: calc(100% - 110px);
         color: #666;
         display: inline-block;
         margin-left: 20px;
