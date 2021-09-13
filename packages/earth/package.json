@@ -1,6 +1,6 @@
 {
   "name": "@dullar/earth",
-  "version": "0.1.94",
+  "version": "0.1.95",
   "publishConfig": {
     "access": "public"
   },
