@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-13 18:54:03
+* @Last Modified time: 2021-09-13 20:29:35
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -76,22 +76,24 @@ export default defineComponent({
   },
   render(h) {
     const buttons = this.slots("buttons");
-    const iWidth = buttons.length * this.width;
-    const deviceWidth = window.screen.availWidth;
-    this.buttonWidth = iWidth;
-    return h("div", { class: ["yn-slide"] }, [
-      h("div", { ref: "container", style: { width: `${iWidth + deviceWidth}px` }, class: ["slide-slots", this.className] }, [
-        h("div", { style: { width: `${deviceWidth}px` }, class: ["content-slot"] }, [
-          this.slots("content")
-        ]),
-        h("div", { style: { width: `${iWidth}px` }, class: ["button-slot"] }, [
-          h(genComponentName("flex"), { props: { justifyContent: "spaceAround" } },
-            Array.apply(null, buttons).map(button => {
-              return h(genComponentName("flex-item"), {}, [button])
-            })
-          )
+    if (Array.isArray(buttons) && buttons.length > 0) {
+      const iWidth = buttons[0].children.length * this.width;
+      const deviceWidth = window.screen.availWidth;
+      this.buttonWidth = iWidth;
+      return h("div", { class: ["yn-slide"] }, [
+        h("div", { ref: "container", style: { width: `${iWidth + deviceWidth}px` }, class: ["slide-slots", this.className] }, [
+          h("div", { style: { width: `${deviceWidth}px` }, class: ["content-slot"] }, [
+            this.slots("content")
+          ]),
+          h("div", { style: { width: `${iWidth}px` }, class: ["button-slot"] }, [
+            h(genComponentName("flex"), { props: { justifyContent: "spaceAround" } },
+              Array.apply(null, buttons[0].children).map(button => {
+                return h(genComponentName("flex-item"), {}, [button])
+              })
+            )
+          ])
         ])
-      ])
-    ]);
+      ]);
+    }
   }
 });
