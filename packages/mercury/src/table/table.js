@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-09-02 15:13:55
+ * @Last Modified time: 2021-09-07 14:34:02
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -70,6 +70,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    checkBoxSize: {
+      type: Number,
+      default: 14,
+    },
     iconColor: String,
   },
   data() {
@@ -121,7 +125,20 @@ export default defineComponent({
     columns: "serializationThead",
   },
   mounted() {
-    document.addEventListener("click", (e) => {
+    document.addEventListener("click", this.dropDownListener);
+    document
+      .getElementById(`yn-table-${this.randNum}`)
+      .addEventListener("scroll", this.scrollHandle, {
+        capture: false,
+        passive: true,
+      });
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.dropDownListener);
+    document.removeEventListener("scroll", this.scrollHandle);
+  },
+  methods: {
+    dropDownListener(e) {
       const offsetParent =
         e.target && e.target.offsetParent && e.target.offsetParent.className;
       const patentsList = [
@@ -138,15 +155,7 @@ export default defineComponent({
       ) {
         this.initDropDownList();
       }
-    });
-    document
-      .getElementById(`yn-table-${this.randNum}`)
-      .addEventListener("scroll", this.scrollHandle, {
-        capture: false,
-        passive: true,
-      });
-  },
-  methods: {
+    },
     setPagination() {
       if (this.pageInfoObj) {
         const dataList = this.dataList;
@@ -411,7 +420,7 @@ export default defineComponent({
                     {
                       props: {
                         checked: this.selectAll,
-                        size: 20,
+                        size: this.checkBoxSize,
                       },
                       on: {
                         change: this.onSelectAll,
@@ -633,7 +642,7 @@ export default defineComponent({
                     {
                       props: {
                         checked: this.selectedRows.indexOf(rowDatas.key) > -1,
-                        size: 20,
+                        size: this.checkBoxSize,
                       },
                     },
                     []
@@ -643,7 +652,7 @@ export default defineComponent({
                     {
                       props: {
                         checked: this.selectedRow === rowDatas.key,
-                        size: 20,
+                        size: this.checkBoxSize,
                       },
                     },
                     []
@@ -840,7 +849,7 @@ export default defineComponent({
       const rowSelection = this.rowSelection;
       if (checkType === "radio") {
         this.selectedRow = rowDatas.key;
-        rowSelection.onChange && rowSelection.onChange(selectedRows);
+        rowSelection.onChange && rowSelection.onChange(rowDatas.key);
         return;
       }
       if (ind > -1) {

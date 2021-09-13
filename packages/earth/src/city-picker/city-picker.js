@@ -37,9 +37,9 @@ export default defineComponent({
     },
     parse: {
       type: Function,
-      default: (city, nameSpace) => {
+      default: (h, city, nameSpace) => {
         if (!nameSpace) nameSpace = "";
-        return city.CityName;
+        return h("span", {}, city.CityName);
       },
     },
     limited: {
@@ -201,6 +201,11 @@ export default defineComponent({
       this.$emit("input", e);
     },
     handlePick(e) {
+      const { disableClick = false } = e;
+      if (disableClick) {
+        // 不允许点击城市
+        return;
+      }
       if (this.isSearching) {
         // 搜索完结果后，点击结果需清当前搜索记录，以及搜索结果
         this.clearSearchKeywords();
@@ -217,6 +222,13 @@ export default defineComponent({
     },
     clearSearchResult() {
       this.searchList = [];
+    },
+    clearAlphaBetaSearchKeywords() {
+      this.selectedAlphaBeta = "";
+      this.clearAlphaBetaSearchResult();
+    },
+    clearAlphaBetaSearchResult() {
+      this.alphaBetaCities = [];
     },
     onComposeStart() {
       this.isCompose = true;
@@ -304,9 +316,12 @@ export default defineComponent({
       }
       this.selectedAlphaBeta = e;
       this.alphaBetaCities = [];
-      if (this.cachedAlphaBeta[e] && this.cachedAlphaBeta[e].length) {
+      if (
+        this.cachedAlphaBeta[e + this.currentTab] &&
+        this.cachedAlphaBeta[e + this.currentTab].length
+      ) {
         this.alphaBetaLoading = false;
-        this.alphaBetaCities = this.cachedAlphaBeta[e];
+        this.alphaBetaCities = this.cachedAlphaBeta[e + this.currentTab];
       } else {
         this.alphaBetaLoading = true;
         const params = { ...this.alphaBeta.params, alphaBeta: e };
@@ -318,7 +333,10 @@ export default defineComponent({
               // this.cachedAlphaBeta[e] = data;
               this.alphaBetaCities = data;
               // deepClone, 防止城市组件缓存的数据共享
-              this.cachedAlphaBeta = { ...this.cachedAlphaBeta, [e]: data };
+              this.cachedAlphaBeta = {
+                ...this.cachedAlphaBeta,
+                [e + this.currentTab]: data,
+              };
               this.setAlphaBetaScrollTop();
             }
             this.alphaBetaLoading = false;
@@ -333,8 +351,8 @@ export default defineComponent({
         return false;
       }
       this.rendered(() => {
-        const scrollElement =
-          this.$refs[`scrollElement-${this.currentTab}`].$el;
+        const scrollElement = this.$refs[`scrollElement-${this.currentTab}`]
+          .$el;
         const lastChild = scrollElement.lastElementChild;
         scrollElement.scrollTop = lastChild.offsetTop;
       });
@@ -343,7 +361,12 @@ export default defineComponent({
       if (ele.active) {
         return false;
       }
-      this.clearSearchResult();
+      if (this.isSearching) {
+        this.clearSearchKeywords();
+      }
+      if (this.selectedAlphaBeta) {
+        this.clearAlphaBetaSearchKeywords();
+      }
       this.caculatedTabs.forEach((tab) => {
         if (tab.key === ele.key) {
           tab.active = true;
@@ -416,14 +439,10 @@ export default defineComponent({
         "ul",
         {},
         Array.apply(null, this.searchList).map((listItem, key) => {
-          const innerHTML = this.parse(listItem, "search-result").replace(
-            new RegExp(this.keywords, "ig"),
-            `<i>${this.keywords}</i>`
-          );
           return h(
             "li",
             { key, on: { click: this.handlePick.bind(this, listItem) } },
-            [h("span", { domProps: { innerHTML } }, [])]
+            [this.parse(h, listItem, "search-result")]
           );
         })
       );
@@ -573,7 +592,8 @@ export default defineComponent({
           },
           [
             Array.apply(null, cities).map((city, key) => {
-              const text = this.parse(city, nameSpace);
+              const textEle = this.parse(h, city, nameSpace);
+              const text = textEle.children[0].text;
               const textLength = text.length;
               let fontSize = this.textBoxWidth / textLength;
               const textOverflow = [];
@@ -599,7 +619,7 @@ export default defineComponent({
                     ...textOverflow,
                   ],
                 },
-                [h("span", {}, text)]
+                [textEle]
               );
             }),
           ]

@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-14 15:51:17
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-06-16 10:19:33
+ * @Last Modified time: 2021-09-06 17:56:47
  * @E-mail: justbefree@126.com
  */
 
@@ -49,6 +49,10 @@ export default {
       if (this.lockScreen) {
         document.body.style.overflow = this.bodyOverflow;
       }
+      instance.rendered(() => {
+        // in case of call close immediate after open method called
+        instance.visible = false;
+      });
       instance.visible = false;
     }
   },

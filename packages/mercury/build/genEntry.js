@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-09-18 18:15:09
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-02-01 10:46:40
+* @Last Modified time: 2021-09-06 18:52:57
 * @E-mail: justbefree@126.com
 */
 const path = require("path");
@@ -41,6 +41,7 @@ const install = (Vue) => {
   Vue.prototype.Toast = Toast;
   Vue.prototype.Dialog = Dialog;
   Vue.prototype.Indicator = Indicator;
+  Vue.prototype.Modal = Modal;
 };
 if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);

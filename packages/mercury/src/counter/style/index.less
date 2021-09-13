@@ -1,7 +1,8 @@
 .yn-counter {
   .yn-counter-subtract,
   .yn-counter-screen,
-  .yn-counter-plus {
+  .yn-counter-plus,
+  .yn-counter-input {
     border-radius: 4px;
     color: #4a4a4a;
     height: 30px;
@@ -21,5 +22,16 @@
   }
   .yn-counter-screen {
     padding: 0 5px;
+  }
+  .yn-counter-input {
+    outline: none;
+    -moz-appearance:textfield;
+    border: none;
+    width: 46px;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }

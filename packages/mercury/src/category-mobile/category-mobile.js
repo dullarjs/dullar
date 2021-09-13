@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-31 15:29:01
+ * @Last Modified time: 2021-09-03 17:38:49
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -22,9 +22,9 @@ export default defineComponent({
           id: "id",
           label: "label",
           imgUrl: "imgUrl",
-          children: "children"
-        }
-      }
+          children: "children",
+        };
+      },
     },
     categories: {
       type: Array,
@@ -55,10 +55,10 @@ export default defineComponent({
     };
   },
   watch: {
-    categories: function(v) {
+    categories: function (v) {
       const firstCategory = v[this.currentTab];
       this.requestCategory({ parentId: firstCategory[this.mapKeys["id"]] });
-    }
+    },
   },
   methods: {
     handleListClick(e) {
@@ -70,11 +70,11 @@ export default defineComponent({
         this.$refs.pullRefresh.setScrollTop(0);
         return;
       }
-      this.requestCategory({ parentId: cat[this.mapKeys["id"]] });
+      this.requestCategory({ parentId: cat[this.mapKeys["id"]] }, cat);
     },
-    requestCategory(args) {
+    requestCategory(args, cat = {}) {
       const { parentId } = args;
-      const params = { ...this.category.params };
+      const params = { ...this.category.params, cat };
       const promise = this.category.action(params);
       this.loading = true;
       promise
@@ -157,7 +157,11 @@ export default defineComponent({
                       [
                         Array.apply(null, this.categoryList).map((cat) => {
                           return [
-                            h("h4", { key: `title-${cat.id}` }, cat[this.mapKeys["label"]]),
+                            h(
+                              "h4",
+                              { key: `title-${cat.id}` },
+                              cat[this.mapKeys["label"]]
+                            ),
                             h(
                               genComponentName("flex"),
                               {
@@ -165,43 +169,49 @@ export default defineComponent({
                                 props: { flexWrap: "wrap" },
                               },
                               [
-                                ...Array.apply(null, cat[this.mapKeys["children"]]).map(
-                                  (subCat) => {
-                                    return h(
-                                      genComponentName("flex-item"),
-                                      { key: subCat[this.mapKeys["id"]], class: ["goods-item"] },
-                                      [
-                                        h(
-                                          "a",
-                                          {
-                                            on: {
-                                              click: this.handleItemClick.bind(
-                                                this,
-                                                subCat
-                                              ),
-                                            },
-                                            class: ["hypelink"],
-                                            attrs: { href: "javascript:;" },
+                                ...Array.apply(
+                                  null,
+                                  cat[this.mapKeys["children"]]
+                                ).map((subCat) => {
+                                  return h(
+                                    genComponentName("flex-item"),
+                                    {
+                                      key: subCat[this.mapKeys["id"]],
+                                      class: ["goods-item"],
+                                    },
+                                    [
+                                      h(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: this.handleItemClick.bind(
+                                              this,
+                                              subCat
+                                            ),
                                           },
-                                          [
-                                            h(
-                                              "img",
-                                              {
-                                                attrs: { src: subCat[this.mapKeys["imgUrl"]] },
+                                          class: ["hypelink"],
+                                          attrs: { href: "javascript:;" },
+                                        },
+                                        [
+                                          h(
+                                            "img",
+                                            {
+                                              attrs: {
+                                                src: subCat[
+                                                  this.mapKeys["imgUrl"]
+                                                ],
                                               },
-                                              []
-                                            ),
-                                            h(
-                                              "span",
-                                              { class: ["goods-name"] },
-                                              [subCat[this.mapKeys["label"]]]
-                                            ),
-                                          ]
-                                        ),
-                                      ]
-                                    );
-                                  }
-                                ),
+                                            },
+                                            []
+                                          ),
+                                          h("span", { class: ["goods-name"] }, [
+                                            subCat[this.mapKeys["label"]],
+                                          ]),
+                                        ]
+                                      ),
+                                    ]
+                                  );
+                                }),
                               ]
                             ),
                           ];

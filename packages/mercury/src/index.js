@@ -12,6 +12,7 @@ import AnimationList from "./animation-list";
 import AnimationListItem from "./animation-list-item";
 import Badge from "./badge";
 import Button from "./button";
+import Calendar from "./calendar";
 import Category from "./category";
 import CategoryMobile from "./category-mobile";
 import CategorySelect from "./category-select";
@@ -50,7 +51,7 @@ import Toast from "./toast";
 import Tooltip from "./tooltip";
 import Tree from "./tree";
 
-const components = [ActionSheet, Address, AnimationList, AnimationListItem, Badge, Button, Category, CategoryMobile, CategorySelect, Checkbox, Counter, DatePicker, Dialog, ElasticSearch, Field, FieldGroup, Flex, FlexItem, Iconfont, Indicator, Input, Layout, Magnifier, Modal, Pagination, Picker, PickyStepper, Popup, PullRefresh, Radiobox, ShippingAddress, Skeleton, Slider, Spin, Sticky, Swipe, SwipeItem, TabItem, Table, Tabs, Toast, Tooltip, Tree];
+const components = [ActionSheet, Address, AnimationList, AnimationListItem, Badge, Button, Calendar, Category, CategoryMobile, CategorySelect, Checkbox, Counter, DatePicker, Dialog, ElasticSearch, Field, FieldGroup, Flex, FlexItem, Iconfont, Indicator, Input, Layout, Magnifier, Modal, Pagination, Picker, PickyStepper, Popup, PullRefresh, Radiobox, ShippingAddress, Skeleton, Slider, Spin, Sticky, Swipe, SwipeItem, TabItem, Table, Tabs, Toast, Tooltip, Tree];
 const install = (Vue) => {
   if (install.installed) return;
   components.map(component => {
@@ -68,6 +69,7 @@ const install = (Vue) => {
   Vue.prototype.Toast = Toast;
   Vue.prototype.Dialog = Dialog;
   Vue.prototype.Indicator = Indicator;
+  Vue.prototype.Modal = Modal;
 };
 if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
@@ -98,6 +100,7 @@ export { AnimationList as YnAnimationList };
 export { AnimationListItem as YnAnimationListItem };
 export { Badge as YnBadge };
 export { Button as YnButton };
+export { Calendar as YnCalendar };
 export { Category as YnCategory };
 export { CategoryMobile as YnCategoryMobile };
 export { CategorySelect as YnCategorySelect };
