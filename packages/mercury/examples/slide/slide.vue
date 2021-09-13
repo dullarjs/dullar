@@ -34,7 +34,7 @@
 </template>
 <script type="text/javascript">
 export default {
-  name: "YnSliderPage",
+  name: "YnSlidePage",
   data() {
     return {
     };
