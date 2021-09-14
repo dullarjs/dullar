@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-06-15 10:01:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-05-12 12:00:36
+ * @Last Modified time: 2021-09-13 13:26:40
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -34,6 +34,10 @@ export default defineComponent({
       },
     },
     name: String,
+    editable: {
+      type: Boolean,
+      default: false
+    }
   },
   initPropsToData() {
     return [{ key: "count", value: "value", parse: Number }];
@@ -46,6 +50,9 @@ export default defineComponent({
   methods: {
     set(val) {
       this.count = val;
+      if (this.editable) {
+        this.$refs.countInput.value = val;
+      }
     },
     subtract() {
       this.caculate("subtract");
@@ -73,6 +80,34 @@ export default defineComponent({
         name: this.name,
       });
     },
+    handleFocus(e) {
+      this.oldValue = Number(e.target.value);
+    },
+    handleBlur(e) {
+      const value = e.target.value;
+      if (Number(value) > Number(this.max) || Number(value) < Number(this.min)) {
+        this.set(this.oldValue);
+        this.error(value);
+      }
+      this.count = Number(value);
+      this.$emit("input", Number(value));
+      e.target.value = this.count;
+      let type = "add";
+      if (Number(value) < this.oldValue) {
+        type = "subtract";
+      }
+      this.$emit("change", {
+        parsedValue: this.parse(this.count),
+        value: this.count,
+        type,
+        name: this.name,
+      });
+    },
+    error(value) {
+      throw new Error(
+        `${value} is out of range, the valid value should be range ${this.min} to ${this.max}`
+      );
+    }
   },
   render(h) {
     if (
@@ -91,25 +126,28 @@ export default defineComponent({
           {
             on: { click: this.subtract },
             class: ["yn-counter-subtract", leftButtonClass],
-            props: { name: "minus", size: 15 },
+            props: { name: "minus", size: 13 },
           },
           []
         ),
-        h("span", { class: ["yn-counter-screen"] }, [this.count]),
+        [
+          this.editable ?
+            h("input", { ref: "countInput", class: ["yn-counter-input"], attrs: { type: "number", value: this.count }, on: { blur: this.handleBlur, focus: this.handleFocus } }, [])
+            :
+            h("span", { class: ["yn-counter-screen"] }, [this.count])
+        ],
         h(
           genComponentName("iconfont"),
           {
             on: { click: this.add },
             class: ["yn-counter-plus", rightButtonClass],
-            props: { name: "add", size: 15 },
+            props: { name: "add", size: 13 },
           },
           []
         ),
       ]);
     } else {
-      throw new Error(
-        `${this.value} is out of range, the valid value should be range ${this.min} to ${this.max}`
-      );
+      this.error(this.value);
     }
   },
 });

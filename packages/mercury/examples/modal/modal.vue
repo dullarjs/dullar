@@ -12,8 +12,17 @@
       <li>
         <yn-button @click="handleClick(1)">插槽</yn-button>
       </li>
-        <li>
+      <li>
         <yn-button @click="handleClick(2)">插槽2</yn-button>
+      </li>
+      <li>
+        <yn-button @click="handleConfirm()">confirm</yn-button>
+      </li>
+      <li>
+        <yn-button @click="handleConfirm1()">async confirm</yn-button>
+      </li>
+      <li>
+        <yn-button @click="confirm2"> confirm html</yn-button>
       </li>
     </ul>
     <yn-modal
@@ -89,6 +98,27 @@ export default {
         }, 3000);
       }).catch((err) => {
         console.log("错误信息在这里展示", err);
+      });
+    },
+    handleConfirm1() {
+      this.Modal.confirm({
+        message: "这个是内容23423423242342",
+        beforeClose: this.handleBeforeClose,
+      });
+    },
+    handleConfirm() {
+      this.Modal.confirm({
+        message: "这个是内容23423423242342",
+        buttonClick: this.buttonsClick,
+      });
+    },
+    buttonsClick(e) {
+      console.log("eeeeeeeeeeeeeeee========>", e);
+    },
+    confirm2() {
+      this.Modal.confirm({
+        message: "<span>我是span标签</span><br/>我换行了",
+        buttonClick: this.buttonsClick,
       });
     },
   },

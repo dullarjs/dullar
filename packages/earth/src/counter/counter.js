@@ -79,19 +79,19 @@ export default defineComponent({
       Number(this.value) <= Number(this.max) &&
       Number(this.value) >= Number(this.min)
     ) {
-      const leftButtonClass = this.isEqual(this.value, this.min)
-        ? "disabled"
-        : "";
-      const rightButtonClass = this.isEqual(this.value, this.max)
-        ? "disabled"
-        : "";
+      const minusIcon = this.isEqual(this.value, this.min)
+        ? "minus-disabled"
+        : "minus";
+      const addIcon = this.isEqual(this.value, this.max)
+        ? "add-disabled"
+        : "add";
       return h("div", { class: ["yn-counter"] }, [
         h(
           genComponentName("iconfont"),
           {
             on: { click: this.subtract },
-            class: ["yn-counter-subtract", leftButtonClass],
-            props: { name: "minus", size: 15 },
+            class: ["yn-counter-subtract"],
+            props: { name: minusIcon, size: 12 },
           },
           []
         ),
@@ -100,8 +100,8 @@ export default defineComponent({
           genComponentName("iconfont"),
           {
             on: { click: this.add },
-            class: ["yn-counter-plus", rightButtonClass],
-            props: { name: "add", size: 15 },
+            class: ["yn-counter-plus"],
+            props: { name: addIcon, size: 12 },
           },
           []
         ),

@@ -24,6 +24,7 @@ export default defineComponent({
   },
   props: {
     beforeClose: Function,
+    buttonClick: Function,
     value: {
       type: Boolean,
       default: false,
@@ -32,11 +33,19 @@ export default defineComponent({
       type: String,
       default: "标题",
     },
+    message: {
+      type: String,
+      default: "messagemessagemessage",
+    },
     showHeader: {
       type: Boolean,
       default: true,
     },
     showFooter: {
+      type: Boolean,
+      default: true,
+    },
+    footerTopBorder: {
       type: Boolean,
       default: true,
     },
@@ -82,6 +91,10 @@ export default defineComponent({
       type: String,
       default: "#007aff",
     },
+    buttonSize: {
+      type: String,
+      default: "default",
+    },
     confirmLoadingColor: {
       type: String,
       default: "#FFF",
@@ -102,12 +115,14 @@ export default defineComponent({
   },
   data() {
     return {
+      renderedAsComponent: true,
       time: 0,
       diff: 0,
       events: {},
-      zIndex: 2000,
+      zIndex: 200,
       action: "",
       loading: false,
+      show: false,
     };
   },
   watch: {
@@ -183,7 +198,7 @@ export default defineComponent({
       this.$emit("beforeLeave");
     },
     handleLeave() {
-      if (this.diff < 1000) {
+      if (this.diff < 100) {
         if (this.singleton) {
           this.removeModal();
         }
@@ -210,6 +225,17 @@ export default defineComponent({
     },
     close() {
       this.$emit("input", false);
+      if (!this.renderedAsComponent) {
+        this.show = false;
+        this.removeDOM();
+        this.removeModal();
+      }
+    },
+    removeDOM() {
+      const dom = document.getElementsByClassName("v-ynmodal-modal");
+      dom.forEach((item) => {
+        item.remove();
+      });
     },
     isValidatePositionVlaue() {
       return VALIDATE_POSITION_VALUE.indexOf(this.position) > -1;
@@ -283,7 +309,7 @@ export default defineComponent({
     handleButtonClick(e) {
       // console.log(this.callback);
       this.action = e;
-      const { beforeClose } = this;
+      const { beforeClose, renderedAsComponent } = this;
       if (beforeClose) {
         const promise = beforeClose(e);
         if (isPromise(promise)) {
@@ -296,13 +322,17 @@ export default defineComponent({
             this.$emit("buttonClick", e, res);
           });
         } else {
-          this.show = false;
+          // this.show = false;
           this.$emit("input", false);
           this.$emit("buttonClick", e);
         }
       } else {
         this.$emit("input", false);
         this.$emit("buttonClick", e);
+        if (!renderedAsComponent) {
+          this.buttonClick(e);
+          this.renderedAsComponent = true;
+        }
         this.show = false;
       }
     },
@@ -311,7 +341,10 @@ export default defineComponent({
         return h(
           "div",
           {
-            class: ["yn-modal-footer"],
+            class: [
+              "yn-modal-footer",
+              this.footerTopBorder ? "footer-top-border" : "",
+            ],
           },
           [this.getButtons(h)]
         );
@@ -337,6 +370,7 @@ export default defineComponent({
                 loadingText: this.cancelLoadingText,
                 disabled: this.getDisableStatus("cancel"),
                 loading: this.getLoadingStatus("cancel"),
+                size: this.buttonSize,
               },
               on: {
                 click: this.handleButtonClick.bind(this, "cancel"),
@@ -359,6 +393,7 @@ export default defineComponent({
                 loadingText: this.confirmLoadingText,
                 disabled: this.getDisableStatus("confirm"),
                 loading: this.getLoadingStatus("confirm"),
+                size: this.buttonSize,
               },
               on: {
                 click: this.handleButtonClick.bind(this, "confirm"),
@@ -382,6 +417,10 @@ export default defineComponent({
   },
   render(h) {
     let position = "bottom";
+    const domProps = {};
+    if (!this.renderedAsComponent) {
+      domProps.innerHTML = this.message;
+    }
     if (this.isValidatePositionVlaue()) {
       position = this.position;
     } else {
@@ -409,9 +448,13 @@ export default defineComponent({
             directives: [
               {
                 name: "show",
-                value: this.value,
+                value: this.show || this.value,
               },
             ],
+            // directives: [{
+            //   name: "show",
+            //   value: this.value,
+            // }, ],
             class: ["yn-modal", `yn-modal-${position}`],
             style: {
               width: this.width ? this.width : "",
@@ -427,8 +470,9 @@ export default defineComponent({
                   padding: "24px",
                   ...this.bodyStyle,
                 },
+                domProps,
               },
-              this.slots()
+              this.renderedAsComponent ? this.slots() : this.message
             ),
             this.createFooter(h),
           ]

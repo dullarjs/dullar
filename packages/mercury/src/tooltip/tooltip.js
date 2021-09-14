@@ -1,15 +1,14 @@
 /*
  * @Author: liuzx
  * @Date:   2020-01-17 15:29:02
- * @Last Modified by:   liuzx
- * @Last Modified time: 2020-05-14 18:51:11
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2021-09-07 09:05:23
  * @E-mail: justbefree@126.com
  */
 
 import { defineComponent } from "../modules/component";
 import { slotsMixins } from "../mixins/slots";
-import EventListener from "../modules/utils/eventListener.js";
-console.log("EventListener", EventListener);
+import { bind } from "../modules/event";
 export default defineComponent({
   name: "Tooltip",
   mixins: [slotsMixins],
@@ -63,14 +62,14 @@ export default defineComponent({
       const triger = this.$refs.trigger.children[0];
       // 根据trigger监听特定事件
       if (this.trigger === "hover") {
-        this._mouseenterEvent = EventListener.listen(
+        this._mouseenterEvent = bind(
           triger,
           "mouseenter",
           () => {
             this.show = true;
           }
         );
-        this._mouseleaveEvent = EventListener.listen(
+        this._mouseleaveEvent = bind(
           triger,
           "mouseleave",
           () => {
@@ -78,14 +77,14 @@ export default defineComponent({
           }
         );
       } else if (this.trigger === "focus") {
-        this._focusEvent = EventListener.listen(triger, "focus", () => {
+        this._focusEvent = bind(triger, "focus", () => {
           this.show = true;
         });
-        this._blurEvent = EventListener.listen(triger, "blur", () => {
+        this._blurEvent = bind(triger, "blur", () => {
           this.show = false;
         });
       } else {
-        this._clickEvent = EventListener.listen(triger, "click", this.toggle);
+        this._clickEvent = bind(triger, "click", this.toggle);
       }
       this.initPosition();
     });
@@ -94,14 +93,14 @@ export default defineComponent({
   // 在组件销毁前移除监听，释放内存
   beforeDestroy() {
     if (this._blurEvent) {
-      this._blurEvent.remove();
-      this._focusEvent.remove();
+      this._blurEvent();
+      this._focusEvent();
     }
     if (this._mouseenterEvent) {
-      this._mouseenterEvent.remove();
-      this._mouseleaveEvent.remove();
+      this._mouseenterEvent();
+      this._mouseleaveEvent();
     }
-    if (this._clickEvent) this._clickEvent.remove();
+    if (this._clickEvent) this._clickEvent();
   },
   watch: {
     show: function (val) {

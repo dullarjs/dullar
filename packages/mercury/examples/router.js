@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-03 20:04:35
+ * @Last Modified time: 2021-09-13 15:25:43
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -47,6 +47,7 @@ import Badge from "./badge/badge.vue";
 import Tooltip from "./tooltip/tooltip.vue";
 import Input from "./input/input";
 import Tree from "./tree/tree.vue";
+import Slide from "./slide/slide.vue";
 const router = new Router({
   routes: [{
       path: "/",
@@ -248,6 +249,11 @@ const router = new Router({
       path: "/calendar",
       name: "calendar",
       component: Calendar
+    },
+    {
+      path: "/slide",
+      name: "slide",
+      component: Slide
     }
   ]
 });
