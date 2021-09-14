@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-14 14:53:44
+ * @Last Modified time: 2021-09-14 16:06:54
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -17,6 +17,10 @@ export default defineComponent({
   components: { Iconfont, Spin, Flex, FlexItem },
   props: {
     categories: Array,
+    delay: {
+      type: Number,
+      default: 200
+    },
     category: {
       type: Object,
       default: () => {
@@ -73,7 +77,7 @@ export default defineComponent({
           } else {
             this.requestCategory(cat);
           }
-        }, 500);
+        }, this.delay);
       }
     },
     handleMouseLeave(index) {
@@ -81,7 +85,7 @@ export default defineComponent({
         obj[`timer2_${index}`] = setTimeout(() => {
           this.currentCategory = -1;
           this.showPanel = false;
-        }, 500);
+        }, this.delay);
       } else {
         clearTimeout(obj[`timer1_${index}`]);
       }
