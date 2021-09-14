@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-14 09:21:49
+* @Last Modified time: 2021-09-14 09:41:00
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -33,6 +33,10 @@ export default defineComponent({
     }
   },
   methods: {
+    reset() {
+      const dom = this.$refs.container;
+      dom.style.transform = `translate3D(0, 0, 0)`;
+    },
     slide() {
       const that = this;
       this.bindEvent(this.$refs.container, {
