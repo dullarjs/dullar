@@ -3,10 +3,10 @@
     <h2>yn-slide</h2>
     <ul>
       <li>
-        <yn-slide class="one">
+        <yn-slide class="one" ref="slide">
           <template v-slot:content>一个按钮，尝试左滑呢？</template>
           <template v-slot:buttons>
-            <span class="buttons" @click="handleClick('确认')">确定</span>
+            <span class="buttons" @click="handleClick('确认', true)">确定</span>
           </template>
         </yn-slide>
       </li>
@@ -40,8 +40,11 @@ export default {
     };
   },
   methods: {
-    handleClick(msg) {
+    handleClick(msg, reset = false) {
       this.Toast(msg);
+      if (reset) {
+        this.$refs.slide.reset();
+      }
     }
   }
 };
