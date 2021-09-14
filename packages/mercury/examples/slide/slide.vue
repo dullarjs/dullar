@@ -4,29 +4,29 @@
     <ul>
       <li>
         <yn-slide class="one">
-          <div slot="content">一个按钮，尝试左滑呢？</div>
-          <div slot="buttons">
+          <template v-slot:content>一个按钮，尝试左滑呢？</template>
+          <template v-slot:buttons>
             <span class="buttons" @click="handleClick('确认')">确定</span>
-          </div>
+          </template>
         </yn-slide>
       </li>
       <li>
         <yn-slide class="two">
-          <div slot="content">两个按钮，尝试左滑呢？</div>
-          <div slot="buttons">
+          <template v-slot:content>两个按钮，尝试左滑呢？</template>
+          <template v-slot:buttons>
             <span class="buttons" @click="handleClick('确认')">确定</span>
             <span class="buttons" @click="handleClick('删除')">删除</span>
-          </div>
+          </template>
         </yn-slide>
       </li>
       <li>
         <yn-slide class="three">
-          <div slot="content">三个按钮，尝试左滑呢？</div>
-          <div slot="buttons">
+          <template v-slot:content>三个按钮，尝试左滑呢？</template>
+          <template v-slot:buttons>
             <span class="buttons" @click="handleClick('确认')">确定</span>
             <span class="buttons" @click="handleClick('删除')">删除</span>
             <span class="buttons" @click="handleClick('编辑')">编辑</span>
-          </div>
+          </template>
         </yn-slide>
       </li>
     </ul>
