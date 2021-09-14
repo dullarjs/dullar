@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-12-29 13:47:15
+ * @Last Modified time: 2021-09-14 16:00:24
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -321,7 +321,11 @@ export default defineComponent({
                 afterLeave: this.handleAfterLeave,
               },
               class: ["yn-swipe-popup"],
-              props: { position: "middle", showCloseIcon: this.showCloseIcon },
+              props: {
+                position: "middle",
+                showCloseIcon: this.showCloseIcon,
+                closeOnClickModal: false,
+              },
               directives: [{ name: "show", value: this.showPopup }],
             },
             swiper
