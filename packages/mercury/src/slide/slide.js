@@ -2,14 +2,13 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-13 20:29:35
+* @Last Modified time: 2021-09-14 09:21:49
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
 import { touchMixins } from "../mixins/touch";
 import { slotsMixins } from "../mixins/slots";
 import { preventDefault } from "../modules/event";
-const TRIGGER_VALUE = 20;
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 export default defineComponent({
@@ -20,6 +19,10 @@ export default defineComponent({
     width: {
       type: Number,
       default: 40
+    },
+    trigger: {
+      type: Number,
+      default: 10
     }
   },
   data() {
@@ -51,7 +54,7 @@ export default defineComponent({
           that.dragging = false;
           that.className = "";
           if (that.deltaX < 0) {
-            if (Math.abs(that.deltaX) > TRIGGER_VALUE) {
+            if (Math.abs(that.deltaX) > that.trigger) {
               target.style.transform = `translate3D(-${that.buttonWidth}px, 0, 0)`;
               that.opened = true;
             } else {
@@ -59,7 +62,7 @@ export default defineComponent({
               that.opened = false;
             }
           } else {
-            if (Math.abs(that.deltaX) > TRIGGER_VALUE) {
+            if (Math.abs(that.deltaX) > that.trigger) {
               target.style.transform = `translate3D(0, 0, 0)`;
               that.opened = false;
             } else {
@@ -77,7 +80,7 @@ export default defineComponent({
   render(h) {
     const buttons = this.slots("buttons");
     if (Array.isArray(buttons) && buttons.length > 0) {
-      const iWidth = buttons[0].children.length * this.width;
+      const iWidth = buttons.length * this.width;
       const deviceWidth = window.screen.availWidth;
       this.buttonWidth = iWidth;
       return h("div", { class: ["yn-slide"] }, [
@@ -87,7 +90,7 @@ export default defineComponent({
           ]),
           h("div", { style: { width: `${iWidth}px` }, class: ["button-slot"] }, [
             h(genComponentName("flex"), { props: { justifyContent: "spaceAround" } },
-              Array.apply(null, buttons[0].children).map(button => {
+              Array.apply(null, buttons).map(button => {
                 return h(genComponentName("flex-item"), {}, [button])
               })
             )
