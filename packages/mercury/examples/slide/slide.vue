@@ -3,7 +3,7 @@
     <h2>yn-slide</h2>
     <ul>
       <li>
-        <yn-slide class="one" ref="slide">
+        <yn-slide :width="60" :trigger="20" class="one" ref="slide">
           <template v-slot:content>一个按钮，尝试左滑呢？</template>
           <template v-slot:buttons>
             <span class="buttons" @click="handleClick('确认', true)">确定</span>
@@ -11,7 +11,7 @@
         </yn-slide>
       </li>
       <li>
-        <yn-slide class="two">
+        <yn-slide :width="60" :trigger="20" class="two">
           <template v-slot:content>两个按钮，尝试左滑呢？</template>
           <template v-slot:buttons>
             <span class="buttons" @click="handleClick('确认')">确定</span>
@@ -20,7 +20,7 @@
         </yn-slide>
       </li>
       <li>
-        <yn-slide class="three">
+        <yn-slide :width="60" :trigger="20" class="three">
           <template v-slot:content>三个按钮，尝试左滑呢？</template>
           <template v-slot:buttons>
             <span class="buttons" @click="handleClick('确认')">确定</span>
@@ -76,5 +76,6 @@ export default {
     background: #eee;
     color: #fff;
     display: inline-block;
+    width: 100%;
   }
 </style>
