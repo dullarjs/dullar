@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-26 17:02:31
+ * @Last Modified time: 2021-09-16 16:42:20
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -172,6 +172,7 @@ export default defineComponent({
   },
   render(h) {
     const preview = this.images[this.previewIndex];
+    const disabled = this.images.length < 6;
     return h("div", { class: ["yn-magnifier"] }, [
       h("div", { class: ["preview"], on: { click: this.zoomUpImage } }, [
         h(
@@ -232,10 +233,10 @@ export default defineComponent({
                   h(
                     genComponentName("iconfont"),
                     {
-                      class: [],
+                      class: ["left"],
                       props: {
-                        name: `magnifier-left-arrow${
-                          this.steps === 0 ? "" : "-active"
+                        name: `magnifier-arrow${
+                          (this.steps === 0 || disabled) ? "" : "-active"
                         }`,
                         size: 16,
                       },
@@ -296,10 +297,10 @@ export default defineComponent({
                   h(
                     genComponentName("iconfont"),
                     {
-                      class: [],
+                      class: ["right"],
                       props: {
-                        name: `magnifier-right-arrow${
-                          5 - this.steps === this.images.length ? "" : "-active"
+                        name: `magnifier-arrow${
+                          ((5 - this.steps === this.images.length) || disabled) ? "" : "-active"
                         }`,
                         size: 16,
                       },
