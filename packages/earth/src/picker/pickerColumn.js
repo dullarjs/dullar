@@ -57,7 +57,7 @@ export default defineComponent({
     // },
     swipeDuration: {
       type: [String, Number],
-      default: 1000,
+      default: 300,
     },
   },
   initPropsToData() {
@@ -99,7 +99,7 @@ export default defineComponent({
       const speed = Math.abs(distance / duration);
       distance = this.offset + (speed / 0.003) * (distance < 0 ? -1 : 1);
       const endIndex = this.getIndexByOffset(distance);
-      this.duration = +(speed * this.itemHeight);
+      this.duration = +this.swipeDuration;
       if (this.currentIndex === endIndex) {
         return;
       }
