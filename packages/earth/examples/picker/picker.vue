@@ -72,6 +72,7 @@ export default {
   methods: {
     handleChange(pick, index) {
       this.Toast(`选择第${index}个，值为${pick.value || pick }`);
+      // console.log(pick,index);
     },
     handleClick(i) {
       this[`show${i}`] = !this[`show${i}`];
