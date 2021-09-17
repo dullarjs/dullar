@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-14 16:00:24
+ * @Last Modified time: 2021-09-15 16:25:44
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,7 +10,7 @@ import { slotsMixins } from "../mixins/slots";
 import { renderedMixins } from "../mixins/rendered";
 import { provideMixins } from "../mixins/provide";
 const VALID_CHILD_COMPONENT = "swipe-item";
-import { on, off } from "../modules/event";
+import { on, off, preventDefault } from "../modules/event";
 import { Remainder } from "../modules/number/remainder";
 import { touchMixins } from "../mixins/touch";
 import { move } from "../modules/dom/animate/move";
@@ -150,13 +150,14 @@ export default defineComponent({
           prevEle.style[attr] = `${value}px`;
           curEle.style[attr] = `${num * that.size + value}px`;
         },
-        stop() {
+        stop(e) {
           that.paly();
           that.dragging = false;
           that.delayActivedIndex = that.activedIndex;
           const disXY = that.vertical ? that.deltaY : that.deltaX;
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200 && disXY === 0) {
+            preventDefault(e.e);
             that.openImageViewer();
             return;
           }
@@ -324,7 +325,7 @@ export default defineComponent({
               props: {
                 position: "middle",
                 showCloseIcon: this.showCloseIcon,
-                closeOnClickModal: false,
+                // closeOnClickModal: false,
               },
               directives: [{ name: "show", value: this.showPopup }],
             },
