@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-03 17:38:49
+ * @Last Modified time: 2021-09-17 14:43:44
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -156,7 +156,8 @@ export default defineComponent({
                       },
                       [
                         Array.apply(null, this.categoryList).map((cat) => {
-                          return [
+                          const children = cat[this.mapKeys["children"]];
+                          return children.length > 0 && [
                             h(
                               "h4",
                               { key: `title-${cat.id}` },
@@ -171,7 +172,7 @@ export default defineComponent({
                               [
                                 ...Array.apply(
                                   null,
-                                  cat[this.mapKeys["children"]]
+                                  children
                                 ).map((subCat) => {
                                   return h(
                                     genComponentName("flex-item"),
