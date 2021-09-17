@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-13 13:51:18
+ * @Last Modified time: 2021-09-17 15:24:28
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -15,6 +15,7 @@ import { Remainder } from "../modules/number/remainder";
 import { touchMixins } from "../mixins/touch";
 import { move } from "../modules/dom/animate/move";
 import Popup from "../popup";
+import { EventBus } from "../modules/event/bus";
 export default defineComponent({
   name: "Swipe",
   components: { Popup },
@@ -352,6 +353,10 @@ export default defineComponent({
     this.R = new Remainder(this.count, "activedIndex", this);
     this.initRect();
     this.initialize();
+    EventBus.$on("window:resize", () => {
+      this.initRect();
+      this.initialize();
+    });
     this.drag();
     this.visibilityChange();
   },
