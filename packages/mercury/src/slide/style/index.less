@@ -1,0 +1,13 @@
+.yn-slide {
+  overflow: hidden;
+  width: 100%;
+  .slide-slots {
+    transition: all 0.2s ease-out;
+    &.none {
+      transition: none 0s ease 0s;
+    }
+    .content-slot,.button-slot {
+      display: inline-block;
+    }
+  } 
+}

@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-10 17:51:47
+ * @Last Modified time: 2021-09-14 16:06:54
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,13 +10,17 @@ import Iconfont from "../iconfont";
 import Spin from "../spin";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
-let timer = null;
 const CAT_CACHE = {};
+const obj = {};
 export default defineComponent({
   name: "Category",
   components: { Iconfont, Spin, Flex, FlexItem },
   props: {
     categories: Array,
+    delay: {
+      type: Number,
+      default: 200
+    },
     category: {
       type: Object,
       default: () => {
@@ -37,7 +41,8 @@ export default defineComponent({
       currentCategory: -1,
       subCatList: [],
       isLoading: false,
-      showPanel: false
+      showPanel: false,
+      hovered: false
     };
   },
   methods: {
@@ -57,24 +62,33 @@ export default defineComponent({
           this.isLoading = false;
         });
     },
-    handleMouseEnter({ index, cat }) {
-      clearTimeout(timer);
-      this.showPanel = true;
-      this.currentCategory = index;
-      if (CAT_CACHE[cat.id]) {
-        this.subCatList = CAT_CACHE[cat.id];
+    handleMouseOver({ index, cat }) {
+      obj[`timer1_${index}`] = null;
+      obj[`timer2_${index}`] = null;
+      obj[`hovered_${index}`] = false;
+      if (obj[`hovered_${index}`]) {
+        clearTimeout(obj[`timer2_${index}`]);
       } else {
-        this.requestCategory(cat);
+        obj[`timer1_${index}`] = setTimeout(() => {
+          this.showPanel = true;
+          this.currentCategory = index;
+          if (CAT_CACHE[cat.id]) {
+            this.subCatList = CAT_CACHE[cat.id];
+          } else {
+            this.requestCategory(cat);
+          }
+        }, this.delay);
       }
     },
-    handleMouseLeave() {
-      timer = setTimeout(() => {
-        this.currentCategory = -1;
-        this.showPanel = false;
-      }, 500);
-    },
-    handlePanelMouseEnter() {
-      clearTimeout(timer);
+    handleMouseLeave(index) {
+      if (obj[`hovered_${index}`]) {
+        obj[`timer2_${index}`] = setTimeout(() => {
+          this.currentCategory = -1;
+          this.showPanel = false;
+        }, this.delay);
+      } else {
+        clearTimeout(obj[`timer1_${index}`]);
+      }
     },
     handlePanelMouseLeave() {
       this.currentCategory = -1;
@@ -96,7 +110,7 @@ export default defineComponent({
               class: ["yn-category-li", index === this.currentCategory ? "active" : ""],
               on: {
                 click: this.itemClick.bind(this, cat),
-                mouseenter: this.handleMouseEnter.bind(this, { index, cat }),
+                mouseover: this.handleMouseOver.bind(this, { index, cat }),
                 mouseleave: this.handleMouseLeave.bind(this, index),
               },
             },
@@ -112,7 +126,6 @@ export default defineComponent({
         "div",
         {
           on: {
-            mouseenter: this.handlePanelMouseEnter.bind(this),
             mouseleave: this.handlePanelMouseLeave.bind(this),
           },
           class: [
@@ -137,7 +150,6 @@ export default defineComponent({
               if (text.length > 8) {
                 text.splice(8, 0, "<br/>");
               }
-              console.log("text = ", this.category.parse(sub).split(""), text);
               return h("dl", { class: [] }, [
                 h("dt", {}, [
                   h(genComponentName("flex"), { class: ["text-wrapper"], props: { justifyContent: "spaceBetween" } }, [
@@ -182,3 +194,5 @@ export default defineComponent({
     ]);
   },
 });
+
+// reference 100sucai.com/demo/112.html
