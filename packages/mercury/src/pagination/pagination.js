@@ -1,8 +1,8 @@
 /*
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
- * @Last Modified by: yegl
- * @Last Modified time: 2021-09-02 10:53:13
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2021-09-18 13:16:13
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -69,7 +69,7 @@ export default defineComponent({
                 directives: [{ value: true }],
                 props: {
                   size: 12,
-                  name: "magnifier-left-arrow-active",
+                  name: "magnifier-arrow-active",
                 },
               },
               []
@@ -88,10 +88,11 @@ export default defineComponent({
             h(
               genComponentName("iconfont"),
               {
+                class: ["right"],
                 directives: [{ value: true }],
                 props: {
                   size: 12,
-                  name: "magnifier-right-arrow-active",
+                  name: "magnifier-arrow-active",
                 },
               },
               []
