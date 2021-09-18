@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-17 14:43:44
+ * @Last Modified time: 2021-09-18 11:45:07
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -11,10 +11,21 @@ import FlexItem from "../flex-item";
 import Spin from "../spin";
 import PullRefresh from "../pull-refresh";
 const CAT_CACHE = {};
+// import { loadImageAsync } from "../modules/utils/lazyLoad";
 export default defineComponent({
   name: "CategoryMobile",
   components: { Flex, FlexItem, Spin, PullRefresh },
   props: {
+    preload: {
+      type: String,
+      default: ""
+    },
+    preloadStyle: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
     mapKeys: {
       type: Object,
       default: () => {
@@ -197,6 +208,7 @@ export default defineComponent({
                                           h(
                                             "img",
                                             {
+                                              style: { backgroundImage: `url(${this.preload})`, padding: "0px", ...this.preloadStyle },
                                               attrs: {
                                                 src: subCat[
                                                   this.mapKeys["imgUrl"]
