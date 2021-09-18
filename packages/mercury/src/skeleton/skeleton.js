@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-11-03 11:12:31
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-18 20:58:39
+ * @Last Modified time: 2021-09-18 21:03:51
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -17,6 +17,7 @@ export default defineComponent({
       type: String,
       default: ""
     },
+    cardHeight: Number,
     rows: {
       type: [String, Number],
       default: 2,
@@ -43,6 +44,7 @@ export default defineComponent({
       [
         h("div", {
           class: ["animated-background", "background-card"],
+          style: { height: `${this.cardHeight}px` },
           directives: [{ name: "show", value: this.type === "card" }]
         }, []),
         h(
