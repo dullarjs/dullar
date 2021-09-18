@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-14 09:41:00
+* @Last Modified time: 2021-09-15 13:49:54
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -93,9 +93,9 @@ export default defineComponent({
             this.slots("content")
           ]),
           h("div", { style: { width: `${iWidth}px` }, class: ["button-slot"] }, [
-            h(genComponentName("flex"), { props: { justifyContent: "spaceAround" } },
+            h(genComponentName("flex"), { props: { justifyContent: "spaceBetween" } },
               Array.apply(null, buttons).map(button => {
-                return h(genComponentName("flex-item"), {}, [button])
+                return h(genComponentName("flex-item"), { props: { flex: 1 } }, [button])
               })
             )
           ])

@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:20:36
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-01-20 11:31:21
+ * @Last Modified time: 2021-09-16 17:37:14
  */
 import { defineComponent } from "../modules/component";
 import { warn, error } from "../modules/error";
@@ -24,9 +24,9 @@ export default defineComponent({
     };
   },
   methods: {
-    handleClick() {
+    handleClick(e) {
       const { name } = this.$props;
-      this.$emit("click", { name });
+      this.$emit("click", { e, name });
     },
     getSvg() {
       const { name } = this.$props;

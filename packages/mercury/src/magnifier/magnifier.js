@@ -2,11 +2,11 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-26 17:02:31
+ * @Last Modified time: 2021-09-16 18:39:36
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
-import { preventDefault } from "../modules/event";
+import { preventDefault, stopPropagation } from "../modules/event";
 import { getOffset } from "../modules/dom";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
@@ -68,19 +68,13 @@ export default defineComponent({
         width: `${length * 60 + length * margin}px`,
         marginLeft: `${this.steps * (60 + margin)}px`,
       };
-    },
-    zoomStyle() {
-      return {
-        backgroundSize: "110%",
-        backgroundImage: `url(${this.images[this.previewIndex]})`,
-      };
-    },
+    }
   },
   methods: {
     handleAfterEnter() {
       this.popupEntered = true;
-      this.$refs.a.style.width = `${this.$refs.zoomImage.offsetWidth}px`;
-      this.$refs.a.style.height = `${this.$refs.zoomImage.offsetHeight}px`;
+      this.$refs.a.style.width = `${this.$refs[`zoomImage_${this.previewIndex}`].offsetWidth}px`;
+      this.$refs.a.style.height = `${this.$refs[`zoomImage_${this.previewIndex}`].offsetHeight}px`;
     },
     handleAfterLeave() {
       this.popupEntered = false;
@@ -162,16 +156,25 @@ export default defineComponent({
     handlePopupInput() {
       this.showZoom = false;
     },
-    // handleZoomMouseEnter() {
-    //   this.zoomEnter = true;
-    // },
-    // handleZoomMouseMove() {},
-    // handleZoomMouseLeave() {
-    //   this.zoomEnter = false;
-    // }
+    handleImageSwitch(a, params) {
+      const { e } = params;
+      stopPropagation(e);
+      let index = this.previewIndex;
+      if (a === "left") {
+        index -= 1;
+      } else if (a === "right") {
+        index += 1;
+      }
+      index = (index % this.images.length);
+      if (index < 0) {
+        index = index + this.images.length;
+      }
+      this.previewIndex = index;
+    }
   },
   render(h) {
     const preview = this.images[this.previewIndex];
+    const disabled = this.images.length < 6;
     return h("div", { class: ["yn-magnifier"] }, [
       h("div", { class: ["preview"], on: { click: this.zoomUpImage } }, [
         h(
@@ -232,10 +235,10 @@ export default defineComponent({
                   h(
                     genComponentName("iconfont"),
                     {
-                      class: [],
+                      class: ["left"],
                       props: {
-                        name: `magnifier-left-arrow${
-                          this.steps === 0 ? "" : "-active"
+                        name: `magnifier-arrow${
+                          (this.steps === 0 || disabled) ? "" : "-active"
                         }`,
                         size: 16,
                       },
@@ -296,10 +299,10 @@ export default defineComponent({
                   h(
                     genComponentName("iconfont"),
                     {
-                      class: [],
+                      class: ["right"],
                       props: {
-                        name: `magnifier-right-arrow${
-                          5 - this.steps === this.images.length ? "" : "-active"
+                        name: `magnifier-arrow${
+                          ((5 - this.steps === this.images.length) || disabled) ? "" : "-active"
                         }`,
                         size: 16,
                       },
@@ -337,27 +340,32 @@ export default defineComponent({
                 {
                   ref: "a",
                   attrs: { href: "javascript:;" },
-                  style: {
-                    ...this.zoomStyle,
-                  },
-                  on: {
-                    // mouseenter: this.handleZoomMouseEnter,
-                    // mousemove: this.handleZoomMouseMove,
-                    // mouseleave: this.handleZoomMouseLeave
-                  },
                 },
                 [
-                  h(
-                    "img",
-                    {
-                      ref: "zoomImage",
-                      class: [
-                        this.popupEntered && this.zoomEnter ? "hide" : "",
-                      ],
-                      attrs: { src: preview },
-                    },
-                    []
+                  h("div", { class: ["image-gallery-box"] },
+                    Array.apply(null, this.images).map((image, index) => {
+                      const className = [];
+                      if (index > this.previewIndex) {
+                        className.push("left", "abs");
+                      } else if (index < this.previewIndex) {
+                        className.push("right", "abs");
+                      }
+                      return h(
+                        "img",
+                        {
+                          ref: `zoomImage_${index}`,
+                          class: [
+                            this.popupEntered && this.zoomEnter ? "hide" : "",
+                            ...className
+                          ],
+                          attrs: { src: image },
+                        },
+                        []
+                      )
+                    })
                   ),
+                  h(genComponentName("iconfont"), { on: { click: this.handleImageSwitch.bind(this, "left") }, class: ["left"], props: { name: "yn-left-arrow", size: 60 } }, []),
+                  h(genComponentName("iconfont"), { on: { click: this.handleImageSwitch.bind(this, "right") }, class: ["right"], props: { name: "yn-left-arrow", size: 60 } }, [])
                 ]
               ),
             ]
