@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-18 11:45:07
+ * @Last Modified time: 2021-09-18 14:45:12
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,8 +10,8 @@ import Flex from "../flex";
 import FlexItem from "../flex-item";
 import Spin from "../spin";
 import PullRefresh from "../pull-refresh";
+import { addClass, removeClass } from "../modules/dom";
 const CAT_CACHE = {};
-// import { loadImageAsync } from "../modules/utils/lazyLoad";
 export default defineComponent({
   name: "CategoryMobile",
   components: { Flex, FlexItem, Spin, PullRefresh },
@@ -117,6 +117,15 @@ export default defineComponent({
       const cat = this.categories[currentTab];
       this.handleListClick({ cat, key: currentTab });
     },
+    handleError(e) {
+      const { target } = e;
+      addClass(target, "error");
+    },
+    handleImageOnload(e) {
+      const { target } = e;
+      const node = target.parentNode;
+      removeClass(node, "loading");
+    }
   },
   render(h) {
     return h("div", { class: ["yn-category-mobile"] }, [
@@ -205,18 +214,23 @@ export default defineComponent({
                                           attrs: { href: "javascript:;" },
                                         },
                                         [
-                                          h(
-                                            "img",
-                                            {
-                                              style: { backgroundImage: `url(${this.preload})`, padding: "0px", ...this.preloadStyle },
-                                              attrs: {
-                                                src: subCat[
-                                                  this.mapKeys["imgUrl"]
-                                                ],
+                                          h("div", { class: ["image-box", "loading"], style: { backgroundImage: `url(${this.preload})`, ...this.preloadStyle } }, [
+                                            h(
+                                              "img",
+                                              {
+                                                on: {
+                                                  error: this.handleError,
+                                                  load: this.handleImageOnload
+                                                },
+                                                attrs: {
+                                                  src: subCat[
+                                                    this.mapKeys["imgUrl"]
+                                                  ],
+                                                },
                                               },
-                                            },
-                                            []
-                                          ),
+                                              []
+                                            ),
+                                          ]),
                                           h("span", { class: ["goods-name"] }, [
                                             subCat[this.mapKeys["label"]],
                                           ]),
