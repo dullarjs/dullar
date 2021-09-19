@@ -97,7 +97,6 @@ export default defineComponent({
         src: this.src,
       })
         .then((res) => {
-          console.log("res", res);
           this.imageWidth = res.width;
           this.imageHeight = res.height;
           this.loadingFinish = true;
