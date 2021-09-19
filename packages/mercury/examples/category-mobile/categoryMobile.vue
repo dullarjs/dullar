@@ -2,7 +2,7 @@
   <div class="category-content">
     <h2>yn-category-mobile</h2>
     <div class="container">
-      <yn-category-mobile :preload="preload" :categories="categories" :category="getCategory()"></yn-category-mobile>
+      <yn-category-mobile :mapKeys="mapKeys" :preload="preload" :categories="categories" :category="getCategory()"></yn-category-mobile>
     </div>
   </div>
 </template>
@@ -26,7 +26,13 @@ export default {
   data() {
     return {
       categories: [],
-      preload
+      preload,
+      mapKeys: {
+        id: "id",
+        label: "label",
+        imgUrl: "touchIcon",
+        children: "children",
+      }
     };
   },
   created() {
