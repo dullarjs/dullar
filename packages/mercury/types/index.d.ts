@@ -46,6 +46,7 @@ import { YnAddress } from "./address";
 import { YnShippingAddress } from "./shipping-address";
 import { YnTree } from "./tree";
 import { YnSlide } from "./slide";
+import { YnImage } from "./image";
 export {
   Toast,
   Indicator,
@@ -84,7 +85,8 @@ export {
   YnAddress,
   YnShippingAddress,
   YnTree,
-  YnSlide
+  YnSlide,
+  YnImage
 };
 export function install(vue: typeof Vue): void;
 export function config(options: any): void;
