@@ -41,6 +41,7 @@
       <li @click="jump('tree')">tree</li>
       <li @click="jump('calendar')">calendar</li>
       <li @click="jump('slide')">slide</li>
+      <li @click="jump('image')">image</li>
     </ul>
   </div>
 </template>
