@@ -23,6 +23,15 @@
     <div id="imglist-box">
       <yn-image v-for="(img, i) in urls" :key="i" lazy :src="img" alt="" />
     </div>
+    <yn-image
+      width="200"
+      height="200"
+      fit="cover"
+      lazy
+      src="https://image.51ykb.com/3f98559e-fb70-4338-851c-363053fbc2af"
+    >
+      <span slot="placeholder">加载中...</span>
+    </yn-image>
   </div>
 </template>
 <script>
