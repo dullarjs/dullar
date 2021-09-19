@@ -6,6 +6,7 @@
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { throttle, isString } from "../modules/utils";
+import { loadImageAsync } from "../modules/utils/lazyLoad";
 import { getScroller } from "../modules/dom/scroll";
 import { slotsMixins } from "@/mixins/slots";
 import { on, off } from "../modules/event";
@@ -74,7 +75,6 @@ export default defineComponent({
     },
   },
   mounted() {
-    console.log("mounted");
     if (this.lazy) {
       this.addLazyLoadListener();
     } else {
@@ -93,31 +93,24 @@ export default defineComponent({
       // reset status
       this.loading = true;
       this.error = false;
-      const img = new Image();
-      img.onload = (e) => this.handleLoad(e, img);
-      img.onerror = this.handleError.bind(this);
-      // bind html attrs
-      // so it can behave consistently
-      // Object.keys(this.$attrs)
-      //   .forEach((key) => {
-      //     const value = this.$attrs[key];
-      //     img.setAttribute(key, value);
-      //   });
-      img.src = this.src;
-    },
-    handleLoad(e, img) {
-      this.imageWidth = img.width;
-      this.imageHeight = img.height;
-      this.loadingFinish = true;
-      this.loading = false;
-      this.error = false;
-      this.$emit("load", e);
-    },
-    handleError(e) {
-      this.loading = false;
-      this.error = true;
-      this.loadingFinish = true;
-      this.$emit("error", e);
+      loadImageAsync({
+        src: this.src,
+      })
+        .then((res) => {
+          console.log("res", res);
+          this.imageWidth = res.width;
+          this.imageHeight = res.height;
+          this.loadingFinish = true;
+          this.loading = false;
+          this.error = false;
+          this.$emit("load", res);
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.error = true;
+          this.loadingFinish = true;
+          this.$emit("error", err);
+        });
     },
     isInContainer(el) {
       var bound = el.getBoundingClientRect();
