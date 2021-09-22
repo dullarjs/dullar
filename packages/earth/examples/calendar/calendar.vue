@@ -97,8 +97,17 @@
         <span>已选择时间：{{ calendar9Date }}</span>
         <hr />
       </li>
+      <li>
+        <div>
+          <yn-button @click="handleOpenCalendar('calendar10')">
+            多选日历，带底部确认按钮,头部带去程返程日期。
+          </yn-button>
+        </div>
+        <span>已选择时间：{{ calendar10Date }}</span>
+        <hr />
+      </li>
     </ul>
-    <yn-calendar
+    <!-- <yn-calendar
       mode="single"
       :before="10"
       :after="10"
@@ -170,6 +179,19 @@
       after="1"
       v-model="calendar9"
       unit="year"
+    ></yn-calendar> -->
+    <yn-calendar
+      mode="double"
+      :topDateDes="['去程', '返程']"
+      :isShowTopDate="true"
+      :before="9"
+      :after="10"
+      v-model="calendar10"
+      v-on:getDate="handleOnGetDate5"
+      :showConfirmButton="true"
+      :confirmText="confirmText"
+      noticeText="温馨提示：为配合各地政府落实疫情防控常态化措施，避免重复退票带来的不便，铁路车票预售期调整为15天"
+      @changeDate="changeDate"
     ></yn-calendar>
   </div>
 </template>
@@ -209,7 +231,9 @@ export default {
       double: true,
       calendar8Date: "",
       calendar9Date: "",
-      calendar9: false
+      calendar9: false,
+      calendar10: false,
+      calendar10Date: "",
     };
   },
   computed: {

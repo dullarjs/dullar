@@ -96,6 +96,47 @@ export default defineComponent({
       },
     },
     noticeText: String,
+    isShowTopDate: {
+      type: Boolean,
+      default: false,
+    },
+    topDateDes: {
+      type: Array,
+      default() {
+        return ["入住", "离店"];
+      },
+    },
+    topDateParser: {
+      type: Function,
+      default: (date) => {
+        if (!date) {
+          return "请选择日期";
+        } else {
+          const { month, day } = date || {};
+          return `${Number(month)}月${Number(day)}日`;
+        }
+      },
+    },
+    topWeekParser: {
+      type: Function,
+      default: (date) => {
+        if (!date) {
+          return "";
+        } else {
+          const { week, year, month, day } = date || {};
+          const weekText = [
+            "周日",
+            "周一",
+            "周二",
+            "周三",
+            "周四",
+            "周五",
+            "周六",
+          ];
+          return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
+        }
+      },
+    },
   },
   data() {
     return {
@@ -508,10 +549,114 @@ export default defineComponent({
         ]);
       }
     },
+    createDateResultArea(h) {
+      const placeHolderClass = this.toDate
+        ? ""
+        : "yn-calendar-result-date-placeholder";
+      return h(
+        "div",
+        {
+          class: ["yn-calendar-date-result"],
+        },
+        [
+          h(
+            "div",
+            {
+              class: ["yn-calendar-reulst-left"],
+            },
+            [
+              h(
+                "span",
+                {
+                  class: ["yn-calendar-result-date-des"],
+                },
+                this.topDateDes[0]
+              ),
+              h(
+                "div",
+                {
+                  class: ["yn-calendar-result-date"],
+                },
+                [
+                  h(
+                    "span",
+                    {
+                      class: ["yn-calendar-result-year-day"],
+                    },
+                    this.topDateParser(this.fromDate)
+                  ),
+                  h(
+                    "span",
+                    {
+                      class: ["yn-calendar-result-week"],
+                    },
+                    this.topWeekParser(this.fromDate)
+                  ),
+                ]
+              ),
+            ]
+          ),
+          h(
+            "div",
+            {
+              class: ["yn-calendar-reulst-center"],
+            },
+            [
+              h(
+                "span",
+                {
+                  class: ["yn-clendar-result-center-icon"],
+                },
+                []
+              ),
+            ]
+          ),
+          h(
+            "div",
+            {
+              class: ["yn-calendar-reulst-right"],
+            },
+            [
+              h(
+                "span",
+                {
+                  class: ["yn-calendar-result-date-des"],
+                },
+                this.topDateDes[1]
+              ),
+              h(
+                "div",
+                {
+                  class: ["yn-calendar-result-date"],
+                },
+                [
+                  h(
+                    "span",
+                    {
+                      class: ["yn-calendar-result-year-day", placeHolderClass],
+                    },
+                    this.topDateParser(this.toDate)
+                  ),
+                  this.toDate &&
+                    h(
+                      "span",
+                      {
+                        class: ["yn-calendar-result-week"],
+                      },
+                      this.topWeekParser(this.toDate)
+                    ),
+                ]
+              ),
+            ]
+          ),
+        ]
+      );
+    },
     createHeaderArea(h) {
       return h("div", {}, [
         this.createCloseIcon(h),
         this.createTitle(h),
+        this.isShowTopDate && this.createDateResultArea(h),
         this.createNoticeBar(h),
         this.createWeekBar(h),
       ]);
