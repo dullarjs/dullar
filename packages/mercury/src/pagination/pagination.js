@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-22 16:30:02
+ * @Last Modified time: 2021-09-22 16:54:48
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -101,9 +101,10 @@ export default defineComponent({
               genComponentName("iconfont"),
               {
                 directives: [{ value: true }],
+                class: ["right"],
                 props: {
                   size: 14,
-                  name: "right-pagination",
+                  name: "left-pagination",
                 },
               },
               []
