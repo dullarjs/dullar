@@ -1,5 +1,10 @@
 @import "../../theme/variable.less";
 
+.yn-tooltip-box {
+  position: static;
+  display: inline-block;
+}
+
 .yn-tooltip {
   position: relative;
   box-sizing: border-box;
@@ -35,6 +40,7 @@
       right: -12px;
       top: 50%;
       transform: translateY(-50%);
+      z-index: 1061;
 
       &::before {
         position: absolute;
@@ -54,6 +60,7 @@
     }
 
     .yn-tooltip-inner {
+      z-index: 1061;
       width: fit-content;
       width: -webkit-fit-content;
       width: -moz-fit-content;
@@ -89,9 +96,9 @@
   }
 }
 
-.yn-tooltip-placement-left {
-  // padding-right: 8px;
-}
+// .yn-tooltip-placement-left {
+//   // padding-right: 8px;
+// }
 
 .yn-tooltip-placement-top {
   .yn-tooltip-arrow {

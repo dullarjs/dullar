@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-03 17:38:49
+ * @Last Modified time: 2021-09-22 14:45:45
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,11 +10,22 @@ import Flex from "../flex";
 import FlexItem from "../flex-item";
 import Spin from "../spin";
 import PullRefresh from "../pull-refresh";
+import { addClass, removeClass } from "../modules/dom";
 const CAT_CACHE = {};
 export default defineComponent({
   name: "CategoryMobile",
   components: { Flex, FlexItem, Spin, PullRefresh },
   props: {
+    preload: {
+      type: String,
+      default: ""
+    },
+    preloadStyle: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
     mapKeys: {
       type: Object,
       default: () => {
@@ -106,6 +117,15 @@ export default defineComponent({
       const cat = this.categories[currentTab];
       this.handleListClick({ cat, key: currentTab });
     },
+    handleError(e) {
+      const { target } = e;
+      addClass(target, "error");
+    },
+    handleImageOnload(e) {
+      const { target } = e;
+      const node = target.parentNode;
+      removeClass(node, "loading");
+    }
   },
   render(h) {
     return h("div", { class: ["yn-category-mobile"] }, [
@@ -127,7 +147,9 @@ export default defineComponent({
                     },
                     class: [this.currentTab === key ? "active" : ""],
                   },
-                  [cat[this.mapKeys["label"]]]
+                  [
+                    h("span", {}, cat[this.mapKeys["label"]])
+                  ]
                 );
               })
             ),
@@ -149,6 +171,7 @@ export default defineComponent({
                   : h(
                       genComponentName("pull-refresh"),
                       {
+                        class: ["category-pull-refresh"],
                         ref: "pullRefresh",
                         on: {
                           pullRefresh: this.handlePull,
@@ -156,7 +179,8 @@ export default defineComponent({
                       },
                       [
                         Array.apply(null, this.categoryList).map((cat) => {
-                          return [
+                          const children = cat[this.mapKeys["children"]];
+                          return children.length > 0 && [
                             h(
                               "h4",
                               { key: `title-${cat.id}` },
@@ -171,7 +195,7 @@ export default defineComponent({
                               [
                                 ...Array.apply(
                                   null,
-                                  cat[this.mapKeys["children"]]
+                                  children
                                 ).map((subCat) => {
                                   return h(
                                     genComponentName("flex-item"),
@@ -193,17 +217,23 @@ export default defineComponent({
                                           attrs: { href: "javascript:;" },
                                         },
                                         [
-                                          h(
-                                            "img",
-                                            {
-                                              attrs: {
-                                                src: subCat[
-                                                  this.mapKeys["imgUrl"]
-                                                ],
+                                          h("div", { class: ["image-box", "loading"], style: { backgroundImage: `url(${this.preload})`, ...this.preloadStyle } }, [
+                                            h(
+                                              "img",
+                                              {
+                                                on: {
+                                                  error: this.handleError,
+                                                  load: this.handleImageOnload
+                                                },
+                                                attrs: {
+                                                  src: subCat[
+                                                    this.mapKeys["imgUrl"]
+                                                  ],
+                                                },
                                               },
-                                            },
-                                            []
-                                          ),
+                                              []
+                                            ),
+                                          ]),
                                           h("span", { class: ["goods-name"] }, [
                                             subCat[this.mapKeys["label"]],
                                           ]),

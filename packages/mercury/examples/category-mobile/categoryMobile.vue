@@ -2,15 +2,16 @@
   <div class="category-content">
     <h2>yn-category-mobile</h2>
     <div class="container">
-      <yn-category-mobile :categories="categories" :category="getCategory()"></yn-category-mobile>
+      <yn-category-mobile :mapKeys="mapKeys" :preload="preload" :categories="categories" :category="getCategory()"></yn-category-mobile>
     </div>
   </div>
 </template>
 <script type="text/javascript">
 const categories = require("./categories.json").RECORDS;
 const secCategory = require("./sec-category.json").data;
-console.log("sec = ", secCategory);
+const preload = require("./preload.svg");
 const firstClassCategory = [];
+console.log(preload);
 categories.forEach(cat => {
   if (cat.cat_desc === "一级分类") {
     firstClassCategory.push(cat);
@@ -20,12 +21,18 @@ firstClassCategory.forEach(cat => {
   cat.id = cat.cat_id;
   cat.label = cat.cat_name;
 });
-console.log(firstClassCategory);
 export default {
   name: "YnCategoryMobilePage",
   data() {
     return {
       categories: [],
+      preload,
+      mapKeys: {
+        id: "id",
+        label: "label",
+        imgUrl: "touchIcon",
+        children: "children",
+      }
     };
   },
   created() {
@@ -51,7 +58,6 @@ export default {
           cat.id = cat.catId;
           cat.label = cat.catName;
           Array.isArray(cat.children) && cat.children.forEach(subCat => {
-            console.log("ddd", subCat);
             subCat.id = subCat.catId;
             subCat.label = subCat.catName;
           });

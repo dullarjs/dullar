@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-15 13:49:54
+* @Last Modified time: 2021-09-22 14:10:48
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -54,7 +54,7 @@ export default defineComponent({
         },
         stop(event) {
           const { target } = event;
-          if (that.deltaX > 0 && !that.opened || that.deltaX === 0) return;
+          // if (that.deltaX > 0 && !that.opened || that.deltaX === 0) return;
           that.dragging = false;
           that.className = "";
           if (that.deltaX < 0) {
