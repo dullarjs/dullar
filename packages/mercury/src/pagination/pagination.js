@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-18 13:16:13
+ * @Last Modified time: 2021-09-22 16:30:02
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -29,6 +29,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    selectedPageStyle: {
+      type: Object,
+      default: null,
+    },
   },
   data() {
     return {
@@ -53,12 +57,16 @@ export default defineComponent({
       this.page = page === 0 ? this.defaultCurrent : page;
     },
     paginationContent(h) {
-      const pageSize = this.pageSize;
+      const { pageSize, page, totalPage } = this;
       return h("ul", { class: ["yn-pagination-content"] }, [
         h(
           "li",
           {
-            class: ["yn-pagination-prev", "yn-pagination-button"],
+            class: [
+              "yn-pagination-prev",
+              "yn-pagination-button",
+              page === 1 ? "button-disabled" : "a-block",
+            ],
             attrs: { title: "上一页" },
             on: { click: this.toPage.bind(this, "prev") },
           },
@@ -68,8 +76,8 @@ export default defineComponent({
               {
                 directives: [{ value: true }],
                 props: {
-                  size: 12,
-                  name: "magnifier-arrow-active",
+                  size: 14,
+                  name: "left-pagination",
                 },
               },
               []
@@ -80,7 +88,11 @@ export default defineComponent({
         h(
           "li",
           {
-            class: ["yn-pagination-next", "yn-pagination-button"],
+            class: [
+              "yn-pagination-next",
+              "yn-pagination-button",
+              page === totalPage ? "button-disabled" : "a-block",
+            ],
             attrs: { title: "下一页" },
             on: { click: this.toPage.bind(this, "next") },
           },
@@ -88,11 +100,10 @@ export default defineComponent({
             h(
               genComponentName("iconfont"),
               {
-                class: ["right"],
                 directives: [{ value: true }],
                 props: {
-                  size: 12,
-                  name: "magnifier-arrow-active",
+                  size: 14,
+                  name: "right-pagination",
                 },
               },
               []
@@ -107,6 +118,7 @@ export default defineComponent({
                 "yn-pagination-button",
                 "yn-pagination-item-padding-5",
                 "yn-pagination-selection",
+                "a-block",
               ],
               on: {
                 mouseenter: this.onPageSelection.bind(this),
@@ -167,25 +179,21 @@ export default defineComponent({
             ]
           ),
         !this.disableJumpPage &&
-          h(
-            "span",
-            { class: ["yn-pagination-button", "yn-pagination-quick-jumper"] },
-            [
-              "跳至 ",
-              h(
-                "input",
-                {
-                  domProps: { value: this.inputValue },
-                  on: {
-                    blur: this.jumpToPage.bind(this),
-                    keyup: this.enterToPage.bind(this),
-                  },
+          h("span", { class: ["yn-pagination-quick-jumper"] }, [
+            "跳至 ",
+            h(
+              "input",
+              {
+                domProps: { value: this.inputValue },
+                on: {
+                  blur: this.jumpToPage.bind(this),
+                  keyup: this.enterToPage.bind(this),
                 },
-                []
-              ),
-              " 页",
-            ]
-          ),
+              },
+              []
+            ),
+            " 页",
+          ]),
       ]);
     },
     pageList(h) {
@@ -200,8 +208,9 @@ export default defineComponent({
             h(
               "li",
               {
-                class: ["yn-pagination-button", active],
+                class: ["yn-pagination-button", active, "a-block"],
                 on: { click: this.toPage.bind(this, "jump", i) },
+                style: active && this.selectedPageStyle,
               },
               [i]
             )
@@ -351,8 +360,10 @@ export default defineComponent({
           }
           break;
       }
-      this.$emit("pageChange", this.page);
-      this.init();
+      if (page !== this.page) {
+        this.$emit("pageChange", this.page);
+        this.init();
+      }
     },
     jumpToPage(e) {
       e.target.value && this.toPage("jump", parseInt(e.target.value));
