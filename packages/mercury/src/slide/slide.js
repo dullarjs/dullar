@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-22 14:10:48
+* @Last Modified time: 2021-09-22 16:56:25
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -41,6 +41,7 @@ export default defineComponent({
       const that = this;
       this.bindEvent(this.$refs.container, {
         dragging(event) {
+          if (that.direction === "vertical") return;
           const { target } = event;
           if (that.deltaX > 0 && !that.opened || that.deltaX < 0 && that.opened) return;
           that.dragging = true;
@@ -53,6 +54,7 @@ export default defineComponent({
           }
         },
         stop(event) {
+          if (that.direction === "vertical" || that.deltaX === 0) return;
           const { target } = event;
           // if (that.deltaX > 0 && !that.opened || that.deltaX === 0) return;
           that.dragging = false;
