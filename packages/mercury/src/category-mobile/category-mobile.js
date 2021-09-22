@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-18 14:45:12
+ * @Last Modified time: 2021-09-22 14:45:45
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -147,7 +147,9 @@ export default defineComponent({
                     },
                     class: [this.currentTab === key ? "active" : ""],
                   },
-                  [cat[this.mapKeys["label"]]]
+                  [
+                    h("span", {}, cat[this.mapKeys["label"]])
+                  ]
                 );
               })
             ),
@@ -169,6 +171,7 @@ export default defineComponent({
                   : h(
                       genComponentName("pull-refresh"),
                       {
+                        class: ["category-pull-refresh"],
                         ref: "pullRefresh",
                         on: {
                           pullRefresh: this.handlePull,
