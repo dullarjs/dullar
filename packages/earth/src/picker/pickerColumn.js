@@ -59,6 +59,10 @@ export default defineComponent({
       type: [String, Number],
       default: 300,
     },
+    animated: {
+      type: String,
+      default: "all",
+    },
   },
   initPropsToData() {
     return [
@@ -246,9 +250,11 @@ export default defineComponent({
       this.setIndex(index, true);
     },
     createLiEle(h, column, key, isObj, text) {
+      let colorFactor = this.animated === "scale" ? 1 : 0.7; //只有大小渐变
+      let scaleFactor = this.animated === "blur" ? 1 : 0.7; //只有颜色渐变
       const powTimes = Math.abs(this.currentIndex - key);
-      const colorPowTimes = Number(Math.pow(0.7, powTimes).toFixed(2));
-      const scalePowTimes = Number(Math.pow(0.7, powTimes).toFixed(2));
+      const colorPowTimes = Number(Math.pow(colorFactor, powTimes).toFixed(2));
+      const scalePowTimes = Number(Math.pow(scaleFactor, powTimes).toFixed(2));
       return h(
         "li",
         {
