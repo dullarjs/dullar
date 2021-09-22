@@ -8,7 +8,7 @@
   -ms-user-select: none; /*IE10*/
   -khtml-user-select: none; /*早期浏览器*/
   user-select: none;
-  min-width: 400px;
+  // min-width: 400px;
   max-width: 800px;
   padding: 10px 20px;
   width: fit-content;
@@ -18,33 +18,28 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: #000000d9;
+    color: #222222;
     font-size: 14px;
     font-variant: tabular-nums;
-    line-height: 1.5715;
     list-style: none;
     font-feature-settings: "tnum";
     .yn-pagination-button {
       display: inline-block;
-      min-width: 32px;
-      height: 32px;
-      color: #000000d9;
-      line-height: 32px;
+      min-width: 30px;
+      height: 30px;
+      color: #222222;
+      line-height: 30px;
       text-align: center;
       vertical-align: middle;
       list-style: none;
       border-radius: 2px;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: 1px solid #d9d9d9;
+      border: 1px solid #dadce0;
       margin-right: 8px;
+      box-sizing: border-box;
+      background-color: white;
     }
-    .yn-pagination-next {
-      .right {
-        transform: rotate(180deg);
-      }
-    }
-    .yn-pagination-button:hover {
+    .a-block:hover {
+      cursor: pointer;
       border: 1px solid @theme-color;
       color: @theme-color;
     }
@@ -77,18 +72,17 @@
       width: 95px;
       padding: 0;
       .yn-pagination-selection-item {
-        margin-left: 10px;
-        color: #000000d9 !important;
+        color: #161823;
         > i {
           margin-left: 5px;
         }
       }
       .yn-pagination-selection-list {
         position: absolute;
-        color: #000000d9 !important;
+        color: #222222;
         top: 38px;
         width: 100%;
-        border: 1px solid #d9d9d9;
+        border: 1px solid #dadce0;
         display: none;
         z-index: 9999;
         background-color: white;
@@ -118,27 +112,32 @@
       }
     }
     .yn-pagination-quick-jumper {
-      border: none !important;
-      color: #000000d9 !important;
+      border: none;
+      color: #222222;
+      cursor: pointer;
       > input {
         position: relative;
         display: inline-block;
         box-sizing: border-box;
         min-width: 0;
         padding: 4px 11px;
-        color: #000000d9;
+        color: #222222;
         font-size: 14px;
         line-height: 1.5715;
         background-color: #fff;
         background-image: none;
-        border: 1px solid #d9d9d9;
+        border: 1px solid #dadce0;
         border-radius: 2px;
         transition: all 0.3s;
         width: 50px;
-        height: 34px;
+        height: 30px;
         margin: -1px 8px;
         outline: 0;
       }
     }
+  }
+  .button-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 }
