@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-02 18:49:02
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-05 09:39:49
+ * @Last Modified time: 2021-09-22 15:03:09
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -15,6 +15,7 @@
             :defaultPageSize="one.pageSize"
             :defaultCurrent="one.page"
             :disableJumpPage=true
+            :selectedPageStyle="selectedPageStyle"
         ></yn-pagination>
         <yn-pagination
             v-on:pageSizeChange="handlePageSizeChange"
@@ -76,6 +77,11 @@ export default {
                 total: 20000,
                 pageSize: 50,
                 page: 15
+            },
+            selectedPageStyle: {
+                background: "#0158BA",
+                color: "white",
+                border: "none"
             }
         };
     },
