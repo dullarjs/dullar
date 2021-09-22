@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-14 16:06:54
+ * @Last Modified time: 2021-09-18 10:45:16
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -11,7 +11,6 @@ import Spin from "../spin";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 const CAT_CACHE = {};
-const obj = {};
 export default defineComponent({
   name: "Category",
   components: { Iconfont, Spin, Flex, FlexItem },
@@ -42,7 +41,7 @@ export default defineComponent({
       subCatList: [],
       isLoading: false,
       showPanel: false,
-      hovered: false
+      obj: {}
     };
   },
   methods: {
@@ -63,13 +62,13 @@ export default defineComponent({
         });
     },
     handleMouseOver({ index, cat }) {
-      obj[`timer1_${index}`] = null;
-      obj[`timer2_${index}`] = null;
-      obj[`hovered_${index}`] = false;
-      if (obj[`hovered_${index}`]) {
-        clearTimeout(obj[`timer2_${index}`]);
+      this.obj[`timer1_${index}`] = null;
+      this.obj[`timer2_${index}`] = null;
+      this.obj[`hovered_${index}`] = false;
+      if (this.obj[`hovered_${index}`]) {
+        clearTimeout(this.obj[`timer2_${index}`]);
       } else {
-        obj[`timer1_${index}`] = setTimeout(() => {
+        this.obj[`timer1_${index}`] = setTimeout(() => {
           this.showPanel = true;
           this.currentCategory = index;
           if (CAT_CACHE[cat.id]) {
@@ -77,18 +76,23 @@ export default defineComponent({
           } else {
             this.requestCategory(cat);
           }
+          this.obj[`hovered_${index}`] = true;
         }, this.delay);
       }
     },
-    handleMouseLeave(index) {
-      if (obj[`hovered_${index}`]) {
-        obj[`timer2_${index}`] = setTimeout(() => {
+    handleMouseOut(index) {
+      if (this.obj[`hovered_${index}`]) {
+        this.obj[`timer2_${index}`] = setTimeout(() => {
           this.currentCategory = -1;
           this.showPanel = false;
+          this.obj[`hovered_${index}`] = false;
         }, this.delay);
       } else {
-        clearTimeout(obj[`timer1_${index}`]);
+        clearTimeout(this.obj[`timer1_${index}`]);
       }
+    },
+    handlePanelMouseEnter() {
+      clearTimeout(this.obj[`timer2_${this.currentCategory}`]);
     },
     handlePanelMouseLeave() {
       this.currentCategory = -1;
@@ -110,8 +114,8 @@ export default defineComponent({
               class: ["yn-category-li", index === this.currentCategory ? "active" : ""],
               on: {
                 click: this.itemClick.bind(this, cat),
-                mouseover: this.handleMouseOver.bind(this, { index, cat }),
-                mouseleave: this.handleMouseLeave.bind(this, index),
+                mouseenter: this.handleMouseOver.bind(this, { index, cat }),
+                mouseleave: this.handleMouseOut.bind(this, index),
               },
             },
             [
@@ -126,6 +130,7 @@ export default defineComponent({
         "div",
         {
           on: {
+            mouseenter: this.handlePanelMouseEnter.bind(this),
             mouseleave: this.handlePanelMouseLeave.bind(this),
           },
           class: [
