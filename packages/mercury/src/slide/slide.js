@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-23 13:34:14
+* @Last Modified time: 2021-09-23 14:25:12
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -64,7 +64,6 @@ export default defineComponent({
             target.style.transform = `translate3D(${that.bounceDeltaX}px, 0, 0)`;
           } else {
             target.style.transform = `translate3D(${-(that.buttonWidth - that.bounceDeltaX)}px, 0, 0)`;
-
           }
         },
         stop(event) {
@@ -94,7 +93,7 @@ export default defineComponent({
             const groups = EventBus.$data.globalProperties[that.groupName];
             Object.keys(groups).map(name => {
               if (name !== that.uid) {
-                if (groups[name].$data.opened) {
+                if (groups[name].$data.opened || groups[name].$data.dragging) {
                   groups[name].reset();
                 }
               }
