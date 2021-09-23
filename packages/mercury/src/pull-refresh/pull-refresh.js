@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-28 15:42:16
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-17 18:04:27
+ * @Last Modified time: 2021-09-23 18:53:52
  * @E-mail: justbefree@126.com
  */
 
@@ -65,6 +65,7 @@ export default defineComponent({
           const { target } = event;
           if (!that.loading) {
             if (that.deltaY > 0 && that.scrollTop <= 10) {
+              that.$emit("pullRefresh", { direction: "top", status: "dragging" });
               that.dragging = true;
               that.className = "none";
               target.style.transform = `translate3D(0, ${that.bounceDeltaY}px, 0)`;
@@ -75,6 +76,7 @@ export default defineComponent({
                 that.scrollElement.offsetHeight >=
                 0
             ) {
+              that.$emit("pullRefresh", { direction: "bottom", status: "dragging" });
               that.dragging = true;
               that.className = "none";
               target.style.transform = `translate3D(0, ${that.bounceDeltaY}px, 0)`;
@@ -85,7 +87,7 @@ export default defineComponent({
           const { target } = event;
           if (!that.loading) {
             if (that.deltaY > 0 && that.scrollTop <= 10) {
-              that.$emit("pullRefresh", { direction: "top" });
+              that.$emit("pullRefresh", { direction: "top", status: "stoped" });
               that.className = "";
               that.dragging = false;
               target.style.transform = "translate3D(0, 0, 0)";
@@ -96,7 +98,7 @@ export default defineComponent({
                 that.scrollElement.offsetHeight >=
                 0
             ) {
-              that.$emit("pullRefresh", { direction: "bottom" });
+              that.$emit("pullRefresh", { direction: "bottom", status: "stoped" });
               that.className = "";
               that.dragging = false;
               target.style.transform = "translate3D(0, 0, 0)";
@@ -115,20 +117,22 @@ export default defineComponent({
     },
     genDraggingTip(h, direction) {
       const text =
-        this.direction === "top" ? this.topDraggingTip : this.bottomDraggingTip;
+        (direction === "top") ? this.topDraggingTip : this.bottomDraggingTip;
       return h("div", { class: ["yn-pull-refresh-draggin-text", direction] }, [
         h("span", {}, [text]),
       ]);
     },
     genDraggingText(h, direction) {
       if (this.topTipFixed) {
-        return this.genDraggingTip(h, direction);
+        if (this.dragging) {
+          return this.genDraggingTip(h, direction);
+        }
       }
       if (this.dragging) {
         if (this.deltaY >= 20 && direction === "top") {
-          return this.genDraggingTip(h, direction);
+          return this.genDraggingTip(h, "top");
         } else if (this.deltaY <= 0 && direction === "bottom") {
-          return this.genDraggingTip(h, direction);
+          return this.genDraggingTip(h, "bottom");
         }
       }
     },
