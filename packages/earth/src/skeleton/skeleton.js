@@ -13,18 +13,20 @@ export default defineComponent({
   name: "Skeleton",
   props: {
     whiteSpace: {
-      type: Object,
+      type: Array,
       default() {
-        return {
-          1: {
-            direction: "right",
+        return [
+          {
+            row: 1,
+            align: "right",
             width: 0.5,
           },
-          10: {
-            direction: "left",
+          {
+            row: 10,
+            align: "left",
             width: 0.7,
           },
-        };
+        ];
       },
     },
     margin: String,
@@ -45,21 +47,20 @@ export default defineComponent({
   },
   methods: {
     createWhiteSpace(h) {
-      return Object.keys(this.whiteSpace).map((key) => {
-        const { direction, width } = this.whiteSpace[key];
+      return this.whiteSpace.map((item) => {
+        const { align, width, row } = item;
         let style = {
           width: `calc((100% - ${
             this.avatar ? avatarSize + 10 : 0
           }px) * ${width})`,
           height: barHeight + "px",
-          top: barHeight * (key - 1) + (key - 1) * paddingHeight + "px",
+          top: barHeight * (row - 1) + (row - 1) * paddingHeight + "px",
         };
-        if (direction === "right") {
+        if (align === "right") {
           style.right = "0px";
-        } else if (direction === "left") {
+        } else if (align === "left") {
           style.left = `${this.avatar ? avatarSize + 10 : 0}px`;
         }
-        console.log("style:", style);
         return h(
           "div",
           {

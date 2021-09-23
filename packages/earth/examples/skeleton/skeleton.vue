@@ -5,8 +5,8 @@
       <yn-skeleton rows="10" :avatar="false"></yn-skeleton>
       <yn-skeleton rows="5" :whiteSpace="whiteSpace"></yn-skeleton>
       <!-- <yn-skeleton :avatar="false"></yn-skeleton> -->
-      <!--     <yn-skeleton></yn-skeleton>
       <yn-skeleton></yn-skeleton>
+      <!-- <yn-skeleton></yn-skeleton>
       <yn-skeleton></yn-skeleton>
       <yn-skeleton></yn-skeleton>
       <yn-skeleton></yn-skeleton>
@@ -20,32 +20,38 @@ export default {
   name: "YnFieldPage",
   data() {
     return {
-      whiteSpace: {
-        1: {
-          direction: "right",
+      whiteSpace: [
+        {
+          row: 1,
+          align: "right",
           width: 0.6,
         },
-        2: {
-          direction: "right",
+        {
+          row: 2,
+          align: "right",
           width: 0.3,
         },
-        3: {
-          direction: "right",
+        {
+          row: 3,
+          align: "right",
           width: 0.3,
         },
-        4: {
-          direction: "right",
+        {
+          row: 4,
+          align: "right",
           width: 0.1,
         },
-        5: {
-          direction: "left",
+        {
+          row: 5,
+          align: "left",
           width: 1,
         },
-        6: {
-          direction: "left",
+        {
+          row: 6,
+          align: "left",
           width: 0.7,
         },
-      },
+      ],
     };
   },
 };
