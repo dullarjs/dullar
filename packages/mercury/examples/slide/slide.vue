@@ -30,6 +30,19 @@
         </yn-slide>
       </li>
     </ul>
+    <h2>group</h2>
+    <span @click="handleDelete">通过数据删除</span>/
+    <span @click="handleDeleteDOM">通过DOM删除</span>
+    <ul class="dom">
+      <li v-for="(item, key) in list" :key="key">
+        <yn-slide groupName="xxx" :uid="item.id" @transitionEnd="(opened) => handleTransitionEnd(opened, item)" :width="60" :trigger="20" class="one" ref="slide">
+          <template v-slot:content>一个按钮，尝试左滑呢？</template>
+          <template v-slot:buttons>
+            <span class="buttons" @click="handleClick('确认', true)">确定</span>
+          </template>
+        </yn-slide>
+      </li>
+    </ul>
   </div>
 </template>
 <script type="text/javascript">
@@ -37,9 +50,26 @@ export default {
   name: "YnSlidePage",
   data() {
     return {
+      list: [
+        { id: "aaaaa" },
+        { id: "bbbbb" },
+        { id: "ccccc" },
+      ]
     };
   },
   methods: {
+    handleDeleteDOM() {
+      const ul = document.querySelector("ul.dom");
+      const lis = ul.getElementsByTagName("li");
+      lis[0].parentNode.firstChild.remove();
+    },
+    handleDelete() {
+      this.list.pop();
+    },
+    handleTransitionEnd(a, b) {
+      b.disabled = a;
+      console.log(a, b);
+    },
     handleClick(msg, reset = false) {
       this.Toast(msg);
       if (reset) {
