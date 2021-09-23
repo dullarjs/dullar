@@ -44,5 +44,6 @@
 <style type="text/css" scoped="scoped">
   ul li {
     margin: 10px;
+    list-style: none;
   }
 </style>
