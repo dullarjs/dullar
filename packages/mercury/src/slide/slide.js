@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-23 11:43:53
+* @Last Modified time: 2021-09-23 13:34:14
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -43,9 +43,11 @@ export default defineComponent({
       }
     },
     deregister() {
-      const groups = EventBus.$data.globalProperties[this.groupName];
-      if (groups && groups[this.uid]) {
-        delete EventBus.$data.globalProperties[this.groupName][this.uid];
+      if (this.groupName && this.uid) {
+        const groups = EventBus.$data.globalProperties[this.groupName];
+        if (groups && groups[this.uid]) {
+          delete EventBus.$data.globalProperties[this.groupName][this.uid];
+        }
       }
     },
     slide() {
@@ -88,14 +90,16 @@ export default defineComponent({
               that.opened = true;
             }
           }
-          const groups = EventBus.$data.globalProperties[that.groupName];
-          Object.keys(groups).map(name => {
-            if (name !== that.uid) {
-              if (groups[name].$data.opened) {
-                groups[name].reset();
+          if (that.groupName && that.uid) {
+            const groups = EventBus.$data.globalProperties[that.groupName];
+            Object.keys(groups).map(name => {
+              if (name !== that.uid) {
+                if (groups[name].$data.opened) {
+                  groups[name].reset();
+                }
               }
-            }
-          });
+            });
+          }
           that.$emit("transitionEnd", that.opened);
         }
       });
