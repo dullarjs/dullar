@@ -15,6 +15,7 @@
     ></yn-picker>
     <yn-picker
       v-model="show2"
+      :animated="'blur'"
       :columns="columns2"
       @change="handleChange"
     ></yn-picker>
@@ -22,6 +23,7 @@
       @confirm="handleConfirm"
       v-model="show3"
       :columns="columns3"
+      :animated="'scale'"
       @change="handleChange"
     ></yn-picker>
     <yn-picker
@@ -54,7 +56,14 @@ export default {
         "Beijing",
         "NewYork",
         "Shenzhen",
-        "Hongkong"
+        "Hongkong",
+        "wuhan",
+        "yicang",
+        "jignzhou",
+        "chongqing",
+        "chengdu",
+        "lasa",
+        "xinjiang"
       ],
       columns2: [
         { value: ["Shanghai", "Toyko", "Beijing", "NewYork", "Shenzhen"], defaultIndex: 2 },
@@ -71,7 +80,8 @@ export default {
   },
   methods: {
     handleChange(pick, index) {
-      this.Toast(`选择第${index}个，值为${pick.value || pick }`);
+      // this.Toast(`选择第${index}个，值为${pick.value || pick }`);
+      console.log(`选择第${index}个，值为${pick.value || pick }`);
     },
     handleClick(i) {
       this[`show${i}`] = !this[`show${i}`];

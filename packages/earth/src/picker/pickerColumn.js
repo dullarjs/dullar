@@ -57,7 +57,11 @@ export default defineComponent({
     // },
     swipeDuration: {
       type: [String, Number],
-      default: 1000,
+      default: 300,
+    },
+    animated: {
+      type: String,
+      default: "all",
     },
   },
   initPropsToData() {
@@ -68,6 +72,7 @@ export default defineComponent({
   },
   data() {
     return {
+      inertialMoving: false,
       duration: 0,
       offset: 0,
     };
@@ -94,11 +99,39 @@ export default defineComponent({
       return range(Math.round(-offset / this.itemHeight), 0, this.count - 1);
     },
     momentum(distance, duration) {
+      this.inertialMoving = true;
       const speed = Math.abs(distance / duration);
       distance = this.offset + (speed / 0.003) * (distance < 0 ? -1 : 1);
-      const index = this.getIndexByOffset(distance);
+      const endIndex = this.getIndexByOffset(distance);
       this.duration = +this.swipeDuration;
-      this.setIndex(index, true);
+      if (this.currentIndex === endIndex) {
+        return;
+      }
+      let addIndex = true;
+      // 终止时endIndex 大于 currentIndex, 则向上滑动 offset 负增长
+      if (this.currentIndex > endIndex) {
+        // 终止时endIndex 小于 currentIndex, 则向下滑动 offset 负减少
+        addIndex = false;
+      }
+      const step = () => {
+        if (!this.inertialMoving) {
+          return;
+        }
+        let dist;
+        if (addIndex) {
+          dist = this.offset - this.itemHeight;
+        } else {
+          dist = this.offset + this.itemHeight;
+        }
+        const index = this.getIndexByOffset(dist);
+        this.setIndex(index, true);
+        if (this.currentIndex !== endIndex) {
+          window.requestAnimationFrame(step);
+        } else {
+          this.inertialMoving = false;
+        }
+      };
+      step();
     },
     adjustIndex(index) {
       index = range(index, 0, this.count);
@@ -124,18 +157,22 @@ export default defineComponent({
       };
       // trigger the change event after transitionend when moving
       if (this.moving && offset !== this.offset) {
-        this.transitionEndTrigger = trigger;
+        // this.transitionEndTrigger = trigger;
+        trigger();
+      } else if (this.inertialMoving && offset !== this.offset) {
+        // this.transitionEndTrigger = trigger;
+        trigger();
       } else {
         trigger();
       }
       this.offset = offset;
     },
     stopMomentum() {
-      this.moving = false;
-      this.duration = 0;
+      // this.moving = false;
+      // this.duration = 0;
       if (this.transitionEndTrigger) {
-        this.transitionEndTrigger();
-        this.transitionEndTrigger = null;
+        // this.transitionEndTrigger();
+        // this.transitionEndTrigger = null;
       }
     },
     drag() {
@@ -146,6 +183,7 @@ export default defineComponent({
       const that = this;
       this.bindEvent(el, {
         start() {
+          that.inertialMoving = false; // 停止 惯性滑动
           if (that.moving) {
             const translateY = getElementsTranslate(that.$refs.wrapper).y;
             that.offset = Math.min(0, translateY - that.baseOffset);
@@ -169,11 +207,14 @@ export default defineComponent({
             -(that.count * that.itemHeight),
             that.itemHeight
           );
+
           const now = Date.now();
           if (now - that.touchStartTime > MOMENTUM_LIMIT_TIME) {
             that.touchStartTime = now;
             that.momentumOffset = that.offset;
           }
+          const index = that.getIndexByOffset(that.offset);
+          that.setIndex(index, true);
         },
         stop() {
           const distance = that.offset - that.momentumOffset;
@@ -186,9 +227,9 @@ export default defineComponent({
             return;
           }
 
-          const index = that.getIndexByOffset(that.offset);
-          that.duration = DEFAULT_DURATION;
-          that.setIndex(index, true);
+          // const index = that.getIndexByOffset(that.offset);
+          // that.duration = DEFAULT_DURATION;
+          // that.setIndex(index, true);
 
           // compatible with desktop scenario
           // use setTimeout to skip the click event triggered after touchstart
@@ -202,11 +243,39 @@ export default defineComponent({
       this.stopMomentum();
     },
     handleItemClick(index) {
-      if (this.moving) {
+      if (this.moving || this.inertialMoving) {
         return;
       }
       this.duration = DEFAULT_DURATION;
       this.setIndex(index, true);
+    },
+    createLiEle(h, column, key, isObj, text) {
+      let colorFactor = this.animated === "scale" ? 1 : 0.7; //只有大小渐变
+      let scaleFactor = this.animated === "blur" ? 1 : 0.7; //只有颜色渐变
+      const powTimes = Math.abs(this.currentIndex - key);
+      const colorPowTimes = Number(Math.pow(colorFactor, powTimes).toFixed(2));
+      const scalePowTimes = Number(Math.pow(scaleFactor, powTimes).toFixed(2));
+      return h(
+        "li",
+        {
+          class: [isObj && column.disabled ? "disabled" : ""],
+          on: { click: this.handleItemClick.bind(this, key) },
+          key,
+        },
+        [
+          h(
+            "span",
+            {
+              style: {
+                color: `rgba(42, 42, 42, ${colorPowTimes})`,
+                transform: `scale(${scalePowTimes})`,
+              },
+              class: ["col-text"],
+            },
+            text
+          ),
+        ]
+      );
     },
   },
   watch: {
@@ -235,15 +304,7 @@ export default defineComponent({
         Array.apply(null, polyfill(this.columns)).map((column, key) => {
           const isObj = isObject(column);
           const text = isObj ? column.value : column;
-          return h(
-            "li",
-            {
-              class: [isObj && column.disabled ? "disabled" : ""],
-              on: { click: this.handleItemClick.bind(this, key) },
-              key,
-            },
-            text
-          );
+          return this.createLiEle(h, column, key, isObj, text);
         })
       ),
     ]);
