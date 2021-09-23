@@ -35,8 +35,8 @@
     <span @click="handleDeleteDOM">通过DOM删除</span>
     <ul class="dom">
       <li v-for="(item, key) in list" :key="key">
-        <yn-slide groupName="xxx" :uid="item.id" @transitionEnd="(opened) => handleTransitionEnd(opened, item)" :width="60" :trigger="20" class="four" ref="slide">
-          <template v-slot:content>一个按钮，尝试左滑呢？</template>
+        <yn-slide groupName="xxx" :uid="item.id" :width="60" :trigger="20" class="four" ref="slide">
+          <template v-slot:content>{{ item.id }}一个按钮，尝试左滑呢？</template>
           <template v-slot:buttons>
             <span class="buttons" @click="handleClick('确认', true)">确定</span>
           </template>
@@ -73,10 +73,6 @@ export default {
     },
     handleDelete() {
       this.list.pop();
-    },
-    handleTransitionEnd(a, b) {
-      b.disabled = a;
-      console.log(a, b);
     },
     handleClick(msg, reset = false) {
       this.Toast(msg);
