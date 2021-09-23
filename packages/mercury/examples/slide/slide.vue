@@ -35,7 +35,7 @@
     <span @click="handleDeleteDOM">通过DOM删除</span>
     <ul class="dom">
       <li v-for="(item, key) in list" :key="key">
-        <yn-slide groupName="xxx" :uid="item.id" @transitionEnd="(opened) => handleTransitionEnd(opened, item)" :width="60" :trigger="20" class="one" ref="slide">
+        <yn-slide groupName="xxx" :uid="item.id" @transitionEnd="(opened) => handleTransitionEnd(opened, item)" :width="60" :trigger="20" class="four" ref="slide">
           <template v-slot:content>一个按钮，尝试左滑呢？</template>
           <template v-slot:buttons>
             <span class="buttons" @click="handleClick('确认', true)">确定</span>
@@ -54,6 +54,14 @@ export default {
         { id: "aaaaa" },
         { id: "bbbbb" },
         { id: "ccccc" },
+        { id: "ddddd" },
+        { id: "eeeee" },
+        { id: "fffff" },
+        { id: "ggggg" },
+        { id: "hhhhh" },
+        { id: "iiiii" },
+        { id: "jjjjj" },
+        { id: "kkkkk" },
       ]
     };
   },
@@ -93,6 +101,9 @@ export default {
     background: #ccc;
     margin: 20px auto;
   }
+  ul.dom li {
+    margin: 1px auto;
+  }
   .one {
     background: red;
   }
@@ -101,6 +112,9 @@ export default {
   }
   .three {
     background: green;
+  }
+  .four {
+    background: purple;
   }
   .buttons {
     background: #eee;
