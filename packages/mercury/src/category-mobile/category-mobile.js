@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-12 18:14:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-22 14:45:45
+ * @Last Modified time: 2021-09-23 19:31:48
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -16,6 +16,16 @@ export default defineComponent({
   name: "CategoryMobile",
   components: { Flex, FlexItem, Spin, PullRefresh },
   props: {
+    topDraggingTip: {
+      type: String,
+      default: "下拉继续浏览",
+    },
+    topTipFixed: Boolean,
+    bottomDraggingTip: {
+      type: String,
+      default: "上拉继续浏览",
+    },
+    bottomTipFixed: Boolean,
     preload: {
       type: String,
       default: ""
@@ -102,20 +112,23 @@ export default defineComponent({
       this.$emit("itemClick", { ...e });
     },
     handlePull(e) {
-      const { direction } = e;
+      const { direction, status } = e;
+      this.$emit("pullRefresh", { ...e, currentTab: this.currentTab });
       const length = this.categories.length;
       let currentTab = this.currentTab;
-      if (direction === "top") {
-        if (currentTab > 0) {
-          currentTab -= 1;
+      if (status === "stoped") {
+        if (direction === "top") {
+          if (currentTab > 0) {
+            currentTab -= 1;
+          }
+        } else if (direction === "bottom") {
+          if (currentTab < length) {
+            currentTab += 1;
+          }
         }
-      } else if (direction === "bottom") {
-        if (currentTab < length) {
-          currentTab += 1;
-        }
+        const cat = this.categories[currentTab];
+        this.handleListClick({ cat, key: currentTab });
       }
-      const cat = this.categories[currentTab];
-      this.handleListClick({ cat, key: currentTab });
     },
     handleError(e) {
       const { target } = e;
@@ -172,6 +185,7 @@ export default defineComponent({
                       genComponentName("pull-refresh"),
                       {
                         class: ["category-pull-refresh"],
+                        props: { topTipFixed: this.topTipFixed, bottomTipFixed: this.bottomTipFixed, topDraggingTip: this.topDraggingTip, bottomDraggingTip: this.bottomDraggingTip },
                         ref: "pullRefresh",
                         on: {
                           pullRefresh: this.handlePull,
