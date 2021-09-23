@@ -8,10 +8,27 @@
 import { defineComponent } from "../modules/component";
 const paddingHeight = 10;
 const barHeight = 16;
-const avatarSize = 80;
+const avatarSize = 120;
 export default defineComponent({
   name: "Skeleton",
   props: {
+    whiteSpace: {
+      type: Array,
+      default() {
+        return [
+          {
+            row: 1,
+            align: "right",
+            width: 0.5,
+          },
+          {
+            row: 10,
+            align: "left",
+            width: 0.7,
+          },
+        ];
+      },
+    },
     margin: String,
     rows: {
       type: [String, Number],
@@ -28,7 +45,33 @@ export default defineComponent({
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    createWhiteSpace(h) {
+      return this.whiteSpace.map((item) => {
+        const { align, width, row } = item;
+        let style = {
+          width: `calc((100% - ${
+            this.avatar ? avatarSize + 10 : 0
+          }px) * ${width})`,
+          height: barHeight + "px",
+          top: barHeight * (row - 1) + (row - 1) * paddingHeight + "px",
+        };
+        if (align === "right") {
+          style.right = "0px";
+        } else if (align === "left") {
+          style.left = `${this.avatar ? avatarSize + 10 : 0}px`;
+        }
+        return h(
+          "div",
+          {
+            style,
+            class: ["background-masker"],
+          },
+          []
+        );
+      });
+    },
+  },
   render(h) {
     const avatarClass = this.avatar ? "avatar" : "";
     const rows = parseInt(this.rows);
@@ -49,7 +92,7 @@ export default defineComponent({
               { class: ["background-masker", "header-left", avatarClass] },
               []
             ),
-            h("div", { class: ["background-masker", "header-right"] }, []),
+            // h("div", { class: ["background-masker", "header-right"] }, []),
             ...Array.apply(null, { length: rows }).map((row, index) => {
               return h(
                 "div",
@@ -63,15 +106,16 @@ export default defineComponent({
                 []
               );
             }),
-            h(
-              "div",
-              {
-                class: ["background-masker", "subheader-left", avatarClass],
-                style: { height: `${boxHeight - avatarSize}px` },
-              },
-              []
-            ),
-            h("div", { class: ["background-masker", "subheader-right"] }, []),
+            // h(
+            //   "div",
+            //   {
+            //     class: ["background-masker", "subheader-left", avatarClass],
+            //     style: { height: `${boxHeight - avatarSize}px` },
+            //   },
+            //   []
+            // ),
+            ...this.createWhiteSpace(h),
+            // h("div", { class: ["background-masker", "subheader-right"] }, []),
           ]
         ),
       ]
