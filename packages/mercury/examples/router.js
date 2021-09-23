@@ -48,6 +48,7 @@ import Tooltip from "./tooltip/tooltip.vue";
 import Input from "./input/input";
 import Tree from "./tree/tree.vue";
 import Slide from "./slide/slide.vue";
+import Image from "./image/image.vue";
 const router = new Router({
   routes: [{
       path: "/",
@@ -238,8 +239,7 @@ const router = new Router({
       path: "/tree",
       name: "tree",
       component: Tree
-    }
-    ,
+    },
     {
       path: "/input",
       name: "input",
@@ -254,6 +254,11 @@ const router = new Router({
       path: "/slide",
       name: "slide",
       component: Slide
+    },
+    {
+      path: "/image",
+      name: "image",
+      component: Image
     }
   ]
 });

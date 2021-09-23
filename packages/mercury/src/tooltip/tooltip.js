@@ -62,20 +62,12 @@ export default defineComponent({
       const triger = this.$refs.trigger.children[0];
       // 根据trigger监听特定事件
       if (this.trigger === "hover") {
-        this._mouseenterEvent = bind(
-          triger,
-          "mouseenter",
-          () => {
-            this.show = true;
-          }
-        );
-        this._mouseleaveEvent = bind(
-          triger,
-          "mouseleave",
-          () => {
-            this.show = false;
-          }
-        );
+        this._mouseenterEvent = bind(triger, "mouseenter", () => {
+          this.show = true;
+        });
+        this._mouseleaveEvent = bind(triger, "mouseleave", () => {
+          this.show = false;
+        });
       } else if (this.trigger === "focus") {
         this._focusEvent = bind(triger, "focus", () => {
           this.show = true;
@@ -172,55 +164,62 @@ export default defineComponent({
     return h(
       "div",
       {
-        class: [
-          `yn-tooltip-placement-${placement}`,
-          `yn-tooltip`,
-          effect === "light" ? `yn-tooltip-light` : "",
-        ],
+        class: "yn-tooltip-box",
       },
       [
         h(
           "div",
           {
-            ref: "trigger",
-          },
-          [this.slots()]
-        ),
-        h(
-          "div",
-          {
-            ref: `popover`,
-            prop: {
-              role: "tooltip",
-            },
-            on: {
-              mouseenter: () => (this.show = true),
-              mouseleave: () => {
-                if (this.trigger !== "click") {
-                  this.show = false;
-                }
-              },
-            },
-            class: ["yn-tooltip-content", show ? "visible" : ""],
+            class: [
+              `yn-tooltip-placement-${placement}`,
+              `yn-tooltip`,
+              effect === "light" ? `yn-tooltip-light` : "",
+            ],
           },
           [
             h(
               "div",
               {
-                class: ["yn-tooltip-arrow"],
+                style: {
+                  zIndex: 2,
+                },
+                ref: "trigger",
               },
-              ""
+              [this.slots()]
             ),
-            // h('span', {
-            //   role: "tooltip",
-            //   class: ['yn-tooltip-inner']
-            // }, [this.content || this.slots('content')])
             h(
               "div",
               {
-                class: ["yn-tooltip-inner"],
+                ref: `popover`,
+                prop: {
+                  role: "tooltip",
+                },
+                on: {
+                  mouseenter: () => (this.show = true),
+                  mouseleave: () => {
+                    if (this.trigger !== "click") {
+                      this.show = false;
+                    }
+                  },
+                },
+                class: ["yn-tooltip-content", show ? "visible" : ""],
               },
-              [this.content || this.slots("content")]
+              [
+                h(
+                  "div",
+                  {
+                    class: ["yn-tooltip-arrow"],
+                  },
+                  ""
+                ),
+                h(
+                  "div",
+                  {
+                    class: ["yn-tooltip-inner"],
+                  },
+                  [this.content || this.slots("content")]
+                ),
+              ]
             ),
           ]
         ),
