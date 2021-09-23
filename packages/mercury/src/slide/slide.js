@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-22 16:56:25
+* @Last Modified time: 2021-09-23 11:43:53
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -11,6 +11,7 @@ import { slotsMixins } from "../mixins/slots";
 import { preventDefault } from "../modules/event";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
+import { EventBus } from "../modules/event/bus";
 export default defineComponent({
   name: "Slide",
   mixins: [touchMixins, slotsMixins],
@@ -23,7 +24,9 @@ export default defineComponent({
     trigger: {
       type: Number,
       default: 10
-    }
+    },
+    groupName: String,
+    uid: String
   },
   data() {
     return {
@@ -35,7 +38,15 @@ export default defineComponent({
   methods: {
     reset() {
       const dom = this.$refs.container;
-      dom.style.transform = `translate3D(0, 0, 0)`;
+      if (dom) {
+        dom.style.transform = `translate3D(0, 0, 0)`;
+      }
+    },
+    deregister() {
+      const groups = EventBus.$data.globalProperties[this.groupName];
+      if (groups && groups[this.uid]) {
+        delete EventBus.$data.globalProperties[this.groupName][this.uid];
+      }
     },
     slide() {
       const that = this;
@@ -51,6 +62,7 @@ export default defineComponent({
             target.style.transform = `translate3D(${that.bounceDeltaX}px, 0, 0)`;
           } else {
             target.style.transform = `translate3D(${-(that.buttonWidth - that.bounceDeltaX)}px, 0, 0)`;
+
           }
         },
         stop(event) {
@@ -76,12 +88,32 @@ export default defineComponent({
               that.opened = true;
             }
           }
+          const groups = EventBus.$data.globalProperties[that.groupName];
+          Object.keys(groups).map(name => {
+            if (name !== that.uid) {
+              if (groups[name].$data.opened) {
+                groups[name].reset();
+              }
+            }
+          });
+          that.$emit("transitionEnd", that.opened);
         }
       });
     }
   },
   mounted() {
+    // EventBus
+    if (this.groupName && this.uid) {
+      const groups =  EventBus.$data.globalProperties[this.groupName] || {};
+      EventBus.$set(EventBus.$data.globalProperties, this.groupName, { ...groups, [this.uid]: this });
+    }
     this.slide();
+  },
+  destroyed() {
+    this.deregister();
+  },
+  deactivated() {
+    this.deregister();
   },
   render(h) {
     const buttons = this.slots("buttons");
