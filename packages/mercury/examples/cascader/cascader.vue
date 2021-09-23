@@ -7,24 +7,24 @@
 -->
 <template>
   <div>
-    <h2>yn-category-select</h2>
-    <yn-category-select
+    <h2>yn-cascader</h2>
+    <yn-cascader
       :categories="leaveOne"
       v-on:handleClick="handleClick"
-    ></yn-category-select>
-    <yn-category-select
+    ></yn-cascader>
+    <yn-cascader
       :categories="leaveTwo"
       v-on:handleClick="handleClick"
-    ></yn-category-select>
-    <yn-category-select
+    ></yn-cascader>
+    <yn-cascader
       :categories="leaveThree"
       v-on:handleClick="handleClick"
-    ></yn-category-select>
+    ></yn-cascader>
   </div>
 </template>
 <script>
 export default {
-  name: "YnCategorySelectPage",
+  name: "YnCascaderPage",
   data() {
     return {
       leaveOne: [

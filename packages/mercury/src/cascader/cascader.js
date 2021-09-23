@@ -1,13 +1,13 @@
 /*
  * @Author: yegl
  * @Date: 2021-08-02 09:17:29
- * @Last Modified by: yegl
- * @Last Modified time: 2021-08-02 18:14:17
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2021-09-23 16:35:35
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent } from "../modules/component";
 export default defineComponent({
-  name: "CategorySelect",
+  name: "Cascader",
   props: {
     categories: {
       type: Array,
