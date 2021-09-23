@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-23 14:25:12
+* @Last Modified time: 2021-09-23 15:52:54
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -67,7 +67,24 @@ export default defineComponent({
           }
         },
         stop(event) {
-          if (that.direction === "vertical" || that.deltaX === 0) return;
+          if (that.groupName && that.uid) {
+            const groups = EventBus.$data.globalProperties[that.groupName];
+            Object.keys(groups).map(name => {
+              if (name !== that.uid) {
+                if (groups[name].$data.opened || groups[name].$data.dragging) {
+                  groups[name].reset();
+                } else {
+                  if (groups[name].$data.dragging) {
+                    groups[name].reset();
+                  }
+                }
+              }
+            });
+          }
+          if (that.direction === "vertical" || that.deltaX === 0) {
+            that.reset();
+            return;
+          }
           const { target } = event;
           // if (that.deltaX > 0 && !that.opened || that.deltaX === 0) return;
           that.dragging = false;
@@ -88,16 +105,6 @@ export default defineComponent({
               target.style.transform = `translate3D(-${that.buttonWidth}px, 0, 0)`;
               that.opened = true;
             }
-          }
-          if (that.groupName && that.uid) {
-            const groups = EventBus.$data.globalProperties[that.groupName];
-            Object.keys(groups).map(name => {
-              if (name !== that.uid) {
-                if (groups[name].$data.opened || groups[name].$data.dragging) {
-                  groups[name].reset();
-                }
-              }
-            });
           }
           that.$emit("transitionEnd", that.opened);
         }
