@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>radiobox</h2>
+    <h3>dot 类型</h3>
     <ul>
       <li>
         <yn-radiobox v-model="value"></yn-radiobox>
@@ -16,6 +17,25 @@
       </li>
       <li>
         <yn-radiobox v-model="disabledValue" disabled></yn-radiobox>
+        <span>非激活不可选状态</span>
+      </li>
+    </ul>
+    <h3>check 类型</h3>
+    <ul>
+      <li>
+        <yn-radiobox v-model="value" type="check"></yn-radiobox>
+        <span>激活可选状态{{ value }}</span>
+      </li>
+      <li>
+        <yn-radiobox v-model="value" disabled type="check"></yn-radiobox>
+        <span>激活不可选状态{{ value }}</span>
+      </li>
+      <li>
+        <yn-radiobox v-model="disabledValue" type="check"></yn-radiobox>
+        <span>非激活可选状态</span>
+      </li>
+      <li>
+        <yn-radiobox v-model="disabledValue" disabled type="check"></yn-radiobox>
         <span>非激活不可选状态</span>
       </li>
     </ul>
