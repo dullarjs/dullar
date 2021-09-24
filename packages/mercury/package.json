@@ -1,6 +1,6 @@
 {
   "name": "@dullar/mercury",
-  "version": "0.2.26",
+  "version": "0.2.27-alpha.0",
   "description": "Advanced and highly reusable Mobile UI Components built on Vue2 & You can define your own UI library by yourself.",
   "publishConfig": {
     "access": "public"
