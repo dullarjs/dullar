@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-08-25 11:04:33
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-23 20:09:37
+* @Last Modified time: 2021-09-24 09:16:27
 * @E-mail: justbefree@126.com
 */
 import Vue from "vue";
@@ -41,7 +41,7 @@ import { YnSwipe } from "./swipe";
 import { YnSwipeItem } from "./swipe-item";
 import { YnTabs } from "./tabs";
 import { YnTabItem } from "./tab-item";
-import { YnCascader } from "./category-select";
+import { YnCascader } from "./cascader";
 import { YnAddress } from "./address";
 import { YnShippingAddress } from "./shipping-address";
 import { YnTree } from "./tree";
