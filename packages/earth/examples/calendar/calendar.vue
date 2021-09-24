@@ -182,10 +182,8 @@
     ></yn-calendar>
     <yn-calendar
       mode="double"
-      :roundResWeekParser="roundResWeekParser"
-      :roundResDateParser="roundResDateParser"
-      :topDateDes="['去程', '返程']"
-      :isShowTopDate="true"
+      :dateLocked="true"
+      :lockDateParse="lockDateParse"
       :before="9"
       :after="10"
       v-model="calendar10"
@@ -251,29 +249,22 @@ export default {
     },
   },
   methods: {
-    roundResDateParser(date) {
-      if (!date) {
-        return "请选择日期";
+    lockDateParse(date, type) {
+      if (type === "week") {
+        if (!date) {
+          return "";
+        } else {
+          const { week, year, month, day } = date || {};
+          const weekText = ["日", "一", "二", "三", "四", "五", "六"];
+          return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
+        }
       } else {
-        const { month, day } = date || {};
-        return `${Number(month)}月${Number(day)}日`;
-      }
-    },
-    roundResWeekParser(date) {
-      if (!date) {
-        return "";
-      } else {
-        const { week, year, month, day } = date || {};
-        const weekText = [
-          "日",
-          "一",
-          "二",
-          "三",
-          "四",
-          "五",
-          "六",
-        ];
-        return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
+        if (!date) {
+          return "请选择日期";
+        } else {
+          const { month, day } = date || {};
+          return `${Number(month)}月${Number(day)}日`;
+        }
       }
     },
     diff(start, end) {

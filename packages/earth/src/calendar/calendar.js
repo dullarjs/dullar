@@ -96,44 +96,37 @@ export default defineComponent({
       },
     },
     noticeText: String,
-    isShowTopDate: {
+    dateLocked: {
       type: Boolean,
       default: false,
     },
-    topDateDes: {
-      type: Array,
-      default() {
-        return ["入住", "离店"];
-      },
-    },
-    roundResDateParser: {
+    lockDateParse: {
       type: Function,
-      default: (date) => {
-        if (!date) {
-          return "请选择日期";
+      default: (date, type) => {
+        console.log("date:", date, "type:", type);
+        if (type === "week") {
+          if (!date) {
+            return "";
+          } else {
+            const { week, year, month, day } = date || {};
+            const weekText = [
+              "周日",
+              "周一",
+              "周二",
+              "周三",
+              "周四",
+              "周五",
+              "周六",
+            ];
+            return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
+          }
         } else {
-          const { month, day } = date || {};
-          return `${Number(month)}月${Number(day)}日`;
-        }
-      },
-    },
-    roundResWeekParser: {
-      type: Function,
-      default: (date) => {
-        if (!date) {
-          return "";
-        } else {
-          const { week, year, month, day } = date || {};
-          const weekText = [
-            "周日",
-            "周一",
-            "周二",
-            "周三",
-            "周四",
-            "周五",
-            "周六",
-          ];
-          return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
+          if (!date) {
+            return "请选择日期";
+          } else {
+            const { month, day } = date || {};
+            return `${Number(month)}月${Number(day)}日`;
+          }
         }
       },
     },
@@ -570,7 +563,7 @@ export default defineComponent({
                 {
                   class: ["yn-calendar-result-date-des"],
                 },
-                this.topDateDes[0]
+                this.fromDateMark
               ),
               h(
                 "div",
@@ -583,14 +576,14 @@ export default defineComponent({
                     {
                       class: ["yn-calendar-result-year-day"],
                     },
-                    this.roundResDateParser(this.fromDate)
+                    this.lockDateParse(this.fromDate, "day")
                   ),
                   h(
                     "span",
                     {
                       class: ["yn-calendar-result-week"],
                     },
-                    this.roundResWeekParser(this.fromDate)
+                    this.lockDateParse(this.fromDate, "week")
                   ),
                 ]
               ),
@@ -622,7 +615,7 @@ export default defineComponent({
                 {
                   class: ["yn-calendar-result-date-des"],
                 },
-                this.topDateDes[1]
+                this.toDateMark
               ),
               h(
                 "div",
@@ -635,7 +628,7 @@ export default defineComponent({
                     {
                       class: ["yn-calendar-result-year-day", placeHolderClass],
                     },
-                    this.roundResDateParser(this.toDate)
+                    this.lockDateParse(this.toDate, "day")
                   ),
                   this.toDate &&
                     h(
@@ -643,7 +636,7 @@ export default defineComponent({
                       {
                         class: ["yn-calendar-result-week"],
                       },
-                      this.roundResWeekParser(this.toDate)
+                      this.lockDateParse(this.toDate, "week")
                     ),
                 ]
               ),
@@ -668,7 +661,7 @@ export default defineComponent({
             class: ["yn-calendar-footer"],
           },
           [
-            this.isShowTopDate && this.createDateResultArea(h),
+            this.dateLocked && this.createDateResultArea(h),
             h("div", {
               class: [
                 "yn-calendar-confirm-button",
