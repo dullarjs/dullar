@@ -77,12 +77,12 @@
         </div>
         <yn-radiobox
           v-model="single"
-          @change="e => handleChange(e, 'single')"
+          @change="(e) => handleChange(e, 'single')"
         ></yn-radiobox
         ><span>单选</span>
         <yn-radiobox
           v-model="double"
-          @change="e => handleChange(e, 'double')"
+          @change="(e) => handleChange(e, 'double')"
         ></yn-radiobox
         ><span>多选</span>
         <span>已选择时间：{{ calendar8Date }}</span>
@@ -107,7 +107,7 @@
         <hr />
       </li>
     </ul>
-    <!-- <yn-calendar
+    <yn-calendar
       mode="single"
       :before="10"
       :after="10"
@@ -179,9 +179,11 @@
       after="1"
       v-model="calendar9"
       unit="year"
-    ></yn-calendar> -->
+    ></yn-calendar>
     <yn-calendar
       mode="double"
+      :roundResWeekParser="roundResWeekParser"
+      :roundResDateParser="roundResDateParser"
       :topDateDes="['去程', '返程']"
       :isShowTopDate="true"
       :before="9"
@@ -198,6 +200,7 @@
 
 <script>
 const moment = require("moment");
+import { YnDate } from "../../src/modules/date";
 export default {
   name: "YnCalendarPage",
   data() {
@@ -209,17 +212,11 @@ export default {
       calendar2Date: "",
       calendar3: false,
       calendar3Date: "",
-      defaultDate: moment()
-        .add(1, "d")
-        .format("YYYY-MM-DD"),
+      defaultDate: moment().add(1, "d").format("YYYY-MM-DD"),
       calendar4: false,
       calendar4Date: "",
-      defaultStartDate: moment()
-        .add(-4, "d")
-        .format("YYYY-MM-DD"),
-      defaultEndDate: moment()
-        .add(5, "d")
-        .format("YYYY-MM-DD"),
+      defaultStartDate: moment().add(-4, "d").format("YYYY-MM-DD"),
+      defaultEndDate: moment().add(5, "d").format("YYYY-MM-DD"),
       calendar5: false,
       calendar5Date: "",
       calendar6: false,
@@ -251,13 +248,38 @@ export default {
         return "double";
       }
       return "";
-    }
+    },
   },
   methods: {
+    roundResDateParser(date) {
+      if (!date) {
+        return "请选择日期";
+      } else {
+        const { month, day } = date || {};
+        return `${Number(month)}月${Number(day)}日`;
+      }
+    },
+    roundResWeekParser(date) {
+      if (!date) {
+        return "";
+      } else {
+        const { week, year, month, day } = date || {};
+        const weekText = [
+          "日",
+          "一",
+          "二",
+          "三",
+          "四",
+          "五",
+          "六",
+        ];
+        return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
+      }
+    },
     diff(start, end) {
       const startTime = new Date(start).getTime();
       const endTime = new Date(end).getTime();
-      return (endTime - startTime)/ 1000 / 60 / 60 / 24;
+      return (endTime - startTime) / 1000 / 60 / 60 / 24;
     },
     changeDate(date) {
       console.log(date);
@@ -269,9 +291,7 @@ export default {
       }
     },
     changeDefaultDate() {
-      this.defaultDate = moment()
-        .add(2, "d")
-        .format("YYYY-MM-DD");
+      this.defaultDate = moment().add(2, "d").format("YYYY-MM-DD");
     },
     monthTtitleParser(defaultText, { year, month }) {
       console.log("defaultText", defaultText);
@@ -334,8 +354,8 @@ export default {
           this.double = true;
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style type="text/css" scoped="scoped">

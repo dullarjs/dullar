@@ -106,7 +106,7 @@ export default defineComponent({
         return ["入住", "离店"];
       },
     },
-    topDateParser: {
+    roundResDateParser: {
       type: Function,
       default: (date) => {
         if (!date) {
@@ -117,7 +117,7 @@ export default defineComponent({
         }
       },
     },
-    topWeekParser: {
+    roundResWeekParser: {
       type: Function,
       default: (date) => {
         if (!date) {
@@ -583,14 +583,14 @@ export default defineComponent({
                     {
                       class: ["yn-calendar-result-year-day"],
                     },
-                    this.topDateParser(this.fromDate)
+                    this.roundResDateParser(this.fromDate)
                   ),
                   h(
                     "span",
                     {
                       class: ["yn-calendar-result-week"],
                     },
-                    this.topWeekParser(this.fromDate)
+                    this.roundResWeekParser(this.fromDate)
                   ),
                 ]
               ),
@@ -635,7 +635,7 @@ export default defineComponent({
                     {
                       class: ["yn-calendar-result-year-day", placeHolderClass],
                     },
-                    this.topDateParser(this.toDate)
+                    this.roundResDateParser(this.toDate)
                   ),
                   this.toDate &&
                     h(
@@ -643,7 +643,7 @@ export default defineComponent({
                       {
                         class: ["yn-calendar-result-week"],
                       },
-                      this.topWeekParser(this.toDate)
+                      this.roundResWeekParser(this.toDate)
                     ),
                 ]
               ),
@@ -656,7 +656,6 @@ export default defineComponent({
       return h("div", {}, [
         this.createCloseIcon(h),
         this.createTitle(h),
-        this.isShowTopDate && this.createDateResultArea(h),
         this.createNoticeBar(h),
         this.createWeekBar(h),
       ]);
@@ -669,6 +668,7 @@ export default defineComponent({
             class: ["yn-calendar-footer"],
           },
           [
+            this.isShowTopDate && this.createDateResultArea(h),
             h("div", {
               class: [
                 "yn-calendar-confirm-button",
