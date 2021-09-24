@@ -42,7 +42,7 @@
   "main": "lib/index/index.js",
   "types": "types/index.d.ts",
   "files": [
-    "lib/*.js",
+    "lib",
     "types/*.d.ts"
   ],
   "dependencies": {
