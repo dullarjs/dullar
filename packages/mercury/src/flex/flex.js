@@ -2,9 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-01-02 11:01:34
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-09-23 14:37:30
+ * @Last Modified time: 2021-09-24 18:30:42
  * @E-mail: justbefree@126.com
  */
+import "./style/index";
 import { defineComponent } from "../modules/component";
 import { hyphenate, camelize, isString } from "../modules/utils";
 import { slotsMixins } from "../mixins/slots";

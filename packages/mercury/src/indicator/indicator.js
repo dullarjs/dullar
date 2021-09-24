@@ -2,9 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-02-18 10:24:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-06-16 10:22:59
+ * @Last Modified time: 2021-09-24 18:31:35
  */
-
+import "./style/index";
 import { defineComponent, genComponentName } from "../modules/component";
 import { renderedMixins } from "../mixins/rendered";
 import Spin from "../spin";

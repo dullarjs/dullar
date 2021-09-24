@@ -2,9 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-12 16:21:39
+ * @Last Modified time: 2021-09-24 18:30:30
  */
-
+import "./style/index";
 import { defineComponent, genComponentName } from "../modules/component";
 import { encrypt } from "../modules/utils";
 import Flex from "../flex";

@@ -2,9 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-01-20 16:43:52
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-21 15:02:29
+ * @Last Modified time: 2021-09-24 18:32:18
  * @E-mail: justbefree@126.com
  */
+import "./style/index";
 import { defineComponent, genComponentName } from "../modules/component";
 import PopupManager from "../modules/popup/popup-manager";
 import { addClass } from "../modules/dom";

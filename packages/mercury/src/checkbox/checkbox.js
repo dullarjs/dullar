@@ -2,8 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-01-16 12:49:59
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-26 17:27:32
+ * @Last Modified time: 2021-09-24 18:30:08
  */
+import "./style/index";
 import Iconfont from "../iconfont";
 import { defineComponent, genComponentName } from "../modules/component";
 export default defineComponent({

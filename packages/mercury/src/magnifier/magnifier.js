@@ -2,9 +2,10 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-16 18:39:36
+ * @Last Modified time: 2021-09-24 18:31:49
  * @E-mail: justbefree@126.com
  */
+import "./style/index";
 import { defineComponent, genComponentName } from "../modules/component";
 import { preventDefault, stopPropagation } from "../modules/event";
 import { getOffset } from "../modules/dom";

@@ -2,10 +2,10 @@
  * @Author: liuzx
  * @Date:   2020-01-17 15:29:02
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-07 09:05:23
+ * @Last Modified time: 2021-09-24 18:33:32
  * @E-mail: justbefree@126.com
  */
-
+import "./style/index";
 import { defineComponent } from "../modules/component";
 import { slotsMixins } from "../mixins/slots";
 import { bind } from "../modules/event";

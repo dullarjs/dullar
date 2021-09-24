@@ -2,8 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:15:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-23 13:42:29
+ * @Last Modified time: 2021-09-24 18:29:42
  */
+import "./style/index";
 import { defineComponent, genComponentName } from "../modules/component";
 import Spin from "../spin";
 import Iconfont from "../iconfont";

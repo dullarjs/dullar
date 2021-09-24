@@ -1,9 +1,10 @@
 /*
  * @Author: tongh
  * @Date:   2020-08-25 10:44:56
- * @Last Modified by:   tongh
- * @Last Modified time: 2020-08-25 13:38:06
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2021-09-24 18:31:30
  */
+import "./style/index";
 import { defineComponent, genComponentName } from "../modules/component";
 import { throttle, isString } from "../modules/utils";
 import { loadImageAsync } from "../modules/utils/lazyLoad";

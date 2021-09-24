@@ -2,9 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:19:49
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-18 15:20:02
+ * @Last Modified time: 2021-09-24 18:33:23
  * @E-mail: justbefree@126.com
  */
+import "./style/index";
 import { defineComponent, genComponentName } from "../modules/component";
 const VALID_CHILD_COMPONENT = "tab-item";
 import { slotsMixins } from "../mixins/slots";

@@ -2,8 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-02-14 16:38:25
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-12-25 17:10:27
+ * @Last Modified time: 2021-09-24 18:32:54
  */
+import "./style/index";
 import { defineComponent } from "../modules/component";
 import { camelize, hyphenate } from "../modules/utils";
 import { warn } from "../modules/error";
