@@ -96,6 +96,40 @@ export default defineComponent({
       },
     },
     noticeText: String,
+    dateLocked: {
+      type: Boolean,
+      default: false,
+    },
+    lockDateParse: {
+      type: Function,
+      default: (date, type) => {
+        console.log("date:", date, "type:", type);
+        if (type === "week") {
+          if (!date) {
+            return "";
+          } else {
+            const { week, year, month, day } = date || {};
+            const weekText = [
+              "周日",
+              "周一",
+              "周二",
+              "周三",
+              "周四",
+              "周五",
+              "周六",
+            ];
+            return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
+          }
+        } else {
+          if (!date) {
+            return "请选择日期";
+          } else {
+            const { month, day } = date || {};
+            return `${Number(month)}月${Number(day)}日`;
+          }
+        }
+      },
+    },
   },
   data() {
     return {
@@ -508,6 +542,109 @@ export default defineComponent({
         ]);
       }
     },
+    createDateResultArea(h) {
+      const placeHolderClass = this.toDate
+        ? ""
+        : "yn-calendar-result-date-placeholder";
+      return h(
+        "div",
+        {
+          class: ["yn-calendar-date-result"],
+        },
+        [
+          h(
+            "div",
+            {
+              class: ["yn-calendar-reulst-left"],
+            },
+            [
+              h(
+                "span",
+                {
+                  class: ["yn-calendar-result-date-des"],
+                },
+                this.fromDateMark
+              ),
+              h(
+                "div",
+                {
+                  class: ["yn-calendar-result-date"],
+                },
+                [
+                  h(
+                    "span",
+                    {
+                      class: ["yn-calendar-result-year-day"],
+                    },
+                    this.lockDateParse(this.fromDate, "day")
+                  ),
+                  h(
+                    "span",
+                    {
+                      class: ["yn-calendar-result-week"],
+                    },
+                    this.lockDateParse(this.fromDate, "week")
+                  ),
+                ]
+              ),
+            ]
+          ),
+          h(
+            "div",
+            {
+              class: ["yn-calendar-reulst-center"],
+            },
+            [
+              h(
+                "span",
+                {
+                  class: ["yn-clendar-result-center-icon"],
+                },
+                []
+              ),
+            ]
+          ),
+          h(
+            "div",
+            {
+              class: ["yn-calendar-reulst-right"],
+            },
+            [
+              h(
+                "span",
+                {
+                  class: ["yn-calendar-result-date-des"],
+                },
+                this.toDateMark
+              ),
+              h(
+                "div",
+                {
+                  class: ["yn-calendar-result-date"],
+                },
+                [
+                  h(
+                    "span",
+                    {
+                      class: ["yn-calendar-result-year-day", placeHolderClass],
+                    },
+                    this.lockDateParse(this.toDate, "day")
+                  ),
+                  this.toDate &&
+                    h(
+                      "span",
+                      {
+                        class: ["yn-calendar-result-week"],
+                      },
+                      this.lockDateParse(this.toDate, "week")
+                    ),
+                ]
+              ),
+            ]
+          ),
+        ]
+      );
+    },
     createHeaderArea(h) {
       return h("div", {}, [
         this.createCloseIcon(h),
@@ -524,6 +661,7 @@ export default defineComponent({
             class: ["yn-calendar-footer"],
           },
           [
+            this.dateLocked && this.createDateResultArea(h),
             h("div", {
               class: [
                 "yn-calendar-confirm-button",
