@@ -22,6 +22,7 @@
   },
   "scripts": {
     "build:components": "node bin/serve && vue-cli-service build --mode production --target lib --name @dullar/mercury --dest lib src/index.js",
+    "build:commonjs2": "node bin/serve && vue-cli-service build --mode components",
     "serve": "node bin/serve && vue-cli-service serve --mode development",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
@@ -38,7 +39,7 @@
       "git add"
     ]
   },
-  "main": "lib/@dullar/mercury.umd.min.js",
+  "main": "lib/index/index.js",
   "types": "types/index.d.ts",
   "files": [
     "lib/*.js",
