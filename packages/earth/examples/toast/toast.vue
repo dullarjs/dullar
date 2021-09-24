@@ -4,6 +4,7 @@
     <ul>
       <li @click="toast('middle')">toast middle</li>
       <li @click="toast('bottom')">toast bottom</li>
+      <li @click="toast1">toast default</li>
     </ul>
   </div>
 </template>
@@ -16,6 +17,9 @@ export default {
   methods: {
     toast(position) {
       this.Toast({ message: `hello , ${position}`, position });
+    },
+    toast1() {
+      this.Toast({ message: `hello , default` });
     }
   }
 };

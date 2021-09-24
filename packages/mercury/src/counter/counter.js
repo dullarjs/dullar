@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-06-15 10:01:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-13 13:26:40
+ * @Last Modified time: 2021-09-23 17:24:20
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -37,6 +37,14 @@ export default defineComponent({
     editable: {
       type: Boolean,
       default: false
+    },
+    iconSize: {
+      type: Number,
+      default: 10
+    },
+    height: {
+      type: Number,
+      default: 30
     }
   },
   initPropsToData() {
@@ -46,6 +54,11 @@ export default defineComponent({
     value: function (n) {
       this.set(n);
     },
+  },
+  computed: {
+    style() {
+      return { height: `${this.height}px`, lineHeight: `${this.height}px` }
+    }
   },
   methods: {
     set(val) {
@@ -125,23 +138,25 @@ export default defineComponent({
           genComponentName("iconfont"),
           {
             on: { click: this.subtract },
+            style: { ...this.style },
             class: ["yn-counter-subtract", leftButtonClass],
-            props: { name: "minus", size: 13 },
+            props: { name: "minus", size: this.iconSize },
           },
           []
         ),
         [
           this.editable ?
-            h("input", { ref: "countInput", class: ["yn-counter-input"], attrs: { type: "number", value: this.count }, on: { blur: this.handleBlur, focus: this.handleFocus } }, [])
+            h("input", { style: { ...this.style }, ref: "countInput", class: ["yn-counter-input"], attrs: { type: "number", value: this.count }, on: { blur: this.handleBlur, focus: this.handleFocus } }, [])
             :
-            h("span", { class: ["yn-counter-screen"] }, [this.count])
+            h("span", { style: { ...this.style }, class: ["yn-counter-screen"] }, [this.count])
         ],
         h(
           genComponentName("iconfont"),
           {
             on: { click: this.add },
+            style: { ...this.style },
             class: ["yn-counter-plus", rightButtonClass],
-            props: { name: "add", size: 13 },
+            props: { name: "add", size: this.iconSize },
           },
           []
         ),

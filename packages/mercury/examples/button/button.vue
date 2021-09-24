@@ -30,13 +30,31 @@
     <hr />
     <yn-button :loading="true" loadingText="loading text">plain</yn-button>
     <hr />
-    <yn-button iconName="iconback" iconColor="red">button with icon</yn-button>
+    <yn-button iconName="iconback">button with icon</yn-button>
+    <hr>
+    <yn-button :loading="textLoading" @click="hanldeTextClick" type="text">text</yn-button>
+    <hr>
   </div>
 </template>
 <script>
 export default {
   name: "YnButtonPage",
+  data() {
+    return {
+      textLoading: true
+    }
+  },
+  mounted() {
+    this.hanldeTextClick();
+  },
   methods: {
+    hanldeTextClick() {
+      console.log("点击了；");
+      this.textLoading = true;
+      setTimeout(() => {
+        this.textLoading = false;
+      }, 1000);
+    },
     handleClick() {
       console.log("接收到click事件");
       alert("我被点击了~~");

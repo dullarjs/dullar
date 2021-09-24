@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-16 18:17:44
+ * @Last Modified time: 2021-09-16 18:39:36
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -68,13 +68,7 @@ export default defineComponent({
         width: `${length * 60 + length * margin}px`,
         marginLeft: `${this.steps * (60 + margin)}px`,
       };
-    },
-    zoomStyle() {
-      return {
-        backgroundSize: "110%",
-        backgroundImage: `url(${this.images[this.previewIndex]})`,
-      };
-    },
+    }
   },
   methods: {
     handleAfterEnter() {
@@ -346,9 +340,6 @@ export default defineComponent({
                 {
                   ref: "a",
                   attrs: { href: "javascript:;" },
-                  style: {
-                    ...this.zoomStyle,
-                  }
                 },
                 [
                   h("div", { class: ["image-gallery-box"] },

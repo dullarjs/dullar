@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-13 15:25:43
+ * @Last Modified time: 2021-09-23 16:38:19
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -35,7 +35,7 @@ import Skeleton from "./skeleton/skeleton.vue";
 import AnimationList from "./animation-list/list.vue";
 import Category from "./category/category.vue";
 import Magnifier from "./magnifier/magnifier.vue";
-import CategorySelect from "./category-select/categorySelect.vue";
+import Cascader from "./cascader/cascader.vue";
 import Pagination from "./pagination/pagination.vue";
 import Table from "./table/table.vue";
 import ShippingAddress from "./shipping-address/shippingAddress.vue";
@@ -48,6 +48,7 @@ import Tooltip from "./tooltip/tooltip.vue";
 import Input from "./input/input";
 import Tree from "./tree/tree.vue";
 import Slide from "./slide/slide.vue";
+import Image from "./image/image.vue";
 const router = new Router({
   routes: [{
       path: "/",
@@ -200,9 +201,9 @@ const router = new Router({
       component: Magnifier
     },
     {
-      path: "/category-select",
-      name: "categorySelect",
-      component: CategorySelect
+      path: "/cascader",
+      name: "cascader",
+      component: Cascader
     },
     {
       path: "/pagination",
@@ -238,8 +239,7 @@ const router = new Router({
       path: "/tree",
       name: "tree",
       component: Tree
-    }
-    ,
+    },
     {
       path: "/input",
       name: "input",
@@ -254,6 +254,11 @@ const router = new Router({
       path: "/slide",
       name: "slide",
       component: Slide
+    },
+    {
+      path: "/image",
+      name: "image",
+      component: Image
     }
   ]
 });

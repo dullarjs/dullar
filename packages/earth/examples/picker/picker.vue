@@ -15,6 +15,7 @@
     ></yn-picker>
     <yn-picker
       v-model="show2"
+      :animated="'blur'"
       :columns="columns2"
       @change="handleChange"
     ></yn-picker>
@@ -22,6 +23,7 @@
       @confirm="handleConfirm"
       v-model="show3"
       :columns="columns3"
+      :animated="'scale'"
       @change="handleChange"
     ></yn-picker>
     <yn-picker

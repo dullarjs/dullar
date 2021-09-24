@@ -49,6 +49,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    animated: {
+      type: String,
+      default: "all",
+    },
   },
   data() {
     return {
@@ -190,6 +194,7 @@ export default defineComponent({
                     defaultIndex: column.defaultIndex || 0,
                     columns: columnsProps,
                     itemHeight: this.itemHeight,
+                    animated: this.animated,
                   },
                 },
                 []

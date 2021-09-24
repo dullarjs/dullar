@@ -2,15 +2,16 @@
   <div class="category-content">
     <h2>yn-category-mobile</h2>
     <div class="container">
-      <yn-category-mobile :categories="categories" :category="getCategory()"></yn-category-mobile>
+      <yn-category-mobile :bottomDraggingTip="bottomDraggingTip" :topDraggingTip="topDraggingTip" @pullRefresh="handlePullRefresh" :mapKeys="mapKeys" :preload="preload" :categories="categories" :category="getCategory()"></yn-category-mobile>
     </div>
   </div>
 </template>
 <script type="text/javascript">
 const categories = require("./categories.json").RECORDS;
 const secCategory = require("./sec-category.json").data;
-console.log("sec = ", secCategory);
+const preload = require("./preload.svg");
 const firstClassCategory = [];
+console.log(preload);
 categories.forEach(cat => {
   if (cat.cat_desc === "一级分类") {
     firstClassCategory.push(cat);
@@ -20,12 +21,20 @@ firstClassCategory.forEach(cat => {
   cat.id = cat.cat_id;
   cat.label = cat.cat_name;
 });
-console.log(firstClassCategory);
 export default {
   name: "YnCategoryMobilePage",
   data() {
     return {
       categories: [],
+      preload,
+      mapKeys: {
+        id: "id",
+        label: "label",
+        imgUrl: "touchIcon",
+        children: "children",
+      },
+      topDraggingTip: "下拉继续浏览",
+      bottomDraggingTip: "上拉继续浏览"
     };
   },
   created() {
@@ -34,6 +43,26 @@ export default {
     }, 1000);
   },
   methods: {
+    handlePullRefresh(e) {
+      const { direction, status, currentTab } = e;
+      if (status === "dragging") {
+        if (direction === "top") {
+          if (currentTab === 0) {
+            this.topDraggingTip = "到顶啦";
+          } else {
+            const cat = this.categories[currentTab - 1];
+            this.topDraggingTip = `下拉继续浏览${cat.cat_name}`;
+          }
+        } else {
+          if (currentTab === this.categories.length - 1) {
+            this.bottomDraggingTip = "到底啦";
+          } else {
+            const cat = this.categories[currentTab + 1];
+            this.bottomDraggingTip = `上拉继续浏览${cat.cat_name}`;
+          }
+        }
+      }
+    },
     processingData(category) {
       // 处理数据
       const result = [];
@@ -51,7 +80,6 @@ export default {
           cat.id = cat.catId;
           cat.label = cat.catName;
           Array.isArray(cat.children) && cat.children.forEach(subCat => {
-            console.log("ddd", subCat);
             subCat.id = subCat.catId;
             subCat.label = subCat.catName;
           });

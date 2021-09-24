@@ -2,14 +2,14 @@
  * @Author: Just be free
  * @Date:   2020-04-14 10:41:41
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-04-14 11:34:02
+ * @Last Modified time: 2021-09-19 17:43:01
  * @E-mail: justbefree@126.com
  */
 const p = (image) => {
   const promise = new Promise((resolve, reject) => {
     const img = new Image();
     if (!image || !image.src) {
-      const err = new Error("image src is required");
+      const err = new Error("img src attribute is required");
       reject(err);
     }
     img.src = image.src;
@@ -20,6 +20,9 @@ const p = (image) => {
         src: image.src,
       });
     };
+    img.onerror = function () {
+      reject(false);
+    }
   });
   return promise;
 };

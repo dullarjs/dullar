@@ -17,7 +17,6 @@
       <li @click="jump('dialog')">dialog</li>
       <li @click="jump('modal')">modal</li>
       <li @click="jump('pickyStepper')">pickyStepper</li>
-      <li @click="jump('dropdown')">dropdown</li>
       <li @click="jump('picker')">picker</li>
       <li @click="jump('swipe')">swipe</li>
       <li @click="jump('tabs')">tabs</li>
@@ -29,7 +28,7 @@
       <li @click="jump('animationList')">animationList</li>
       <li @click="jump('category')">category</li>
       <li @click="jump('magnifier')">magnifier</li>
-      <li @click="jump('categorySelect')">categorySelect</li>
+      <li @click="jump('cascader')">cascader</li>
       <li @click="jump('pagination')">pagination</li>
       <li @click="jump('table')">table</li>
       <li @click="jump('shippingAddress')">shippingAddress</li>
@@ -42,6 +41,7 @@
       <li @click="jump('tree')">tree</li>
       <li @click="jump('calendar')">calendar</li>
       <li @click="jump('slide')">slide</li>
+      <li @click="jump('image')">image</li>
     </ul>
   </div>
 </template>
