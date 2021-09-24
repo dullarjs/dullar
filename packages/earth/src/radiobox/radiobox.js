@@ -9,6 +9,10 @@ import Iconfont from "../iconfont";
 export default defineComponent({
   name: "Radiobox",
   props: {
+    type: {
+      type: String,
+      default: "dot",
+    },
     checked: {
       type: Boolean,
       default: false,
@@ -52,7 +56,7 @@ export default defineComponent({
             props: {
               size: this.size,
               name: this.checked
-                ? `radio-on${disabled}`
+                ? `radio-on-${this.type + disabled}`
                 : `radio-off${disabled}`,
             },
           },
