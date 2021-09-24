@@ -2,13 +2,15 @@
 * @Author: Just be free
 * @Date:   2020-09-18 18:10:49
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-09-21 11:11:11
+* @Last Modified time: 2021-09-24 15:31:16
 * @E-mail: justbefree@126.com
 */
 const path = require("path");
 const fs = require("fs");
 const chalk = require('chalk');
 const log = console.log;
+const join = path.join;
+const resolve = (dir) => path.join(__dirname, "../", dir);
 module.exports = {
   capitalize: (str = "") => {
     return str.replace(/\B([A-Z])/g, "-$1").toLowerCase();
@@ -36,5 +38,28 @@ module.exports = {
   },
   chalk: (str) => {
     log(chalk.green(str));
+  },
+  resolve,
+  getComponentEntries(path) {
+    const exculde = [".DS_Store", "mixins", "modules", "theme", "index.less", "window-events.js"];
+    let files = fs.readdirSync(resolve(path));
+    const componentEntries = files.reduce((ret, item) => {
+      console.log("item = ", item);
+      if (!exculde.includes(item)) {
+        const itemPath = join(path, item);
+        const isDir = fs.statSync(itemPath).isDirectory();
+        if (isDir) {
+          ret[item] = resolve(join(itemPath, "index.js"));
+        } else {
+          const [ name ] = item.split(".");
+          ret[name] = resolve(`${itemPath}`);
+        }
+        return ret;
+      } else {
+        return ret;
+      }
+    }, {});
+    // console.dir(componentEntries);
+    return componentEntries;
   }
 };
