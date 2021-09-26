@@ -1,13 +1,13 @@
 /*
  * @Author: yegl
  * @Date: 2021-08-02 09:17:29
- * @Last Modified by: yegl
- * @Last Modified time: 2021-08-02 18:14:17
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2021-09-23 16:42:21
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent } from "../modules/component";
 export default defineComponent({
-  name: "CategorySelect",
+  name: "Cascader",
   props: {
     categories: {
       type: Array,
@@ -41,7 +41,7 @@ export default defineComponent({
     createList(h) {
       const list = [];
       list.push(
-        h("li", { class: ["yn-category-select-li"] }, [
+        h("li", { class: ["yn-cascader-li"] }, [
           h("span", {}, ["请选择分类"]),
         ])
       );
@@ -71,11 +71,11 @@ export default defineComponent({
     return h(
       "div",
       {
-        class: ["yn-category-select"],
+        class: ["yn-cascader"],
       },
       [
-        h("div", { class: ["yn-category-select-content"] }, [
-          h("ul", { class: ["yn-category-select-ul"] }, this.createList(h)),
+        h("div", { class: ["yn-cascader-content"] }, [
+          h("ul", { class: ["yn-cascader-ul"] }, this.createList(h)),
         ]),
       ]
     );

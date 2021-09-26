@@ -1,7 +1,7 @@
 <template>
   <div class="category-content">
     <h2>yn-category</h2>
-    <yn-category :categories="category2" :category="getCategory()" @pick="handlePicked"></yn-category>
+    <yn-category :delay="80" :categories="category2" :category="getCategory()" @pick="handlePicked"></yn-category>
   </div>
 </template>
 <script type="text/javascript">

@@ -8,6 +8,7 @@
       background: #f1f1f1;
       height: 100%;
       .ul-scroll {
+        width: 100px;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -15,13 +16,21 @@
         height: 100%;
         li {
           font-size: 14px;
-          line-height: 40px;
           text-align: center;
-          border-left: 3px solid transparent;
+          height: 40px;
           color: #666;
+          span {
+            border-left: 3px solid transparent;
+            display: inline-block;
+            width: 100%;
+            height: 20px;
+            margin-top: 10px;
+          }
           &.active {
             background: #fff;
-            border-left: 3px solid @theme-color;
+            span {
+              border-left: 3px solid @theme-color;
+            }
           }
         }
       }
@@ -31,6 +40,9 @@
       .right-scroll {
         height: 100%;
         overflow: scroll;
+        .category-pull-refresh {
+          min-height: 100%;
+        }
         h4 {
           margin: 0 5px;
           height: 40px;

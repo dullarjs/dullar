@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:15:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-12-25 17:12:44
+ * @Last Modified time: 2021-09-23 13:42:29
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Spin from "../spin";
@@ -54,7 +54,7 @@ export default defineComponent({
   },
   methods: {
     isValidType() {
-      return ["primary", "info", "warning", "danger"].indexOf(this.type) > -1;
+      return ["primary", "info", "warning", "danger", "text"].indexOf(this.type) > -1;
     },
     isValidSize() {
       return ["large", "small", "normal"].indexOf(this.size) > -1;

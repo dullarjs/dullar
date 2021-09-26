@@ -19,6 +19,10 @@ export default defineComponent({
       type: String,
       default: "text",
     },
+    underline: {
+      type: Boolean,
+      default: false,
+    },
     maxlength: {
       type: [String, Number],
     },
@@ -49,7 +53,7 @@ export default defineComponent({
     },
     height: {
       type: [Number, String],
-      default: 20,
+      default: 34,
     },
     clear: {
       type: Boolean,
@@ -70,6 +74,10 @@ export default defineComponent({
     search: {
       type: Boolean,
       default: false,
+    },
+    fontSize: {
+      type: String,
+      default: "14px;",
     },
   },
   data() {
@@ -128,16 +136,19 @@ export default defineComponent({
     onFocus() {
       let _this = this;
       let i = _this.$refs.inputWrap;
-      i.style.border = "1px solid #139ff0";
+      i.style.borderColor = "#139ff0";
       if (_this.time) {
         _this.time = null;
       }
       _this.clearShowFn();
     },
+    mouseenter(e) {
+      console.log(e);
+    },
     onBlur() {
       let _this = this;
       let i = _this.$refs.inputWrap;
-      i.style.border = "1px solid #c6c6c6";
+      i.style.borderColor = "#dcdfe6";
       _this.time = setTimeout(function () {
         _this.clearShow = false;
       }, 200);
@@ -293,7 +304,11 @@ export default defineComponent({
             blur: this.onBlur,
           },
 
-          style: { cursor: this.cursor, width: "100px" },
+          style: {
+            cursor: this.cursor,
+            width: "100px",
+            fontSize: this.fontSize,
+          },
         }),
         ...this.createClearIcon(h),
         ...this.createShowPwdIcon(h),
@@ -315,6 +330,7 @@ export default defineComponent({
             on: {
               input: this.input,
             },
+            style: { fontSize: this.fontSize },
           })
         );
       }
@@ -326,13 +342,19 @@ export default defineComponent({
     return h(
       "div",
       {
-        class: ["yn-input-wrap"],
+        class: [
+          "yn-input-wrap",
+          this.underline ? "yn-input-wrap-underline" : undefined,
+        ],
         ref: "inputWrap",
         style: {
           width: this.width + "px",
           height: this.height + "px",
           backgroundColor: this.backgroundColor,
           cursor: this.cursor,
+          [this.underline ? "borderBottom" : "border"]: this.textArea
+            ? "none"
+            : "1px solid #dcdfe6",
         },
       },
       [...this.createTemplate(h)]

@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-15 13:49:54
+* @Last Modified time: 2021-09-23 15:52:54
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -11,6 +11,7 @@ import { slotsMixins } from "../mixins/slots";
 import { preventDefault } from "../modules/event";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
+import { EventBus } from "../modules/event/bus";
 export default defineComponent({
   name: "Slide",
   mixins: [touchMixins, slotsMixins],
@@ -23,7 +24,9 @@ export default defineComponent({
     trigger: {
       type: Number,
       default: 10
-    }
+    },
+    groupName: String,
+    uid: String
   },
   data() {
     return {
@@ -35,12 +38,23 @@ export default defineComponent({
   methods: {
     reset() {
       const dom = this.$refs.container;
-      dom.style.transform = `translate3D(0, 0, 0)`;
+      if (dom) {
+        dom.style.transform = `translate3D(0, 0, 0)`;
+      }
+    },
+    deregister() {
+      if (this.groupName && this.uid) {
+        const groups = EventBus.$data.globalProperties[this.groupName];
+        if (groups && groups[this.uid]) {
+          delete EventBus.$data.globalProperties[this.groupName][this.uid];
+        }
+      }
     },
     slide() {
       const that = this;
       this.bindEvent(this.$refs.container, {
         dragging(event) {
+          if (that.direction === "vertical") return;
           const { target } = event;
           if (that.deltaX > 0 && !that.opened || that.deltaX < 0 && that.opened) return;
           that.dragging = true;
@@ -53,8 +67,26 @@ export default defineComponent({
           }
         },
         stop(event) {
+          if (that.groupName && that.uid) {
+            const groups = EventBus.$data.globalProperties[that.groupName];
+            Object.keys(groups).map(name => {
+              if (name !== that.uid) {
+                if (groups[name].$data.opened || groups[name].$data.dragging) {
+                  groups[name].reset();
+                } else {
+                  if (groups[name].$data.dragging) {
+                    groups[name].reset();
+                  }
+                }
+              }
+            });
+          }
+          if (that.direction === "vertical" || that.deltaX === 0) {
+            that.reset();
+            return;
+          }
           const { target } = event;
-          if (that.deltaX > 0 && !that.opened || that.deltaX === 0) return;
+          // if (that.deltaX > 0 && !that.opened || that.deltaX === 0) return;
           that.dragging = false;
           that.className = "";
           if (that.deltaX < 0) {
@@ -74,12 +106,24 @@ export default defineComponent({
               that.opened = true;
             }
           }
+          that.$emit("transitionEnd", that.opened);
         }
       });
     }
   },
   mounted() {
+    // EventBus
+    if (this.groupName && this.uid) {
+      const groups =  EventBus.$data.globalProperties[this.groupName] || {};
+      EventBus.$set(EventBus.$data.globalProperties, this.groupName, { ...groups, [this.uid]: this });
+    }
     this.slide();
+  },
+  destroyed() {
+    this.deregister();
+  },
+  deactivated() {
+    this.deregister();
   },
   render(h) {
     const buttons = this.slots("buttons");

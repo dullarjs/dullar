@@ -14,6 +14,20 @@
               <yn-input v-model="v" showPassword/>
               <p>可清除</p>
               <yn-input clear search v-model="v" placeholder="可清除"/>
+              <p>前插槽</p>
+        <yn-input v-model="v">
+          <template v-slot:prepend>
+            <div class="prepend_demo">http://</div>
+          </template>
+        </yn-input>
+        <p>后插槽</p>
+        <yn-input v-model="v">
+          <template v-slot:append>
+            <div class="prepend_demo">.com</div>
+          </template>
+        </yn-input>
+        <p>无边框（底线）</p>
+        <yn-input type="text" underline/>
       </div>
 
     </div>
@@ -41,5 +55,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .prepend_demo{
+    height: 100%;
+    padding: 0 10px;
+    background-color: #e9e9e9;
+    line-height: 2;
+  }
 </style>

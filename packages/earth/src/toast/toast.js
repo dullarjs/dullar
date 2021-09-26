@@ -21,7 +21,7 @@ export default defineComponent({
     };
   },
   methods: {
-    setPosition(position = "bottom") {
+    setPosition(position = "middle") {
       const validPosition = ["bottom", "middle"];
       if (validPosition.indexOf(position) > -1) {
         this.position = position;

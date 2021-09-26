@@ -49,6 +49,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    animated: {
+      type: String,
+      default: "all",
+    },
   },
   data() {
     return {
@@ -60,8 +64,9 @@ export default defineComponent({
     confirm() {
       this.pickColumns = {};
       this.computedColumn.forEach((column, key) => {
-        this.pickColumns[`picker_${key}`] =
-          this.$refs[`picker_${key}`].getSelectedItem();
+        this.pickColumns[`picker_${key}`] = this.$refs[
+          `picker_${key}`
+        ].getSelectedItem();
       });
       this.$emit("confirm", deepClone(this.pickColumns));
       this.$emit("input", false);
@@ -189,6 +194,7 @@ export default defineComponent({
                     defaultIndex: column.defaultIndex || 0,
                     columns: columnsProps,
                     itemHeight: this.itemHeight,
+                    animated: this.animated,
                   },
                 },
                 []
@@ -213,19 +219,14 @@ export default defineComponent({
           },
           this.getColumns(h)
         ),
-        h(
-          "div",
-          { class: ["yn-picker-mask"], style: {}, ref: "pickerMask" },
-          []
-        ),
         h("div", { class: ["scroll-viewer-window"] }, []),
       ]);
     },
   },
   mounted() {
-    this.$refs.pickerMask.style = `background-size: 100% ${
-      this.itemHeight * 2
-    }px`;
+    // this.$refs.pickerMask.style = `background-size: 100% ${
+    //   this.itemHeight * 2
+    // }px`;
   },
   render(h) {
     return h("div", { class: ["yn-picker"] }, [
