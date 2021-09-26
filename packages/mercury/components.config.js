@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-24 14:37:07
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-26 16:25:39
+* @Last Modified time: 2021-09-26 18:12:11
 * @E-mail: justbefree@126.com
 */
 
@@ -15,7 +15,7 @@ module.exports = {
     },
     output: {
       filename: "[name]/index.js",
-      libraryTarget: "umd",
+      libraryTarget: "commonjs2",
       libraryExport: "default",
       library: "@dullar/mercury"
     },
@@ -35,20 +35,21 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    config.optimization.delete('splitChunks')
-    config.plugins.delete('copy')
-    config.plugins.delete('preload')
-    config.plugins.delete('prefetch')
-    config.plugins.delete('html')
-    config.plugins.delete('hmr')
+    config.optimization.delete('splitChunks');
+    config.plugins.delete('copy');
+    config.plugins.delete('preload');
+    config.plugins.delete('prefetch');
+    config.plugins.delete('html');
+    config.plugins.delete('hmr');
     config.entryPoints.delete('app')
-    config.optimization.minimize(true);
+    const svgRule = config.module.rule('svg');
+    // config.optimization.minimize(true);
+    svgRule.uses.clear();
     config.module
-      .rule("fonts")
-      .use("url-loader")
-      .tap(option => {
-        option.fallback.options.name = "static/fonts/[name].[hash:8].[ext]"
-        return option;
-      })
+      .rule('images')
+      .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
+        .use('url-loader')
+          .loader('url-loader')
+          .tap(options => Object.assign(options, { limit: 10240 }))
   }
 }
