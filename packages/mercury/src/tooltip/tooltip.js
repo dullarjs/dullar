@@ -96,6 +96,7 @@ export default defineComponent({
   },
   watch: {
     show: function (val) {
+      this.$emit("visibleChange", this.show);
       if (val) {
         this.initPosition();
       }
@@ -195,7 +196,9 @@ export default defineComponent({
                   role: "tooltip",
                 },
                 on: {
-                  mouseenter: () => (this.show = true),
+                  mouseenter: () => {
+                    this.show = true;
+                  },
                   mouseleave: () => {
                     if (this.trigger !== "click") {
                       this.show = false;
