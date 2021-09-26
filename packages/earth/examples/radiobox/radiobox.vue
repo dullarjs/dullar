@@ -23,19 +23,19 @@
     <h3>check 类型</h3>
     <ul>
       <li>
-        <yn-radiobox v-model="value" type="check"></yn-radiobox>
+        <yn-radiobox v-model="value1" type="check"></yn-radiobox>
         <span>激活可选状态{{ value }}</span>
       </li>
       <li>
-        <yn-radiobox v-model="value" disabled type="check"></yn-radiobox>
+        <yn-radiobox v-model="value1" disabled type="check"></yn-radiobox>
         <span>激活不可选状态{{ value }}</span>
       </li>
       <li>
-        <yn-radiobox v-model="disabledValue" type="check"></yn-radiobox>
+        <yn-radiobox v-model="disabledValue1" type="check"></yn-radiobox>
         <span>非激活可选状态</span>
       </li>
       <li>
-        <yn-radiobox v-model="disabledValue" disabled type="check"></yn-radiobox>
+        <yn-radiobox v-model="disabledValue1" disabled type="check"></yn-radiobox>
         <span>非激活不可选状态</span>
       </li>
     </ul>
@@ -48,7 +48,9 @@ export default {
   data() {
     return {
       disabledValue: false,
-      value: true
+      value: true,
+      disabledValue1: false,
+      value1: true
     };
   },
   methods: {
