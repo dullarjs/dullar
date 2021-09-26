@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-09-18 18:10:49
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-24 15:31:16
+* @Last Modified time: 2021-09-25 09:27:02
 * @E-mail: justbefree@126.com
 */
 const path = require("path");
@@ -10,6 +10,9 @@ const fs = require("fs");
 const chalk = require('chalk');
 const log = console.log;
 const join = path.join;
+const dotenv = require('dotenv');
+const envConfit = dotenv.config({ path: "./.env.production" });
+const componentPrefix = envConfit.parsed.VUE_APP_PREFIX;
 const resolve = (dir) => path.join(__dirname, "../", dir);
 module.exports = {
   capitalize: (str = "") => {
@@ -59,7 +62,7 @@ module.exports = {
         return ret;
       }
     }, {});
-    // console.dir(componentEntries);
+    console.dir(componentEntries);
     return componentEntries;
   }
 };
