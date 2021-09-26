@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-24 14:37:07
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-24 18:11:16
+* @Last Modified time: 2021-09-26 16:25:39
 * @E-mail: justbefree@126.com
 */
 
@@ -15,7 +15,7 @@ module.exports = {
     },
     output: {
       filename: "[name]/index.js",
-      libraryTarget: "commonjs2",
+      libraryTarget: "umd",
       libraryExport: "default",
       library: "@dullar/mercury"
     },
@@ -42,6 +42,7 @@ module.exports = {
     config.plugins.delete('html')
     config.plugins.delete('hmr')
     config.entryPoints.delete('app')
+    config.optimization.minimize(true);
     config.module
       .rule("fonts")
       .use("url-loader")
