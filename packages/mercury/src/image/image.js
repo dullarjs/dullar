@@ -2,9 +2,9 @@
  * @Author: tongh
  * @Date:   2020-08-25 10:44:56
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:31:30
+ * @Last Modified time: 2021-09-26 14:05:48
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent, genComponentName } from "../modules/component";
 import { throttle, isString } from "../modules/utils";
 import { loadImageAsync } from "../modules/utils/lazyLoad";

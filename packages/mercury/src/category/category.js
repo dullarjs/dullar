@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2021-07-19 15:14:51
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:29:58
+ * @Last Modified time: 2021-09-26 14:05:59
  * @E-mail: justbefree@126.com
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent, genComponentName } from "../modules/component";
 import Iconfont from "../iconfont";
 import Spin from "../spin";

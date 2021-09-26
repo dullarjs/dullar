@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:33:03
+ * @Last Modified time: 2021-09-26 14:05:30
  * @E-mail: justbefree@126.com
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent, genComponentName } from "../modules/component";
 import { slotsMixins } from "../mixins/slots";
 import { renderedMixins } from "../mixins/rendered";

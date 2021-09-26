@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-04-29 10:58:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:30:17
+ * @Last Modified time: 2021-09-26 14:05:55
  * @E-mail: justbefree@126.com
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent, genComponentName } from "../modules/component";
 import Picker from "../picker";
 import { YnDate, validateFormatedDate } from "../modules/date";

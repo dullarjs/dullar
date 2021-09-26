@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-11-03 11:12:31
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:32:38
+ * @Last Modified time: 2021-09-26 14:05:35
  * @E-mail: justbefree@126.com
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent } from "../modules/component";
 const paddingHeight = 10;
 const barHeight = 16;

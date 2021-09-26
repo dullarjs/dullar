@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-03-19 16:53:00
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:32:58
+ * @Last Modified time: 2021-09-26 14:05:31
  * @E-mail: justbefree@126.com
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent } from "../modules/component";
 import { getScroller } from "../modules/dom/scroll";
 import { getOffset, getScrollTop } from "../modules/dom";

@@ -2,10 +2,10 @@
  * @Author: yegl
  * @Date: 2021-08-02 09:17:29
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:29:53
+ * @Last Modified time: 2021-09-26 14:06:00
  * @E-mail: yglgzyx@126.com
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent } from "../modules/component";
 export default defineComponent({
   name: "Cascader",

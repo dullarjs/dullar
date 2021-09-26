@@ -2,9 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-01-02 11:01:42
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:31:15
+ * @Last Modified time: 2021-09-26 14:05:50
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent } from "../modules/component";
 import { hyphenate, camelize } from "../modules/utils";
 import { slotsMixins } from "../mixins/slots";

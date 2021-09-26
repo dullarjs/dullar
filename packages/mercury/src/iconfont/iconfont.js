@@ -2,9 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:20:36
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:31:23
+ * @Last Modified time: 2021-09-26 14:05:49
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent } from "../modules/component";
 import { warn, error } from "../modules/error";
 import svgs from "./svgs";

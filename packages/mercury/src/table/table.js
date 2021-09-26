@@ -2,10 +2,10 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-24 18:33:18
+ * @Last Modified time: 2021-09-26 14:05:26
  * @E-mail: yglgzyx@126.com
  */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent, genComponentName } from "../modules/component";
 import { deepClone } from "../modules/utils/deepClone";
 import Checkbox from "../checkbox";

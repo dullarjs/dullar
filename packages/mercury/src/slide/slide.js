@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-24 18:32:43
+* @Last Modified time: 2021-09-26 14:05:34
 * @E-mail: justbefree@126.com
 */
-import "./style/index";
+import "./style/index.less";
 import { defineComponent, genComponentName } from "../modules/component";
 import { touchMixins } from "../mixins/touch";
 import { slotsMixins } from "../mixins/slots";
