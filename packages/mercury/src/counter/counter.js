@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-06-15 10:01:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-26 14:05:56
+ * @Last Modified time: 2021-09-26 16:53:24
  * @E-mail: justbefree@126.com
  */
-import "./style/index.less";
+import "./style";
 import { defineComponent, genComponentName } from "../modules/component";
 import Iconfont from "../iconfont";
 export default defineComponent({

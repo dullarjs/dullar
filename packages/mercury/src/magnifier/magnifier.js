@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-26 14:05:44
+ * @Last Modified time: 2021-09-26 16:53:12
  * @E-mail: justbefree@126.com
  */
-import "./style/index.less";
+import "./style";
 import { defineComponent, genComponentName } from "../modules/component";
 import { preventDefault, stopPropagation } from "../modules/event";
 import { getOffset } from "../modules/dom";

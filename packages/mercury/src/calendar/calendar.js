@@ -2,10 +2,10 @@
  * @Author: yegl
  * @Date: 2021-09-02 18:05:19
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-26 14:06:01
+ * @Last Modified time: 2021-09-26 16:53:28
  * @E-mail: yglgzyx@126.com
  */
-import "./style/index.less";
+import "./style";
 import { defineComponent, genComponentName } from "../modules/component";
 import Flex from "../flex";
 import FlexItem from "../flex-item";

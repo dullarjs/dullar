@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2021-08-26 13:48:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-26 14:05:20
+ * @Last Modified time: 2021-09-26 16:52:50
  * @E-mail: justbefree@126.com
  */
-import "./style/index.less";
+import "./style";
 import { defineComponent, genComponentName } from "../modules/component";
 import Checkbox from "../checkbox";
 import { push, drop } from "../modules/utils";

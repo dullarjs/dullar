@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-26 14:05:40
+ * @Last Modified time: 2021-09-26 16:53:08
  * @E-mail: justbefree@126.com
  */
-import "./style/index.less";
+import "./style";
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
 import Button from "../button";

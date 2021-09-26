@@ -2,10 +2,10 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-26 14:05:42
+ * @Last Modified time: 2021-09-26 16:53:10
  * @E-mail: yglgzyx@126.com
  */
-import "./style/index.less";
+import "./style";
 import { defineComponent, genComponentName } from "../modules/component";
 export default defineComponent({
   name: "Pagination",

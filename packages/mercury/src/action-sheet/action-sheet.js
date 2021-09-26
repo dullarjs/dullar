@@ -2,9 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-03-09 12:18:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-26 14:06:07
+ * @Last Modified time: 2021-09-26 16:53:34
  */
-import "./style/index.less";
+import "./style";
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
 import Iconfont from "../iconfont";
