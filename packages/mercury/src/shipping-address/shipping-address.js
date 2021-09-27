@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-27 13:32:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-01 15:02:16
+ * @Last Modified time: 2021-09-27 14:05:55
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -103,6 +103,8 @@ export default defineComponent({
           this.isLoading = false;
           this.regionList = res;
           if (res.length === 0) {
+            this.regionHeaders.pop();
+            this.currentTab = this.regionHeaders.length - 1;
             this.$emit("done", this.regionHeaders);
           }
           this.setCache(args, res);
