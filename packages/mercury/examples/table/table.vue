@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-09-04 21:49:56
+ * @Last Modified time: 2021-09-27 15:44:15
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -11,7 +11,7 @@
         <h3>普通表格</h3>
         <yn-table
             :columns="columns1"
-            :bordered="false"
+            bordered="none"
             :dataSource="dataSource1"
             :rowSelection="rowSelection1"
             v-on:handleCkChange="handleCkChange"
@@ -23,6 +23,8 @@
             :iconSize="iconSize"
             :hideHeader="hideHeader"
             :checkBoxSize="12"
+            :tableSize="tableSizeD"
+            :setting="setting"
         >
         </yn-table>
         <h3>基础功能齐全table</h3>
@@ -44,6 +46,7 @@
                 :emptyContent="emptyContent"
                 :emptyText="emptyText"
                 :checkBoxSize="15"
+                :tableSize="tableSizeN"
             >
             </yn-table>
         </div>
@@ -410,7 +413,7 @@ export default {
                                 on: {
                                     click: "handleHideHeader",
                                 },
-                                content: ["NoHeader"]
+                                content: ["Header"]
                             }
                         ]
                     }
@@ -518,25 +521,8 @@ export default {
                             },
                             {
                                 title: 'Block',
-                                children: [
-                                    {
-                                        title: 'Building（editable）',
-                                        dataIndex: 'building',
-                                        key: 'building',
-                                        width: 150,
-                                        // 编辑功能  beforeChage 只在有editable 才生效， 用于单元格数据校验
-                                        editable: true,
-                                        beforeChage: this.beforeChange,
-                                        onchange: "handleChange",
-                                    },
-                                    {
-                                        title: 'Door No.',
-                                        dataIndex: 'number',
-                                        key: 'number',
-                                        width: 100,
-                                    },
-                                ],
-                            },
+                                dataIndex: 'building'
+                            }
                             ],
                         },
                     ],
@@ -603,7 +589,20 @@ export default {
             loading: false,
             hideHeader: false,
             iconType: "fadingCircle",
-            iconSize: 50
+            iconSize: 50,
+            tableSizeD: "default", // default 16px middel 12 px small 8px  none 0
+            tableSizeM: "middle",
+            tableSizeN: "none",
+            setting: {
+                thead: {
+                    style: { fontFamily: "PingFangSC-Medium", fontSize: "14px", color: "#4E5D78", background: "#DEDEDE" },
+                    className: "table-thead-c"
+                },
+                tbody: {
+                    style: { fontFamily: "PingFangSC-Regular", fontSize: "14px", color: "#1A253B" },
+                    className: "table-tbody-c"
+                }
+            }
         };
     },
     methods: {
