@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-18 09:48:33
+ * @Last Modified time: 2021-09-28 11:22:44
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -169,6 +169,7 @@ export default defineComponent({
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200 && disXY === 0) {
             preventDefault(e.e);
+            that.$emit("click", that.activedIndex);
             that.openImageViewer();
             return;
           }

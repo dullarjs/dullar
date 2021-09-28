@@ -2,14 +2,23 @@
  * @Author: Just be free
  * @Date:   2020-02-25 14:34:04
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-06-28 15:42:02
+ * @Last Modified time: 2021-09-27 16:36:27
  */
 const hasClass = (dom, className) => {
   return dom.className.match(new RegExp("(\\s|^)" + className + "(\\s|$)"));
 };
-export const addClass = (dom, className) => {
+const add = (dom, className) => {
   if (!hasClass(dom, className)) {
     dom.className += " " + className;
+  }
+};
+export const addClass = (dom, className) => {
+  if (Array.isArray(className)) {
+    className.forEach((c) => {
+      add(dom, c);
+    });
+  } else {
+    add(dom, className);
   }
 };
 const remove = (dom, className) => {

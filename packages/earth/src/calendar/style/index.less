@@ -2,10 +2,11 @@
 .yn-calendar {
   .yn-calendar-content {
     height: 100%;
-    width: 98%;
+    padding: 0 10px;
     margin: 0 auto;
     .yn-calendar-header {
       user-select: none;
+
       .yn-calendar-close {
         cursor: pointer;
         position: absolute;
@@ -19,7 +20,6 @@
         color: @text-color;
         font-size: 16px;
       }
-      box-shadow: 0 2px 10px rgba(125, 126, 128, 0.16);
       .yn-calendar-notice {
         font-size: 12px;
         background: #feefe4;
@@ -41,10 +41,14 @@
       height: 100%;
       overflow: auto; /* winphone8和android4+ */
       -webkit-overflow-scrolling: touch; /* ios5+ */
+      border-bottom: 1px solid @border-color;
       .yn-calendar-month {
         border-bottom: 1px solid @border-color;
         padding-bottom: 14px;
         box-sizing: border-box;
+        &:last-of-type {
+          border-bottom: none;
+        }
         .yn-calendar-month-title {
           text-align: center;
           height: 44px;
@@ -105,12 +109,60 @@
       }
     }
     .yn-calendar-footer {
-      height: 50px;
+      padding: 20px 0px;
+      .yn-calendar-date-result {
+        display: flex;
+        font-size: 17px;
+        color: #2a2a2a;
+        padding: 0 calc((100% / 7 - 20px) / 2);
+        margin-bottom: 15px;
+        .yn-calendar-reulst-left {
+          flex: 1;
+          text-align: left;
+        }
+        .yn-calendar-reulst-center {
+          width: 10px;
+          text-align: center;
+          margin-top: 21px;
+          display: flex;
+          align-items: center;
+          .yn-clendar-result-center-icon {
+            width: 7px;
+            height: 1.38px;
+            background: #746c6c;
+            display: inline-block;
+          }
+        }
+        .yn-calendar-reulst-right {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          text-align: right;
+        }
+        .yn-calendar-result-date-des {
+          font-size: 12px;
+          color: #7e7f80;
+          letter-spacing: -0.29px;
+          font-weight: 400;
+          line-height: 17px;
+          display: block;
+        }
+        .yn-calendar-result-date {
+          font-weight: 500;
+          line-height: 24px;
+          margin-top: 4px;
+          .yn-calendar-result-date-placeholder {
+            color: #7e7f80;
+          }
+          .yn-calendar-result-week {
+            margin-left: 3px;
+          }
+        }
+      }
       .yn-calendar-confirm-button {
-        width: 90%;
         margin: 0 auto;
         height: 36px;
-        border-radius: 18px;
+        border-radius: 4px;
         line-height: 36px;
         text-align: center;
         color: @white;

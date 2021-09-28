@@ -2,12 +2,12 @@
 * @Author: Just be free
 * @Date:   2020-08-25 11:04:33
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-24 09:16:27
+* @Last Modified time: 2021-09-28 14:38:51
 * @E-mail: justbefree@126.com
 */
 import Vue from "vue";
 import "./vue";
-import { Toast } from "./toast";
+import { Toast, YnToast } from "./toast";
 import { Indicator } from "./indicator";
 import { Dialog } from "./dialog";
 import { Modal } from "./modal";
@@ -48,6 +48,7 @@ import { YnTree } from "./tree";
 import { YnSlide } from "./slide";
 export {
   Toast,
+  YnToast,
   Indicator,
   Dialog,
   Modal,

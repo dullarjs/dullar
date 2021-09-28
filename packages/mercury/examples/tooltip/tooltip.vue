@@ -8,7 +8,9 @@
           placement="top"
           content="top我是tooltip撒旦发生口角是否数据库恢复瑟夫数据返回上课时间发货时间看"
         >
-          <yn-button class="mt30 new-position" style="z-index: 2" type="text">top</yn-button>
+          <yn-button class="mt30 new-position" style="z-index: 2" type="text"
+            >top</yn-button
+          >
         </yn-tooltip>
       </div>
       <!-- <div class="middle"> -->
@@ -43,12 +45,20 @@
       </div>
       <div class="bottom">
         <div>
-          <yn-tooltip content="我是tooltip" trigger="click">
+          <yn-tooltip
+            @visibleChange="onVisibleChange2"
+            content="我是tooltip"
+            trigger="click"
+          >
             <yn-button class="mt30" type="text">click</yn-button>
           </yn-tooltip>
         </div>
         <div>
-          <yn-tooltip trigger="focus" effect="light">
+          <yn-tooltip
+            @visibleChange="onVisibleChange1"
+            trigger="focus"
+            effect="light"
+          >
             <yn-button class="mt30" type="text">focus</yn-button>
             <div slot="content">我是内容分发的focus。</div>
           </yn-tooltip>
@@ -63,6 +73,19 @@
             </div>
           </yn-tooltip>
         </div>
+        <div>
+          <yn-tooltip
+            @visibleChange="onVisibleChange"
+            placement="right"
+            effect="light"
+            trigger="hover"
+          >
+            <yn-button class="mt30" type="text">hover 插槽</yn-button>
+            <div slot="content">
+              <p>visibleChange</p>
+            </div>
+          </yn-tooltip>
+        </div>
       </div>
     </div>
   </div>
@@ -73,7 +96,17 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    onVisibleChange(val) {
+      console.log("val", val);
+    },
+    onVisibleChange1(val) {
+      console.log("valfocus", val);
+    },
+    onVisibleChange2(val) {
+      console.log("valclick", val);
+    },
+  },
 };
 </script>
 <style type="text/css" scoped="scoped">
