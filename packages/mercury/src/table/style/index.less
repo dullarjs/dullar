@@ -1,6 +1,7 @@
 .yn-table-wrapper {
   clear: both;
   max-width: 100%;
+  color: #000000d9;
   .yn-spin-container {
     position: relative;
     transition: opacity 0.3s;
@@ -8,7 +9,6 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      color: #000000d9;
       font-variant: tabular-nums;
       line-height: 1.5715;
       list-style: none;
@@ -32,14 +32,12 @@
           display: table-header-group;
           vertical-align: middle;
           border-color: inherit;
+          background: #fafafa;
           > tr > th {
             position: relative;
-            color: #000000d9;
             font-weight: 500;
             text-align: left;
-            background: #fafafa;
-            border-bottom: 1px solid @border-color;
-            padding: 16px;
+            border-bottom: 1px solid @t-b-color;
             overflow-wrap: break-word;
           }
           .yn-table-selection-column {
@@ -53,12 +51,12 @@
     }
     .yn-table-bordered {
       > .yn-table-container {
-        // border: 1px solid @border-color;
+        // border: 1px solid @t-b-color;
         > table {
-          border: 1px solid @border-color;
+          border: 1px solid @t-b-color;
           border-top: none;
           .yn-table-thead > tr > th {
-            border-right: 1px solid @border-color;
+            border-right: 1px solid @t-b-color;
           }
           .yn-table-thead > tr:first-child > th:last-child {
             border-right: none;
@@ -66,8 +64,8 @@
         }
       }
       .yn-table-cell {
-        border-right: 1px solid @border-color;
-        border-bottom: 1px solid @border-color;
+        border-right: 1px solid @t-b-color;
+        border-bottom: 1px solid @t-b-color;
         &:last-child {
           border-right: none;
         }
@@ -100,7 +98,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: #000000d9;
     font-size: 14px;
     font-variant: tabular-nums;
     line-height: 1.5715;
@@ -110,7 +107,6 @@
     top: 30px;
     left: -135px;
     z-index: 1050;
-    display: block;
     width: 160px;
     display: none;
   }
@@ -144,13 +140,10 @@
     border-top: 1px solid #f0f0f0;
   }
   .yn-table-cell {
-    padding: 12px 8px;
+    padding: 0 16px;
   }
   .yn-table-tbody > tr > td {
-    // position: relative;
-    padding: 16px;
     overflow-wrap: break-word;
-    border-bottom: 1px solid @border-color;
   }
   .yn-table-selection-col {
     width: 32px;
@@ -163,7 +156,7 @@
     // padding: 5px 12px;
     border: 1px solid rgba(255, 255, 255, 0);
     &:hover {
-      border: 1px solid @border-color;
+      border: 1px solid @t-b-color;
     }
     > input {
       border: 1px solid rgba(255, 255, 255, 0);
@@ -217,7 +210,6 @@
     clear: both;
     margin: 0;
     padding: 5px 12px;
-    color: #000000d9;
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
@@ -247,7 +239,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: #000000d9;
     font-size: 14px;
     line-height: 1.5715;
     list-style: none;
@@ -280,4 +271,42 @@
   justify-content: space-around;
   align-content: stretch;
   align-items: center;
+}
+.default-size {
+  .yn-table-thead > tr > th,
+  .yn-table-wrapper .yn-table-tbody > tr > td {
+    padding: 16px;
+  }
+  .yn-table-cell {
+    padding: 16px;
+  }
+}
+.middle-size {
+  .yn-table-thead > tr > th,
+  .yn-table-wrapper .yn-table-tbody > tr > td {
+    padding: 12px;
+  }
+  .yn-table-cell {
+    padding: 12px;
+  }
+}
+.small-size {
+  .yn-table-thead > tr > th,
+  .yn-table-wrapper .yn-table-tbody > tr > td {
+    padding: 8px;
+  }
+  .yn-table-cell {
+    padding: 8px;
+  }
+}
+.none-size {
+  .yn-table-thead > tr > th {
+    padding: 8px;
+  }
+  .yn-table-cell {
+    padding: 0 8px;
+  }
+}
+.yn-table-b-b .yn-table-tbody > tr > td {
+  border-bottom: 1px solid @t-b-color;
 }
