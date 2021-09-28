@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-07-30 18:54:02
  * @Last Modified by: yegl
- * @Last Modified time: 2021-08-02 18:12:28
+ * @Last Modified time: 2021-09-28 10:55:18
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -14,10 +14,12 @@
     ></yn-cascader>
     <yn-cascader
       :categories="leaveTwo"
+      :loading="levelSLoading"
       v-on:handleClick="handleClick"
     ></yn-cascader>
     <yn-cascader
       :categories="leaveThree"
+      :loading="levelTLoading"
       v-on:handleClick="handleClick"
     ></yn-cascader>
   </div>
@@ -55,7 +57,9 @@ export default {
         { name: "美妆护肤-2级分类8", catId: 1, level: 1 },
         { name: "美妆护肤-2级分类9", catId: 1, level: 1 },
       ],
-      leaveThree: []
+      leaveThree: [],
+      levelSLoading: false,
+      levelTLoading: false,
     };
   },
   methods: {
@@ -75,10 +79,18 @@ export default {
         list.push(newCat);
       }
       if (catInfo.level === 1) {
-        this.leaveTwo = [ ...list ];
-        this.leaveThree = [];
+        this.levelSLoading = true;
+        setTimeout(() => {
+          this.leaveTwo = [ ...list ];
+          this.leaveThree = [];
+          this.levelSLoading = false;
+        }, 2000);
       } else {
-        this.leaveThree = [ ...list ];
+        this.levelTLoading = true;
+        setTimeout(() => {
+          this.leaveThree = [ ...list ];
+          this.levelTLoading = false;
+        }, 2000);
       }
     }
   }

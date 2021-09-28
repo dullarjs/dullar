@@ -2,10 +2,10 @@
  * @Author: yegl
  * @Date: 2021-08-02 09:17:29
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-23 16:42:21
+ * @Last Modified time: 2021-09-28 10:57:15
  * @E-mail: yglgzyx@126.com
  */
-import { defineComponent } from "../modules/component";
+import { defineComponent, genComponentName } from "../modules/component";
 export default defineComponent({
   name: "Cascader",
   props: {
@@ -18,6 +18,10 @@ export default defineComponent({
     listTitle: {
       type: String,
       default: "请选择分类",
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -41,9 +45,7 @@ export default defineComponent({
     createList(h) {
       const list = [];
       list.push(
-        h("li", { class: ["yn-cascader-li"] }, [
-          h("span", {}, ["请选择分类"]),
-        ])
+        h("li", { class: ["yn-cascader-li"] }, [h("span", {}, ["请选择分类"])])
       );
       this.categories.forEach((category, index) => {
         const key = index;
@@ -75,6 +77,20 @@ export default defineComponent({
       },
       [
         h("div", { class: ["yn-cascader-content"] }, [
+          this.loading &&
+            h("div", { class: ["cascader-loading"] }, [
+              h(
+                genComponentName("spin"),
+                {
+                  class: ["loading"],
+                  props: {
+                    type: "rotate-svg",
+                    size: 40,
+                  },
+                },
+                []
+              ),
+            ]),
           h("ul", { class: ["yn-cascader-ul"] }, this.createList(h)),
         ]),
       ]

@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-09-07 14:34:02
+ * @Last Modified time: 2021-09-27 15:36:35
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -15,8 +15,8 @@ export default defineComponent({
   },
   props: {
     bordered: {
-      type: Boolean,
-      default: true,
+      type: Boolean | String,
+      default: false,
     },
     columns: {
       type: Array,
@@ -74,6 +74,14 @@ export default defineComponent({
       type: Number,
       default: 14,
     },
+    tableSize: {
+      type: String,
+      default: "default",
+    },
+    setting: {
+      type: Object,
+      default: null,
+    },
     iconColor: String,
   },
   data() {
@@ -98,6 +106,12 @@ export default defineComponent({
       randNum: null,
       currentPageKeys: [],
       dropDownTitle: "", // 当前显示的搜索列的title
+      tableSizeLIst: {
+        default: "default-size",
+        middle: "middle-size",
+        small: "small-size",
+        none: "none-size",
+      },
     };
   },
   created() {
@@ -874,24 +888,38 @@ export default defineComponent({
     const tableStyle = this.height
       ? { "max-height": this.height + "px", overflow: "scroll" }
       : "";
-    const pageInfoObj = this.pageInfoObj && { ...this.pageInfoObj };
-    const loading = this.loading;
-    const hideHeader = this.hideHeader;
+    const {
+      pageInfoObj,
+      loading,
+      hideHeader,
+      tableSize,
+      tableSizeLIst,
+      bordered,
+      setting,
+    } = this;
+    const sizeClass = tableSizeLIst[tableSize] || "";
+    const borderClass =
+      bordered === true
+        ? "yn-table-bordered"
+        : bordered === "none"
+        ? ""
+        : "yn-table-b-b";
+    const {
+      thead: { style: thStyle = {}, className: thClassName = "" } = {},
+      tbody: { style: tbStyle = {}, className: tbClassName = "" } = {},
+    } = setting || {};
     return h(
       "div",
       {
         class: ["yn-table-wrapper"],
       },
       [
-        h("div", { class: ["yn-spin-container"] }, [
+        h("div", { class: ["yn-spin-container", sizeClass] }, [
           h(
             "div",
             {
               attrs: { id: `yn-table-${this.randNum}` },
-              class: [
-                "yn-table",
-                this.bordered === true ? "yn-table-bordered" : "",
-              ],
+              class: ["yn-table", borderClass],
               style: tableStyle,
             },
             [
@@ -902,14 +930,19 @@ export default defineComponent({
                       "thead",
                       {
                         attrs: { id: `yn-table-thead-${this.randNum}` },
-                        class: ["yn-table-thead"],
-                        style: { ...this.theadStyle },
+                        class: ["yn-table-thead", thClassName],
+                        style: { ...this.theadStyle, ...thStyle },
                       },
                       [this.getThead(h)]
                     ),
-                  h("tbody", { class: ["yn-table-tbody"] }, [
-                    this.initTableRows(),
-                  ]),
+                  h(
+                    "tbody",
+                    {
+                      class: ["yn-table-tbody", tbClassName],
+                      style: { ...tbStyle },
+                    },
+                    [this.initTableRows()]
+                  ),
                 ]),
               ]),
             ]
