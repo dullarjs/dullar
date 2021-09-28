@@ -49,6 +49,7 @@ import Input from "./input/input";
 import Tree from "./tree/tree.vue";
 import Slide from "./slide/slide.vue";
 import Image from "./image/image.vue";
+import Form from "./form/fd.vue"
 const router = new Router({
   routes: [{
       path: "/",
@@ -259,6 +260,12 @@ const router = new Router({
       path: "/image",
       name: "image",
       component: Image
+    }
+    ,
+    {
+      path: "/form",
+      name: "form",
+      component: Form
     }
   ]
 });

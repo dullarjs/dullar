@@ -1,0 +1,31 @@
+.yn-form-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+  .label {
+    text-align: right;
+    padding: 0px 8px;
+  }
+  .required-icon {
+    color: #f61f1f;
+    padding: 6px;
+    box-sizing: border-box;
+  }
+  .yn-form-item-content {
+    position: relative;
+    .error {
+      position: absolute;
+      width: 100%;
+      height: 16px;
+      line-height: 16px;
+      border-radius: 2px;
+      font-size: 12px;
+      bottom: -18px;
+      background-color: #ec4a4a;
+      color: #fff;
+      box-sizing: border-box;
+      padding: 0 5px;
+    }
+  }
+}

@@ -6,5 +6,5 @@
  */
 
 import { install } from "../modules/component";
-import YnLayout from "./form-item.vue";
-export default install(YnLayout);
+import YnFormItem from "./form-item.js";
+export default install(YnFormItem);

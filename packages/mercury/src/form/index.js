@@ -6,5 +6,5 @@
  */
 
 import { install } from "../modules/component";
-import YnForm from "./form.vue";
+import YnForm from "./form.js";
 export default install(YnForm);
