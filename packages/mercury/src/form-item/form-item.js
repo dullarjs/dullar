@@ -48,7 +48,6 @@ export default defineComponent({
           return item;
         }
       });
-      console.log(r);
       r.forEach((item) => {
         if (item.required && String(value).trim() == "") {
           this.message = item.message;
