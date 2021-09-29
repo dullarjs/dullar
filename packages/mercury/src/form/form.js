@@ -33,7 +33,6 @@ export default defineComponent({
       let count = 0;
       let boolean = true;
       slots.forEach((item) => {
-        console.log(item);
         const value = this.model[item.child.prop];
         if (item.child.required) {
           count += Number(item.child.formPostMessage(value));
