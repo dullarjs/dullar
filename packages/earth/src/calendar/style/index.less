@@ -87,24 +87,22 @@
         .yn-calendar-date.clickable {
           cursor: pointer;
         }
-        .yn-calendar-date.active {
+        .yn-calendar-date .active {
           background: @theme-color;
           color: @white;
-        }
-        .yn-calendar-date.active.single-mode {
-          border-radius: 10%;
-        }
-        .yn-calendar-date.start {
-          border-bottom-left-radius: 10%;
-          border-top-left-radius: 10%;
-        }
-        .yn-calendar-date.end {
-          border-bottom-right-radius: 10%;
-          border-top-right-radius: 10%;
+          border-radius: 4px;
         }
         .yn-calendar-date.during-active {
           background: rgba(0, 122, 255, 0.15);
           color: @text-color2;
+        }
+        .yn-calendar-date.during-active.during-border-right {
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+        .yn-calendar-date.during-active.during-border-left {
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
         }
       }
     }
