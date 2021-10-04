@@ -2,6 +2,10 @@
   clear: both;
   max-width: 100%;
   color: #000000d9;
+  .yn-table-required {
+    padding: 0 4px;
+    color: red;
+  }
   .yn-spin-container {
     position: relative;
     transition: opacity 0.3s;
@@ -155,15 +159,20 @@
   .yn-editable-cell-value-wrap {
     // padding: 5px 12px;
     border: 1px solid rgba(255, 255, 255, 0);
-    &:hover {
-      border: 1px solid @t-b-color;
-    }
+    box-sizing: content-box;
     > input {
       border: 1px solid rgba(255, 255, 255, 0);
       box-sizing: border-box;
       padding: 5px 12px;
       width: 100%;
       cursor: pointer;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      &:hover {
+        border: 1px solid @t-b-color;
+        // box-sizing: content-box;
+      }
       &:focus {
         cursor: auto;
         border: 1px solid @theme-color;

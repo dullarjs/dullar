@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-09-27 15:44:15
+ * @Last Modified time: 2021-10-03 15:56:05
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -206,6 +206,7 @@ export default {
                                         // 编辑功能  beforeChage 只在有editable 才生效， 用于单元格数据校验
                                         editable: true,
                                         beforeChage: this.beforeChange,
+                                        required: true,
                                         onchange: "handleChange",
                                     },
                                     {
@@ -357,6 +358,7 @@ export default {
                     dataIndex: 'address',
                     key: 'address',
                     editable: true,
+                    required: true,
                     onchange: "handleChange",
                     beforeChage: this.beforeChangeB,
                     width: 200
