@@ -1,3 +1,4 @@
+
 const EVENTS = {};
 import { getConfig } from "./modules/component/config";
 import { hyphenate } from "./modules/utils";
@@ -35,14 +36,12 @@ import Magnifier from "./magnifier";
 import Modal from "./modal";
 import Pagination from "./pagination";
 import Picker from "./picker";
-import PickyStepper from "./picky-stepper";
 import Popup from "./popup";
 import PullRefresh from "./pull-refresh";
 import Radiobox from "./radiobox";
 import ShippingAddress from "./shipping-address";
 import Skeleton from "./skeleton";
 import Slide from "./slide";
-import Slider from "./slider";
 import Spin from "./spin";
 import Sticky from "./sticky";
 import Swipe from "./swipe";
@@ -54,65 +53,16 @@ import Toast from "./toast";
 import Tooltip from "./tooltip";
 import Tree from "./tree";
 
-const components = [
-  ActionSheet,
-  Address,
-  AnimationList,
-  AnimationListItem,
-  Badge,
-  Button,
-  Calendar,
-  Cascader,
-  Category,
-  CategoryMobile,
-  Checkbox,
-  Counter,
-  DatePicker,
-  Dialog,
-  ElasticSearch,
-  Field,
-  FieldGroup,
-  Flex,
-  FlexItem,
-  Form,
-  FormItem,
-  Iconfont,
-  Image,
-  Indicator,
-  Input,
-  Layout,
-  Magnifier,
-  Modal,
-  Pagination,
-  Picker,
-  PickyStepper,
-  Popup,
-  PullRefresh,
-  Radiobox,
-  ShippingAddress,
-  Skeleton,
-  Slide,
-  Slider,
-  Spin,
-  Sticky,
-  Swipe,
-  SwipeItem,
-  TabItem,
-  Table,
-  Tabs,
-  Toast,
-  Tooltip,
-  Tree,
-];
+const components = [ActionSheet, Address, AnimationList, AnimationListItem, Badge, Button, Calendar, Cascader, Category, CategoryMobile, Checkbox, Counter, DatePicker, Dialog, ElasticSearch, Field, FieldGroup, Flex, FlexItem, Form, FormItem, Iconfont, Image, Indicator, Input, Layout, Magnifier, Modal, Pagination, Picker, Popup, PullRefresh, Radiobox, ShippingAddress, Skeleton, Slide, Spin, Sticky, Swipe, SwipeItem, TabItem, Table, Tabs, Toast, Tooltip, Tree];
 const install = (Vue) => {
   if (install.installed) return;
-  components.map((component) => {
+  components.map(component => {
     if (component.name && typeof component !== "function") {
       const eventName = hyphenate(component.name);
       if (EVENTS[eventName] && typeof EVENTS[eventName] === "function") {
-        Vue.component(component.name, EVENTS[eventName]());
+         Vue.component(component.name, EVENTS[eventName]());
       } else {
-        Vue.component(component.name, component);
+         Vue.component(component.name, component);
       }
     } else if (component.install) {
       Vue.use(component);
@@ -127,24 +77,24 @@ if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
 }
 const config = (options = {}) => {
-  Object.keys(options).forEach((componentName) => {
-    const ca = hyphenate(componentName);
-    components.forEach((component) => {
-      if (ca === component.name) {
-        if (component.callback && typeof component.callback === "function") {
-          EVENTS[ca] = () => {
-            return component.callback(options[componentName]);
-          };
-        }
-      }
-    });
+  Object.keys(options).forEach(componentName => {
+   const ca = hyphenate(componentName);
+   components.forEach((component) => {
+     if (ca === component.name) {
+       if (component.callback && (typeof component.callback === "function")) {
+         EVENTS[ca] = () => {
+           return component.callback(options[componentName]);
+         }
+       }
+     }
+   });
   });
 };
 export { install, version, config };
 export default {
   install,
   version,
-  config,
+  config
 };
 export { ActionSheet as YnActionSheet };
 export { Address as YnAddress };
@@ -176,14 +126,12 @@ export { Magnifier as YnMagnifier };
 export { Modal as YnModal };
 export { Pagination as YnPagination };
 export { Picker as YnPicker };
-export { PickyStepper as YnPickyStepper };
 export { Popup as YnPopup };
 export { PullRefresh as YnPullRefresh };
 export { Radiobox as YnRadiobox };
 export { ShippingAddress as YnShippingAddress };
 export { Skeleton as YnSkeleton };
 export { Slide as YnSlide };
-export { Slider as YnSlider };
 export { Spin as YnSpin };
 export { Sticky as YnSticky };
 export { Swipe as YnSwipe };

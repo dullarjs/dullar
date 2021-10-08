@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-08-25 11:04:33
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-28 14:38:51
+* @Last Modified time: 2021-10-08 09:13:55
 * @E-mail: justbefree@126.com
 */
 import Vue from "vue";
@@ -26,12 +26,10 @@ import { YnFlexItem } from "./flex-item";
 import { YnLayout } from "./layout";
 import { YnIconfont } from "./iconfont";
 import { YnPicker } from "./picker";
-import { YnPickyStepper } from "./picky-stepper";
 import { YnPopup } from "./popup";
 import { YnPullRefresh } from "./pull-refresh";
 import { YnRadiobox } from "./radiobox";
 import { YnSkeleton } from "./skeleton";
-import { YnSlider } from "./slider";
 import { YnSpin } from "./spin";
 import { YnSticky } from "./sticky";
 import { YnSubmitAction } from "./submit-action";
@@ -46,8 +44,8 @@ import { YnAddress } from "./address";
 import { YnShippingAddress } from "./shipping-address";
 import { YnTree } from "./tree";
 import { YnSlide } from "./slide";
-import {YnForm} from "./form";
-import {YnFormItem} from "./form-item";
+import { YnForm } from "./form";
+import { YnFormItem } from "./form-item";
 
 export {
   Toast,
@@ -69,7 +67,6 @@ export {
   YnIconfont,
   YnLayout,
   YnPicker,
-  YnPickyStepper,
   YnPopup,
   YnPullRefresh,
   YnRadiobox,
@@ -88,7 +85,6 @@ export {
   YnAddress,
   YnShippingAddress,
   YnTree,
-  YnSlide,
   YnForm,
   YnFormItem
 };
