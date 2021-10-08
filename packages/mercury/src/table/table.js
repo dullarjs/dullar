@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-09-27 15:36:35
+ * @Last Modified time: 2021-10-03 16:49:48
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -330,6 +330,7 @@ export default defineComponent({
       // 暂时只支持搜索，需要其他功能之后再说
       if (column.filters) {
         return h("div", { class: ["yn-table-filter-column"] }, [
+          column.required && h("i", { class: ["yn-table-required"] }, ["*"]),
           h("span", { class: ["yn-table-column-title"] }, [column.title]),
           h(
             "span",
@@ -406,7 +407,9 @@ export default defineComponent({
           ),
         ]);
       } else {
-        return column.title;
+        return column.required
+          ? [h("i", { class: ["yn-table-required"] }, ["*"]), column.title]
+          : column.title;
       }
     },
     // 头部行
@@ -772,7 +775,7 @@ export default defineComponent({
             item !== null &&
             item.setContent
           ) {
-            _tag = item.setContent(value, record);
+            _tag = item.setContent(value, record, h);
           } else if (typeof item === "object" && item !== null && _noed) {
             if (item.on) {
               const _on = this.getBoundEvent(item.on, value, record);

@@ -5,10 +5,17 @@
   height: auto;
   float: left;
   position: relative;
-  padding: 4px;
+  // padding: 4px;
   border: 1px solid @border-color;
-  color: #7d7d7d;
+  color: #282828;
   font: 400 12px/15px consolas;
+  .yn-cascader-title {
+    width: 100%;
+    height: 57px;
+    background: #e8e8e8;
+    line-height: 57px;
+    text-align: center;
+  }
   .yn-cascader-content {
     height: 240px;
     position: relative;
@@ -29,7 +36,7 @@
     //     border-radius: 10px;
     // }
     .yn-cascader-ul {
-      padding: 0 5px 0 0;
+      padding: 0;
       margin: 0;
       list-style: none outside none;
       > li {
@@ -40,18 +47,18 @@
         span {
           display: block;
           padding: 0 25px;
-          color: #7d7d7d;
         }
       }
       & :hover {
-        background: #e7f5fd;
-        color: @theme-color;
+        background: #108ee9;
+        // color: @theme-color;
+        color: @white;
       }
       .current {
         span {
-          color: #139ff0;
+          color: @white;
         }
-        background: #e7f5fd;
+        background: #108ee9;
         font-weight: bold;
       }
     }

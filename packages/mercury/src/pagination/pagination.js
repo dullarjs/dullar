@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-22 16:54:48
+ * @Last Modified time: 2021-10-03 11:08:15
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -47,6 +47,7 @@ export default defineComponent({
   },
   watch: {
     total: "init",
+    defaultCurrent: "dCurrentChange",
   },
   methods: {
     init() {
@@ -55,6 +56,9 @@ export default defineComponent({
       this.pageSize = pageSize === 0 ? this.defaultPageSize : pageSize;
       this.totalPage = Math.ceil(this.total / this.pageSize);
       this.page = page === 0 ? this.defaultCurrent : page;
+    },
+    dCurrentChange() {
+      this.page = this.defaultCurrent || 1;
     },
     paginationContent(h) {
       const { pageSize, page, totalPage } = this;
@@ -325,7 +329,7 @@ export default defineComponent({
         const _mark = e.target.querySelector(".yn-pagination-selection-mark");
         e.target.children[1].style.display = "block";
         if (_bottom < 150) {
-          e.target.children[1].style.top = "-135px";
+          e.target.children[1].style.top = "-125px";
           _mark.style.top = "-10px";
         }
       }
