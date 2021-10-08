@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-23 16:38:19
+ * @Last Modified time: 2021-10-08 09:14:28
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -22,11 +22,9 @@ import Field from "./field/field.vue";
 import Layout from "./layout/layout.vue";
 import Sticky from "./sticky/sticky.vue";
 import Dialog from "./dialog/dialog.vue";
-import PickyStepper from "./picky-stepper/pickyStepper.vue";
 import Picker from "./picker/picker.vue";
 import Swipe from "./swipe/swipe.vue";
 import Tabs from "./tabs/tabs.vue";
-import Slider from "./slider/slider.vue";
 import PullRefresh from "./pull-refresh/pullRefresh.vue";
 import DatePicker from "./date-picker/datePicker.vue";
 import Calendar from "./calendar/calendar.vue";
@@ -142,11 +140,6 @@ const router = new Router({
       component: Dialog
     },
     {
-      path: "/pickyStepper",
-      name: "pickyStepper",
-      component: PickyStepper
-    },
-    {
       path: "/picker",
       name: "picker",
       component: Picker
@@ -160,11 +153,6 @@ const router = new Router({
       path: "/tabs",
       name: "tabs",
       component: Tabs
-    },
-    {
-      path: "/slider",
-      name: "slider",
-      component: Slider
     },
     {
       path: "/pullRefresh",
