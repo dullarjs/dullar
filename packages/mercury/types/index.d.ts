@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-08-25 11:04:33
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-10-08 17:22:45
+* @Last Modified time: 2021-10-08 17:25:08
 * @E-mail: justbefree@126.com
 */
 import Vue from "vue";
@@ -58,18 +58,15 @@ export {
   YnCalendar,
   YnCheckbox,
   YnCounter,
-  YnDatePicker,
   YnField,
   YnFlex,
   YnFlexItem,
   YnIconfont,
   YnLayout,
-  YnPicker,
   YnPopup,
   YnPullRefresh,
   YnRadiobox,
   YnSkeleton,
-  YnSlider,
   YnSpin,
   YnSticky,
   YnSubmitAction,
