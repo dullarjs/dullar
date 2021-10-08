@@ -11,15 +11,25 @@
       height: 100%;
       .address-header {
         height: 40px;
-
         font-size: 14px;
-        span {
-          display: inline-block;
-          margin: 0 3px;
-          line-height: 40px;
-          &.active {
-            color: #c66c57;
-            border-bottom: 2px solid #c66c57;
+        overflow: hidden;
+        width: calc(100% - 40px);
+        .header-container {
+          overflow-x: auto;
+          height: 40px;
+          .header-tab {
+            min-width: 30px;
+            span {
+              display: inline-block;
+              height: 40px;
+            }
+            // display: inline-block;
+            margin: 0 5px;
+            line-height: 40px;
+            &.active {
+              color: #c66c57;
+              border-bottom: 2px solid #c66c57;
+            }
           }
         }
       }
@@ -29,7 +39,7 @@
           height: 100%;
           overflow: scroll;
           list-style: none;
-          padding: 0;
+          padding: 0 10px;
           margin: 0;
           > li {
             line-height: 28px;

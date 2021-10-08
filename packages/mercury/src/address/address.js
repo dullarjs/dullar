@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-01 18:09:14
+ * @Last Modified time: 2021-10-08 17:14:49
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -145,16 +145,23 @@ export default defineComponent({
                   [
                     this.regionList.length > 0
                       ? h(
-                          "div",
-                          {},
+                          genComponentName("flex"),
+                          { props: {}, class: ["header-container"] },
                           Array.apply(null, this.regionHeader).map(
                             (region, key) => {
                               const isStringType = isString(region);
+                              const text = isStringType
+                                    ? region
+                                    : this.address.parse(region);
+                              const iWidth = window.innerWidth - 40;
+                              const total = iWidth / 14;
+                              const flex = `0 0 ${text.length / total * 100}%`;
                               const isLast =
                                 key === this.regionHeader.length - 1;
                               return h(
-                                "span",
+                                genComponentName("flex-item"),
                                 {
+                                  props: { flex },
                                   on: {
                                     click: this.handleTabClick.bind(this, {
                                       region: { [this.attributeMapping["id"]]: region[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: region[this.attributeMapping["type"]] },
@@ -162,11 +169,11 @@ export default defineComponent({
                                     }),
                                   },
                                   key,
-                                  class: [isLast ? "active" : ""],
+                                  class: ["header-tab", isLast ? "active" : ""],
                                 },
-                                isStringType
-                                  ? region
-                                  : this.address.parse(region)
+                                [h("span", {},
+                                  text
+                                )]
                               );
                             }
                           )
