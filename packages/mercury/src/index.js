@@ -42,7 +42,6 @@ import Radiobox from "./radiobox";
 import ShippingAddress from "./shipping-address";
 import Skeleton from "./skeleton";
 import Slide from "./slide";
-import Slider from "./slider";
 import Spin from "./spin";
 import Sticky from "./sticky";
 import Swipe from "./swipe";
@@ -54,7 +53,7 @@ import Toast from "./toast";
 import Tooltip from "./tooltip";
 import Tree from "./tree";
 
-const components = [ActionSheet, Address, AnimationList, AnimationListItem, Badge, Button, Calendar, Cascader, Category, CategoryMobile, Checkbox, Counter, DatePicker, Dialog, ElasticSearch, Field, FieldGroup, Flex, FlexItem, Form, FormItem, Iconfont, Image, Indicator, Input, Layout, Magnifier, Modal, Pagination, Picker, Popup, PullRefresh, Radiobox, ShippingAddress, Skeleton, Slide, Slider, Spin, Sticky, Swipe, SwipeItem, TabItem, Table, Tabs, Toast, Tooltip, Tree];
+const components = [ActionSheet, Address, AnimationList, AnimationListItem, Badge, Button, Calendar, Cascader, Category, CategoryMobile, Checkbox, Counter, DatePicker, Dialog, ElasticSearch, Field, FieldGroup, Flex, FlexItem, Form, FormItem, Iconfont, Image, Indicator, Input, Layout, Magnifier, Modal, Pagination, Picker, Popup, PullRefresh, Radiobox, ShippingAddress, Skeleton, Slide, Spin, Sticky, Swipe, SwipeItem, TabItem, Table, Tabs, Toast, Tooltip, Tree];
 const install = (Vue) => {
   if (install.installed) return;
   components.map(component => {
@@ -133,7 +132,6 @@ export { Radiobox as YnRadiobox };
 export { ShippingAddress as YnShippingAddress };
 export { Skeleton as YnSkeleton };
 export { Slide as YnSlide };
-export { Slider as YnSlider };
 export { Spin as YnSpin };
 export { Sticky as YnSticky };
 export { Swipe as YnSwipe };
