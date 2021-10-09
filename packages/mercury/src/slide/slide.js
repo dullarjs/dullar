@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-09-13 15:18:42
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-09-23 15:52:54
+* @Last Modified time: 2021-10-09 14:57:42
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -31,7 +31,6 @@ export default defineComponent({
   data() {
     return {
       dragging: false,
-      className: "",
       opened: false
     }
   },
@@ -58,7 +57,6 @@ export default defineComponent({
           const { target } = event;
           if (that.deltaX > 0 && !that.opened || that.deltaX < 0 && that.opened) return;
           that.dragging = true;
-          that.className = "none";
           preventDefault(event);
           if (that.deltaX < 0) {
             target.style.transform = `translate3D(${that.bounceDeltaX}px, 0, 0)`;
@@ -67,6 +65,7 @@ export default defineComponent({
           }
         },
         stop(event) {
+          that.dragging = false;
           if (that.groupName && that.uid) {
             const groups = EventBus.$data.globalProperties[that.groupName];
             Object.keys(groups).map(name => {
@@ -82,13 +81,11 @@ export default defineComponent({
             });
           }
           if (that.direction === "vertical" || that.deltaX === 0) {
-            that.reset();
+            // that.reset();
             return;
           }
           const { target } = event;
           // if (that.deltaX > 0 && !that.opened || that.deltaX === 0) return;
-          that.dragging = false;
-          that.className = "";
           if (that.deltaX < 0) {
             if (Math.abs(that.deltaX) > that.trigger) {
               target.style.transform = `translate3D(-${that.buttonWidth}px, 0, 0)`;
@@ -129,10 +126,10 @@ export default defineComponent({
     const buttons = this.slots("buttons");
     if (Array.isArray(buttons) && buttons.length > 0) {
       const iWidth = buttons.length * this.width;
-      const deviceWidth = window.screen.availWidth;
+      const deviceWidth = window.innerWidth;
       this.buttonWidth = iWidth;
       return h("div", { class: ["yn-slide"] }, [
-        h("div", { ref: "container", style: { width: `${iWidth + deviceWidth}px` }, class: ["slide-slots", this.className] }, [
+        h("div", { ref: "container", style: { width: `${iWidth + deviceWidth}px` }, class: ["slide-slots"] }, [
           h("div", { style: { width: `${deviceWidth}px` }, class: ["content-slot"] }, [
             this.slots("content")
           ]),

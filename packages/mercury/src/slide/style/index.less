@@ -1,11 +1,10 @@
 .yn-slide {
   overflow: hidden;
   width: 100%;
+  user-select: none;
+  cursor: grab;
   .slide-slots {
-    transition: all 0.2s ease-out;
-    &.none {
-      transition: none 0s ease 0s;
-    }
+    transition: all 0.3s ease-out;
     .content-slot,.button-slot {
       display: inline-block;
     }
