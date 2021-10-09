@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-28 11:22:44
+ * @Last Modified time: 2021-10-09 18:25:48
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -181,7 +181,7 @@ export default defineComponent({
           that.startMove(prevEle, -1 * num * that.size);
           curEle.style[attr] = `${num * that.size}px`;
           nextEle.style[attr] = `${num * that.size}px`;
-          that.startMove(curEle, 0, () => {
+          that.startMove(curEle, -1 * num * that.size, () => {
             moving = false;
             prevEle = null;
             curEle = null;
@@ -242,7 +242,7 @@ export default defineComponent({
       const attr = this.vertical ? "top" : "left";
       this.startMove(prevEle, -1 * num * this.size);
       curEle.style[attr] = `${num * this.size}px`;
-      this.startMove(curEle, 0, (el) => {
+      this.startMove(curEle, -1 * num * this.size, (el) => {
         this.moving = false;
         callback && typeof callback === "function" && callback(el);
       });
