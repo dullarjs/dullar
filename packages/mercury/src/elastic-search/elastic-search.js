@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-07 19:36:09
+ * @Last Modified time: 2021-10-09 09:43:31
  * @E-mail: justbefree@126.com
  */
 
@@ -75,6 +75,9 @@ export default defineComponent({
   components: { Flex, FlexItem, Iconfont, Popup, Field, Spin },
   methods: {
     handleFireSearch() {
+      if (this.isEdit) {
+        this.isEdit = false;
+      }
       this.showSearchPanel = !this.showSearchPanel;
     },
     handleBeforeEnter() {
