@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-08 17:14:49
+ * @Last Modified time: 2021-10-09 13:38:16
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -125,7 +125,7 @@ export default defineComponent({
             position: "bottom",
             showCloseIcon: true,
             fixed: true,
-            closeOnClickModal: false,
+            closeOnClickModal: true,
           },
           on: {
             beforeEnter: this.handleBeforeEnter,
