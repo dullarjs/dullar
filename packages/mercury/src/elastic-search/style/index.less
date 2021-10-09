@@ -76,6 +76,19 @@
       .histroy-record {
         width: 94%;
         margin: 0 auto;
+        .operation {
+          font-size: 12px;
+          .delete-all:after {
+            content: "";
+            border-left: 1px solid @border-color;
+            height: 8px;
+            margin: 0 3px;
+            display: inline-block;
+          }
+          .done {
+            color: #ec5151;
+          }
+        }
         .history-flex {
           width: 100%;
           .history-label {
@@ -83,12 +96,16 @@
             margin: 0;
             padding: 0;
           }
+
+        }
+        .delete-flex {
+          text-align: right;
           .records {
             .record {
               color: #666;
               background: #f6f6f6;
               color: #000;
-              margin: 3px;
+              margin: 5px;
               padding: 3px 10px;
               font-size: 12px;
               border-radius: 10px;
@@ -101,20 +118,6 @@
                   margin: 0 3px;
                 }
               }
-            }
-          }
-        }
-        .delete-flex {
-          width: 120px;
-          text-align: right;
-          .operation {
-            font-size: 12px;
-            .delete-all:after {
-              content: "";
-              border-left: 1px solid @border-color;
-              height: 8px;
-              margin: 0 3px;
-              display: inline-block;
             }
           }
         }

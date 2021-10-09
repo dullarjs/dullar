@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-09 09:43:31
+ * @Last Modified time: 2021-10-09 12:24:04
  * @E-mail: justbefree@126.com
  */
 
@@ -257,17 +257,65 @@ export default defineComponent({
                       this.historyRecords.length > 0
                         ? h(
                             genComponentName("flex"),
-                            { props: { justifyContent: "spaceAround" } },
+                            { props: { flexDirection: "column" } },
                             [
                               h(
                                 genComponentName("flex-item"),
                                 { class: ["history-flex"] },
                                 [
-                                  h(
-                                    "h3",
-                                    { class: ["history-label"] },
-                                    this.histroyLabel
-                                  ),
+                                  h(genComponentName("flex"), { props: { justifyContent: "spaceBetween" } }, [
+                                    h(genComponentName("flex-item"), {}, [
+                                      h(
+                                        "h3",
+                                        { class: ["history-label"] },
+                                        this.histroyLabel
+                                      )
+                                    ]),
+                                    h(genComponentName("flex-item"), {}, [
+                                      this.isEdit
+                                        ? h("span", { class: ["operation"] }, [
+                                            h(
+                                              "small",
+                                              {
+                                                class: ["delete-all"],
+                                                on: {
+                                                  click: this.handleDelete.bind(
+                                                    this,
+                                                    { type: "all" }
+                                                  ),
+                                                },
+                                              },
+                                              this.deleteAllText
+                                            ),
+                                            h(
+                                              "small",
+                                              {
+                                                class: ["done"],
+                                                on: {
+                                                  click: this.handleDone,
+                                                },
+                                              },
+                                              this.doneText
+                                            ),
+                                          ])
+                                        : h(
+                                            genComponentName("iconfont"),
+                                            {
+                                              props: { name: "delete", size: 16 },
+                                              on: {
+                                                click: this.handleEdit,
+                                              },
+                                            },
+                                            []
+                                          ),
+                                    ])
+                                  ])
+                                ]
+                              ),
+                              h(
+                                genComponentName("flex-item"),
+                                { class: ["delete-flex"] },
+                                [
                                   h(
                                     genComponentName("flex"),
                                     {
@@ -323,48 +371,6 @@ export default defineComponent({
                                       }
                                     )
                                   ),
-                                ]
-                              ),
-                              h(
-                                genComponentName("flex-item"),
-                                { class: ["delete-flex"] },
-                                [
-                                  this.isEdit
-                                    ? h("span", { class: ["operation"] }, [
-                                        h(
-                                          "small",
-                                          {
-                                            class: ["delete-all"],
-                                            on: {
-                                              click: this.handleDelete.bind(
-                                                this,
-                                                { type: "all" }
-                                              ),
-                                            },
-                                          },
-                                          this.deleteAllText
-                                        ),
-                                        h(
-                                          "small",
-                                          {
-                                            class: ["done"],
-                                            on: {
-                                              click: this.handleDone,
-                                            },
-                                          },
-                                          this.doneText
-                                        ),
-                                      ])
-                                    : h(
-                                        genComponentName("iconfont"),
-                                        {
-                                          props: { name: "delete", size: 16 },
-                                          on: {
-                                            click: this.handleEdit,
-                                          },
-                                        },
-                                        []
-                                      ),
                                 ]
                               ),
                             ]
