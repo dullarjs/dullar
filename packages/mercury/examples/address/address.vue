@@ -8,7 +8,7 @@
     <yn-button @click="fromRight">从右边进入</yn-button>
     <p>{{ detailAddress.join(",") }}</p>
     <yn-address :attributeMapping="attributeMapping" :defaultParams="defaultParams" v-model="showAddress" @done="handleDone" :address="getAddressObject()"></yn-address>
-    <yn-address position="right" :showBackIcon="true" :showCloseIcon="false" :attributeMapping="attributeMapping" :defaultParams="defaultParams" v-model="rightAddress" @done="handleDone" :address="getAddressObject()"></yn-address>
+    <yn-address class="right-address" position="right" :showBackIcon="true" :showCloseIcon="false" :attributeMapping="attributeMapping" :defaultParams="defaultParams" v-model="rightAddress" @done="handleDone" :address="getAddressObject()"></yn-address>
   </div>
 </template>
 <script>
@@ -84,4 +84,7 @@ export default {
 };
 </script>
 <style type="text/css">
+  .right-address .address-popup{
+      width: 90%;
+  }
 </style>
