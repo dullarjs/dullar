@@ -1,6 +1,6 @@
 {
   "name": "@dullar/cube",
-  "version": "0.2.46-alpha.0",
+  "version": "0.2.46",
   "publishConfig": {
     "access": "public"
   },
