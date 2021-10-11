@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-11 10:26:13
+ * @Last Modified time: 2021-10-11 14:17:00
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,10 +10,27 @@ import { isString } from "../modules/utils";
 import Popup from "../popup";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
+import Iconfont from "../iconfont";
 export default defineComponent({
   name: "Address",
-  components: { Popup, Flex, FlexItem },
+  components: { Popup, Flex, FlexItem, Iconfont },
   props: {
+    showCloseIcon: {
+      type: Boolean,
+      default: true
+    },
+    showBackIcon: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      default: "配送至",
+      type: String
+    },
+    position: {
+      type: String,
+      default: "bottom"
+    },
     value: Boolean,
     defaultParams: {
       type: Object,
@@ -123,8 +140,8 @@ export default defineComponent({
         {
           class: ["address-popup"],
           props: {
-            position: "bottom",
-            showCloseIcon: true,
+            position: this.position,
+            showCloseIcon: this.showCloseIcon,
             fixed: true,
             closeOnClickModal: true,
           },
@@ -144,44 +161,53 @@ export default defineComponent({
                   genComponentName("flex-item"),
                   { class: ["address-header"] },
                   [
-                    this.regionList.length > 0
-                      ? h(
-                          genComponentName("flex"),
-                          { props: {}, class: ["header-container"] },
-                          Array.apply(null, this.regionHeader).map(
-                            (region, key) => {
-                              const isStringType = isString(region);
-                              const text = isStringType
-                                    ? region
-                                    : this.address.parse(region);
-                              const iWidth = window.innerWidth - 40;
-                              const total = iWidth / 14;
-                              const flex = `0 0 ${text.length / total * 100}%`;
-                              const isLast =
-                                key === this.regionHeader.length - 1;
-                              return h(
-                                genComponentName("flex-item"),
-                                {
-                                  props: { flex },
-                                  on: {
-                                    click: this.handleTabClick.bind(this, {
-                                      region: { [this.attributeMapping["id"]]: region[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: region[this.attributeMapping["type"]] },
-                                      key,
-                                    }),
-                                  },
-                                  key,
-                                  class: ["header-tab", isLast ? "active" : ""],
-                                },
-                                [h("span", {},
-                                  text
-                                )]
-                              );
-                            }
-                          )
-                        )
-                      : null,
+                    h("div", { class: ["address-header-back", this.showBackIcon ? "" : "hidden"], on: { click: () => { this.$emit("input", false) } } }, [
+                      // "返回"
+                      h(genComponentName("iconfont"), { props: { name: "back", size: 14 } }, [])
+                    ]),
+                    h("div", { class: ["address-header-title"] }, [
+                      h("span", {}, this.title)
+                    ])
                   ]
                 ),
+                h(genComponentName("flex-item"), { class: ["address-title"] }, [
+                  Array.isArray(this.regionList) && this.regionList.length > 0
+                    ? h(
+                        genComponentName("flex"),
+                        { props: {}, class: ["header-container"] },
+                        Array.apply(null, this.regionHeader).map(
+                          (region, key) => {
+                            const isStringType = isString(region);
+                            const text = isStringType
+                                  ? region
+                                  : this.address.parse(region);
+                            const iWidth = window.innerWidth - 40;
+                            const total = iWidth / 14;
+                            const flex = `0 0 ${text.length / total * 100}%`;
+                            const isLast =
+                              key === this.regionHeader.length - 1;
+                            return h(
+                              genComponentName("flex-item"),
+                              {
+                                props: { flex },
+                                on: {
+                                  click: this.handleTabClick.bind(this, {
+                                    region: { [this.attributeMapping["id"]]: region[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: region[this.attributeMapping["type"]] },
+                                    key,
+                                  }),
+                                },
+                                key,
+                                class: ["header-tab", isLast ? "active" : ""],
+                              },
+                              [h("span", {},
+                                text
+                              )]
+                            );
+                          }
+                        )
+                      )
+                    : null,
+                ]),
                 h(genComponentName("flex-item"), { class: ["address-body"] }, [
                   h(
                     "ul",

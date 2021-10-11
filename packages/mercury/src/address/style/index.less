@@ -3,38 +3,57 @@
     height: 80%;
   }
   .address-container {
-    // height: 80%;
     background: @white;
-    // height: calc(100% - 40px);
     height: 100%;
     .address-flex {
       height: 100%;
       .address-header {
         height: 40px;
         font-size: 14px;
-        overflow: hidden;
-        width: calc(100% - 40px);
-        .header-container {
-          overflow-x: auto;
+        .address-header-back {
+          margin-left: 8px;
+          line-height: 40px;
           height: 40px;
-          .header-tab {
-            min-width: 30px;
-            span {
-              display: inline-block;
-              height: 40px;
-            }
-            // display: inline-block;
-            margin: 0 5px;
-            line-height: 40px;
-            &.active {
-              color: #c66c57;
-              border-bottom: 2px solid #c66c57;
-            }
+          width: 40px;
+          &.hidden {
+            visibility: hidden;
+          }
+        }
+        .address-header-title {
+          width: calc(100% - 80px);
+          text-align: center;
+          position: fixed;
+          top: 0px;
+          left: 40px;
+          height: 40px;
+          line-height: 40px;
+          color: #666;
+          font-size: 14px;
+        }
+      }
+      .address-title {
+        height: 40px;
+      }
+      .header-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 40px;
+        .header-tab {
+          min-width: 30px;
+          span {
+            display: inline-block;
+            height: 40px;
+          }
+          margin: 0 5px;
+          line-height: 40px;
+          &.active {
+            color: #c66c57;
+            border-bottom: 2px solid #c66c57;
           }
         }
       }
       .address-body {
-        height: calc(100% - 40px);
+        height: calc(100% - 80px);
         .ul-container {
           height: 100%;
           overflow: scroll;
@@ -46,7 +65,6 @@
             font-size: 14px;
             text-indent: 5px;
             cursor: pointer;
-            // border-bottom: 1px solid @border-color;
           }
         }
       }
