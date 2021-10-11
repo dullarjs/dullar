@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-09 18:25:48
+ * @Last Modified time: 2021-10-11 18:19:28
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -132,7 +132,8 @@ export default defineComponent({
           that.dragging = true;
           startTime = Date.now();
         },
-        dragging() {
+        dragging(e) {
+          preventDefault(e.e);
           if (moving) {
             return;
           }
@@ -178,10 +179,10 @@ export default defineComponent({
           }
           const attr = that.vertical ? "top" : "left";
           moving = true;
-          that.startMove(prevEle, -1 * num * that.size);
-          curEle.style[attr] = `${num * that.size}px`;
+          that.startMove(prevEle, -1 * num * that.size - disXY);
+          curEle.style[attr] = `${num * that.size + disXY}px`;
           nextEle.style[attr] = `${num * that.size}px`;
-          that.startMove(curEle, -1 * num * that.size, () => {
+          that.startMove(curEle, -1 * num * that.size - disXY, () => {
             moving = false;
             prevEle = null;
             curEle = null;
