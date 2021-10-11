@@ -5,8 +5,10 @@
       <yn-field v-model="address" placeholder="请选择地址" @click="onoff"></yn-field>
     </yn-field-group> -->
     <yn-button @click="onoff">请选择地址</yn-button>
+    <yn-button @click="fromRight">从右边进入</yn-button>
     <p>{{ detailAddress.join(",") }}</p>
     <yn-address :attributeMapping="attributeMapping" :defaultParams="defaultParams" v-model="showAddress" @done="handleDone" :address="getAddressObject()"></yn-address>
+    <yn-address position="right" :showBackIcon="true" :showCloseIcon="false" :attributeMapping="attributeMapping" :defaultParams="defaultParams" v-model="rightAddress" @done="handleDone" :address="getAddressObject()"></yn-address>
   </div>
 </template>
 <script>
@@ -18,6 +20,7 @@ export default {
       sources,
       address: "",
       showAddress: false,
+      rightAddress: false,
       detailAddress: [],
       defaultParams: { region_type: "1", region_id: "10" },
       attributeMapping: {
@@ -33,6 +36,9 @@ export default {
       args.forEach(address => {
         this.detailAddress.push(address.region_name);
       });
+    },
+    fromRight() {
+      this.rightAddress = !this.rightAddress;
     },
     onoff() {
       this.showAddress = !this.showAddress;
