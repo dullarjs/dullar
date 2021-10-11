@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-09 13:38:16
+ * @Last Modified time: 2021-10-11 10:26:13
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -110,6 +110,7 @@ export default defineComponent({
       this.requestAddress(region);
     },
     handleTabClick({ region, key }) {
+      if (this.regionHeader.length - 1 === key) return;
       this.regionHeader.splice(key);
       this.regionHeader.push(this.label);
       this.regionList = this.CACHE[region[this.attributeMapping["id"]]];
