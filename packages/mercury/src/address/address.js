@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-11 14:17:00
+ * @Last Modified time: 2021-10-11 18:41:17
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -139,6 +139,7 @@ export default defineComponent({
         genComponentName("popup"),
         {
           class: ["address-popup"],
+          ref: "popup",
           props: {
             position: this.position,
             showCloseIcon: this.showCloseIcon,
@@ -181,7 +182,8 @@ export default defineComponent({
                             const text = isStringType
                                   ? region
                                   : this.address.parse(region);
-                            const iWidth = window.innerWidth - 40;
+                            // const iWidth = window.innerWidth - 40;
+                            const iWidth = this.$refs.popup.$el.offsetWidth - 40;
                             const total = iWidth / 14;
                             const flex = `0 0 ${text.length / total * 100}%`;
                             const isLast =
