@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-11-03 11:12:31
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-18 21:03:51
+ * @Last Modified time: 2021-10-12 19:30:06
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -22,7 +22,7 @@ export default defineComponent({
       type: [String, Number],
       default: 2,
       validator: (num) => {
-        return parseInt(num) >= 2 && parseInt(num) <= 20;
+        return parseInt(num) >= 0 && parseInt(num) <= 20;
       },
     },
     avatar: {
@@ -30,10 +30,6 @@ export default defineComponent({
       default: true,
     },
   },
-  data() {
-    return {};
-  },
-  methods: {},
   render(h) {
     const avatarClass = this.avatar ? "avatar" : "";
     const rows = parseInt(this.rows);
