@@ -5,6 +5,9 @@
 (Examples) - [https://vueggy.com]
 
 
+### Version
+[![npm version](https://badge.fury.io/js/@dullar%2Fmercury.svg)](https://badge.fury.io/js/@dullar%2Fmercury)
+
 ### Usage
 
 ```
