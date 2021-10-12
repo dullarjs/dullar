@@ -2,7 +2,7 @@
   <div class="yn-skeleton-container">
     <h2>yn-skeleton</h2>
     <div class="">
-      <yn-skeleton rows="1" :avatar="false" type="card"></yn-skeleton>
+      <yn-skeleton :rows="0" :avatar="false" type="card"></yn-skeleton>
       <yn-skeleton rows="10" :avatar="false"></yn-skeleton>
       <yn-skeleton rows="10"></yn-skeleton>
     </div>
