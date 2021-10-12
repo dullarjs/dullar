@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-08-25 11:08:05
 * @Last Modified by:   Just be free
-* @Last Modified time: 2020-08-25 18:21:13
+* @Last Modified time: 2021-10-12 17:43:16
 * @E-mail: justbefree@126.com
 */
 
@@ -26,3 +26,4 @@ export interface Toast {
   close(): void;
 }
 export const Toast: Toast;
+export const YnToast: Toast;
