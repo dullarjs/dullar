@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-20 16:43:52
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-21 15:02:29
+ * @Last Modified time: 2021-10-13 12:15:01
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -22,6 +22,10 @@ export default defineComponent({
     Iconfont,
   },
   props: {
+    disableMask: {
+      type: Boolean,
+      default: false
+    },
     value: {
       type: Boolean,
       default: false,
@@ -94,6 +98,9 @@ export default defineComponent({
       const parent = node.parentNode;
       const modal = document.createElement("div");
       addClass(modal, "v-ynpopup-modal");
+      if (this.disableMask) {
+        addClass(modal, "hide");
+      }
       parent.insertBefore(modal, node);
       if (this.singleton) {
         modal.style.zIndex = this.zIndex + idSeed;
