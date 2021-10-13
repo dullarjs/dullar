@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-13 13:07:05
+ * @Last Modified time: 2021-10-13 13:51:57
  * @E-mail: justbefree@126.com
  */
 
@@ -13,8 +13,10 @@ import Iconfont from "../iconfont";
 import Spin from "../spin";
 import Field from "../field";
 import Popup from "../popup";
+import { renderedMixins } from "../mixins/rendered";
 export default defineComponent({
   name: "ElasticSearch",
+  mixins: [renderedMixins],
   props: {
     value: String,
     closeWhenSearch: Boolean,
@@ -84,7 +86,14 @@ export default defineComponent({
       this.historyRequest();
     },
     handleAfterEnter() {
-      this.$refs.input.$el.getElementsByTagName("input")[0].focus();
+      const value = this.value;
+      this.$emit("input", "");
+      const inputDom = this.$refs.input.$el.getElementsByTagName("input")[0];
+      inputDom.focus();
+      this.rendered(() => {
+        this.$emit("input", value);
+        inputDom.value = value;
+      });
     },
     handleEdit() {
       this.isEdit = true;
