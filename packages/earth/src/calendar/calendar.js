@@ -244,6 +244,7 @@ export default defineComponent({
           this.changedNode = { [date.key]: date };
         }
       }
+      push(date.className, "during-active");
       this.$emit("changeDate", {
         fromDate: this.fromDate,
         toDate: this.toDate,
@@ -302,6 +303,15 @@ export default defineComponent({
                 ? "during-active"
                 : ""
             );
+            if (ynDate.getDay() === 6) {
+              push(className, "during-border-right");
+            } else if (String(ynDate.getDaysCountOfMonth()) === j) {
+              push(className, "during-border-right");
+            } else if (ynDate.getDay() === 0) {
+              push(className, "during-border-left");
+            } else if (j === "01") {
+              push(className, "during-border-left");
+            }
           }
           if (this.beginDate && this.endDate) {
             if (
@@ -434,6 +444,12 @@ export default defineComponent({
     handleAfterLeave() {
       this.$emit("afterLeave");
     },
+    getStartOrEndDateClass(classArr) {
+      return classArr.filter((c) => ["active"].includes(c));
+    },
+    getExcludeStartOrEndDateClass(classArr) {
+      return classArr.filter((c) => !["active"].includes(c));
+    },
     createDate(h) {
       const dates = this.generateDate();
       const caculateDOM = [];
@@ -487,7 +503,12 @@ export default defineComponent({
                           genComponentName("flex-item"),
                           {
                             key: date.key,
-                            class: ["yn-calendar-date", ...date.className],
+                            class: [
+                              "yn-calendar-date",
+                              ...this.getExcludeStartOrEndDateClass(
+                                date.className
+                              ),
+                            ],
                             // domProps: { innerHTML: date.day },
                             ref,
                             nativeOn: {
@@ -498,6 +519,11 @@ export default defineComponent({
                             h(
                               genComponentName("flex"),
                               {
+                                class: [
+                                  ...this.getStartOrEndDateClass(
+                                    date.className
+                                  ),
+                                ],
                                 props: {
                                   flexDirection: "column",
                                   justifyContent: "spaceBetween",
