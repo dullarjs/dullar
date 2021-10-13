@@ -305,11 +305,14 @@ export default defineComponent({
             );
             if (ynDate.getDay() === 6) {
               push(className, "during-border-right");
-            } else if (String(ynDate.getDaysCountOfMonth()) === j) {
+            }
+            if (String(ynDate.getDaysCountOfMonth()) === j) {
               push(className, "during-border-right");
-            } else if (ynDate.getDay() === 0) {
+            }
+            if (ynDate.getDay() === 0) {
               push(className, "during-border-left");
-            } else if (j === "01") {
+            }
+            if (j === "01") {
               push(className, "during-border-left");
             }
           }
