@@ -1,6 +1,6 @@
 {
   "name": "@dullar/bem",
-  "version": "0.2.55",
+  "version": "0.2.56",
   "description": "BEM technology implemented by SCSS & TypeScript",
   "publishConfig": {
     "access": "public"
