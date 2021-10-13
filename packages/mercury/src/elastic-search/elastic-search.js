@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-09 12:24:04
+ * @Last Modified time: 2021-10-13 13:07:05
  * @E-mail: justbefree@126.com
  */
 
@@ -145,11 +145,12 @@ export default defineComponent({
     },
     handleKeydown(e) {
       if (Number(e.keyCode) === 13) {
+        this.$emit("fireSearch", this.value);
+        if (this.value === "") return;
         // fire http request
         if (this.closeWhenSearch) {
           this.showSearchPanel = false;
         }
-        this.$emit("fireSearch", this.value);
       }
     },
   },
@@ -178,8 +179,8 @@ export default defineComponent({
       h(
         genComponentName("popup"),
         {
-          props: { position: "middle", value: this.showSearchPanel },
-          style: { height: "100%" },
+          props: { position: "middle", value: this.showSearchPanel, disableMask: true },
+          class: ["elastic-serach-popup"],
           on: {
             beforeEnter: this.handleBeforeEnter,
             afterEnter: this.handleAfterEnter,
