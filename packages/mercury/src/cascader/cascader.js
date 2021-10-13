@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-02 09:17:29
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-28 10:57:15
+ * @Last Modified time: 2021-10-08 09:41:26
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -29,6 +29,11 @@ export default defineComponent({
       selected: -1,
     };
   },
+  watch: {
+    categories: function () {
+      this.selected = -1;
+    },
+  },
   methods: {
     handleItemClick(e, key) {
       const selected = this.selected;
@@ -44,9 +49,6 @@ export default defineComponent({
     },
     createList(h) {
       const list = [];
-      list.push(
-        h("li", { class: ["yn-cascader-li"] }, [h("span", {}, ["请选择分类"])])
-      );
       this.categories.forEach((category, index) => {
         const key = index;
         const selected = category.selected || false;
@@ -76,6 +78,7 @@ export default defineComponent({
         class: ["yn-cascader"],
       },
       [
+        h("div", { class: ["yn-cascader-title"] }, [this.listTitle]),
         h("div", { class: ["yn-cascader-content"] }, [
           this.loading &&
             h("div", { class: ["cascader-loading"] }, [

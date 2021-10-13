@@ -1,6 +1,6 @@
 {
   "name": "@dullar/earth",
-  "version": "0.2.35",
+  "version": "0.2.54",
   "publishConfig": {
     "access": "public"
   },
@@ -138,5 +138,5 @@
     "type": "git",
     "url": "git+https://github.com/dullarjs/dullar.git"
   },
-  "gitHead": "1c0edaa9973a7364ebc9e89d3d264914b83d17e3"
+  "gitHead": "a7732f0a1d69b4bea91aaaaec26401eb07ff0cc2"
 }

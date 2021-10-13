@@ -2,7 +2,7 @@
  * @Author: tongh
  * @Date:   2021-09-27 14:49:59
  * @Last Modified by:   tongh
- * @Last Modified time: 2021-09-27 14:49:59
+ * @Last Modified time: 2021-09-29 16:49:59
  */
 import { defineComponent } from "../modules/component";
 import { slotsMixins } from "@/mixins/slots";
@@ -49,7 +49,7 @@ export default defineComponent({
         }
       });
       r.forEach((item) => {
-        if (item.required && value.trim() == "") {
+        if (item.required && String(value).trim() == "") {
           this.message = item.message;
           count++;
           return false;
@@ -78,10 +78,13 @@ export default defineComponent({
     initRule() {
       const rules = this.formWrap.rule[this.prop];
       if (!rules) return false;
-      const dom = this.$refs.formItem.querySelector("input");
       this.required = rules.some((item) => {
         return item.required;
       });
+      const dom =
+        this.$refs.formItem.querySelector("input") ||
+        this.$refs.formItem.querySelector("select");
+      if (!dom) return false;
       on(dom, "blur", (e) => {
         this.rules(e.target.value, "blur");
       });

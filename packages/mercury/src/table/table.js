@@ -1,12 +1,13 @@
 /*
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
- * @Last Modified by: yegl
- * @Last Modified time: 2021-09-27 15:36:35
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2021-10-08 14:58:25
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { deepClone } from "../modules/utils/deepClone";
+import { on, off } from "../modules/event";
 import Checkbox from "../checkbox";
 export default defineComponent({
   name: "Table",
@@ -139,17 +140,12 @@ export default defineComponent({
     columns: "serializationThead",
   },
   mounted() {
-    document.addEventListener("click", this.dropDownListener);
-    document
-      .getElementById(`yn-table-${this.randNum}`)
-      .addEventListener("scroll", this.scrollHandle, {
-        capture: false,
-        passive: true,
-      });
+    on(document, "click", this.dropDownListener);
+    on(document.getElementById(`yn-table-${this.randNum}`), "scroll", this.scrollHandle);
   },
   beforeDestroy() {
-    document.removeEventListener("click", this.dropDownListener);
-    document.removeEventListener("scroll", this.scrollHandle);
+    off(document, "click", this.dropDownListener);
+    off(document.getElementById(`yn-table-${this.randNum}`), "scroll", this.scrollHandle);
   },
   methods: {
     dropDownListener(e) {
@@ -330,6 +326,7 @@ export default defineComponent({
       // 暂时只支持搜索，需要其他功能之后再说
       if (column.filters) {
         return h("div", { class: ["yn-table-filter-column"] }, [
+          column.required && h("i", { class: ["yn-table-required"] }, ["*"]),
           h("span", { class: ["yn-table-column-title"] }, [column.title]),
           h(
             "span",
@@ -406,7 +403,9 @@ export default defineComponent({
           ),
         ]);
       } else {
-        return column.title;
+        return column.required
+          ? [h("i", { class: ["yn-table-required"] }, ["*"]), column.title]
+          : column.title;
       }
     },
     // 头部行
@@ -772,7 +771,7 @@ export default defineComponent({
             item !== null &&
             item.setContent
           ) {
-            _tag = item.setContent(value, record);
+            _tag = item.setContent(value, record, h);
           } else if (typeof item === "object" && item !== null && _noed) {
             if (item.on) {
               const _on = this.getBoundEvent(item.on, value, record);

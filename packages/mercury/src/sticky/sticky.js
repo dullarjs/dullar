@@ -2,13 +2,14 @@
  * @Author: Just be free
  * @Date:   2020-03-19 16:53:00
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-14 18:46:21
+ * @Last Modified time: 2021-10-08 15:09:57
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
 import { getScroller } from "../modules/dom/scroll";
 import { getOffset, getScrollTop } from "../modules/dom";
 import { slotsMixins } from "../mixins/slots";
+import { on, off } from "../modules/event";
 const fixedStyle = /fixed/i;
 export default defineComponent({
   name: "Sticky",
@@ -75,10 +76,10 @@ export default defineComponent({
   mounted() {
     this.scrollElement = getScroller(this.$el);
     this.top = getOffset(this.$el).top;
-    this.scrollElement.addEventListener("scroll", this.handleScroll, false);
+    on(this.scrollElement, "scroll", this.handleScroll);
   },
   beforeDestroy() {
-    this.scrollElement.removeEventListener("scroll", this.handleScroll, false);
+    off(this.scrollElement, "scroll", this.handleScroll);
   },
   render(h) {
     return h(

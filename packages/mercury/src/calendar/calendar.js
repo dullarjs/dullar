@@ -1,8 +1,8 @@
 /*
  * @Author: yegl
  * @Date: 2021-09-02 18:05:19
- * @Last Modified by: yegl
- * @Last Modified time: 2021-09-04 21:16:16
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2021-10-08 15:01:06
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,6 +10,7 @@ import Flex from "../flex";
 import FlexItem from "../flex-item";
 import { YnDate } from "../modules/date";
 import { deepClone } from "../modules/utils/deepClone";
+import { on, off } from "../modules/event";
 
 const now = YnDate().getToday();
 const thisYear = now.getFullYear();
@@ -86,15 +87,11 @@ export default defineComponent({
   },
   mounted() {
     this.$nextTick(() => {
-      document
-        .querySelector("body")
-        .addEventListener("click", this.handleBodyClick);
+      on(document.querySelector("body"), "click", this.handleBodyClick);
     });
   },
   beforeDestroy() {
-    document
-      .querySelector("body")
-      .removeEventListener("click", this.handleBodyClick);
+    off(document.querySelector("body"), "click", this.handleBodyClick);
   },
   methods: {
     initInputValue() {

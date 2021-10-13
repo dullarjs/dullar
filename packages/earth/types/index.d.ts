@@ -2,17 +2,18 @@
 * @Author: Just be free
 * @Date:   2020-08-25 11:04:33
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-02-23 15:02:32
+* @Last Modified time: 2021-10-12 18:02:32
 * @E-mail: justbefree@126.com
 */
 import Vue from "vue";
 import "./vue";
-import { Toast } from "./toast";
+import { Toast, YnToast } from "./toast";
 import { Indicator } from "./indicator";
 import { YnActionSheet } from "./action-sheet";
 import { YnAnimationList } from "./animation-list";
 import { YnAnimationListItem } from "./animation-list-item";
 import { YnButton } from "./button";
+import { Dialog } from "./dialog";
 import { YnCalendar } from "./calendar";
 import { YnCheckbox } from "./checkbox";
 import { YnCityPicker } from "./city-picker";
@@ -45,11 +46,13 @@ import { YnTabs } from "./tabs";
 import { YnTabItem } from "./tab-item";
 export {
   Toast,
+  YnToast,
   Indicator,
   YnActionSheet,
   YnAnimationList,
   YnAnimationListItem,
   YnButton,
+  Dialog,
   YnCalendar,
   YnCheckbox,
   YnCityPicker,

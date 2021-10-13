@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-07 19:36:09
+ * @Last Modified time: 2021-10-13 13:51:57
  * @E-mail: justbefree@126.com
  */
 
@@ -13,8 +13,10 @@ import Iconfont from "../iconfont";
 import Spin from "../spin";
 import Field from "../field";
 import Popup from "../popup";
+import { renderedMixins } from "../mixins/rendered";
 export default defineComponent({
   name: "ElasticSearch",
+  mixins: [renderedMixins],
   props: {
     value: String,
     closeWhenSearch: Boolean,
@@ -75,13 +77,23 @@ export default defineComponent({
   components: { Flex, FlexItem, Iconfont, Popup, Field, Spin },
   methods: {
     handleFireSearch() {
+      if (this.isEdit) {
+        this.isEdit = false;
+      }
       this.showSearchPanel = !this.showSearchPanel;
     },
     handleBeforeEnter() {
       this.historyRequest();
     },
     handleAfterEnter() {
-      this.$refs.input.$el.getElementsByTagName("input")[0].focus();
+      const value = this.value;
+      this.$emit("input", "");
+      const inputDom = this.$refs.input.$el.getElementsByTagName("input")[0];
+      inputDom.focus();
+      this.rendered(() => {
+        this.$emit("input", value);
+        inputDom.value = value;
+      });
     },
     handleEdit() {
       this.isEdit = true;
@@ -142,11 +154,12 @@ export default defineComponent({
     },
     handleKeydown(e) {
       if (Number(e.keyCode) === 13) {
+        this.$emit("fireSearch", this.value);
+        if (this.value === "") return;
         // fire http request
         if (this.closeWhenSearch) {
           this.showSearchPanel = false;
         }
-        this.$emit("fireSearch", this.value);
       }
     },
   },
@@ -175,8 +188,8 @@ export default defineComponent({
       h(
         genComponentName("popup"),
         {
-          props: { position: "middle", value: this.showSearchPanel },
-          style: { height: "100%" },
+          props: { position: "middle", value: this.showSearchPanel, disableMask: true },
+          class: ["elastic-serach-popup"],
           on: {
             beforeEnter: this.handleBeforeEnter,
             afterEnter: this.handleAfterEnter,
@@ -254,17 +267,65 @@ export default defineComponent({
                       this.historyRecords.length > 0
                         ? h(
                             genComponentName("flex"),
-                            { props: { justifyContent: "spaceAround" } },
+                            { props: { flexDirection: "column" } },
                             [
                               h(
                                 genComponentName("flex-item"),
                                 { class: ["history-flex"] },
                                 [
-                                  h(
-                                    "h3",
-                                    { class: ["history-label"] },
-                                    this.histroyLabel
-                                  ),
+                                  h(genComponentName("flex"), { props: { justifyContent: "spaceBetween" } }, [
+                                    h(genComponentName("flex-item"), {}, [
+                                      h(
+                                        "h3",
+                                        { class: ["history-label"] },
+                                        this.histroyLabel
+                                      )
+                                    ]),
+                                    h(genComponentName("flex-item"), {}, [
+                                      this.isEdit
+                                        ? h("span", { class: ["operation"] }, [
+                                            h(
+                                              "small",
+                                              {
+                                                class: ["delete-all"],
+                                                on: {
+                                                  click: this.handleDelete.bind(
+                                                    this,
+                                                    { type: "all" }
+                                                  ),
+                                                },
+                                              },
+                                              this.deleteAllText
+                                            ),
+                                            h(
+                                              "small",
+                                              {
+                                                class: ["done"],
+                                                on: {
+                                                  click: this.handleDone,
+                                                },
+                                              },
+                                              this.doneText
+                                            ),
+                                          ])
+                                        : h(
+                                            genComponentName("iconfont"),
+                                            {
+                                              props: { name: "delete", size: 16 },
+                                              on: {
+                                                click: this.handleEdit,
+                                              },
+                                            },
+                                            []
+                                          ),
+                                    ])
+                                  ])
+                                ]
+                              ),
+                              h(
+                                genComponentName("flex-item"),
+                                { class: ["delete-flex"] },
+                                [
                                   h(
                                     genComponentName("flex"),
                                     {
@@ -320,48 +381,6 @@ export default defineComponent({
                                       }
                                     )
                                   ),
-                                ]
-                              ),
-                              h(
-                                genComponentName("flex-item"),
-                                { class: ["delete-flex"] },
-                                [
-                                  this.isEdit
-                                    ? h("span", { class: ["operation"] }, [
-                                        h(
-                                          "small",
-                                          {
-                                            class: ["delete-all"],
-                                            on: {
-                                              click: this.handleDelete.bind(
-                                                this,
-                                                { type: "all" }
-                                              ),
-                                            },
-                                          },
-                                          this.deleteAllText
-                                        ),
-                                        h(
-                                          "small",
-                                          {
-                                            class: ["done"],
-                                            on: {
-                                              click: this.handleDone,
-                                            },
-                                          },
-                                          this.doneText
-                                        ),
-                                      ])
-                                    : h(
-                                        genComponentName("iconfont"),
-                                        {
-                                          props: { name: "delete", size: 16 },
-                                          on: {
-                                            click: this.handleEdit,
-                                          },
-                                        },
-                                        []
-                                      ),
                                 ]
                               ),
                             ]

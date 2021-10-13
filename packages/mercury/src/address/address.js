@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-13 16:53:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-01 18:09:14
+ * @Last Modified time: 2021-10-12 10:42:28
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,10 +10,27 @@ import { isString } from "../modules/utils";
 import Popup from "../popup";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
+import Iconfont from "../iconfont";
 export default defineComponent({
   name: "Address",
-  components: { Popup, Flex, FlexItem },
+  components: { Popup, Flex, FlexItem, Iconfont },
   props: {
+    showCloseIcon: {
+      type: Boolean,
+      default: true
+    },
+    showBackIcon: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      default: "配送至",
+      type: String
+    },
+    position: {
+      type: String,
+      default: "bottom"
+    },
     value: Boolean,
     defaultParams: {
       type: Object,
@@ -110,6 +127,7 @@ export default defineComponent({
       this.requestAddress(region);
     },
     handleTabClick({ region, key }) {
+      if (this.regionHeader.length - 1 === key) return;
       this.regionHeader.splice(key);
       this.regionHeader.push(this.label);
       this.regionList = this.CACHE[region[this.attributeMapping["id"]]];
@@ -121,11 +139,12 @@ export default defineComponent({
         genComponentName("popup"),
         {
           class: ["address-popup"],
+          ref: "popup",
           props: {
-            position: "bottom",
-            showCloseIcon: true,
+            position: this.position,
+            showCloseIcon: this.showCloseIcon,
             fixed: true,
-            closeOnClickModal: false,
+            closeOnClickModal: true,
           },
           on: {
             beforeEnter: this.handleBeforeEnter,
@@ -143,37 +162,53 @@ export default defineComponent({
                   genComponentName("flex-item"),
                   { class: ["address-header"] },
                   [
-                    this.regionList.length > 0
-                      ? h(
-                          "div",
-                          {},
-                          Array.apply(null, this.regionHeader).map(
-                            (region, key) => {
-                              const isStringType = isString(region);
-                              const isLast =
-                                key === this.regionHeader.length - 1;
-                              return h(
-                                "span",
-                                {
-                                  on: {
-                                    click: this.handleTabClick.bind(this, {
-                                      region: { [this.attributeMapping["id"]]: region[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: region[this.attributeMapping["type"]] },
-                                      key,
-                                    }),
-                                  },
-                                  key,
-                                  class: [isLast ? "active" : ""],
-                                },
-                                isStringType
-                                  ? region
-                                  : this.address.parse(region)
-                              );
-                            }
-                          )
-                        )
-                      : null,
+                    h("div", { class: ["address-header-back", this.showBackIcon ? "" : "hidden"], on: { click: () => { this.$emit("input", false) } } }, [
+                      // "返回"
+                      h(genComponentName("iconfont"), { props: { name: "back", size: 14 } }, [])
+                    ]),
+                    h("div", { class: ["address-header-title"] }, [
+                      h("span", {}, this.title)
+                    ])
                   ]
                 ),
+                h(genComponentName("flex-item"), { class: ["address-title"] }, [
+                  Array.isArray(this.regionList) && this.regionList.length > 0
+                    ? h(
+                        genComponentName("flex"),
+                        { props: {}, class: ["header-container"] },
+                        Array.apply(null, this.regionHeader).map(
+                          (region, key) => {
+                            const isStringType = isString(region);
+                            const text = isStringType
+                                  ? region
+                                  : this.address.parse(region);
+                            const iWidth = this.$refs.popup.$el.offsetWidth;
+                            const total = iWidth / 15;
+                            const flex = `0 0 ${text.length / total * 100}%`;
+                            const isLast =
+                              key === this.regionHeader.length - 1;
+                            return h(
+                              genComponentName("flex-item"),
+                              {
+                                props: { flex },
+                                on: {
+                                  click: this.handleTabClick.bind(this, {
+                                    region: { [this.attributeMapping["id"]]: region[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: region[this.attributeMapping["type"]] },
+                                    key,
+                                  }),
+                                },
+                                key,
+                                class: ["header-tab", isLast ? "active" : ""],
+                              },
+                              [h("span", {},
+                                text
+                              )]
+                            );
+                          }
+                        )
+                      )
+                    : null,
+                ]),
                 h(genComponentName("flex-item"), { class: ["address-body"] }, [
                   h(
                     "ul",

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>yn-elastic-search</h2>
-    <yn-elastic-search closeWhenSearch v-model="keywords" :history="getHistory()" :delete="deleteHistory()" placeholder="请输入要搜索的商品"></yn-elastic-search>
+    <yn-elastic-search closeWhenSearch v-model="keywords" :history="getHistory()" :delete="deleteHistory()" v-on:fireSearch="hanleFireSearch" placeholder="请输入要搜索的商品"></yn-elastic-search>
   </div>
 </template>
 <script type="text/javascript">
@@ -14,6 +14,11 @@
       };
     },
     methods: {
+      hanleFireSearch(value) {
+        if (value === "") {
+          this.Toast("请输入要搜索的商品");
+        }
+      },
       getHistoryAction(params) {
         console.log("这里处理请求的参数", params);
         return new Promise((resolve, reject) => {
