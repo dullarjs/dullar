@@ -661,15 +661,23 @@ export default defineComponent({
             class: ["yn-calendar-footer"],
           },
           [
-            this.dateLocked && this.createDateResultArea(h),
-            h("div", {
-              class: [
-                "yn-calendar-confirm-button",
-                this.confirmButtonClassName,
-              ],
-              on: { click: this.handleOnConfirm },
-              domProps: { innerHTML: this.confirmText },
-            }),
+            h(
+              "div",
+              {
+                class: ["yn-calendar-footer-inner"],
+              },
+              [
+                this.dateLocked && this.createDateResultArea(h),
+                h("div", {
+                  class: [
+                    "yn-calendar-confirm-button",
+                    this.confirmButtonClassName,
+                  ],
+                  on: { click: this.handleOnConfirm },
+                  domProps: { innerHTML: this.confirmText },
+                }),
+              ]
+            ),
           ]
         );
       } else {

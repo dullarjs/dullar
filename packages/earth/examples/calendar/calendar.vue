@@ -182,6 +182,8 @@
     ></yn-calendar>
     <yn-calendar
       mode="double"
+      :fromDateMark="''"
+      :toDateMark="''"
       :dateLocked="true"
       :lockDateParse="lockDateParse"
       :before="9"
