@@ -393,6 +393,7 @@ export default defineComponent({
           fromDate: this.fromDate,
           toDate: this.toDate,
         });
+        this.confirmButtonClassName = "active";
       } else {
         const node = this.getDefaultNodeFromProps("defaultDate", [
           "single-mode",
