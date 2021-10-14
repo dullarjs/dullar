@@ -299,6 +299,7 @@ export default defineComponent({
             placeholder: this.placeholder,
             disabled: this.disabled,
             type: this.DataType,
+            readonly: this.readonly,
           },
           attrs: {
             maxlength: this.maxlength,
