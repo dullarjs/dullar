@@ -15,7 +15,7 @@ export default defineComponent({
     margin: String,
     type: {
       type: String,
-      default: ""
+      default: "",
     },
     cardHeight: Number,
     rows: {
@@ -38,11 +38,15 @@ export default defineComponent({
       "div",
       { class: ["yn-skeleton"], style: { margin: this.margin } },
       [
-        h("div", {
-          class: ["animated-background", "background-card"],
-          style: { height: `${this.cardHeight}px` },
-          directives: [{ name: "show", value: this.type === "card" }]
-        }, []),
+        h(
+          "div",
+          {
+            class: ["animated-background", "background-card"],
+            style: { height: `${this.cardHeight}px` },
+            directives: [{ name: "show", value: this.type === "card" }],
+          },
+          []
+        ),
         h(
           "div",
           {

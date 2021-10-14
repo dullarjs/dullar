@@ -1,8 +1,8 @@
 /*
  * @Author: yegl
  * @Date: 2021-09-02 18:05:19
- * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-08 15:01:06
+ * @Last Modified by: yegl
+ * @Last Modified time: 2021-10-14 17:52:42
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -114,7 +114,17 @@ export default defineComponent({
           this.month = month;
           this.day = day;
         }
+      } else if (!this.defaultValue) {
+        this.onReset();
       }
+    },
+    onReset() {
+      this.inputValue = "";
+      this.selectData = {};
+      this.year = now.getFullYear();
+      this.month = now.getMonth() + 1;
+      this.dayCount = YnDate(this.year, this.month).getDaysCountOfMonth();
+      this.dateArr = this.getMonthData();
     },
     isOutScopeDate(dateInfo) {
       const { beginDate, endDate } = this;
@@ -317,6 +327,8 @@ export default defineComponent({
         const month = Number(data[1]);
         const day = Number(data[2]);
         this.selectedDay({ year, month, day });
+      } else if (!e.target.value) {
+        this.onReset();
       } else {
         e.target.value = this.inputValue;
       }

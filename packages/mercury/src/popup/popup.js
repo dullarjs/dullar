@@ -24,7 +24,7 @@ export default defineComponent({
   props: {
     disableMask: {
       type: Boolean,
-      default: false
+      default: false,
     },
     value: {
       type: Boolean,
