@@ -40,7 +40,10 @@ export const startMove = (obj, json, fn, div = 4) => {
 
 export const move = (obj, json, fn) => {
   let attr = hasOwnProperty(json, "left") ? "left" : "top";
-  let t = 0, b = 0, c = json[attr], d = 40;
+  let t = 0,
+    b = 0,
+    c = json[attr],
+    d = 40;
   let timer = null;
   clearTimeout(timer);
   b = parseInt(getComputedStyle(obj, false)[attr]);
@@ -54,6 +57,6 @@ export const move = (obj, json, fn) => {
       clearTimeout(timer);
       fn && typeof fn === "function" && fn.call(obj);
     }
-  }
+  };
   run();
-}
+};

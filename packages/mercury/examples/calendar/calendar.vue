@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-09-02 19:00:52
  * @Last Modified by: yegl
- * @Last Modified time: 2021-09-04 21:27:41
+ * @Last Modified time: 2021-10-14 16:57:52
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -39,6 +39,7 @@
           ></yn-calendar>
         </yn-flex-item>
       </yn-flex>
+      <yn-button @click="handleReset" type="primary">reset</yn-button>
     </div>
   </template>
   <script type="text/javascript">
@@ -63,6 +64,10 @@
       onChangeEnd(value) {
         this.endDate = value;
         console.log(this.endDate);
+      },
+      handleReset() {
+        this.startDate = "";
+        this.endDate = "";
       }
     }
   };

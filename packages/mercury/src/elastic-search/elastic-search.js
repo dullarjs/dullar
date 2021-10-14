@@ -118,7 +118,9 @@ export default defineComponent({
       promise
         .then((res) => {
           if (type === "single") {
-            const index = this.historyRecords.findIndex(r => r.id === record.id);
+            const index = this.historyRecords.findIndex(
+              (r) => r.id === record.id
+            );
             this.historyRecords.splice(index, 1);
           } else {
             if (this.delete.parse(res)) {
@@ -181,14 +183,22 @@ export default defineComponent({
               { props: { name: "search", size: 16 } },
               []
             ),
-            h("span", { class: [hasDefault ? "value" : "placeholder"] }, hasDefault ? this.value : this.placeholder),
+            h(
+              "span",
+              { class: [hasDefault ? "value" : "placeholder"] },
+              hasDefault ? this.value : this.placeholder
+            ),
           ]
         ),
       ]),
       h(
         genComponentName("popup"),
         {
-          props: { position: "middle", value: this.showSearchPanel, disableMask: true },
+          props: {
+            position: "middle",
+            value: this.showSearchPanel,
+            disableMask: true,
+          },
           class: ["elastic-serach-popup"],
           on: {
             beforeEnter: this.handleBeforeEnter,
@@ -273,53 +283,67 @@ export default defineComponent({
                                 genComponentName("flex-item"),
                                 { class: ["history-flex"] },
                                 [
-                                  h(genComponentName("flex"), { props: { justifyContent: "spaceBetween" } }, [
-                                    h(genComponentName("flex-item"), {}, [
-                                      h(
-                                        "h3",
-                                        { class: ["history-label"] },
-                                        this.histroyLabel
-                                      )
-                                    ]),
-                                    h(genComponentName("flex-item"), {}, [
-                                      this.isEdit
-                                        ? h("span", { class: ["operation"] }, [
-                                            h(
-                                              "small",
+                                  h(
+                                    genComponentName("flex"),
+                                    {
+                                      props: { justifyContent: "spaceBetween" },
+                                    },
+                                    [
+                                      h(genComponentName("flex-item"), {}, [
+                                        h(
+                                          "h3",
+                                          { class: ["history-label"] },
+                                          this.histroyLabel
+                                        ),
+                                      ]),
+                                      h(genComponentName("flex-item"), {}, [
+                                        this.isEdit
+                                          ? h(
+                                              "span",
+                                              { class: ["operation"] },
+                                              [
+                                                h(
+                                                  "small",
+                                                  {
+                                                    class: ["delete-all"],
+                                                    on: {
+                                                      click:
+                                                        this.handleDelete.bind(
+                                                          this,
+                                                          { type: "all" }
+                                                        ),
+                                                    },
+                                                  },
+                                                  this.deleteAllText
+                                                ),
+                                                h(
+                                                  "small",
+                                                  {
+                                                    class: ["done"],
+                                                    on: {
+                                                      click: this.handleDone,
+                                                    },
+                                                  },
+                                                  this.doneText
+                                                ),
+                                              ]
+                                            )
+                                          : h(
+                                              genComponentName("iconfont"),
                                               {
-                                                class: ["delete-all"],
+                                                props: {
+                                                  name: "delete",
+                                                  size: 16,
+                                                },
                                                 on: {
-                                                  click: this.handleDelete.bind(
-                                                    this,
-                                                    { type: "all" }
-                                                  ),
+                                                  click: this.handleEdit,
                                                 },
                                               },
-                                              this.deleteAllText
+                                              []
                                             ),
-                                            h(
-                                              "small",
-                                              {
-                                                class: ["done"],
-                                                on: {
-                                                  click: this.handleDone,
-                                                },
-                                              },
-                                              this.doneText
-                                            ),
-                                          ])
-                                        : h(
-                                            genComponentName("iconfont"),
-                                            {
-                                              props: { name: "delete", size: 16 },
-                                              on: {
-                                                click: this.handleEdit,
-                                              },
-                                            },
-                                            []
-                                          ),
-                                    ])
-                                  ])
+                                      ]),
+                                    ]
+                                  ),
                                 ]
                               ),
                               h(

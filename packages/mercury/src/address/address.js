@@ -17,26 +17,26 @@ export default defineComponent({
   props: {
     showCloseIcon: {
       type: Boolean,
-      default: true
+      default: true,
     },
     showBackIcon: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       default: "配送至",
-      type: String
+      type: String,
     },
     position: {
       type: String,
-      default: "bottom"
+      default: "bottom",
     },
     value: Boolean,
     defaultParams: {
       type: Object,
       default: () => {
-        return {}
-      }
+        return {};
+      },
     },
     attributeMapping: {
       type: Object,
@@ -44,9 +44,9 @@ export default defineComponent({
         return {
           id: "id",
           type: "type",
-          parentId: "parentId"
+          parentId: "parentId",
         };
-      }
+      },
     },
     label: {
       type: String,
@@ -75,7 +75,7 @@ export default defineComponent({
     return {
       regionList: [],
       regionHeader: [],
-      CACHE: {}
+      CACHE: {},
     };
   },
   methods: {
@@ -162,13 +162,31 @@ export default defineComponent({
                   genComponentName("flex-item"),
                   { class: ["address-header"] },
                   [
-                    h("div", { class: ["address-header-back", this.showBackIcon ? "" : "hidden"], on: { click: () => { this.$emit("input", false) } } }, [
-                      // "返回"
-                      h(genComponentName("iconfont"), { props: { name: "back", size: 14 } }, [])
-                    ]),
+                    h(
+                      "div",
+                      {
+                        class: [
+                          "address-header-back",
+                          this.showBackIcon ? "" : "hidden",
+                        ],
+                        on: {
+                          click: () => {
+                            this.$emit("input", false);
+                          },
+                        },
+                      },
+                      [
+                        // "返回"
+                        h(
+                          genComponentName("iconfont"),
+                          { props: { name: "back", size: 14 } },
+                          []
+                        ),
+                      ]
+                    ),
                     h("div", { class: ["address-header-title"] }, [
-                      h("span", {}, this.title)
-                    ])
+                      h("span", {}, this.title),
+                    ]),
                   ]
                 ),
                 h(genComponentName("flex-item"), { class: ["address-title"] }, [
@@ -180,29 +198,33 @@ export default defineComponent({
                           (region, key) => {
                             const isStringType = isString(region);
                             const text = isStringType
-                                  ? region
-                                  : this.address.parse(region);
+                              ? region
+                              : this.address.parse(region);
                             const iWidth = this.$refs.popup.$el.offsetWidth;
                             const total = iWidth / 15;
-                            const flex = `0 0 ${text.length / total * 100}%`;
-                            const isLast =
-                              key === this.regionHeader.length - 1;
+                            const flex = `0 0 ${(text.length / total) * 100}%`;
+                            const isLast = key === this.regionHeader.length - 1;
                             return h(
                               genComponentName("flex-item"),
                               {
                                 props: { flex },
                                 on: {
                                   click: this.handleTabClick.bind(this, {
-                                    region: { [this.attributeMapping["id"]]: region[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: region[this.attributeMapping["type"]] },
+                                    region: {
+                                      [this.attributeMapping["id"]]:
+                                        region[
+                                          this.attributeMapping["parentId"]
+                                        ],
+                                      [this.attributeMapping["type"]]:
+                                        region[this.attributeMapping["type"]],
+                                    },
                                     key,
                                   }),
                                 },
                                 key,
                                 class: ["header-tab", isLast ? "active" : ""],
                               },
-                              [h("span", {},
-                                text
-                              )]
+                              [h("span", {}, text)]
                             );
                           }
                         )

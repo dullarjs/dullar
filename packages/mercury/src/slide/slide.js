@@ -1,10 +1,10 @@
 /*
-* @Author: Just be free
-* @Date:   2021-09-13 15:18:42
-* @Last Modified by:   Just be free
-* @Last Modified time: 2021-10-09 14:57:42
-* @E-mail: justbefree@126.com
-*/
+ * @Author: Just be free
+ * @Date:   2021-09-13 15:18:42
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2021-10-09 14:57:42
+ * @E-mail: justbefree@126.com
+ */
 import { defineComponent, genComponentName } from "../modules/component";
 import { touchMixins } from "../mixins/touch";
 import { slotsMixins } from "../mixins/slots";
@@ -19,20 +19,20 @@ export default defineComponent({
   props: {
     width: {
       type: Number,
-      default: 40
+      default: 40,
     },
     trigger: {
       type: Number,
-      default: 10
+      default: 10,
     },
     groupName: String,
-    uid: String
+    uid: String,
   },
   data() {
     return {
       dragging: false,
-      opened: false
-    }
+      opened: false,
+    };
   },
   methods: {
     reset() {
@@ -55,20 +55,26 @@ export default defineComponent({
         dragging(event) {
           if (that.direction === "vertical") return;
           const { target } = event;
-          if (that.deltaX > 0 && !that.opened || that.deltaX < 0 && that.opened) return;
+          if (
+            (that.deltaX > 0 && !that.opened) ||
+            (that.deltaX < 0 && that.opened)
+          )
+            return;
           that.dragging = true;
           preventDefault(event);
           if (that.deltaX < 0) {
             target.style.transform = `translate3D(${that.bounceDeltaX}px, 0, 0)`;
           } else {
-            target.style.transform = `translate3D(${-(that.buttonWidth - that.bounceDeltaX)}px, 0, 0)`;
+            target.style.transform = `translate3D(${-(
+              that.buttonWidth - that.bounceDeltaX
+            )}px, 0, 0)`;
           }
         },
         stop(event) {
           that.dragging = false;
           if (that.groupName && that.uid) {
             const groups = EventBus.$data.globalProperties[that.groupName];
-            Object.keys(groups).map(name => {
+            Object.keys(groups).map((name) => {
               if (name !== that.uid) {
                 if (groups[name].$data.opened || groups[name].$data.dragging) {
                   groups[name].reset();
@@ -104,15 +110,18 @@ export default defineComponent({
             }
           }
           that.$emit("transitionEnd", that.opened);
-        }
+        },
       });
-    }
+    },
   },
   mounted() {
     // EventBus
     if (this.groupName && this.uid) {
-      const groups =  EventBus.$data.globalProperties[this.groupName] || {};
-      EventBus.$set(EventBus.$data.globalProperties, this.groupName, { ...groups, [this.uid]: this });
+      const groups = EventBus.$data.globalProperties[this.groupName] || {};
+      EventBus.$set(EventBus.$data.globalProperties, this.groupName, {
+        ...groups,
+        [this.uid]: this,
+      });
     }
     this.slide();
   },
@@ -129,19 +138,39 @@ export default defineComponent({
       const deviceWidth = window.innerWidth;
       this.buttonWidth = iWidth;
       return h("div", { class: ["yn-slide"] }, [
-        h("div", { ref: "container", style: { width: `${iWidth + deviceWidth}px` }, class: ["slide-slots"] }, [
-          h("div", { style: { width: `${deviceWidth}px` }, class: ["content-slot"] }, [
-            this.slots("content")
-          ]),
-          h("div", { style: { width: `${iWidth}px` }, class: ["button-slot"] }, [
-            h(genComponentName("flex"), { props: { justifyContent: "spaceBetween" } },
-              Array.apply(null, buttons).map(button => {
-                return h(genComponentName("flex-item"), { props: { flex: 1 } }, [button])
-              })
-            )
-          ])
-        ])
+        h(
+          "div",
+          {
+            ref: "container",
+            style: { width: `${iWidth + deviceWidth}px` },
+            class: ["slide-slots"],
+          },
+          [
+            h(
+              "div",
+              { style: { width: `${deviceWidth}px` }, class: ["content-slot"] },
+              [this.slots("content")]
+            ),
+            h(
+              "div",
+              { style: { width: `${iWidth}px` }, class: ["button-slot"] },
+              [
+                h(
+                  genComponentName("flex"),
+                  { props: { justifyContent: "spaceBetween" } },
+                  Array.apply(null, buttons).map((button) => {
+                    return h(
+                      genComponentName("flex-item"),
+                      { props: { flex: 1 } },
+                      [button]
+                    );
+                  })
+                ),
+              ]
+            ),
+          ]
+        ),
       ]);
     }
-  }
+  },
 });
