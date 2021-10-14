@@ -79,6 +79,10 @@ export default defineComponent({
       type: String,
       default: "14px;",
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -294,6 +298,7 @@ export default defineComponent({
             placeholder: this.placeholder,
             disabled: this.disabled,
             type: this.DataType,
+            readonly: this.readonly,
           },
           attrs: {
             maxlength: this.maxlength,
