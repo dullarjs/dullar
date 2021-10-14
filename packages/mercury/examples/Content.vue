@@ -16,11 +16,9 @@
       <li @click="jump('sticky')">sticky</li>
       <li @click="jump('dialog')">dialog</li>
       <li @click="jump('modal')">modal</li>
-      <li @click="jump('picker')">picker</li>
       <li @click="jump('swipe')">swipe</li>
       <li @click="jump('tabs')">tabs</li>
       <li @click="jump('pullRefresh')">pullRefresh</li>
-      <li @click="jump('datePicker')">datePicker</li>
       <li @click="jump('counter')">counter</li>
       <li @click="jump('skeleton')">skeleton</li>
       <li @click="jump('animationList')">animationList</li>

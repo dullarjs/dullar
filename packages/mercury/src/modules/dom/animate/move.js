@@ -2,11 +2,12 @@
  * @Author: Just be free
  * @Date:   2020-04-10 13:33:50
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-04-13 15:19:31
+ * @Last Modified time: 2021-10-09 18:33:25
  * @E-mail: justbefree@126.com
  */
-
-export const move = (obj, json, fn, div = 4) => {
+import { Tween } from "./tween";
+import { hasOwnProperty } from "../../utils";
+export const startMove = (obj, json, fn, div = 4) => {
   clearInterval(obj.timer);
   let iCurrent = 0;
   let iSpeed = 0;
@@ -35,4 +36,27 @@ export const move = (obj, json, fn, div = 4) => {
       fn && typeof fn === "function" && fn.call(obj);
     }
   }, 30);
+};
+
+export const move = (obj, json, fn) => {
+  let attr = hasOwnProperty(json, "left") ? "left" : "top";
+  let t = 0,
+    b = 0,
+    c = json[attr],
+    d = 40;
+  let timer = null;
+  clearTimeout(timer);
+  b = parseInt(getComputedStyle(obj, false)[attr]);
+  const run = () => {
+    const value = Math.ceil(Tween.Quart.easeOut(t, b, c, d));
+    obj.style[attr] = `${value}px`;
+    if (t < d) {
+      t++;
+      timer = setTimeout(run, 10);
+    } else {
+      clearTimeout(timer);
+      fn && typeof fn === "function" && fn.call(obj);
+    }
+  };
+  run();
 };

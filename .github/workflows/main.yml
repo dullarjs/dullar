@@ -40,8 +40,8 @@ jobs:
       - name: Build queen
         run: |
           cd packages/queen
-          npm install eslint --save-dev
-          npm install eslint-plugin-vue --save-dev
+          npm install eslint@6.8.0 --save-dev
+          npm install eslint-plugin-vue@7.10.0 --save-dev
           npm install --save @dullar/cube
           npm run build
 
@@ -54,8 +54,8 @@ jobs:
       - name: Build venus
         run: |
           cd packages/venus
-          npm install eslint --save-dev
-          npm install eslint-plugin-vue --save-dev
+          npm install eslint@6.8.0 --save-dev
+          npm install eslint-plugin-vue@7.10.0 --save-dev
           npm install --save @dullar/cube
           npm run build
 

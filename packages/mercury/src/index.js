@@ -1,4 +1,3 @@
-
 const EVENTS = {};
 import { getConfig } from "./modules/component/config";
 import { hyphenate } from "./modules/utils";
@@ -18,7 +17,6 @@ import Category from "./category";
 import CategoryMobile from "./category-mobile";
 import Checkbox from "./checkbox";
 import Counter from "./counter";
-import DatePicker from "./date-picker";
 import Dialog from "./dialog";
 import ElasticSearch from "./elastic-search";
 import Field from "./field";
@@ -35,7 +33,6 @@ import Layout from "./layout";
 import Magnifier from "./magnifier";
 import Modal from "./modal";
 import Pagination from "./pagination";
-import Picker from "./picker";
 import Popup from "./popup";
 import PullRefresh from "./pull-refresh";
 import Radiobox from "./radiobox";
@@ -53,16 +50,61 @@ import Toast from "./toast";
 import Tooltip from "./tooltip";
 import Tree from "./tree";
 
-const components = [ActionSheet, Address, AnimationList, AnimationListItem, Badge, Button, Calendar, Cascader, Category, CategoryMobile, Checkbox, Counter, DatePicker, Dialog, ElasticSearch, Field, FieldGroup, Flex, FlexItem, Form, FormItem, Iconfont, Image, Indicator, Input, Layout, Magnifier, Modal, Pagination, Picker, Popup, PullRefresh, Radiobox, ShippingAddress, Skeleton, Slide, Spin, Sticky, Swipe, SwipeItem, TabItem, Table, Tabs, Toast, Tooltip, Tree];
+const components = [
+  ActionSheet,
+  Address,
+  AnimationList,
+  AnimationListItem,
+  Badge,
+  Button,
+  Calendar,
+  Cascader,
+  Category,
+  CategoryMobile,
+  Checkbox,
+  Counter,
+  Dialog,
+  ElasticSearch,
+  Field,
+  FieldGroup,
+  Flex,
+  FlexItem,
+  Form,
+  FormItem,
+  Iconfont,
+  Image,
+  Indicator,
+  Input,
+  Layout,
+  Magnifier,
+  Modal,
+  Pagination,
+  Popup,
+  PullRefresh,
+  Radiobox,
+  ShippingAddress,
+  Skeleton,
+  Slide,
+  Spin,
+  Sticky,
+  Swipe,
+  SwipeItem,
+  TabItem,
+  Table,
+  Tabs,
+  Toast,
+  Tooltip,
+  Tree,
+];
 const install = (Vue) => {
   if (install.installed) return;
-  components.map(component => {
+  components.map((component) => {
     if (component.name && typeof component !== "function") {
       const eventName = hyphenate(component.name);
       if (EVENTS[eventName] && typeof EVENTS[eventName] === "function") {
-         Vue.component(component.name, EVENTS[eventName]());
+        Vue.component(component.name, EVENTS[eventName]());
       } else {
-         Vue.component(component.name, component);
+        Vue.component(component.name, component);
       }
     } else if (component.install) {
       Vue.use(component);
@@ -77,24 +119,24 @@ if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
 }
 const config = (options = {}) => {
-  Object.keys(options).forEach(componentName => {
-   const ca = hyphenate(componentName);
-   components.forEach((component) => {
-     if (ca === component.name) {
-       if (component.callback && (typeof component.callback === "function")) {
-         EVENTS[ca] = () => {
-           return component.callback(options[componentName]);
-         }
-       }
-     }
-   });
+  Object.keys(options).forEach((componentName) => {
+    const ca = hyphenate(componentName);
+    components.forEach((component) => {
+      if (ca === component.name) {
+        if (component.callback && typeof component.callback === "function") {
+          EVENTS[ca] = () => {
+            return component.callback(options[componentName]);
+          };
+        }
+      }
+    });
   });
 };
 export { install, version, config };
 export default {
   install,
   version,
-  config
+  config,
 };
 export { ActionSheet as YnActionSheet };
 export { Address as YnAddress };
@@ -108,7 +150,6 @@ export { Category as YnCategory };
 export { CategoryMobile as YnCategoryMobile };
 export { Checkbox as YnCheckbox };
 export { Counter as YnCounter };
-export { DatePicker as YnDatePicker };
 export { Dialog as YnDialog };
 export { ElasticSearch as YnElasticSearch };
 export { Field as YnField };
@@ -125,7 +166,6 @@ export { Layout as YnLayout };
 export { Magnifier as YnMagnifier };
 export { Modal as YnModal };
 export { Pagination as YnPagination };
-export { Picker as YnPicker };
 export { Popup as YnPopup };
 export { PullRefresh as YnPullRefresh };
 export { Radiobox as YnRadiobox };

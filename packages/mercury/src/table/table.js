@@ -2,11 +2,12 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-14 16:52:20
+ * @Last Modified time: 2021-10-14 17:53:46
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { deepClone } from "../modules/utils/deepClone";
+import { on, off } from "../modules/event";
 import Checkbox from "../checkbox";
 export default defineComponent({
   name: "Table",
@@ -125,11 +126,10 @@ export default defineComponent({
     "rowSelection.selectedRowKeys": "setSelectRowKeys",
   },
   mounted() {
-    document.addEventListener("click", this.dropDownListener);
-    this.setSelectRowKeys();
+    on(document, "click", this.dropDownListener);
   },
   beforeDestroy() {
-    document.removeEventListener("click", this.dropDownListener);
+    off(document, "click", this.dropDownListener);
   },
   methods: {
     dropDownListener(e) {

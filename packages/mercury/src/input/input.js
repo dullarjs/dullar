@@ -79,6 +79,10 @@ export default defineComponent({
       type: String,
       default: "14px;",
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -291,12 +295,15 @@ export default defineComponent({
         h("input", {
           domProps: {
             value: this.value,
+
             placeholder: this.placeholder,
             disabled: this.disabled,
             type: this.DataType,
+            readonly: this.readonly,
           },
           attrs: {
             maxlength: this.maxlength,
+            readonly: this.readonly,
           },
           on: {
             input: this.input,

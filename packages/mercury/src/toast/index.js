@@ -2,13 +2,14 @@
  * @Author: Just be free
  * @Date:   2020-01-17 15:28:53
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-15 10:09:37
+ * @Last Modified time: 2021-10-08 15:08:19
  * @E-mail: justbefree@126.com
  */
 import { install } from "../modules/component";
 import { extend } from "../mixins/rendered";
 import { isString } from "../modules/utils";
 import YnToast from "./toast";
+import { on, off } from "../modules/event";
 install(YnToast);
 const YnToastConstructor = extend(YnToast);
 const toastPool = [];
@@ -35,7 +36,7 @@ const returnAnInstance = (context) => {
 YnToastConstructor.prototype.close = function () {
   this.visible = false;
   this.closed = true;
-  this.$el.addEventListener("transitionend", removeDom, false);
+  on(this.$el, "transitionend", removeDom);
   returnAnInstance(this);
 };
 const Toast = (options = {}) => {
@@ -48,7 +49,7 @@ const Toast = (options = {}) => {
   document.body.appendChild(instance.$el);
   instance.rendered(() => {
     instance.visible = true;
-    instance.$el.removeEventListener("transitionend", removeDom, false);
+    off(instance.$el, "transitionend", removeDom);
     ~duration &&
       (instance.timer = setTimeout(() => {
         if (instance.closed) {
