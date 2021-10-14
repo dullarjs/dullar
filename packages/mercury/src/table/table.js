@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-03 16:49:48
+ * @Last Modified time: 2021-10-14 16:52:20
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -97,14 +97,11 @@ export default defineComponent({
       tableKey: "-v",
       dropDownInfoSelectRows: [], // 当前选中下拉框的选中值
       dataList: [], // 当前列表数据
-      selectedRows: [], // 多选
-      selectedRow: -1, // 单选
+      selectedRows: [],
       selectedRowDatas: [],
-      fixed: { top: false },
-      clientRect: { top: 0 },
+      currentPageData: [], // 当前页数据，仅存在可选表格时
       pageInfoObj: {},
       randNum: null,
-      currentPageKeys: [],
       dropDownTitle: "", // 当前显示的搜索列的title
       tableSizeLIst: {
         default: "default-size",
@@ -112,6 +109,7 @@ export default defineComponent({
         small: "small-size",
         none: "none-size",
       },
+      minWidth: 0,
     };
   },
   created() {
@@ -119,37 +117,19 @@ export default defineComponent({
     this.pageInfoObj = this.pagination;
     // 头部序列变化
     this.serializationThead();
-    this.setSelectRowKeys();
-  },
-  computed: {
-    theadStyle() {
-      const top = this.clientRect.top;
-      return {
-        transform: `translate3d(0px, ${this.fixed.top ? -top : 0}px, 1px)`,
-        "border-top": "1px solid #e4e4e4",
-      };
-    },
   },
   watch: {
     dataList: "setPagination",
     dataSource: "getNewDataList",
-    "clientRect.top": function (val) {
-      this.fixed.top = val < 0;
-    },
     columns: "serializationThead",
+    "rowSelection.selectedRowKeys": "setSelectRowKeys",
   },
   mounted() {
     document.addEventListener("click", this.dropDownListener);
-    document
-      .getElementById(`yn-table-${this.randNum}`)
-      .addEventListener("scroll", this.scrollHandle, {
-        capture: false,
-        passive: true,
-      });
+    this.setSelectRowKeys();
   },
   beforeDestroy() {
     document.removeEventListener("click", this.dropDownListener);
-    document.removeEventListener("scroll", this.scrollHandle);
   },
   methods: {
     dropDownListener(e) {
@@ -172,21 +152,18 @@ export default defineComponent({
     },
     setPagination() {
       if (this.pageInfoObj) {
-        const dataList = this.dataList;
-        this.pageInfoObj.defaultCurrent =
-          this.pageInfoObj.total === dataList.length
-            ? this.pageInfoObj.defaultCurrent
+        const { dataList, pageInfoObj } = this;
+        const { defaultPageSize, total, defaultCurrent } = pageInfoObj || {};
+        const totalPage = Math.ceil(dataList.length / defaultPageSize);
+        const oldTotalPage = Math.ceil(total / defaultPageSize);
+        pageInfoObj.defaultCurrent =
+          totalPage === oldTotalPage
+            ? defaultCurrent
+            : totalPage < oldTotalPage
+            ? totalPage
             : 1;
-        this.pageInfoObj.total = dataList.length;
-        this.$refs["yn-pagination"].totalPage = Math.ceil(
-          dataList.length / this.pageInfoObj.defaultPageSize
-        );
-        this.$refs["yn-pagination"].page = this.pageInfoObj.defaultCurrent;
+        pageInfoObj.total = dataList.length;
       }
-    },
-    scrollHandle(e) {
-      // const top = document.getElementById(`yn-table-thead-${this.randNum}`).offsetTop
-      this.clientRect.top = Math.floor(0 - parseInt(e.target.scrollTop));
     },
     initDropDownList() {
       this.checkDropDownChage();
@@ -281,6 +258,29 @@ export default defineComponent({
           header.push(h("tr", {}, [this.renderTheadRow(element, ind, h)]));
         });
       return header;
+    },
+    getCommonColgroup() {
+      const { fieldsList, rowSelection } = this;
+      let minWidth = 0;
+      const h = this.$createElement;
+      const colgroupList = [];
+
+      if (rowSelection) {
+        colgroupList.push(h("col", { style: { width: "50px" } }, []));
+        minWidth += 50;
+      }
+      fieldsList.forEach((element) => {
+        colgroupList.push(
+          h(
+            "col",
+            { style: { width: !element.width ? "" : element.width + "px" } },
+            []
+          )
+        );
+        minWidth += element.width ? element.width : 100;
+      });
+      this.minWidth = minWidth;
+      return h("colgroup", {}, [...colgroupList]);
     },
     checkResetDisabled() {
       if (Object.keys(this.dropDownInfo).length > 0) {
@@ -463,7 +463,6 @@ export default defineComponent({
             "th",
             {
               class: ["yn-table-cell", _obj.textCenter ? "text-center" : ""],
-              style: { width: !_obj.textCenter ? item.width + "px" : "" },
               attrs: { ..._obj },
             },
             [this.renderTheadCell(item, h)]
@@ -595,23 +594,22 @@ export default defineComponent({
     initTableRows() {
       const h = this.$createElement;
       const rowContent = [];
-      const currentPageKeys = [];
       const dataList = this.dataList;
       const tableRows = this.getStartAndEndRow();
+      const currentPageData = [];
 
       for (let i = tableRows.start; i < tableRows.end; i++) {
         if (!dataList[i].key) dataList[i].key = i;
-        currentPageKeys.push(dataList[i].key);
+        currentPageData.push(dataList[i]);
         rowContent.push(
           h("tr", { class: ["yn-table-row"] }, [
             this.renderFieldList(dataList[i]),
           ])
         );
       }
-      this.currentPageKeys = currentPageKeys;
 
       // 为空的时候
-      if (currentPageKeys.length === 0) {
+      if (currentPageData.length === 0) {
         let _emptyContent;
         _emptyContent = this.emptyContent ? this.emptyContent : this.emptyText;
         rowContent.push(
@@ -624,7 +622,7 @@ export default defineComponent({
           ])
         );
       }
-
+      this.currentPageData = currentPageData;
       return rowContent;
     },
     renderFieldList(rowDatas) {
@@ -668,7 +666,7 @@ export default defineComponent({
                     genComponentName("radiobox"),
                     {
                       props: {
-                        checked: this.selectedRow === rowDatas.key,
+                        checked: this.selectedRows[0] === rowDatas.key,
                         size: this.checkBoxSize,
                       },
                     },
@@ -835,47 +833,68 @@ export default defineComponent({
       return filterList;
     },
     onSelectAll(checked) {
-      let selectedRows = [];
-      const currentPageKeys = this.currentPageKeys;
+      let selectedRowKeys = [],
+        selectedRowDatas = [];
+      const { currentPageData } = this;
+      const currentPageKeys = currentPageData.map((item) => {
+        return item.key;
+      });
       this.selectAll = checked;
       if (checked) {
-        selectedRows = [...currentPageKeys];
+        selectedRowKeys = [...currentPageKeys];
+        selectedRowDatas = [...currentPageData];
       }
-      this.selectedRows = selectedRows;
+      this.selectedRows = selectedRowKeys;
+      this.selectedRowDatas = selectedRowDatas;
       const rowSelection = this.rowSelection;
-      rowSelection.onChange && rowSelection.onChange(selectedRows);
+      rowSelection.onChange &&
+        rowSelection.onChange(selectedRowKeys, selectedRowDatas);
     },
     setSelectRowKeys() {
-      if (
-        this.rowSelection &&
-        this.rowSelection.selectedRowKeys &&
-        this.rowSelection.type
-      ) {
-        if (this.rowSelection.type === "radio") {
-          const key = this.rowSelection.selectedRowKeys[0];
-          this.selectedRow = key;
+      const { rowSelection, currentPageData } = this;
+      if (rowSelection && rowSelection.selectedRowKeys && rowSelection.type) {
+        if (rowSelection.type === "radio") {
+          const key = rowSelection.selectedRowKeys[0];
+          this.selectedRows = [key];
+          this.selectedRowDatas = currentPageData.filter(
+            (item) => item.key === key
+          );
         }
-        if (this.rowSelection.type === "checkbox") {
-          this.selectedRows = [...this.rowSelection.selectedRowKeys];
+        if (rowSelection.type === "checkbox") {
+          this.selectedRows = [...rowSelection.selectedRowKeys];
+          this.selectedRowDatas = currentPageData.filter((item) => {
+            return rowSelection.selectedRowKeys.indexOf(item.key) > -1;
+          });
         }
       }
     },
     onSelectedRows(rowDatas, checkType) {
-      const selectedRows = this.selectedRows;
+      const { selectedRows, selectedRowDatas } = this;
       const ind = selectedRows.indexOf(rowDatas.key);
       const rowSelection = this.rowSelection;
       if (checkType === "radio") {
-        this.selectedRow = rowDatas.key;
-        rowSelection.onChange && rowSelection.onChange(rowDatas.key);
-        return;
-      }
-      if (ind > -1) {
-        selectedRows.splice(ind, 1);
+        const [seletekey = -1] = selectedRows;
+        if (!seletekey) {
+          selectedRows.push(rowDatas.key);
+          selectedRowDatas.push(rowDatas);
+        } else if (seletekey !== rowDatas.key) {
+          selectedRows.splice(0, 1, rowDatas.key);
+          selectedRowDatas.splice(0, 1, rowDatas);
+        } else {
+          selectedRows.splice(0, 1);
+        }
       } else {
-        selectedRows.push(rowDatas.key);
+        if (ind > -1) {
+          selectedRows.splice(ind, 1);
+          selectedRowDatas.splice(ind, 1);
+        } else {
+          selectedRows.push(rowDatas.key);
+          selectedRowDatas.push(rowDatas);
+        }
+        this.selectAll = selectedRows.length === this.currentPageData.length;
       }
-      this.selectAll = selectedRows.length === this.currentPageKeys.length;
-      rowSelection.onChange && rowSelection.onChange(selectedRows);
+      rowSelection.onChange &&
+        rowSelection.onChange(selectedRows, selectedRowDatas);
     },
     handlePageSizeChange(pageSize) {
       this.pageInfoObj.defaultPageSize = pageSize;
@@ -888,9 +907,7 @@ export default defineComponent({
     },
   },
   render(h) {
-    const tableStyle = this.height
-      ? { "max-height": this.height + "px", overflow: "scroll" }
-      : "";
+    const tableStyle = this.height ? { "max-height": this.height + "px" } : "";
     const {
       pageInfoObj,
       loading,
@@ -899,6 +916,7 @@ export default defineComponent({
       tableSizeLIst,
       bordered,
       setting,
+      minWidth,
     } = this;
     const sizeClass = tableSizeLIst[tableSize] || "";
     const borderClass =
@@ -923,31 +941,59 @@ export default defineComponent({
             {
               attrs: { id: `yn-table-${this.randNum}` },
               class: ["yn-table", borderClass],
-              style: tableStyle,
             },
             [
-              h("div", { class: ["yn-table-container"] }, [
-                h("table", { style: { "table-layout": "auto" } }, [
-                  !hideHeader &&
-                    h(
-                      "thead",
-                      {
-                        attrs: { id: `yn-table-thead-${this.randNum}` },
-                        class: ["yn-table-thead", thClassName],
-                        style: { ...this.theadStyle, ...thStyle },
-                      },
-                      [this.getThead(h)]
-                    ),
+              h(
+                "div",
+                {
+                  class: ["yn-thead-container"],
+                  style: { minWidth: minWidth + "px" },
+                },
+                [
+                  h("div", { class: ["thead-table"] }, [
+                    h("table", { style: { "table-layout": "fixed" } }, [
+                      this.getCommonColgroup(),
+                      !hideHeader &&
+                        h(
+                          "thead",
+                          {
+                            attrs: { id: `yn-table-thead-${this.randNum}` },
+                            class: ["yn-table-thead", thClassName],
+                            style: { ...thStyle },
+                          },
+                          [this.getThead(h)]
+                        ),
+                    ]),
+                  ]),
                   h(
-                    "tbody",
+                    "div",
                     {
-                      class: ["yn-table-tbody", tbClassName],
-                      style: { ...tbStyle },
+                      style: { minWidth: minWidth + "px", ...tableStyle },
+                      class: [this.height ? "yn-tbody-container" : ""],
                     },
-                    [this.initTableRows()]
+                    [
+                      h(
+                        "table",
+                        {
+                          style: { "table-layout": "fixed" },
+                          attrs: { id: `yn-tbody-${this.randNum}` },
+                        },
+                        [
+                          this.getCommonColgroup(),
+                          h(
+                            "tbody",
+                            {
+                              class: ["yn-table-tbody", tbClassName],
+                              style: { ...tbStyle },
+                            },
+                            [this.initTableRows()]
+                          ),
+                        ]
+                      ),
+                    ]
                   ),
-                ]),
-              ]),
+                ]
+              ),
             ]
           ),
           pageInfoObj &&

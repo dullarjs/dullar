@@ -8,23 +8,35 @@
   }
   .yn-spin-container {
     position: relative;
-    transition: opacity 0.3s;
+    overflow: hidden;
+    .yn-tbody-container {
+      overflow: hidden;
+      &:hover {
+        overflow-y: scroll;
+        margin-left: -17px;
+      }
+      &:hover table {
+        margin-left: 17px;
+      }
+    }
     .yn-table {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-variant: tabular-nums;
       line-height: 1.5715;
       list-style: none;
-      font-feature-settings: "tnum";
       position: relative;
       font-size: 14px;
       background: #fff;
       border-radius: 2px;
-      .yn-table-container {
+      overflow: auto hidden;
+      .yn-thead-container {
         position: relative;
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
+        table {
+          table-layout: fixed;
+        }
       }
       table {
         width: 100%;
@@ -45,8 +57,6 @@
             overflow-wrap: break-word;
           }
           .yn-table-selection-column {
-            padding-right: 8px;
-            padding-left: 8px;
             text-align: center;
             width: 32px;
           }
@@ -54,11 +64,9 @@
       }
     }
     .yn-table-bordered {
-      > .yn-table-container {
-        // border: 1px solid @t-b-color;
-        > table {
-          border: 1px solid @t-b-color;
-          border-top: none;
+      border: 1px solid @t-b-color;
+      > .yn-thead-container {
+        table {
           .yn-table-thead > tr > th {
             border-right: 1px solid @t-b-color;
           }
@@ -78,9 +86,6 @@
       .yn-table-empty-row > td {
         border-bottom: none;
       }
-    }
-    .yn-table-bordered tr:first-child > th {
-      border-top: 1px solid #e4e4e4;
     }
   }
   &:after {
@@ -127,7 +132,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    margin: -4px -8px -4px 4px;
+    margin: -4px 4px -4px 4px;
     padding: 0 4px;
     color: #bfbfbf;
     font-size: 12px;
@@ -157,11 +162,10 @@
     right: 0;
   }
   .yn-editable-cell-value-wrap {
-    // padding: 5px 12px;
     border: 1px solid rgba(255, 255, 255, 0);
     box-sizing: content-box;
     > input {
-      border: 1px solid rgba(255, 255, 255, 0);
+      border: 1px solid @t-b-color;
       box-sizing: border-box;
       padding: 5px 12px;
       width: 100%;
@@ -169,10 +173,6 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      &:hover {
-        border: 1px solid @t-b-color;
-        // box-sizing: content-box;
-      }
       &:focus {
         cursor: auto;
         border: 1px solid @theme-color;
@@ -318,4 +318,8 @@
 }
 .yn-table-b-b .yn-table-tbody > tr > td {
   border-bottom: 1px solid @t-b-color;
+}
+.yn-table-selection-column {
+  text-align: center;
+  width: 32px;
 }

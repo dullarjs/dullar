@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-03 15:56:05
+ * @Last Modified time: 2021-10-14 17:43:30
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -46,7 +46,7 @@
                 :emptyContent="emptyContent"
                 :emptyText="emptyText"
                 :checkBoxSize="15"
-                :tableSize="tableSizeN"
+                :tableSize="tableSizeD"
             >
             </yn-table>
         </div>
@@ -114,7 +114,7 @@ export default {
                 {
                     title: "Name",
                     dataIndex: "name",
-                    width: 100,
+                    width: 200,
                     // 列渲染调整
                     render: {
                         tagName: "a",
@@ -193,7 +193,7 @@ export default {
                                 title: 'Street',
                                 dataIndex: 'street',
                                 key: 'street',
-                                width: 120,
+                                width: 150,
                             },
                             {
                                 title: 'Block',
@@ -267,6 +267,7 @@ export default {
                                 style: {
                                     color: "red",
                                     fontSize: "12px",
+                                    cursor: "pointer"
                                 },
                                 on: {
                                     click: "handleDelete",
@@ -278,6 +279,7 @@ export default {
                                 style: {
                                     color: "blue",
                                     fontSize: "12px",
+                                    cursor: "pointer"
                                 },
                                 on: {
                                     click: "handleAdd",
@@ -289,6 +291,7 @@ export default {
                                 style: {
                                     color: "blue",
                                     fontSize: "12px",
+                                    cursor: "pointer"
                                 },
                                 on: {
                                     click: "handleColumnChange",
@@ -317,7 +320,7 @@ export default {
                     title: 'picture',
                     dataIndex: '',
                     key: 'picture',
-                    width: 200,
+                    width: 300,
                     render: {
                         tagName: 'div',
                         attrs: {
@@ -361,29 +364,12 @@ export default {
                     required: true,
                     onchange: "handleChange",
                     beforeChage: this.beforeChangeB,
-                    width: 200
+                    width: 100
                 },
-                // {
-                //     title: 'test',
-                //     dataIndex: 'test',
-                //     key: 'test',
-                //     width: 200,
-                //     render: {
-                //         compentName: "checkbox",
-                //         props: {
-                //             size: 12,
-                //             name: "clear",
-                //         },
-                //         on: {
-                //             change: "handleClicka",
-                //         },
-                //         attrs: { "column-key": 12 }
-                //     }
-                // },
                 {
                     title: 'Tags',
                     key: 'tags',
-                    width: 160,
+                    width: 250,
                     render: {
                         tagName: "div",
                         content: [
@@ -400,7 +386,7 @@ export default {
                                 on: {
                                     click: "handleReset",
                                 },
-                                content: ["Reset"]
+                                content: ["Loading"]
                             },
                             {
                                 tagName: "span",
@@ -594,6 +580,7 @@ export default {
             iconSize: 50,
             tableSizeD: "default", // default 16px middel 12 px small 8px  none 0
             tableSizeM: "middle",
+            tableSizeS: "small",
             tableSizeN: "none",
             setting: {
                 thead: {
@@ -612,8 +599,12 @@ export default {
             console.log(e)
         },
         handleDelete(e) {
-            console.log(e);
-            this.dataSource.splice(e.key, 1);
+            const {record} = e;
+            this.dataSource.forEach((item, ind) => {
+                if (record.key === item.key) {
+                    this.dataSource.splice(ind, 1);
+                }
+            })
         },
         handleCkChange(e){
             console.log(e)
@@ -623,9 +614,10 @@ export default {
             console.log(e);
             // this.dataSource1.splice(e.key, 1);
         },
-        handleSelectChange(selectedRowKeys) {
+        handleSelectChange(selectedRowKeys, rowDatas) {
             // 自己处理业务需求 record 中的值未改变
             console.log(selectedRowKeys);
+            console.log(rowDatas);
         },
         handleChange(value, record, column) {
             // 自己处理业务需求 record 中的值未改变
@@ -671,6 +663,11 @@ export default {
             this.columns = this.columns2;
         },
         handleReset() {
+            // this.rowSelection1 = {
+            //     selectedRowKeys: [1], // radio 默认取第一个
+            //     onChange: this.handleSelectChange, // 选中之后提供数据调整入口
+            //     type: "checkbox"
+            // }
             this.loading = true;
             setTimeout(() => {
                 this.loading = false;
