@@ -544,7 +544,10 @@ export default defineComponent({
       }
     },
     createDateResultArea(h) {
-      const placeHolderClass = this.toDate
+      const fromPlaceHolderClass = this.fromDate
+        ? ""
+        : "yn-calendar-result-date-placeholder";
+      const toPlaceHolderClass = this.toDate
         ? ""
         : "yn-calendar-result-date-placeholder";
       return h(
@@ -575,7 +578,10 @@ export default defineComponent({
                   h(
                     "span",
                     {
-                      class: ["yn-calendar-result-year-day"],
+                      class: [
+                        "yn-calendar-result-year-day",
+                        fromPlaceHolderClass,
+                      ],
                     },
                     this.lockDateParse(this.fromDate, "day")
                   ),
@@ -627,7 +633,10 @@ export default defineComponent({
                   h(
                     "span",
                     {
-                      class: ["yn-calendar-result-year-day", placeHolderClass],
+                      class: [
+                        "yn-calendar-result-year-day",
+                        toPlaceHolderClass,
+                      ],
                     },
                     this.lockDateParse(this.toDate, "day")
                   ),
