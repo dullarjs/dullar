@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-15 16:25:44
+ * @Last Modified time: 2021-10-18 12:05:01
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -15,6 +15,7 @@ import { Remainder } from "../modules/number/remainder";
 import { touchMixins } from "../mixins/touch";
 import { move } from "../modules/dom/animate/move";
 import Popup from "../popup";
+import { EventBus } from "../modules/event/bus";
 export default defineComponent({
   name: "Swipe",
   components: { Popup },
@@ -45,6 +46,15 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    imageViewer: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  watch: {
+    showPopup: function () {
+      this.counts++;
+    },
   },
   data() {
     return {
@@ -59,6 +69,7 @@ export default defineComponent({
       showPopup: false,
       children: [],
       fullScreen: false,
+      counts: 0,
     };
   },
   computed: {
@@ -121,7 +132,8 @@ export default defineComponent({
           that.dragging = true;
           startTime = Date.now();
         },
-        dragging() {
+        dragging(e) {
+          preventDefault(e.e);
           if (moving) {
             return;
           }
@@ -158,6 +170,7 @@ export default defineComponent({
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200 && disXY === 0) {
             preventDefault(e.e);
+            that.$emit("click", that.activedIndex);
             that.openImageViewer();
             return;
           }
@@ -166,10 +179,10 @@ export default defineComponent({
           }
           const attr = that.vertical ? "top" : "left";
           moving = true;
-          that.startMove(prevEle, -1 * num * that.size);
-          curEle.style[attr] = `${num * that.size}px`;
+          that.startMove(prevEle, -1 * num * that.size - disXY);
+          curEle.style[attr] = `${num * that.size + disXY}px`;
           nextEle.style[attr] = `${num * that.size}px`;
-          that.startMove(curEle, 0, () => {
+          that.startMove(curEle, -1 * num * that.size - disXY, () => {
             moving = false;
             prevEle = null;
             curEle = null;
@@ -230,7 +243,7 @@ export default defineComponent({
       const attr = this.vertical ? "top" : "left";
       this.startMove(prevEle, -1 * num * this.size);
       curEle.style[attr] = `${num * this.size}px`;
-      this.startMove(curEle, 0, (el) => {
+      this.startMove(curEle, -1 * num * this.size, (el) => {
         this.moving = false;
         callback && typeof callback === "function" && callback(el);
       });
@@ -279,6 +292,8 @@ export default defineComponent({
       }
     },
     openImageViewer() {
+      if (!this.imageViewer) return;
+      this.counts++;
       this.stop();
       this.fullScreen = true;
       this.unbindAllEvent();
@@ -341,6 +356,10 @@ export default defineComponent({
     this.R = new Remainder(this.count, "activedIndex", this);
     this.initRect();
     this.initialize();
+    EventBus.$on("window:resize", () => {
+      this.initRect();
+      this.initialize();
+    });
     this.drag();
     this.visibilityChange();
   },
