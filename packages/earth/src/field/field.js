@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-12-18 16:15:42
+ * @Last Modified time: 2021-10-19 18:38:51
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -44,6 +44,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    showEditIcon: {
+      type: Boolean,
+      default: false,
+    },
     interactive: {
       type: String,
       default: "address",
@@ -75,16 +79,23 @@ export default defineComponent({
   data() {
     return {
       target: null,
-      showIcon: false,
+      showClearIcon: false,
+      showEditableIcon: false,
       showEncryptInput: false,
       inputing: false,
+      focused: false,
     };
   },
   initPropsToData() {
-    return [{ key: "originalText", value: "value" }];
+    return [
+      { key: "originalText", value: "value" },
+      { key: "focused", value: "autofocus" },
+    ];
   },
   methods: {
     handleOnFocus(e) {
+      this.focused = true;
+      this.showEditableIcon = false;
       this.target = e.target;
       this.$emit("focus", e);
       this.$emit("click", e);
@@ -93,30 +104,25 @@ export default defineComponent({
         this.$emit("input", "");
       }
     },
-    // getValue() {
-    //   if (this.encrypted) {
-    //     return this.originalText;
-    //   }
-    //   return this.value;
-    // },
     handleOnBlur(e) {
       this.inputing = false;
+      this.focused = false;
+      this.showEditableIcon = true;
       if (this.encrypted) {
         if (this.value === "") {
-          // this.$emit("input", this.encrypt(this.originalText));
           this.$emit("input", this.originalText);
         } else {
           this.originalText = e.target.value;
-          // this.$emit("input", this.encrypt(e.target.value));
         }
       }
       this.$emit("blur", e);
     },
     handleInput(e) {
+      this.showEditableIcon = false;
       if (this.clearable && e.target.value) {
-        this.showIcon = true;
+        this.showClearIcon = true;
       } else {
-        this.showIcon = false;
+        this.showClearIcon = false;
       }
       this.inputing = true;
       this.$emit("input", e.target.value);
@@ -125,7 +131,7 @@ export default defineComponent({
       if (this.clearable) {
         this.target.value = "";
         this.$emit("input", "");
-        this.showIcon = false;
+        this.showClearIcon = false;
         return false;
       }
     },
@@ -215,9 +221,16 @@ export default defineComponent({
     },
     createIcon(h) {
       const icon = [];
-      const name = this.clearable ? "clear" : this.iconName;
+      let name = this.clearable ? "clear" : this.iconName;
+      if (this.showEditIcon) {
+        if (this.focused) {
+          name = "clear";
+        } else {
+          name = "edit";
+        }
+      }
       const directives = this.clearable
-        ? [{ name: "show", value: this.showIcon }]
+        ? [{ name: "show", value: this.showClearIcon || this.showEditableIcon }]
         : [];
       if (this.clearable || this.iconName) {
         icon.push(
