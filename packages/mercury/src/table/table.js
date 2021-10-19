@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-14 17:53:46
+ * @Last Modified time: 2021-10-19 17:18:00
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -105,10 +105,22 @@ export default defineComponent({
       randNum: null,
       dropDownTitle: "", // 当前显示的搜索列的title
       tableSizeLIst: {
-        default: "default-size",
-        middle: "middle-size",
-        small: "small-size",
-        none: "none-size",
+        default: {
+          class: "default-size",
+          size: 16,
+        },
+        middle: {
+          class: "middle-size",
+          size: 12,
+        },
+        small: {
+          class: "small-size",
+          size: 8,
+        },
+        none: {
+          class: "none-size",
+          size: 8,
+        },
       },
       minWidth: 0,
     };
@@ -124,6 +136,7 @@ export default defineComponent({
     dataSource: "getNewDataList",
     columns: "serializationThead",
     "rowSelection.selectedRowKeys": "setSelectRowKeys",
+    "pageInfoObj.defaultPageSize": "getNewDataList",
   },
   mounted() {
     on(document, "click", this.dropDownListener);
@@ -298,6 +311,9 @@ export default defineComponent({
     showDropDownFun(key, title) {
       const h = this.$createElement;
       const dropDownTitle = this.dropDownTitle;
+      const tableContainer = document.getElementById(
+        `yn-thead-container-${this.randNum}`
+      );
       if (dropDownTitle) {
         const _oldDropDownModal = document.getElementById(
           "yn-table-dropdown-container" + dropDownTitle
@@ -316,6 +332,21 @@ export default defineComponent({
           columnInfo.key = item.key;
           break;
         }
+      }
+      const { tableSize, tableSizeLIst } = this;
+      const paddingTop =
+        (tableSizeLIst[tableSize] && tableSizeLIst[tableSize].size) || 16;
+      if (tableContainer.clientHeight <= 130) {
+        _dropDownModal.style.height = tableContainer.clientHeight - 2 + "px";
+        _dropDownModal.style.maxHeight =
+          columnInfo.filters.length * 38 + 45 + "px";
+        _dropDownModal.style.top = -paddingTop + 5 + "px";
+      } else {
+        _dropDownModal.style.height =
+          tableContainer.clientHeight - 30 - paddingTop + "px";
+        _dropDownModal.style.maxHeight =
+          columnInfo.filters.length * 38 + 58 + "px";
+        _dropDownModal.style.top = "30px";
       }
 
       _dropDownModal.style.display = "block";
@@ -365,40 +396,40 @@ export default defineComponent({
                   h("div", { class: ["yn-table-filter-dropdown"] }, [
                     h("ul", { class: ["yn-dropdown-menu"] }, [
                       ...this.filterContent,
-                    ]),
-                    h("div", { class: ["yn-table-filter-dropdown-btns"] }, [
-                      h(
-                        genComponentName("button"),
-                        {
-                          props: {
-                            disabled: this.resetDisabled,
-                            size: "small",
+                      h("div", { class: ["yn-table-filter-dropdown-btns"] }, [
+                        h(
+                          genComponentName("button"),
+                          {
+                            props: {
+                              disabled: this.resetDisabled,
+                              size: "small",
+                            },
                           },
-                        },
-                        [
-                          h(
-                            "span",
-                            { on: { click: this.reset.bind(this, h) } },
-                            [this.resetText]
-                          ),
-                        ]
-                      ),
-                      h(
-                        genComponentName("button"),
-                        {
-                          props: {
-                            type: "primary",
-                            size: "small",
+                          [
+                            h(
+                              "span",
+                              { on: { click: this.reset.bind(this, h) } },
+                              [this.resetText]
+                            ),
+                          ]
+                        ),
+                        h(
+                          genComponentName("button"),
+                          {
+                            props: {
+                              type: "primary",
+                              size: "small",
+                            },
                           },
-                        },
-                        [
-                          h(
-                            "span",
-                            { on: { click: () => this.checkDropDownChage } },
-                            [this.okText]
-                          ),
-                        ]
-                      ),
+                          [
+                            h(
+                              "span",
+                              { on: { click: () => this.checkDropDownChage } },
+                              [this.okText]
+                            ),
+                          ]
+                        ),
+                      ]),
                     ]),
                   ]),
                 ]
@@ -873,8 +904,9 @@ export default defineComponent({
       const ind = selectedRows.indexOf(rowDatas.key);
       const rowSelection = this.rowSelection;
       if (checkType === "radio") {
-        const [seletekey = -1] = selectedRows;
-        if (!seletekey) {
+        const [seletekey] = selectedRows;
+        let responseKey = rowDatas.key;
+        if (!seletekey && seletekey !== 0) {
           selectedRows.push(rowDatas.key);
           selectedRowDatas.push(rowDatas);
         } else if (seletekey !== rowDatas.key) {
@@ -882,7 +914,11 @@ export default defineComponent({
           selectedRowDatas.splice(0, 1, rowDatas);
         } else {
           selectedRows.splice(0, 1);
+          selectedRowDatas.splice(0, 1);
+          responseKey = "";
         }
+        rowSelection.onChange &&
+          rowSelection.onChange(responseKey, selectedRowDatas);
       } else {
         if (ind > -1) {
           selectedRows.splice(ind, 1);
@@ -892,9 +928,9 @@ export default defineComponent({
           selectedRowDatas.push(rowDatas);
         }
         this.selectAll = selectedRows.length === this.currentPageData.length;
+        rowSelection.onChange &&
+          rowSelection.onChange(selectedRows, selectedRowDatas);
       }
-      rowSelection.onChange &&
-        rowSelection.onChange(selectedRows, selectedRowDatas);
     },
     handlePageSizeChange(pageSize) {
       this.pageInfoObj.defaultPageSize = pageSize;
@@ -918,7 +954,8 @@ export default defineComponent({
       setting,
       minWidth,
     } = this;
-    const sizeClass = tableSizeLIst[tableSize] || "";
+    const sizeClass =
+      (tableSizeLIst[tableSize] && tableSizeLIst[tableSize].class) || "";
     const borderClass =
       bordered === true
         ? "yn-table-bordered"
@@ -946,25 +983,32 @@ export default defineComponent({
               h(
                 "div",
                 {
-                  class: ["yn-thead-container"],
-                  style: { minWidth: minWidth + "px" },
+                  class: ["yn-table-container"],
+                  attrs: { id: `yn-thead-container-${this.randNum}` },
                 },
                 [
-                  h("div", { class: ["thead-table"] }, [
-                    h("table", { style: { "table-layout": "fixed" } }, [
-                      this.getCommonColgroup(),
-                      !hideHeader &&
-                        h(
-                          "thead",
-                          {
-                            attrs: { id: `yn-table-thead-${this.randNum}` },
-                            class: ["yn-table-thead", thClassName],
-                            style: { ...thStyle },
-                          },
-                          [this.getThead(h)]
-                        ),
-                    ]),
-                  ]),
+                  h(
+                    "div",
+                    {
+                      class: ["thead-table"],
+                      style: { minWidth: minWidth + "px" },
+                    },
+                    [
+                      h("table", { style: { "table-layout": "fixed" } }, [
+                        this.getCommonColgroup(),
+                        !hideHeader &&
+                          h(
+                            "thead",
+                            {
+                              attrs: { id: `yn-table-thead-${this.randNum}` },
+                              class: ["yn-table-thead", thClassName],
+                              style: { ...thStyle },
+                            },
+                            [this.getThead(h)]
+                          ),
+                      ]),
+                    ]
+                  ),
                   h(
                     "div",
                     {

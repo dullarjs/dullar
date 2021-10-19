@@ -2,12 +2,12 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-14 17:52:27
+ * @Last Modified time: 2021-10-19 17:18:15
  * @E-mail: yglgzyx@126.com
 -->
 <template>
     <div>
-        <h2>yn-table</h2>
+        <!-- <h2>yn-table</h2>
         <h3>普通表格</h3>
         <yn-table
             :columns="columns1"
@@ -23,7 +23,7 @@
             :iconSize="iconSize"
             :hideHeader="hideHeader"
             :checkBoxSize="12"
-            :tableSize="tableSizeD"
+            :tableSize="tableSizeN"
             :setting="setting"
         >
         </yn-table>
@@ -40,7 +40,6 @@
                 v-on:handleChange="handleChange"
                 v-on:handleColumnChange="handleColumnChange"
                 :pagination="pagination"
-                :height="600"
                 :okText="okText"
                 :resetText="resetText"
                 :emptyContent="emptyContent"
@@ -49,9 +48,95 @@
                 :tableSize="tableSizeD"
             >
             </yn-table>
+        </div> -->
+        <div>
+            <div style="width: 100%;height: 64px;min-width: 1200px;background: pink;">head</div>
+            <div class="yn-sa-layout">
+                <div class="yn-sa-sidebar">left</div>
+                <div class="yn-sa-layout-right">
+                    <h2>yn-table</h2>
+                    <h3>普通表格</h3>
+                    <yn-table
+                        :columns="columns1"
+                        bordered="none"
+                        :dataSource="dataSource1"
+                        :rowSelection="rowSelection1"
+                        v-on:handleCkChange="handleCkChange"
+                        v-on:handleReset="handleReset"
+                        v-on:handleHideHeader="handleHideHeader"
+                        v-on:handleClicka="handleClicka"
+                        :loading="loading"
+                        :iconType="iconType"
+                        :iconSize="iconSize"
+                        :hideHeader="hideHeader"
+                        :checkBoxSize="12"
+                        :tableSize="tableSizeN"
+                        :setting="setting"
+                    >
+                    </yn-table>
+                    <h3>基础功能齐全table</h3>
+                    <div style="padding: 10px; margin: 10px;">
+                        <yn-table
+                            :columns="columns"
+                            :rowSelection="rowSelection"
+                            :bordered="true"
+                            :dataSource="dataSource"
+                            v-on:handleClick="handleClick"
+                            v-on:handleDelete="handleDelete"
+                            v-on:handleAdd="handleAdd"
+                            v-on:handleChange="handleChange"
+                            v-on:handleColumnChange="handleColumnChange"
+                            :pagination="pagination"
+                            :okText="okText"
+                            :resetText="resetText"
+                            :emptyContent="emptyContent"
+                            :emptyText="emptyText"
+                            :checkBoxSize="15"
+                            :tableSize="tableSizeD"
+                        >
+                        </yn-table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
+<style scoped>
+.yn-sa-layout{
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 64px);
+    min-width: 1200px;
+    min-height: 400px;
+    overflow: hidden;
+    display: flex;
+    flex: auto;
+}
+.yn-sa-sidebar{
+    position: relative;
+    background: pink;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    flex: 0 0 200px;
+    max-width: 200px;
+    min-width: 200px;
+    width: 200px;
+    flex-grow: 0;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.yn-sa-layout-right{
+    position: relative;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    height: 100%;
+    flex-grow: 1;
+}
+</style>
 <script type="text/javascript">
 // 注意为了方便约定 key 值为 数组中的索引， 可以为空
 const data = [];
@@ -304,9 +389,9 @@ export default {
             ],
             // 选择系列
             rowSelection: {
-                selectedRowKeys: [0, 1, 2, 3], // radio 默认取第一个
+                selectedRowKeys: [], // radio 默认取第一个
                 onChange: this.handleSelectChange, // 选中之后提供数据调整入口
-                type: "checkbox", // radio 或者checkbox
+                type: "radio", // radio 或者checkbox
             },
             dataSource: data,
             // 分页
@@ -321,6 +406,15 @@ export default {
                     dataIndex: '',
                     key: 'picture',
                     width: 300,
+                    // 列过滤选项卡
+                    filters: [
+                        { text: '张三', value: '张三' },
+                        { text: '李四', value: '李四' },
+                        { text: '王五', value: '王五' },
+                        { text: '赵六', value: '赵六' }
+                    ],
+                    // 字段的搜索功能 运行函数
+                    onFilter: (value, record) => { return record.name.indexOf(value) >= 0 },
                     render: {
                         tagName: 'div',
                         attrs: {
@@ -423,24 +517,24 @@ export default {
                     dsc: "斯得弗（STRYFER）",
                     test: false
                 },
-                {
-                    key: 2,
-                    name: '名2',
-                    age: 23,
-                    address: '武汉市3(编辑下试试)',
-                    img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/190088/33/8488/135210/60c9cb40Eb71a7dd9/65ba2694595c2e72.jpg",
-                    dsc: "松深入墨 骁龙865 ",
-                    test: false
-                },
-                {
-                    key: 3,
-                    name: '名3',
-                    age: 15,
-                    address: '武汉市3(编辑下试试)',
-                    img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/121150/33/8284/68362/5f22f0a4Eee68fcd2/51cd7445e9429892.jpg",
-                    dsc: "黑鲨移动电源",
-                    test: false
-                },
+                // {
+                //     key: 2,
+                //     name: '名2',
+                //     age: 23,
+                //     address: '武汉市3(编辑下试试)',
+                //     img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/190088/33/8488/135210/60c9cb40Eb71a7dd9/65ba2694595c2e72.jpg",
+                //     dsc: "松深入墨 骁龙865 ",
+                //     test: false
+                // },
+                // {
+                //     key: 3,
+                //     name: '名3',
+                //     age: 15,
+                //     address: '武汉市3(编辑下试试)',
+                //     img: "https://mallhubimg.yuanian.com/1eedae7edf78e04cad34f824c656e10d/n12/jfs/t1/121150/33/8284/68362/5f22f0a4Eee68fcd2/51cd7445e9429892.jpg",
+                //     dsc: "黑鲨移动电源",
+                //     test: false
+                // },
             ],
             // 选择系列
             rowSelection1: {
