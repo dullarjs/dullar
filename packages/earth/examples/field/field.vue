@@ -60,6 +60,16 @@
           ></yn-field>
         </li>
         <li>
+          <span class="label">可编辑</span>
+          <yn-field
+            v-model="editable"
+            label="清除icon"
+            type="text"
+            clearable
+            showEditIcon
+          ></yn-field>
+        </li>
+        <li>
           <span class="label">自定义icon</span>
           <yn-field
             v-model="customIcon"
@@ -104,6 +114,7 @@ export default {
   name: "YnFieldPage",
   data() {
     return {
+      editable: "此文可编辑",
       basicUsage: "",
       phoneNumber: "",
       userPassword: "",
