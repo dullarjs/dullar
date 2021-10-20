@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-11 18:19:28
+ * @Last Modified time: 2021-10-20 15:33:39
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -179,10 +179,10 @@ export default defineComponent({
           }
           const attr = that.vertical ? "top" : "left";
           moving = true;
-          that.startMove(prevEle, -1 * num * that.size - disXY);
+          that.startMove(prevEle, disXY, -1 * num * that.size - disXY);
           curEle.style[attr] = `${num * that.size + disXY}px`;
           nextEle.style[attr] = `${num * that.size}px`;
-          that.startMove(curEle, -1 * num * that.size - disXY, () => {
+          that.startMove(curEle, num * that.size + disXY, -1 * num * that.size - disXY, () => {
             moving = false;
             prevEle = null;
             curEle = null;
@@ -192,10 +192,10 @@ export default defineComponent({
         },
       });
     },
-    startMove(el, value = 0, fn) {
+    startMove(el, b = 0, c = 0, fn) {
       const { vertical } = this;
       const attr = vertical ? "top" : "left";
-      move(el, { [attr]: value }, () => {
+      move(el, { attr, b, c }, () => {
         fn && typeof fn === "function" && fn.call(this, el);
       });
     },
@@ -241,9 +241,9 @@ export default defineComponent({
       const curEle = this.children[r.getIndex()];
       const nextEle = this.children[r.getNext()];
       const attr = this.vertical ? "top" : "left";
-      this.startMove(prevEle, -1 * num * this.size);
+      this.startMove(prevEle, 0, -1 * num * this.size);
       curEle.style[attr] = `${num * this.size}px`;
-      this.startMove(curEle, -1 * num * this.size, (el) => {
+      this.startMove(curEle, num * this.size, -1 * num * this.size, (el) => {
         this.moving = false;
         callback && typeof callback === "function" && callback(el);
       });

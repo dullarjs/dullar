@@ -2,12 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-04-10 13:33:50
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-18 12:04:05
+ * @Last Modified time: 2021-10-20 15:39:23
  * @E-mail: justbefree@126.com
  */
-
 import { Tween } from "./tween";
-import { hasOwnProperty } from "../../utils";
 export const startMove = (obj, json, fn, div = 4) => {
   clearInterval(obj.timer);
   let iCurrent = 0;
@@ -40,17 +38,15 @@ export const startMove = (obj, json, fn, div = 4) => {
 };
 
 export const move = (obj, json, fn) => {
-  let attr = hasOwnProperty(json, "left") ? "left" : "top";
   let t = 0,
-    b = 0,
-    c = json[attr],
+    b = json.b,
+    c = json.c,
     d = 40;
   let timer = null;
   clearTimeout(timer);
-  b = parseInt(getComputedStyle(obj, false)[attr]);
   const run = () => {
     const value = Math.ceil(Tween.Quart.easeOut(t, b, c, d));
-    obj.style[attr] = `${value}px`;
+    obj.style[json["attr"]] = `${value}px`;
     if (t < d) {
       t++;
       timer = setTimeout(run, 10);
