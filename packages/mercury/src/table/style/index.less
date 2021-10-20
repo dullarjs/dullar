@@ -8,7 +8,7 @@
   }
   .yn-spin-container {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     .yn-tbody-container {
       overflow: hidden;
       &:hover {
@@ -79,7 +79,7 @@
         border-right: 1px solid @t-b-color;
         border-bottom: 1px solid @t-b-color;
         &:last-child {
-          border-right: none;
+          border-right: 1px solid @t-b-color;
         }
       }
       .yn-table-row:last-child > td,
@@ -105,19 +105,18 @@
   }
   .yn-dropdown {
     box-sizing: border-box;
+    position: absolute;
     margin: 0;
     padding: 0;
     font-size: 14px;
-    font-variant: tabular-nums;
-    line-height: 1.5715;
-    list-style: none;
-    font-feature-settings: "tnum";
-    position: absolute;
-    top: 30px;
-    left: -135px;
+    top: -9999px;
+    left: -9999px;
     z-index: 1050;
     width: 160px;
-    display: none;
+    display: block;
+    overflow: hidden auto;
+    box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
+      0 9px 28px 8px #0000000d;
   }
   .yn-table-filter-column {
     display: flex;
@@ -183,24 +182,19 @@
 }
 .yn-table-filter-dropdown {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  height: 100%;
+  min-height: 100px;
   color: #000000d9;
-  font-size: 14px;
-  font-variant: tabular-nums;
-  line-height: 1.5715;
-  list-style: none;
-  font-feature-settings: "tnum";
   min-width: 120px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
     0 9px 28px 8px #0000000d;
   .yn-dropdown-menu {
-    max-height: 264px;
     overflow-x: hidden;
     border: 0;
     box-shadow: none;
+    max-height: 160px;
   }
 }
 .yn-dropdown-menu {

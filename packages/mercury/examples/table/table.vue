@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-14 17:52:27
+ * @Last Modified time: 2021-10-20 15:10:44
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -23,7 +23,7 @@
             :iconSize="iconSize"
             :hideHeader="hideHeader"
             :checkBoxSize="12"
-            :tableSize="tableSizeD"
+            :tableSize="tableSizeM"
             :setting="setting"
         >
         </yn-table>
@@ -40,7 +40,6 @@
                 v-on:handleChange="handleChange"
                 v-on:handleColumnChange="handleColumnChange"
                 :pagination="pagination"
-                :height="600"
                 :okText="okText"
                 :resetText="resetText"
                 :emptyContent="emptyContent"
@@ -241,10 +240,12 @@ export default {
                 {
                     title: "address",
                     dataIndex: "address",
+                    width: 150,
                 },
                 {
                     title: 'gender',
                     dataIndex: "gender",
+                    width: 150,
                     // 列过滤选项卡
                     filters: [
                         { text: '男', value: '男' },
@@ -254,13 +255,13 @@ export default {
                 {
                     title: "Action",
                     dataIndex: "",
+                    width: 150,
                     render: {
                         tagName: "div",
                         style: {
                             color: "red",
                             fontSize: "12px",
                         },
-                        width: 200,
                         content: [
                             {
                                 tagName: "p",
@@ -304,7 +305,7 @@ export default {
             ],
             // 选择系列
             rowSelection: {
-                selectedRowKeys: [0, 1, 2, 3], // radio 默认取第一个
+                selectedRowKeys: [], // radio 默认取第一个
                 onChange: this.handleSelectChange, // 选中之后提供数据调整入口
                 type: "checkbox", // radio 或者checkbox
             },
@@ -539,6 +540,7 @@ export default {
                 {
                     title: 'gender',
                     dataIndex: "gender",
+                    width: 150,
                     // 列过滤选项卡
                     filters: [
                         { text: '男', value: '男' },
