@@ -1,6 +1,6 @@
 {
   "name": "@dullar/cli",
-  "version": "0.2.65",
+  "version": "0.2.66",
   "publishConfig": {
     "access": "public"
   },
