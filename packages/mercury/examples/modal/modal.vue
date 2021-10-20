@@ -118,6 +118,7 @@ export default {
     confirm2() {
       this.Modal.confirm({
         message: "<span>我是span标签</span><br/>我换行了",
+        closeOnClickModal: false,
         buttonClick: this.buttonsClick,
       });
     },
