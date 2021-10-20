@@ -16,7 +16,7 @@ export type ModalOptions = {
     confirmButtonText?: string;
     confirmLoadingText?: string;
     loadingColor?: string;
-    closeModelOnClick?: boolean;
+    closeOnClickModal?: boolean;
     zIndex?: number;
     showHeader?: boolean;
     showFooter?: boolean;
