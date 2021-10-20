@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-19 18:38:51
+ * @Last Modified time: 2021-10-20 11:24:36
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -90,6 +90,7 @@ export default defineComponent({
     return [
       { key: "originalText", value: "value" },
       { key: "focused", value: "autofocus" },
+      { key: "showEditableIcon", value: "showEditIcon" },
     ];
   },
   methods: {
@@ -99,6 +100,9 @@ export default defineComponent({
       this.target = e.target;
       this.$emit("focus", e);
       this.$emit("click", e);
+      if (this.value === "") {
+        this.showClearIcon = false;
+      }
       if (this.encrypted) {
         e.target.value = "";
         this.$emit("input", "");
@@ -223,6 +227,7 @@ export default defineComponent({
       const icon = [];
       let name = this.clearable ? "clear" : this.iconName;
       if (this.showEditIcon) {
+        // this.showEditableIcon = true;
         if (this.focused) {
           name = "clear";
         } else {
