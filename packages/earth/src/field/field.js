@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-20 11:24:36
+ * @Last Modified time: 2021-10-20 18:44:10
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -102,6 +102,8 @@ export default defineComponent({
       this.$emit("click", e);
       if (this.value === "") {
         this.showClearIcon = false;
+      } else {
+        this.showClearIcon = true;
       }
       if (this.encrypted) {
         e.target.value = "";
@@ -110,7 +112,9 @@ export default defineComponent({
     },
     handleOnBlur(e) {
       this.inputing = false;
-      this.focused = false;
+      setTimeout(() => {
+        this.focused = false;
+      }, 0);
       this.showEditableIcon = true;
       if (this.encrypted) {
         if (this.value === "") {
@@ -131,12 +135,26 @@ export default defineComponent({
       this.inputing = true;
       this.$emit("input", e.target.value);
     },
-    handleIconClick() {
+    handleClearIconClick() {
       if (this.clearable) {
         this.target.value = "";
         this.$emit("input", "");
         this.showClearIcon = false;
         return false;
+      }
+    },
+    handleEditIconClick() {
+      if (this.type === "text") {
+        this.$refs.input.focus();
+      }
+    },
+    handleIconClick(e) {
+      if (e === "clear") {
+        this.handleClearIconClick();
+      } else if (e === "edit") {
+        this.handleEditIconClick();
+      } else {
+        this.$emit("iconClick");
       }
     },
     createInput(h) {
@@ -210,6 +228,7 @@ export default defineComponent({
                   "input",
                   {
                     on: { ...events },
+                    ref: "input",
                     class: ["input-ele", ...className],
                     attrs: { ...attrs, type: this.type },
                     domProps,
@@ -227,7 +246,6 @@ export default defineComponent({
       const icon = [];
       let name = this.clearable ? "clear" : this.iconName;
       if (this.showEditIcon) {
-        // this.showEditableIcon = true;
         if (this.focused) {
           name = "clear";
         } else {
@@ -243,7 +261,7 @@ export default defineComponent({
             genComponentName("flex-item"),
             {
               directives,
-              on: { click: this.handleIconClick },
+              on: { click: this.handleIconClick.bind(this, name) },
             },
             [
               h(
