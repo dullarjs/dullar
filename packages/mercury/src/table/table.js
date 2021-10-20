@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-20 14:43:32
+ * @Last Modified time: 2021-10-20 15:09:49
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -105,23 +105,11 @@ export default defineComponent({
       pageInfoObj: {},
       randNum: null,
       dropDownTitle: "", // 当前显示的搜索列的title
-      tableSizeLIst: {
-        default: {
-          class: "default-size",
-          size: 16,
-        },
-        middle: {
-          class: "middle-size",
-          size: 12,
-        },
-        small: {
-          class: "small-size",
-          size: 8,
-        },
-        none: {
-          class: "none-size",
-          size: 8,
-        },
+      tableSizeList: {
+        default: "default-size",
+        middle: "middle-size",
+        small: "small-size",
+        none: "none-size",
       },
       minWidth: 0,
     };
@@ -905,14 +893,13 @@ export default defineComponent({
       loading,
       hideHeader,
       tableSize,
-      tableSizeLIst,
+      tableSizeList,
       bordered,
       setting,
       minWidth,
       dropDownStyle,
     } = this;
-    const sizeClass =
-      (tableSizeLIst[tableSize] && tableSizeLIst[tableSize].class) || "";
+    const sizeClass = tableSizeList[tableSize] || "";
     const borderClass =
       bordered === true
         ? "yn-table-bordered"

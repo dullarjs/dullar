@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-20 14:52:55
+ * @Last Modified time: 2021-10-20 15:10:44
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -23,7 +23,7 @@
             :iconSize="iconSize"
             :hideHeader="hideHeader"
             :checkBoxSize="12"
-            :tableSize="tableSizeN"
+            :tableSize="tableSizeM"
             :setting="setting"
         >
         </yn-table>
