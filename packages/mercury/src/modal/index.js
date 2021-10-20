@@ -27,7 +27,6 @@ const props = {
   confirmButtonText: "确定",
   confirmLoadingText: "确定",
   loadingColor: "#007aff",
-  closeModelOnClick: false,
   closeOnClickModal: true,
   zIndex: 2,
   className: "",
