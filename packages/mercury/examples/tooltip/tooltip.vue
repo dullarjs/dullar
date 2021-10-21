@@ -36,6 +36,7 @@
       <!-- </div> -->
       <div>
         <yn-tooltip
+          :delay="200"
           trigger="hover"
           placement="bottom"
           content="bottom我是tooltip撒旦发生口角是否数据库恢复瑟夫数据返回上课时间发货时间看"
@@ -64,7 +65,12 @@
           </yn-tooltip>
         </div>
         <div>
-          <yn-tooltip placement="right" effect="light" trigger="hover">
+          <yn-tooltip
+            :delay="200"
+            placement="right"
+            effect="light"
+            trigger="hover"
+          >
             <yn-button class="mt30" type="text">hover 插槽</yn-button>
             <div slot="content">
               <p>我是tooltip我是tooltip</p>
