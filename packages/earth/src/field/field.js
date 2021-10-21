@@ -2,11 +2,12 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-21 16:44:10
+ * @Last Modified time: 2021-10-21 17:41:35
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
 import { encrypt } from "../modules/utils";
+import { renderedMixins } from "../mixins/rendered";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 import Iconfont from "../iconfont";
@@ -14,7 +15,7 @@ const VALID_TYPE = ["number", "textarea", "password", "text", "email", "tel"];
 import { slotsMixins } from "../mixins/slots";
 export default defineComponent({
   name: "Field",
-  mixins: [slotsMixins],
+  mixins: [slotsMixins, renderedMixins],
   components: { Flex, FlexItem, Iconfont },
   props: {
     value: {
@@ -84,7 +85,6 @@ export default defineComponent({
       showEncryptInput: false,
       inputing: false,
       focused: false,
-      valid: false,
     };
   },
   initPropsToData() {
@@ -115,7 +115,6 @@ export default defineComponent({
       const { pattern, value } = e.target;
       const reg = new RegExp(pattern);
       const valid = reg.test(value);
-      this.valid = valid;
       this.inputing = false;
       setTimeout(() => {
         this.focused = false;
@@ -150,7 +149,13 @@ export default defineComponent({
     },
     handleEditIconClick() {
       if (this.type === "text") {
+        const value = this.$refs.input.value;
+        this.$emit("input", "");
         this.$refs.input.focus();
+        this.rendered(() => {
+          this.$emit("input", value);
+          this.$refs.input.value = value;
+        });
       }
     },
     handleIconClick(e) {
@@ -166,9 +171,11 @@ export default defineComponent({
       const maxlength = this.maxlength ? Number(this.maxlength) : null;
       const area = [];
       let value = this.value;
+      const reg = new RegExp(this.pattern);
+      const valid = reg.test(value);
       if (this.encrypted && !this.inputing) {
         if (this.pattern !== "") {
-          if (this.valid) {
+          if (valid) {
             value = this.encrypt(value);
           }
         } else {
