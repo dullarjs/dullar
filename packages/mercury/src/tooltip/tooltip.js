@@ -41,6 +41,10 @@ export default defineComponent({
       type: String,
       default: "dark", // light
     },
+    delay: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -50,6 +54,7 @@ export default defineComponent({
         left: 0,
       },
       show: true,
+      timer: null,
     };
   },
   mounted() {
@@ -66,14 +71,18 @@ export default defineComponent({
           this.show = true;
         });
         this._mouseleaveEvent = bind(triger, "mouseleave", () => {
-          this.show = false;
+          this.timer = setTimeout(() => {
+            this.show = false;
+          }, this.delay);
         });
       } else if (this.trigger === "focus") {
         this._focusEvent = bind(triger, "focus", () => {
           this.show = true;
         });
         this._blurEvent = bind(triger, "blur", () => {
-          this.show = false;
+          this.timer = setTimeout(() => {
+            this.show = false;
+          }, this.delay);
         });
       } else {
         this._clickEvent = bind(triger, "click", this.toggle);
@@ -152,6 +161,10 @@ export default defineComponent({
         }
       });
     },
+    clearTimer() {
+      clearTimeout(this.timer);
+      this.timer = null;
+    },
   },
 
   render(h) {
@@ -198,6 +211,7 @@ export default defineComponent({
                 on: {
                   mouseenter: () => {
                     this.show = true;
+                    this.clearTimer();
                   },
                   mouseleave: () => {
                     if (this.trigger !== "click") {
