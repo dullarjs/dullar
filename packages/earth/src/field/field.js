@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-20 18:44:10
+ * @Last Modified time: 2021-10-21 16:44:10
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -84,6 +84,7 @@ export default defineComponent({
       showEncryptInput: false,
       inputing: false,
       focused: false,
+      valid: false,
     };
   },
   initPropsToData() {
@@ -111,6 +112,10 @@ export default defineComponent({
       }
     },
     handleOnBlur(e) {
+      const { pattern, value } = e.target;
+      const reg = new RegExp(pattern);
+      const valid = reg.test(value);
+      this.valid = valid;
       this.inputing = false;
       setTimeout(() => {
         this.focused = false;
@@ -120,10 +125,10 @@ export default defineComponent({
         if (this.value === "") {
           this.$emit("input", this.originalText);
         } else {
-          this.originalText = e.target.value;
+          this.originalText = value;
         }
       }
-      this.$emit("blur", e);
+      this.$emit("blur", { ...e, valid });
     },
     handleInput(e) {
       this.showEditableIcon = false;
@@ -160,24 +165,28 @@ export default defineComponent({
     createInput(h) {
       const maxlength = this.maxlength ? Number(this.maxlength) : null;
       const area = [];
+      let value = this.value;
+      if (this.encrypted && !this.inputing) {
+        if (this.pattern !== "") {
+          if (this.valid) {
+            value = this.encrypt(value);
+          }
+        } else {
+          value = this.encrypt(value);
+        }
+      }
       const attrs = {
         readonly: this.readonly,
         placeholder: this.placeholder,
         autofocus: this.autofocus,
-        value:
-          this.encrypted && !this.inputing
-            ? this.encrypt(this.value)
-            : this.value,
+        value,
         required: this.required,
         disabled: this.disabled,
         maxlength,
         pattern: this.pattern,
       };
       const domProps = {
-        value:
-          this.encrypted && !this.inputing
-            ? this.encrypt(this.value)
-            : this.value,
+        value,
       };
       const events = {
         focus: this.handleOnFocus,
