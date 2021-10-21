@@ -39,6 +39,8 @@
             ref="YnField"
             label="加密字符串"
             encrypted
+            showEditIcon
+            clearable
             pattern="1[0-9]{10}"
             @blur="handleBlur"
           ></yn-field>
@@ -125,7 +127,7 @@ export default {
   name: "YnFieldPage",
   data() {
     return {
-      encrptString: "默认加密字符串",
+      encrptString: "18701727777",
       editable: "此文可编辑",
       basicUsage: "",
       phoneNumber: "",
