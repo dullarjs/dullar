@@ -38,6 +38,11 @@
         >
           <div>
             <span>这里面是自定义内容</span>
+            <ul>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+            </ul>
             <yn-button type="primary" @click="changeData4(true)">设置筛选</yn-button>
             <yn-button type="primary" @click="changeData4(false)">取消筛选</yn-button>
             <yn-button type="primary" @click="close1">关闭</yn-button>
