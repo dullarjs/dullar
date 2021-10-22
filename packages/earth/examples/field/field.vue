@@ -33,19 +33,6 @@
           ></yn-field>
         </li>
         <li>
-          <span class="label">加密字符串，不符合正则不加密</span>
-          <yn-field
-            v-model="encrptString"
-            ref="YnField"
-            label="加密字符串"
-            encrypted
-            showEditIcon
-            clearable
-            pattern="1[0-9]{10}"
-            @blur="handleBlur"
-          ></yn-field>
-        </li>
-        <li>
           <span class="label">只读</span>
           <yn-field
             v-model="readonly"
@@ -70,16 +57,6 @@
             label="清除icon"
             type="text"
             clearable
-          ></yn-field>
-        </li>
-        <li>
-          <span class="label">可编辑</span>
-          <yn-field
-            v-model="editable"
-            label="清除icon"
-            type="text"
-            clearable
-            showEditIcon
           ></yn-field>
         </li>
         <li>
@@ -127,8 +104,6 @@ export default {
   name: "YnFieldPage",
   data() {
     return {
-      encrptString: "18701727777",
-      editable: "此文可编辑",
       basicUsage: "",
       phoneNumber: "",
       userPassword: "",
@@ -145,13 +120,6 @@ export default {
       ynIdNoEncrpt: "11222222222",
       customLabel: ""
     };
-  },
-  methods: {
-    handleBlur(e) {
-      if (!e.valid) {
-        this.Toast("输入不合法");
-      }
-    }
   }
 };
 </script>
