@@ -2,12 +2,11 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-21 17:41:35
+ * @Last Modified time: 2021-10-22 10:41:32
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
 import { encrypt } from "../modules/utils";
-import { renderedMixins } from "../mixins/rendered";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 import Iconfont from "../iconfont";
@@ -15,7 +14,7 @@ const VALID_TYPE = ["number", "textarea", "password", "text", "email", "tel"];
 import { slotsMixins } from "../mixins/slots";
 export default defineComponent({
   name: "Field",
-  mixins: [slotsMixins, renderedMixins],
+  mixins: [slotsMixins],
   components: { Flex, FlexItem, Iconfont },
   props: {
     value: {
@@ -42,10 +41,6 @@ export default defineComponent({
       default: false,
     },
     clearable: {
-      type: Boolean,
-      default: false,
-    },
-    showEditIcon: {
       type: Boolean,
       default: false,
     },
@@ -80,120 +75,81 @@ export default defineComponent({
   data() {
     return {
       target: null,
-      showClearIcon: false,
-      showEditableIcon: false,
+      showIcon: false,
       showEncryptInput: false,
       inputing: false,
-      focused: false,
     };
   },
   initPropsToData() {
-    return [
-      { key: "originalText", value: "value" },
-      { key: "focused", value: "autofocus" },
-      { key: "showEditableIcon", value: "showEditIcon" },
-    ];
+    return [{ key: "originalText", value: "value" }];
   },
   methods: {
     handleOnFocus(e) {
-      this.focused = true;
-      this.showEditableIcon = false;
       this.target = e.target;
       this.$emit("focus", e);
       this.$emit("click", e);
-      if (this.value === "") {
-        this.showClearIcon = false;
-      } else {
-        this.showClearIcon = true;
-      }
       if (this.encrypted) {
         e.target.value = "";
         this.$emit("input", "");
       }
     },
+    // getValue() {
+    //   if (this.encrypted) {
+    //     return this.originalText;
+    //   }
+    //   return this.value;
+    // },
     handleOnBlur(e) {
-      const { pattern, value } = e.target;
-      const reg = new RegExp(pattern);
-      const valid = reg.test(value);
       this.inputing = false;
-      setTimeout(() => {
-        this.focused = false;
-      }, 0);
-      this.showEditableIcon = true;
       if (this.encrypted) {
         if (this.value === "") {
+          // this.$emit("input", this.encrypt(this.originalText));
           this.$emit("input", this.originalText);
         } else {
-          this.originalText = value;
+          this.originalText = e.target.value;
+          // this.$emit("input", this.encrypt(e.target.value));
         }
       }
-      this.$emit("blur", { ...e, valid });
+      this.$emit("blur", e);
     },
     handleInput(e) {
-      this.showEditableIcon = false;
       if (this.clearable && e.target.value) {
-        this.showClearIcon = true;
+        this.showIcon = true;
       } else {
-        this.showClearIcon = false;
+        this.showIcon = false;
       }
       this.inputing = true;
       this.$emit("input", e.target.value);
     },
-    handleClearIconClick() {
+    handleIconClick() {
       if (this.clearable) {
         this.target.value = "";
         this.$emit("input", "");
-        this.showClearIcon = false;
+        this.showIcon = false;
         return false;
-      }
-    },
-    handleEditIconClick() {
-      if (this.type === "text") {
-        const value = this.$refs.input.value;
-        this.$emit("input", "");
-        this.$refs.input.focus();
-        this.rendered(() => {
-          this.$emit("input", value);
-          this.$refs.input.value = value;
-        });
-      }
-    },
-    handleIconClick(e) {
-      if (e === "clear") {
-        this.handleClearIconClick();
-      } else if (e === "edit") {
-        this.handleEditIconClick();
-      } else {
-        this.$emit("iconClick");
       }
     },
     createInput(h) {
       const maxlength = this.maxlength ? Number(this.maxlength) : null;
       const area = [];
-      let value = this.value;
-      const reg = new RegExp(this.pattern);
-      const valid = reg.test(value);
-      if (this.encrypted && !this.inputing) {
-        if (this.pattern !== "") {
-          if (valid) {
-            value = this.encrypt(value);
-          }
-        } else {
-          value = this.encrypt(value);
-        }
-      }
       const attrs = {
         readonly: this.readonly,
         placeholder: this.placeholder,
         autofocus: this.autofocus,
-        value,
+        value:
+          this.encrypted && !this.inputing
+            ? this.encrypt(this.value)
+            : this.value,
         required: this.required,
         disabled: this.disabled,
         maxlength,
         pattern: this.pattern,
       };
       const domProps = {
-        value,
+        value:
+          this.encrypted && !this.inputing
+            ? this.encrypt(this.value)
+            : this.value,
       };
       const events = {
         focus: this.handleOnFocus,
@@ -244,7 +200,6 @@ export default defineComponent({
                   "input",
                   {
                     on: { ...events },
-                    ref: "input",
                     class: ["input-ele", ...className],
                     attrs: { ...attrs, type: this.type },
                     domProps,
@@ -260,16 +215,9 @@ export default defineComponent({
     },
     createIcon(h) {
       const icon = [];
-      let name = this.clearable ? "clear" : this.iconName;
-      if (this.showEditIcon) {
-        if (this.focused) {
-          name = "clear";
-        } else {
-          name = "edit";
-        }
-      }
+      const name = this.clearable ? "clear" : this.iconName;
       const directives = this.clearable
-        ? [{ name: "show", value: this.showClearIcon || this.showEditableIcon }]
+        ? [{ name: "show", value: this.showIcon }]
         : [];
       if (this.clearable || this.iconName) {
         icon.push(
@@ -277,7 +225,7 @@ export default defineComponent({
             genComponentName("flex-item"),
             {
               directives,
-              on: { click: this.handleIconClick.bind(this, name) },
+              on: { click: this.handleIconClick },
             },
             [
               h(
