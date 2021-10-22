@@ -333,7 +333,9 @@ export default defineComponent({
           return [
             h(
               "ul",
-              {},
+              {
+                class: ["yn-dropdown-menu-item-content-list"],
+              },
               Array.apply(null, this.selections).map((option, key) => {
                 return h(
                   "li",
