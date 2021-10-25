@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-20 15:09:49
+ * @Last Modified time: 2021-10-25 10:57:36
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -125,7 +125,7 @@ export default defineComponent({
     dataSource: "getNewDataList",
     columns: "serializationThead",
     "rowSelection.selectedRowKeys": "setSelectRowKeys",
-    "pageInfoObj.defaultPageSize": "getNewDataList",
+    "pageInfoObj.defaultPageSize": "setPagination",
   },
   mounted() {
     on(document, "click", this.dropDownListener);
@@ -159,7 +159,7 @@ export default defineComponent({
         const totalPage = Math.ceil(dataList.length / defaultPageSize);
         const oldTotalPage = Math.ceil(total / defaultPageSize);
         pageInfoObj.defaultCurrent =
-          (totalPage === oldTotalPage
+          (totalPage === oldTotalPage && defaultCurrent < totalPage
             ? defaultCurrent
             : defaultCurrent > totalPage
             ? totalPage

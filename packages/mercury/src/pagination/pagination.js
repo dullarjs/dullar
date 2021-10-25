@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-03 11:08:15
+ * @Last Modified time: 2021-10-25 10:56:45
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -340,8 +340,10 @@ export default defineComponent({
       }
     },
     setPageSize(pageSize) {
+      const { page, total } = this;
       this.pageSize = pageSize;
-      this.page = 1;
+      this.page =
+        page > Math.ceil(total / pageSize) ? Math.ceil(total / pageSize) : page;
       this.$emit("pageSizeChange", pageSize);
       this.init();
     },
