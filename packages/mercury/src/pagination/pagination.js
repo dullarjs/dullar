@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-25 10:56:45
+ * @Last Modified time: 2021-10-27 19:05:28
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -51,11 +51,11 @@ export default defineComponent({
   },
   methods: {
     init() {
-      const pageSize = this.pageSize;
-      const page = this.page;
+      const { pageSize, page, defaultCurrent } = this;
       this.pageSize = pageSize === 0 ? this.defaultPageSize : pageSize;
-      this.totalPage = Math.ceil(this.total / this.pageSize);
-      this.page = page === 0 ? this.defaultCurrent : page;
+      this.totalPage = Math.ceil(this.total / this.pageSize) || 1;
+      const _page = page === 0 ? defaultCurrent : page;
+      this.page = _page > this.totalPage ? this.totalPage : _page;
     },
     dCurrentChange() {
       this.page = this.defaultCurrent || 1;
@@ -95,7 +95,7 @@ export default defineComponent({
             class: [
               "yn-pagination-next",
               "yn-pagination-button",
-              page === totalPage ? "button-disabled" : "a-block",
+              page >= totalPage ? "button-disabled" : "a-block",
             ],
             attrs: { title: "下一页" },
             on: { click: this.toPage.bind(this, "next") },
@@ -203,8 +203,7 @@ export default defineComponent({
     },
     pageList(h) {
       const list = [];
-      const totalPage = this.totalPage;
-      const page = this.page;
+      const { totalPage, page } = this;
       let active;
       if (totalPage <= 7) {
         for (let i = 1; i <= totalPage; i++) {
