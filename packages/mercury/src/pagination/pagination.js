@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-04 09:36:26
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-27 19:05:28
+ * @Last Modified time: 2021-10-28 09:21:25
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -55,10 +55,12 @@ export default defineComponent({
       this.pageSize = pageSize === 0 ? this.defaultPageSize : pageSize;
       this.totalPage = Math.ceil(this.total / this.pageSize) || 1;
       const _page = page === 0 ? defaultCurrent : page;
-      this.page = _page > this.totalPage ? this.totalPage : _page;
+      this.page =
+        _page > this.totalPage ? this.totalPage : _page <= 1 ? 1 : _page;
     },
     dCurrentChange() {
-      this.page = this.defaultCurrent || 1;
+      const { defaultCurrent } = this;
+      this.page = defaultCurrent <= 1 ? 1 : defaultCurrent;
     },
     paginationContent(h) {
       const { pageSize, page, totalPage } = this;
