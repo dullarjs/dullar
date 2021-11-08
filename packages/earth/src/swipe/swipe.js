@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-20 15:39:06
+ * @Last Modified time: 2021-11-08 17:55:15
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -319,21 +319,24 @@ export default defineComponent({
         this.drag();
       });
     },
-    getSwipper(h, slots) {
-      const swiper = [
+    getSwipper(h, slots, ref = "") {
+      return [
         h(
           "div",
           {
             style: { width: `${this.width}px`, height: `${this.height}px` },
             class: ["yn-swipe-list-container"],
-            ref: "swipeContainer",
+            ref,
           },
           slots
         ),
         this.creteIndicator(h, slots.length),
       ];
+    },
+    getContent(h, slots) {
       if (this.fullScreen) {
         return [
+          this.getSwipper(h, slots),
           h(
             genComponentName("popup"),
             {
@@ -349,11 +352,11 @@ export default defineComponent({
               },
               directives: [{ name: "show", value: this.showPopup }],
             },
-            swiper
+            this.getSwipper(h, slots, "swipeContainer")
           ),
         ];
       } else {
-        return swiper;
+        return this.getSwipper(h, slots, "swipeContainer");
       }
     },
   },
@@ -382,7 +385,7 @@ export default defineComponent({
     return h(
       "div",
       { class: ["yn-swipe"], style: this.swipeStyle },
-      this.getSwipper(h, slots)
+      this.getContent(h, slots)
     );
   },
 });

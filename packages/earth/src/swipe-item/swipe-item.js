@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:25:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-14 18:49:14
+ * @Last Modified time: 2021-11-08 18:07:57
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -13,46 +13,42 @@ import { loadImageAsync } from "../modules/utils/lazyLoad";
 export default defineComponent({
   name: "SwipeItem",
   mixins: [slotsMixins, injectMixins("parent", { indexKey: "indexKey" })],
+  props: {
+    tag: String,
+    resource: String,
+  },
   data() {
     return {
       loaded: false,
+      actualHeight: "",
     };
   },
-  methods: {
-    getImgs() {
-      const slots = this.slots();
-      if (slots.length > 0) {
-        const slot = slots[0];
-        if (slot.tag === "img") {
-          return slot.elm;
-        } else {
-          // HTMLCollection 类型非数组类型，需转换成数组
-          if (slot.elm) {
-            return Array.from(slot.elm.getElementsByTagName("img"));
-          } else {
-            return [];
-          }
-        }
-      } else {
-        return [];
-      }
-    },
-  },
-  mounted() {
-    loadImageAsync(this.getImgs())
-      .then(() => {
+  created() {
+    if (!this.resource) {
+      this.loaded = true;
+      return;
+    }
+    loadImageAsync([this.resource])
+      .then((e) => {
+        const { width } = this.parent;
+        const l = e[0].naturalWidth / e[0].naturalHeight;
+        this.actualHeight = width / l;
+        this.$refs.swipeItem.parentNode.style.height = `${width / l}px`;
         this.loaded = true;
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         this.loaded = true;
       });
   },
   render(h) {
     const { vertical, width, height } = this.parent;
+    const actualHeight = this.actualHeight || height;
     return h(
       "div",
       {
-        style: { width: `${width}px`, height: `${height}px` },
+        ref: "swipeItem",
+        style: { width: `${width}px`, height: `${actualHeight}px` },
         class: [
           "yn-swipe-item",
           this.loaded ? "loaded" : "loading",

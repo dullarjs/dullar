@@ -2,35 +2,30 @@
  * @Author: Just be free
  * @Date:   2020-04-14 10:41:41
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-04-14 11:34:02
+ * @Last Modified time: 2021-11-08 17:50:42
  * @E-mail: justbefree@126.com
  */
-const p = (image) => {
+const p = (url) => {
   const promise = new Promise((resolve, reject) => {
     const img = new Image();
-    if (!image || !image.src) {
-      const err = new Error("image src is required");
-      reject(err);
-    }
-    img.src = image.src;
+    img.src = url;
     img.onload = function () {
-      resolve({
-        naturalWidth: image.naturalWidth,
-        naturalHeight: image.naturalHeight,
-        src: image.src,
-      });
+      resolve(img);
+    };
+    img.onerror = function (err) {
+      reject(err);
     };
   });
   return promise;
 };
-export const loadImageAsync = (images = []) => {
-  if (Array.isArray(images)) {
+export const loadImageAsync = (resources = []) => {
+  if (Array.isArray(resources)) {
     const all = [];
-    images.forEach((image) => {
+    resources.forEach((image) => {
       all.push(p(image));
     });
     return Promise.all(all);
   } else {
-    return p(images);
+    return p(resources);
   }
 };
