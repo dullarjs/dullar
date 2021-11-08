@@ -27,6 +27,15 @@
         </yn-tab-item>
       </yn-tabs>
     </div>
+    <div class="box">
+      <yn-tabs v-model="active3">
+        <yn-tab-item key="1" title="全部售后单">全部售后单</yn-tab-item>
+        <yn-tab-item key="2" title="待审批">待审批</yn-tab-item>
+        <yn-tab-item key="3" title="待处理">待处理</yn-tab-item>
+        <yn-tab-item key="4" title="已完成">已完成</yn-tab-item>
+        <yn-tab-item key="5" title="已关闭">已关闭</yn-tab-item>
+      </yn-tabs>
+    </div>
   </div>
 </template>
 <script type="text/javascript">
@@ -35,7 +44,8 @@ export default {
   data() {
     return {
       active: 1,
-      active2: 1
+      active2: 1,
+      active3: 1
     };
   },
   methods: {
