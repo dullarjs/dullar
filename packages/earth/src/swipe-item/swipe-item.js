@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:25:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-08 18:07:57
+ * @Last Modified time: 2021-11-09 09:26:46
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -14,7 +14,6 @@ export default defineComponent({
   name: "SwipeItem",
   mixins: [slotsMixins, injectMixins("parent", { indexKey: "indexKey" })],
   props: {
-    tag: String,
     resource: String,
   },
   data() {
