@@ -54,21 +54,21 @@
     <div class="box">
       <h3>酒店轮播图</h3>
       <yn-swipe indicatorType="number" :autoPlayWhenPopup="false">
-        <yn-swipe-item tag="1" resource="https://pavo.elongstatic.com/i/Hotel350_350/LQECeEzOkU.jpg">
+        <yn-swipe-item resource="https://pavo.elongstatic.com/i/Hotel350_350/LQECeEzOkU.jpg">
           <div>
             <img src="https://pavo.elongstatic.com/i/Hotel350_350/LQECeEzOkU.jpg" />
           </div>
         </yn-swipe-item>
-        <yn-swipe-item tag="2" resource="http://pavo.elongstatic.com/i/Hotel350_350/000ciKER.jpg">
+        <yn-swipe-item resource="http://pavo.elongstatic.com/i/Hotel350_350/000ciKER.jpg">
           <img src="http://pavo.elongstatic.com/i/Hotel350_350/000ciKER.jpg" />
         </yn-swipe-item>
-        <yn-swipe-item tag="3" resource="http://pavo.elongstatic.com/i/Hotel350_350/000cfX2X.jpg">
+        <yn-swipe-item resource="http://pavo.elongstatic.com/i/Hotel350_350/000cfX2X.jpg">
           <img src="http://pavo.elongstatic.com/i/Hotel350_350/000cfX2X.jpg" />
         </yn-swipe-item>
-        <yn-swipe-item tag="4" resource="http://pavo.elongstatic.com/i/Hotel350_350/L4sfKCVY64.jpg">
+        <yn-swipe-item resource="http://pavo.elongstatic.com/i/Hotel350_350/L4sfKCVY64.jpg">
           <img src="http://pavo.elongstatic.com/i/Hotel350_350/L4sfKCVY64.jpg" />
         </yn-swipe-item>
-        <yn-swipe-item tag="5" resource="http://pavo.elongstatic.com/i/Hotel350_350/L4sfz6LKVO.jpg">
+        <yn-swipe-item resource="http://pavo.elongstatic.com/i/Hotel350_350/L4sfz6LKVO.jpg">
           <img src="http://pavo.elongstatic.com/i/Hotel350_350/L4sfz6LKVO.jpg" />
         </yn-swipe-item>
       </yn-swipe>
