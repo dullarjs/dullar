@@ -54,22 +54,10 @@
     <div class="box">
       <h3>酒店轮播图</h3>
       <yn-swipe indicatorType="number" :autoPlayWhenPopup="false">
-        <yn-swipe-item resource="https://pavo.elongstatic.com/i/Hotel350_350/LQECeEzOkU.jpg">
+        <yn-swipe-item v-for="(item, index) in images" :key="index" :resource="item">
           <div>
-            <img src="https://pavo.elongstatic.com/i/Hotel350_350/LQECeEzOkU.jpg" />
+            <img :src="item" />
           </div>
-        </yn-swipe-item>
-        <yn-swipe-item resource="http://pavo.elongstatic.com/i/Hotel350_350/000ciKER.jpg">
-          <img src="http://pavo.elongstatic.com/i/Hotel350_350/000ciKER.jpg" />
-        </yn-swipe-item>
-        <yn-swipe-item resource="http://pavo.elongstatic.com/i/Hotel350_350/000cfX2X.jpg">
-          <img src="http://pavo.elongstatic.com/i/Hotel350_350/000cfX2X.jpg" />
-        </yn-swipe-item>
-        <yn-swipe-item resource="http://pavo.elongstatic.com/i/Hotel350_350/L4sfKCVY64.jpg">
-          <img src="http://pavo.elongstatic.com/i/Hotel350_350/L4sfKCVY64.jpg" />
-        </yn-swipe-item>
-        <yn-swipe-item resource="http://pavo.elongstatic.com/i/Hotel350_350/L4sfz6LKVO.jpg">
-          <img src="http://pavo.elongstatic.com/i/Hotel350_350/L4sfz6LKVO.jpg" />
         </yn-swipe-item>
       </yn-swipe>
     </div>
@@ -80,7 +68,15 @@
 export default {
   name: "YnSwipePage",
   data() {
-    return {};
+    return {
+      images: [
+        "https://pavo.elongstatic.com/i/Hotel350_350/LQECeEzOkU.jpg",
+        "http://pavo.elongstatic.com/i/Hotel350_350/000ciKER.jpg",
+        "http://pavo.elongstatic.com/i/Hotel350_350/000cfX2X.jpg",
+        "http://pavo.elongstatic.com/i/Hotel350_350/L4sfKCVY64.jpg",
+        "http://pavo.elongstatic.com/i/Hotel350_350/L4sfz6LKVO.jpg"
+      ]
+    };
   },
   methods: {
     prev(ref) {
