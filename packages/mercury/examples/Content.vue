@@ -39,6 +39,8 @@
       <li @click="jump('slide')">slide</li>
       <li @click="jump('image')">image</li>
       <li @click="jump('form')">form</li>
+      <li @click="jump('picker')">picker</li>
+      <li @click="jump('datePicker')">datePicker</li>
     </ul>
   </div>
 </template>
