@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-12 15:30:56
+ * @Last Modified time: 2021-11-17 18:44:55
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -83,6 +83,10 @@ export default defineComponent({
       type: Object,
       default: null,
     },
+    keyName: {
+      type: String,
+      default: "",
+    },
     iconColor: String,
   },
   data() {
@@ -112,6 +116,7 @@ export default defineComponent({
         none: "none-size",
       },
       minWidth: 0,
+      defaultCellLeft: 0,
     };
   },
   created() {
@@ -119,6 +124,7 @@ export default defineComponent({
     this.pageInfoObj = this.pagination;
     // 头部序列变化
     this.serializationThead();
+    this.getDefaultCellLeft();
   },
   watch: {
     dataList: "setPagination",
@@ -134,6 +140,20 @@ export default defineComponent({
     off(document, "click", this.dropDownListener);
   },
   methods: {
+    getDefaultCellLeft() {
+      const { tableSize } = this;
+      switch (tableSize) {
+        case "default":
+          this.defaultCellLeft = 16;
+          break;
+        case "middle":
+          this.defaultCellLeft = 12;
+          break;
+        default:
+          this.defaultCellLeft = 8;
+          break;
+      }
+    },
     dropDownListener(e) {
       const offsetParent =
         e.target && e.target.offsetParent && e.target.offsetParent.className;
@@ -536,6 +556,7 @@ export default defineComponent({
         let addList = true;
         const record = dataSource[i];
         if (!record.key) record.key = i;
+        if (this.keyName) record.key = record[this.keyName];
         filterList.forEach((item) => {
           if (item.onFilter && typeof item.onFilte === "function") {
             addList =
@@ -575,12 +596,17 @@ export default defineComponent({
 
       for (let i = tableRows.start; i < tableRows.end; i++) {
         if (!dataList[i].key) dataList[i].key = i;
+        if (this.keyName) dataList[i].key = dataList[i][this.keyName];
         currentPageData.push(dataList[i]);
         rowContent.push(
           h("tr", { class: ["yn-table-row"] }, [
             this.renderFieldList(dataList[i]),
           ])
         );
+        // 如果有子数据
+        dataList[i].children &&
+          dataList[i].children.length > 0 &&
+          this.initChildRows(rowContent, dataList[i], h, currentPageData);
       }
 
       // 为空的时候
@@ -600,9 +626,32 @@ export default defineComponent({
       this.currentPageData = currentPageData;
       return rowContent;
     },
+    initChildRows(rowContent, parentRow, h, currentPageData, level = 1) {
+      const _childList = parentRow.children;
+      _childList.forEach((item) => {
+        item.level = level;
+        if (this.keyName) item.key = item[this.keyName];
+        currentPageData.push(item);
+        rowContent.push(
+          h(
+            "tr",
+            {
+              class: [
+                "yn-table-row",
+                parentRow.showChild === true ? "" : "yn-table-row-hide",
+              ],
+            },
+            [this.renderFieldList(item)]
+          )
+        );
+        item.children &&
+          item.children.length > 0 &&
+          this.initChildRows(rowContent, item, h, currentPageData, level + 1);
+      });
+    },
     renderFieldList(rowDatas) {
       const h = this.$createElement;
-      const fieldsList = this.fieldsList;
+      const { fieldsList, defaultCellLeft } = this;
       const fieldContentList = [];
 
       if (
@@ -652,9 +701,9 @@ export default defineComponent({
         );
       }
 
-      fieldsList.forEach((item) => {
+      fieldsList.forEach((item, ind) => {
         const value = item.dataIndex ? rowDatas[item.dataIndex] : "";
-        let _content;
+        let _content, _contentNode;
         if (item.renderVNode) {
           _content = item.renderVNode;
         } else if (item.render || item.editable) {
@@ -662,11 +711,76 @@ export default defineComponent({
         } else {
           _content = value;
         }
-        fieldContentList.push(
-          h("td", { class: ["yn-table-cell"] }, [_content])
-        );
+        if (ind === 0) {
+          const _left = (rowDatas.level || 0) * 10;
+          _contentNode = h(
+            "td",
+            {
+              class: ["yn-table-cell"],
+              style: { paddingLeft: _left + defaultCellLeft + "px" },
+            },
+            [
+              ((rowDatas.children && rowDatas.children.length > 0) ||
+                rowDatas.hasChild === true) &&
+                h(
+                  genComponentName("iconfont"),
+                  {
+                    directives: [{ value: true }],
+                    class: ["yn-table-expand-icon"],
+                    props: {
+                      size: 10,
+                      name: rowDatas.showChild === true ? "minus" : "add",
+                    },
+                    on: {
+                      click: () => {
+                        this.onChildIconClick(rowDatas, !rowDatas.showChild);
+                      },
+                    },
+                  },
+                  []
+                ),
+              _content,
+            ]
+          );
+        } else {
+          _contentNode = h("td", { class: ["yn-table-cell"] }, [_content]);
+        }
+        fieldContentList.push(_contentNode);
       });
       return fieldContentList;
+    },
+    onChildIconClick(rowDatas, status) {
+      if (
+        rowDatas.hasChild === true &&
+        status === true &&
+        rowDatas.children &&
+        rowDatas.children.length === 0
+      ) {
+        rowDatas.showChild = status;
+        this.$emit("handleGetChildTree", rowDatas, (res) =>
+          this.onResponse(res, rowDatas)
+        );
+      } else {
+        this.hideChileRow(rowDatas, status);
+      }
+    },
+    onResponse(response, rowDatas) {
+      if (response.length > 0) this.selectAll = false;
+      rowDatas.children = [...response];
+      this.initTableRows();
+    },
+    hideChileRow(rowDatas, status) {
+      if (
+        status === false &&
+        rowDatas.children &&
+        rowDatas.children.length > 0
+      ) {
+        const childList = rowDatas.children;
+        childList.forEach((item) => {
+          this.hideChileRow(item, status);
+        });
+      }
+      rowDatas.showChild = status;
     },
     renderCell(column, value, record) {
       // 首先将数据序列化分层

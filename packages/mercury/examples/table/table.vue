@@ -2,12 +2,47 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-20 15:10:44
+ * @Last Modified time: 2021-11-17 18:42:23
  * @E-mail: yglgzyx@126.com
 -->
 <template>
     <div>
         <h2>yn-table</h2>
+        <h3>可折叠行</h3>
+        <div style="padding: 10px; margin: 10px;">
+            <yn-table
+                :columns="columns3"
+                bordered="none"
+                :dataSource="dataSource2"
+                :rowSelection="rowSelection1"
+                v-on:handleCkChange="handleCkChange"
+                v-on:handleReset="handleReset"
+                v-on:handleHideHeader="handleHideHeader"
+                v-on:handleClicka="handleClicka"
+                :loading="loading"
+                :iconType="iconType"
+                :iconSize="iconSize"
+                :checkBoxSize="12"
+            >
+            </yn-table>
+        </div>
+        <h3>可折叠行-异步(新增加keyName,用于便捷替换dataSource的key 作为唯一标识)</h3>
+        <div style="padding: 10px; margin: 10px;">
+            <yn-table
+                :columns="columns3"
+                bordered="none"
+                :dataSource="dataSource3"
+                :rowSelection="rowSelection"
+                v-on:handleCkChange="handleCkChange"
+                v-on:handleReset="handleReset"
+                v-on:handleHideHeader="handleHideHeader"
+                v-on:handleClicka="handleClicka"
+                v-on:handleGetChildTree="getChildList"
+                keyName="name"
+                :loading="loading1"
+            >
+            </yn-table>
+        </div>
         <h3>普通表格</h3>
         <yn-table
             :columns="columns1"
@@ -577,6 +612,7 @@ export default {
             emptyContent: null,
             emptyText: "空空如也",
             loading: false,
+            loading1: false,
             hideHeader: false,
             iconType: "fadingCircle",
             iconSize: 50,
@@ -593,7 +629,143 @@ export default {
                     style: { fontFamily: "PingFangSC-Regular", fontSize: "14px", color: "#1A253B" },
                     className: "table-tbody-c"
                 }
-            }
+            },
+            columns3: [
+                {
+                    title: 'Name',
+                    dataIndex: "name",
+                    width: 400,
+                },
+                {
+                    title: 'Age',
+                    dataIndex: "age",
+                    width: 100,
+                },
+                {
+                    title: 'Address',
+                    dataIndex: "address",
+                    width: 200,
+                }
+            ],
+            dataSource2: [
+                {
+                    key: 1,
+                    name: '虎子-John Brown sr.',
+                    age: 60,
+                    address: 'New York No. 1 Lake Park',
+                    showChild: false,
+                    children: [
+                        {
+                            key: 11,
+                            name: 'John Brown',
+                            age: 42,
+                            address: 'New York No. 2 Lake Park',
+                        },
+                        {
+                            key: 12,
+                            name: 'John Brown jr.',
+                            age: 30,
+                            address: 'New York No. 3 Lake Park',
+                            showChild: false,
+                            children: [
+                                {
+                                    key: 121,
+                                    name: 'Jimmy Brown',
+                                    age: 16,
+                                    address: 'New York No. 3 Lake Park',
+                                },
+                            ],
+                        },
+                        {
+                            key: 13,
+                            name: '虎子-Jim Green sr.',
+                            age: 72,
+                            address: 'London No. 1 Lake Park',
+                            showChild: false,
+                            children: [
+                                {
+                                    key: 131,
+                                    name: 'Jim Green',
+                                    age: 42,
+                                    address: 'London No. 2 Lake Park',
+                                    showChild: false,
+                                    children: [
+                                    {
+                                        key: 1311,
+                                        name: 'Jim Green jr.',
+                                        age: 25,
+                                        address: 'London No. 3 Lake Park',
+                                    },
+                                    {
+                                        key: 1312,
+                                        name: 'Jimmy Green sr.',
+                                        age: 18,
+                                        address: 'London No. 4 Lake Park',
+                                    },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    key: 2,
+                    name: '虎子-Joe Black',
+                    age: 32,
+                    address: 'Sidney No. 1 Lake Park',
+                    showChild: false,
+                    children: []
+                }
+            ],
+            dataSource3: [
+                {
+                    key: 1,
+                    name: '虎子-John Brown sr.',
+                    age: 60,
+                    address: 'New York No. 1 Lake Park',
+                    showChild: false,
+                    children: [
+                        {
+                            key: 11,
+                            name: 'John Brown',
+                            age: 42,
+                            address: 'New York No. 2 Lake Park',
+                        },
+                        {
+                            key: 12,
+                            name: 'John Brown jr.',
+                            age: 30,
+                            address: 'New York No. 3 Lake Park',
+                            showChild: false,
+                            children: [
+                                {
+                                    key: 121,
+                                    name: 'Jimmy Brown',
+                                    age: 16,
+                                    address: 'New York No. 3 Lake Park',
+                                },
+                            ],
+                        },
+                        {
+                            key: 13,
+                            name: '虎子loading-Jim Green sr.',
+                            age: 72,
+                            address: 'London No. 1 Lake Park',
+                            showChild: false,
+                            hasChild: true,
+                            children: [],
+                        },
+                    ],
+                },
+                {
+                    key: 2,
+                    name: '虎子-Joe Black',
+                    age: 32,
+                    address: 'Sidney No. 1 Lake Park',
+                    showChild: false,
+                    children: []
+                }
+            ]
         };
     },
     methods: {
@@ -681,6 +853,37 @@ export default {
         handleClicka(e, record) {
             console.log(e);
             console.log(record);
+        },
+        getChildList(rowDatas, callback) {
+            this.loading1 = true;
+            console.log(rowDatas);
+            setTimeout(() => {
+            const childList = [
+                {
+                    key: 131,
+                    name: 'Jim Green',
+                    age: 42,
+                    address: 'London No. 2 Lake Park',
+                    showChild: false,
+                    children: [
+                    {
+                        key: 1311,
+                        name: 'Jim Green jr.',
+                        age: 25,
+                        address: 'London No. 3 Lake Park',
+                    },
+                    {
+                        key: 1312,
+                        name: 'Jimmy Green sr.',
+                        age: 18,
+                        address: 'London No. 4 Lake Park',
+                    },
+                    ],
+                }
+            ];
+            callback(childList);
+            this.loading1 = false;
+            }, 1000)
         }
     }
     };
