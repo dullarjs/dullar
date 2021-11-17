@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-25 10:57:36
+ * @Last Modified time: 2021-11-12 15:30:56
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -840,6 +840,9 @@ export default defineComponent({
           this.selectedRowDatas = currentPageData.filter((item) => {
             return rowSelection.selectedRowKeys.indexOf(item.key) > -1;
           });
+          this.selectAll =
+            this.selectedRows.length === this.dataList.length &&
+            this.selectedRows.length > 0;
         }
       }
     },
