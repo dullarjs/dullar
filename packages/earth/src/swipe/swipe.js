@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-08 17:55:15
+ * @Last Modified time: 2021-11-17 11:04:12
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -51,11 +51,6 @@ export default defineComponent({
       default: true,
     },
   },
-  watch: {
-    showPopup: function () {
-      this.counts++;
-    },
-  },
   data() {
     return {
       rect: {},
@@ -69,7 +64,6 @@ export default defineComponent({
       showPopup: false,
       children: [],
       fullScreen: false,
-      counts: 0,
     };
   },
   computed: {
@@ -98,11 +92,15 @@ export default defineComponent({
       this.rect = this.$el.getBoundingClientRect();
     },
     initialize() {
+      console.log("initialize() - 1");
       if (this.$el) {
         this.width = Math.round(this.rect.width);
       }
+      console.log("initialize() - 2");
       const el = this.$refs.swipeContainer;
+      console.log("initialize() - 3", el);
       this.children = Array.from(el.children);
+      console.log("initialize() - 4", children);
       const attr = this.vertical ? "top" : "left";
       this.children.forEach((child, key) => {
         if (key === this.activedIndex) {
@@ -208,7 +206,9 @@ export default defineComponent({
       if (this.showPopup && !this.autoPlayWhenPopup) {
         return;
       }
+      console.log("play() - 1");
       if (Number(this.autoPlay) > 0 && this.children.length > 1) {
+        console.log("play() - 2");
         this.stop();
         this.timer = setTimeout(() => {
           this.updateActivedIndex(1);
@@ -229,6 +229,7 @@ export default defineComponent({
       });
     },
     updateActivedIndex(num, callback) {
+      console.log("updateActivedIndex() - 1");
       // 正在运动的时候不允许连续点击
       if (this.moving) {
         return false;
@@ -243,8 +244,11 @@ export default defineComponent({
       }
       this.delayActivedIndex = this.activedIndex;
       const prevEle = this.children[r.getPrevious()];
+      console.log("prevEle - 1", prevEle);
       const curEle = this.children[r.getIndex()];
+      console.log("curEle - 1", curEle);
       const nextEle = this.children[r.getNext()];
+      console.log("nextEle - 1", nextEle);
       const attr = this.vertical ? "top" : "left";
       this.startMove(prevEle, 0, -1 * num * this.size);
       curEle.style[attr] = `${num * this.size}px`;
@@ -298,7 +302,6 @@ export default defineComponent({
     },
     openImageViewer() {
       if (!this.imageViewer) return;
-      this.counts++;
       this.stop();
       this.fullScreen = true;
       this.unbindAllEvent();
