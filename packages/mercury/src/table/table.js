@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-17 18:44:55
+ * @Last Modified time: 2021-11-17 19:01:57
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -955,7 +955,7 @@ export default defineComponent({
             return rowSelection.selectedRowKeys.indexOf(item.key) > -1;
           });
           this.selectAll =
-            this.selectedRows.length === this.dataList.length &&
+            this.selectedRows.length === this.currentPageData.length &&
             this.selectedRows.length > 0;
         }
       }
