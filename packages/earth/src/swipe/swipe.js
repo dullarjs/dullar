@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-17 11:04:12
+ * @Last Modified time: 2021-11-17 17:09:13
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -62,9 +62,14 @@ export default defineComponent({
       moving: false,
       dragging: false,
       showPopup: false,
-      children: [],
+      // children: [],
       fullScreen: false,
     };
+  },
+  watch: {
+    children: function () {
+      this.initialize();
+    },
   },
   computed: {
     size() {
@@ -88,19 +93,17 @@ export default defineComponent({
     visibilityChange() {
       on(window, "visibilitychange", this.visibilityChangeEvent);
     },
-    initRect() {
-      this.rect = this.$el.getBoundingClientRect();
-    },
     initialize() {
       console.log("initialize() - 1");
       if (this.$el) {
+        this.rect = this.$el.getBoundingClientRect();
         this.width = Math.round(this.rect.width);
       }
       console.log("initialize() - 2");
       const el = this.$refs.swipeContainer;
       console.log("initialize() - 3", el);
       this.children = Array.from(el.children);
-      console.log("initialize() - 4", children);
+      console.log("initialize() - 4", el.children);
       const attr = this.vertical ? "top" : "left";
       this.children.forEach((child, key) => {
         if (key === this.activedIndex) {
@@ -365,10 +368,8 @@ export default defineComponent({
   },
   mounted() {
     this.R = new Remainder(this.count, "activedIndex", this);
-    this.initRect();
     this.initialize();
     EventBus.$on("window:resize", () => {
-      this.initRect();
       this.initialize();
     });
     this.drag();
