@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 18:47:32
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-04-09 19:42:31
+ * @Last Modified time: 2021-11-19 14:17:00
  * @E-mail: justbefree@126.com
  */
 
@@ -12,6 +12,11 @@ export const provideMixins = (name = "parent") => {
     provide() {
       return {
         [name]: this,
+      };
+    },
+    data() {
+      return {
+        children: [],
       };
     },
   });
