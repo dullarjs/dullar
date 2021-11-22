@@ -2,10 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-17 17:09:13
+ * @Last Modified time: 2021-11-22 19:04:44
  * @E-mail: justbefree@126.com
  */
-import { defineComponent, genComponentName } from "../modules/component";
+import { defineComponent } from "../modules/component";
 import { slotsMixins } from "../mixins/slots";
 import { renderedMixins } from "../mixins/rendered";
 import { provideMixins } from "../mixins/provide";
@@ -14,21 +14,19 @@ import { on, off, preventDefault } from "../modules/event";
 import { Remainder } from "../modules/number/remainder";
 import { touchMixins } from "../mixins/touch";
 import { move } from "../modules/dom/animate/move";
-import Popup from "../popup";
 import { EventBus } from "../modules/event/bus";
 export default defineComponent({
   name: "Swipe",
-  components: { Popup },
   mixins: [slotsMixins, provideMixins(), touchMixins, renderedMixins],
   props: {
     vertical: Boolean,
-    autoPlay: {
+    duration: {
       type: [Number, String],
       default: 3000,
     },
-    autoPlayWhenPopup: {
+    autoPlay: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     showIndicator: {
       type: Boolean,
@@ -61,9 +59,6 @@ export default defineComponent({
       delayActivedIndex: 0,
       moving: false,
       dragging: false,
-      showPopup: false,
-      // children: [],
-      fullScreen: false,
     };
   },
   watch: {
@@ -77,7 +72,7 @@ export default defineComponent({
     },
     swipeStyle() {
       return {
-        height: `${this.height}px`,
+        "min-height": `${this.height}px`,
       };
     },
   },
@@ -85,7 +80,7 @@ export default defineComponent({
     visibilityChangeEvent() {
       const status = document.visibilityState;
       if (status === "visible") {
-        this.paly();
+        this.play();
       } else {
         this.stop();
       }
@@ -94,25 +89,19 @@ export default defineComponent({
       on(window, "visibilitychange", this.visibilityChangeEvent);
     },
     initialize() {
-      console.log("initialize() - 1");
       if (this.$el) {
         this.rect = this.$el.getBoundingClientRect();
         this.width = Math.round(this.rect.width);
       }
-      console.log("initialize() - 2");
-      const el = this.$refs.swipeContainer;
-      console.log("initialize() - 3", el);
-      this.children = Array.from(el.children);
-      console.log("initialize() - 4", el.children);
       const attr = this.vertical ? "top" : "left";
       this.children.forEach((child, key) => {
         if (key === this.activedIndex) {
-          child.style[attr] = 0;
+          child.$el.style[attr] = "0px";
         } else {
-          child.style[attr] = `${this.size}px`;
+          child.$el.style[attr] = `${this.size}px`;
         }
       });
-      this.paly();
+      this.play();
     },
     drag() {
       const el = this.$refs.swipeContainer;
@@ -157,14 +146,14 @@ export default defineComponent({
           }
           const attr = that.vertical ? "top" : "left";
           const value = that.vertical ? that.deltaY : that.deltaX;
-          prevEle = that.children[r.getPrevious()];
-          curEle = that.children[r.getIndex()];
-          nextEle = that.children[r.getNext()];
+          prevEle = that.children[r.getPrevious()].$el;
+          curEle = that.children[r.getIndex()].$el;
+          nextEle = that.children[r.getNext()].$el;
           prevEle.style[attr] = `${value}px`;
           curEle.style[attr] = `${num * that.size + value}px`;
         },
         stop(e) {
-          that.paly();
+          that.play();
           that.dragging = false;
           that.delayActivedIndex = that.activedIndex;
           const disXY = that.vertical ? that.deltaY : that.deltaX;
@@ -172,7 +161,6 @@ export default defineComponent({
           if (timeDiff < 200 && disXY === 0) {
             preventDefault(e.e);
             that.$emit("click", that.activedIndex);
-            that.openImageViewer();
             return;
           }
           if (moving || disXY === 0 || !prevEle || !curEle || !nextEle) {
@@ -205,34 +193,30 @@ export default defineComponent({
         fn && typeof fn === "function" && fn.call(this, el);
       });
     },
-    paly() {
-      if (this.showPopup && !this.autoPlayWhenPopup) {
-        return;
-      }
-      console.log("play() - 1");
-      if (Number(this.autoPlay) > 0 && this.children.length > 1) {
-        console.log("play() - 2");
+    play() {
+      if (!this.autoPlay) return;
+      if (Number(this.duration) > 0 && this.children.length > 1) {
         this.stop();
         this.timer = setTimeout(() => {
           this.updateActivedIndex(1);
-          this.paly();
-        }, Number(this.autoPlay));
+          this.play();
+        }, Number(this.duration));
       }
     },
     next() {
       this.stop();
       this.updateActivedIndex(1, () => {
-        this.paly();
+        this.play();
       });
     },
     prev() {
       this.stop();
       this.updateActivedIndex(-1, () => {
-        this.paly();
+        this.play();
       });
     },
     updateActivedIndex(num, callback) {
-      console.log("updateActivedIndex() - 1");
+      if (!this.children || this.children.length === 0) return;
       // 正在运动的时候不允许连续点击
       if (this.moving) {
         return false;
@@ -246,12 +230,9 @@ export default defineComponent({
         r = this.R.previous();
       }
       this.delayActivedIndex = this.activedIndex;
-      const prevEle = this.children[r.getPrevious()];
-      console.log("prevEle - 1", prevEle);
-      const curEle = this.children[r.getIndex()];
-      console.log("curEle - 1", curEle);
-      const nextEle = this.children[r.getNext()];
-      console.log("nextEle - 1", nextEle);
+      const prevEle = this.children[r.getPrevious()].$el;
+      const curEle = this.children[r.getIndex()].$el;
+      const nextEle = this.children[r.getNext()].$el;
       const attr = this.vertical ? "top" : "left";
       this.startMove(prevEle, 0, -1 * num * this.size);
       curEle.style[attr] = `${num * this.size}px`;
@@ -303,67 +284,19 @@ export default defineComponent({
         );
       }
     },
-    openImageViewer() {
-      if (!this.imageViewer) return;
-      this.stop();
-      this.fullScreen = true;
-      this.unbindAllEvent();
-      this.rendered(() => {
-        this.initialize();
-        this.showPopup = true;
-        this.drag();
-      });
-    },
-    closeImageViewer() {
-      this.unbindAllEvent();
-      this.showPopup = false;
-    },
-    handleAfterLeave() {
-      this.fullScreen = false;
-      this.rendered(() => {
-        this.initialize();
-        this.drag();
-      });
-    },
-    getSwipper(h, slots, ref = "") {
+    getSwipper(h, slots) {
       return [
         h(
           "div",
           {
             style: { width: `${this.width}px`, height: `${this.height}px` },
             class: ["yn-swipe-list-container"],
-            ref,
+            ref: "swipeContainer",
           },
           slots
         ),
         this.creteIndicator(h, slots.length),
       ];
-    },
-    getContent(h, slots) {
-      if (this.fullScreen) {
-        return [
-          this.getSwipper(h, slots),
-          h(
-            genComponentName("popup"),
-            {
-              on: {
-                input: this.closeImageViewer,
-                afterLeave: this.handleAfterLeave,
-              },
-              class: ["yn-swipe-popup"],
-              props: {
-                position: "middle",
-                showCloseIcon: this.showCloseIcon,
-                // closeOnClickModal: false,
-              },
-              directives: [{ name: "show", value: this.showPopup }],
-            },
-            this.getSwipper(h, slots, "swipeContainer")
-          ),
-        ];
-      } else {
-        return this.getSwipper(h, slots, "swipeContainer");
-      }
     },
   },
   mounted() {
@@ -389,7 +322,7 @@ export default defineComponent({
     return h(
       "div",
       { class: ["yn-swipe"], style: this.swipeStyle },
-      this.getContent(h, slots)
+      this.getSwipper(h, slots)
     );
   },
 });
