@@ -30,7 +30,7 @@
         <li @click="jump('counter')">counter</li>
         <li @click="jump('skeleton')">skeleton</li>
         <li @click="jump('animationList')">animationList</li>
-        <li @click="jump('massive')">massive</li>
+        <li @click="jump('dragable')">dragable</li>
       </ul>
   </div>
 </template>

@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-01-27 10:05:51
+ * @Last Modified time: 2021-11-23 11:23:16
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -37,6 +37,7 @@ import DatePicker from "./date-picker/datePicker.vue";
 import Counter from "./counter/counter.vue";
 import Skeleton from "./skeleton/skeleton.vue";
 import AnimationList from "./animation-list/list.vue";
+import Dragable from "./dragable/dragable.vue";
 // import Massive from "./massive/massive.vue";
 import loadable from "./load";
 const router = new Router({
@@ -192,10 +193,9 @@ const router = new Router({
       component: AnimationList
     },
     {
-      path: "/massive",
-      name: "massive",
-      // component: Massive
-      component: loadable(() => import("./massive/massive.vue"))
+      path: "/dragable",
+      name: "dragable",
+      component: Dragable
     }
   ]
 });
