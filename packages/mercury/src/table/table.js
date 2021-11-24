@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-17 19:01:57
+ * @Last Modified time: 2021-11-24 09:35:01
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -157,6 +157,7 @@ export default defineComponent({
     dropDownListener(e) {
       const offsetParent =
         e.target && e.target.offsetParent && e.target.offsetParent.className;
+      const { dropDownStyle = {} } = this;
       const patentsList = [
         "yn-dropdown",
         "yn-dropdown-menu",
@@ -166,8 +167,9 @@ export default defineComponent({
         "yn-button yn-button-default yn-button-small",
       ];
       if (
-        !this.$el.contains(e.target) ||
-        patentsList.indexOf(offsetParent) < 0
+        (!this.$el.contains(e.target) ||
+          patentsList.indexOf(offsetParent) < 0) &&
+        Object.keys(dropDownStyle).length > 0
       ) {
         this.initDropDownList();
       }
