@@ -56,16 +56,18 @@
           </div>
         </yn-swipe-item>
       </yn-swipe>
-      <yn-popup @beforeEnter="beforeEnter" @afterLeave="afterLeave" @afterEnter="afterEnter" v-model="popup" position="middle">
-        <template v-if="entered">
-          <yn-swipe ref="swipey" @click="handleClick" indicatorType="number" :autoPlay="false">
-            <yn-swipe-item v-for="(item, index) in images" :key="index" :resource="item">
-              <div>
-                <img :src="item" />
-              </div>
-            </yn-swipe-item>
-          </yn-swipe>
-        </template>
+      <yn-popup class="background" @beforeEnter="beforeEnter" @afterLeave="afterLeave" @afterEnter="afterEnter" v-model="popup" position="middle">
+        <div class="swipe-box">
+          <template v-if="entered">
+            <yn-swipe ref="swipey" @click="handleClick" indicatorType="number" :autoPlay="false">
+              <yn-swipe-item v-for="(item, index) in images" :key="index" :resource="item">
+                <div>
+                  <img :src="item" />
+                </div>
+              </yn-swipe-item>
+            </yn-swipe>
+          </template>
+        </div>
       </yn-popup>
     </div>
   </div>
@@ -121,6 +123,14 @@ export default {
 .api {
   height: 100px;
   line-height: 100px;
+}
+.background {
+  background:  rgba(0, 0, 0, 0) !important;
+}
+.swipe-box {
+  width: 50%;
+  margin:  0 auto;
+  background: none;
 }
 img {
   width: 100%;
