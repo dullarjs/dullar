@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-17 19:01:57
+ * @Last Modified time: 2021-11-24 10:30:25
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -133,12 +133,6 @@ export default defineComponent({
     "rowSelection.selectedRowKeys": "setSelectRowKeys",
     "pageInfoObj.defaultPageSize": "setPagination",
   },
-  mounted() {
-    on(document, "click", this.dropDownListener);
-  },
-  beforeDestroy() {
-    off(document, "click", this.dropDownListener);
-  },
   methods: {
     getDefaultCellLeft() {
       const { tableSize } = this;
@@ -157,6 +151,7 @@ export default defineComponent({
     dropDownListener(e) {
       const offsetParent =
         e.target && e.target.offsetParent && e.target.offsetParent.className;
+      const { dropDownStyle = {} } = this;
       const patentsList = [
         "yn-dropdown",
         "yn-dropdown-menu",
@@ -166,8 +161,9 @@ export default defineComponent({
         "yn-button yn-button-default yn-button-small",
       ];
       if (
-        !this.$el.contains(e.target) ||
-        patentsList.indexOf(offsetParent) < 0
+        (!this.$el.contains(e.target) ||
+          patentsList.indexOf(offsetParent) < 0) &&
+        Object.keys(dropDownStyle).length > 0
       ) {
         this.initDropDownList();
       }
@@ -319,6 +315,7 @@ export default defineComponent({
     showDropDownFun(h, columnKey) {
       if (Object.keys(this.dropDownStyle).length > 0) {
         this.initDropDownList();
+        off(document, "click", this.dropDownListener);
       } else {
         const dropDownStyle = {};
         const columnList = this.fieldsList.filter((item) => {
@@ -351,6 +348,7 @@ export default defineComponent({
         this.filterContent = this.getDropDowmList(h);
         this.dropDownStyle = { ...dropDownStyle };
         this.checkResetDisabled();
+        on(document, "click", this.dropDownListener);
       }
     },
     setDDCoordinate(e) {
