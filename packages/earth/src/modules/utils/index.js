@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-09 18:03:10
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-09-23 14:40:43
+ * @Last Modified time: 2021-11-24 16:58:03
  */
 export const hasOwnProperty = (obj, props) => {
   return Object.prototype.hasOwnProperty.call(obj, props);
@@ -18,6 +18,9 @@ export const camelize = (str = "") => {
 };
 export const isString = (value) => {
   return Object.prototype.toString.call(value) === "[object String]";
+};
+export const isNumber = (value) => {
+  return typeof value === "number" && isFinite(value);
 };
 export const encrypt = (str = "") => {
   return String(str).replace(/^(\S{2})(\S+)(\S{2})$/, "$1******$3");
