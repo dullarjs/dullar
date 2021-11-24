@@ -4,6 +4,7 @@
     <ul>
       <li @click="toast('middle')">toast middle</li>
       <li @click="toast('bottom')">toast bottom</li>
+      <li @click="toast('top')">toast top</li>
       <li @click="toast1">toast default</li>
     </ul>
   </div>
