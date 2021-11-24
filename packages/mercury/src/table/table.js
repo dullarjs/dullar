@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-24 09:43:30
+ * @Last Modified time: 2021-11-24 10:30:25
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -132,18 +132,6 @@ export default defineComponent({
     columns: "serializationThead",
     "rowSelection.selectedRowKeys": "setSelectRowKeys",
     "pageInfoObj.defaultPageSize": "setPagination",
-  },
-  mounted() {
-    on(document, "click", this.dropDownListener);
-  },
-  beforeDestroy() {
-    off(document, "click", this.dropDownListener);
-  },
-  activated() {
-    on(document, "click", this.dropDownListener);
-  },
-  deactivated() {
-    off(document, "click", this.dropDownListener);
   },
   methods: {
     getDefaultCellLeft() {
@@ -327,6 +315,7 @@ export default defineComponent({
     showDropDownFun(h, columnKey) {
       if (Object.keys(this.dropDownStyle).length > 0) {
         this.initDropDownList();
+        off(document, "click", this.dropDownListener);
       } else {
         const dropDownStyle = {};
         const columnList = this.fieldsList.filter((item) => {
@@ -359,6 +348,7 @@ export default defineComponent({
         this.filterContent = this.getDropDowmList(h);
         this.dropDownStyle = { ...dropDownStyle };
         this.checkResetDisabled();
+        on(document, "click", this.dropDownListener);
       }
     },
     setDDCoordinate(e) {
