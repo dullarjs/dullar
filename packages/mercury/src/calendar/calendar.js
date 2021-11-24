@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-09-02 18:05:19
  * @Last Modified by: yegl
- * @Last Modified time: 2021-10-14 17:52:42
+ * @Last Modified time: 2021-11-17 10:52:24
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -15,7 +15,6 @@ import { on, off } from "../modules/event";
 const now = YnDate().getToday();
 const thisYear = now.getFullYear();
 const m = now.getMonth() + 1;
-// const month = m < 10 ? `0${m}` : m;
 const d = now.getDate();
 const today = d < 10 ? `0${d}` : d;
 export default defineComponent({
@@ -329,6 +328,7 @@ export default defineComponent({
         this.selectedDay({ year, month, day });
       } else if (!e.target.value) {
         this.onReset();
+        this.$emit("onHandleChange", this.inputValue);
       } else {
         e.target.value = this.inputValue;
       }
@@ -352,6 +352,9 @@ export default defineComponent({
             attrs: {
               type: "text",
               placeholder: this.placeholder,
+              value: this.inputValue,
+            },
+            domProps: {
               value: this.inputValue,
             },
             style: { width: inputWidth },
