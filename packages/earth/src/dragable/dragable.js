@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-11-23 11:05:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-23 18:10:23
+ * @Last Modified time: 2021-11-24 10:34:04
  * @E-mail: justbefree@126.com
  */
 // genComponentName
@@ -88,7 +88,12 @@ export default defineComponent({
           el.style.top = `${top}px`;
         },
         stop(e) {
-          console.log(e);
+          const offset = getOffset(el);
+          if (that.rect.width / 2 > offset.left) {
+            el.style.left = 0;
+          } else {
+            el.style.left = `${that.rect.width - el.offsetWidth}px`;
+          }
           that.dragging = false;
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200) {
@@ -105,6 +110,18 @@ export default defineComponent({
     EventBus.$on("window:resize", () => {
       this.initRect();
     });
+  },
+  activated() {
+    this.drag();
+    EventBus.$on("window:resize", () => {
+      this.initRect();
+    });
+  },
+  beforeDestroy() {
+    this.unbindAllEvent();
+  },
+  deactivated() {
+    this.unbindAllEvent();
   },
   render(h) {
     return h("div", { class: ["yn-dragable"], style: this.dragStyle }, [
