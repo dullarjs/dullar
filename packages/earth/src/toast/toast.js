@@ -22,7 +22,7 @@ export default defineComponent({
   },
   methods: {
     setPosition(position = "middle") {
-      const validPosition = ["bottom", "middle"];
+      const validPosition = ["bottom", "middle", "top"];
       if (validPosition.indexOf(position) > -1) {
         this.position = position;
       }
