@@ -1,7 +1,7 @@
 <template>
   <div id="d-container">
     <h2>yn-dragable</h2>
-    <yn-dragable>
+    <yn-dragable @click="handleClick">
       <div class="ball"></div>
     </yn-dragable>
   </div>
@@ -13,6 +13,11 @@
       return {
       };
     },
+    methods: {
+      handleClick() {
+        this.Toast("点击了");
+      }
+    }
   };
 </script>
 
