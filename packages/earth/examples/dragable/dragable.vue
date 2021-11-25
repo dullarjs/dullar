@@ -29,11 +29,11 @@
 
 <style type="text/css" scoped="scoped">
   .ball {
-    background: gray;
-    width:  50px;
-    height:  50px;
+    width:  55px;
+    height:  59px;
     border-radius: 50%;
-    background: linear-gradient(#36455b, #283446);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%), 0 0 8px rgb(0 0 0 / 30%), 0 12px 12px rgb(0 0 0 / 40%);
+    /* background: linear-gradient(#36455b, #283446);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%), 0 0 8px rgb(0 0 0 / 30%), 0 12px 12px rgb(0 0 0 / 40%); */
+    background: url('./img/contact.svg') center center no-repeat;
   }
 </style>

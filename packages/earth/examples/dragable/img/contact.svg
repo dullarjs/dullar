@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="62px" height="62px" viewBox="0 0 62 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 6</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="52" height="52" rx="26"></rect>
+        <filter x="-16.3%" y="-12.5%" width="132.7%" height="132.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="商旅迭代1110" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="订单详情-带取消" transform="translate(-309.000000, -1118.000000)">
+            <g id="编组-6" transform="translate(314.000000, 1121.000000)">
+                <g id="矩形">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="Group-15" transform="translate(18.000000, 12.000000)" fill="#007AFF" fill-rule="nonzero">
+                    <path d="M7.63636364,0 C10.8835347,0 13.5536753,2.32642642 13.735573,5.278368 C14.6292321,5.58201751 15.2727273,6.42886144 15.2727273,7.42600173 L15.2727273,8.78463181 C15.2727273,10.0372135 14.2573092,11.0526316 13.0047275,11.0526316 L12.8047315,11.0525811 C12.1947628,12.7815032 10.0833847,14 7.63636364,14 L7.63636364,12.5263158 C9.23790457,12.5263158 10.5713503,11.8721958 11.1480011,10.9908791 C10.8783933,10.8743341 10.6909091,10.6073775 10.6909091,10.2966317 L10.6909091,5.91400188 C10.6909091,5.49647466 11.0293818,5.15800196 11.446909,5.15800196 L12.1921048,5.15789405 C11.9473552,3.09472181 10.0094129,1.47368421 7.63636364,1.47368421 C5.26331436,1.47368421 3.3253721,3.09472181 3.08062243,5.15789405 L3.82581826,5.15800196 C4.24334549,5.15800196 4.58181818,5.49647466 4.58181818,5.91400188 L4.58181818,5.91400188 L4.58181818,10.2966317 C4.58181818,10.7141589 4.24334549,11.0526316 3.82581826,11.0526316 L3.82581826,11.0526316 L2.26799977,11.0526316 C1.01541808,11.0526316 0,10.0372135 0,8.78463181 L0,8.78463181 L0,7.42600173 C0,6.42886144 0.643495195,5.58201751 1.53786573,5.27808978 C1.71905201,2.32642642 4.38919261,0 7.63636364,0 Z" id="service-bottom"></path>
+                </g>
+                <text id="客服" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" fill="#007AFF">
+                    <tspan x="14" y="39">客服</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
