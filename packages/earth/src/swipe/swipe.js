@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-22 19:04:44
+ * @Last Modified time: 2021-11-29 10:50:29
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -93,6 +93,10 @@ export default defineComponent({
         this.rect = this.$el.getBoundingClientRect();
         this.width = Math.round(this.rect.width);
       }
+      this.$emit("ticking", {
+        length: this.children.length,
+        activeIndex: this.activedIndex + 1,
+      });
       const attr = this.vertical ? "top" : "left";
       this.children.forEach((child, key) => {
         if (key === this.activedIndex) {
@@ -230,6 +234,10 @@ export default defineComponent({
         r = this.R.previous();
       }
       this.delayActivedIndex = this.activedIndex;
+      this.$emit("ticking", {
+        length: this.children.length,
+        activeIndex: this.activedIndex + 1,
+      });
       const prevEle = this.children[r.getPrevious()].$el;
       const curEle = this.children[r.getIndex()].$el;
       const nextEle = this.children[r.getNext()].$el;
