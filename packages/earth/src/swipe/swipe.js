@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-29 10:50:29
+ * @Last Modified time: 2021-11-29 12:49:38
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -160,6 +160,10 @@ export default defineComponent({
           that.play();
           that.dragging = false;
           that.delayActivedIndex = that.activedIndex;
+          that.$emit("ticking", {
+            activeIndex: that.activedIndex + 1,
+            length: that.children.length,
+          });
           const disXY = that.vertical ? that.deltaY : that.deltaX;
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200 && disXY === 0) {
