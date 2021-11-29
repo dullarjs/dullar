@@ -2,8 +2,8 @@
   <div>
     <h2>yn-swipe</h2>
     <div class="box">
-      <h3>左右滑动轮播图</h3>
-      <yn-swipe ref="swipe1" indicatorType="number">
+      <h3>左右滑动轮播图 - {{ activeIndex }}/{{ length }}</h3>
+      <yn-swipe ref="swipe1" indicatorType="number" @ticking="handleTicking">
         <yn-swipe-item>
           <div>
             <img src="./images/apple-1.jpg" />
@@ -76,6 +76,8 @@ export default {
   name: "YnSwipePage",
   data() {
     return {
+      activeIndex: 0,
+      length: 0,
       popup: false,
       entered: false,
       currentIndex: -1,
@@ -89,6 +91,10 @@ export default {
     };
   },
   methods: {
+    handleTicking(e) {
+      this.activeIndex = e.activeIndex;
+      this.length = e.length;
+    },
     prev(ref) {
       console.log(ref);
       this.$refs[ref].prev();
