@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-19 16:53:00
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-14 18:46:21
+ * @Last Modified time: 2021-11-30 15:25:05
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -39,6 +39,18 @@ export default defineComponent({
     };
   },
   methods: {
+    init() {
+      this.scrollElement = getScroller(this.$el);
+      this.top = getOffset(this.$el).top;
+      this.scrollElement.addEventListener("scroll", this.handleScroll, false);
+    },
+    destory() {
+      this.scrollElement.removeEventListener(
+        "scroll",
+        this.handleScroll,
+        false
+      );
+    },
     handleScroll(e) {
       const { position } = window.getComputedStyle(this.$el);
       if (!fixedStyle.test(position)) {
@@ -73,12 +85,16 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.scrollElement = getScroller(this.$el);
-    this.top = getOffset(this.$el).top;
-    this.scrollElement.addEventListener("scroll", this.handleScroll, false);
+    this.init();
+  },
+  activated() {
+    this.init();
   },
   beforeDestroy() {
-    this.scrollElement.removeEventListener("scroll", this.handleScroll, false);
+    this.destory();
+  },
+  deactivated() {
+    this.destory();
   },
   render(h) {
     return h(
