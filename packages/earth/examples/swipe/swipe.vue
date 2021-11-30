@@ -82,11 +82,11 @@ export default {
       entered: false,
       currentIndex: -1,
       images: [
+        "http://fcimage.fangcang.com/images/hotels/676/174676/201706231498187910670.jpg",
+        "https://img.huazhu.com/cos/mdm/HN02000710/a9104687-333c-4930-92ec-930c95936876/2021-09-10-16-56-26-529.jpg",
+        "http://fcimage.fangcang.com/images/hotels/676/174676/201802081518084081855.jpg",
         "https://pavo.elongstatic.com/i/Hotel350_350/LQECeEzOkU.jpg",
-        "http://pavo.elongstatic.com/i/Hotel350_350/000ciKER.jpg",
-        "http://pavo.elongstatic.com/i/Hotel350_350/000cfX2X.jpg",
-        "http://pavo.elongstatic.com/i/Hotel350_350/L4sfKCVY64.jpg",
-        "http://pavo.elongstatic.com/i/Hotel350_350/L4sfz6LKVO.jpg"
+        "http://pavo.elongstatic.com/i/Hotel350_350/000ciKER.jpg"
       ]
     };
   },
@@ -130,7 +130,7 @@ export default {
 }
 .background {
   background:  rgba(0, 0, 0, 0) !important;
-  width: 50% !important;
+  /* width: 50% !important; */
 }
 img {
   width: 100%;
