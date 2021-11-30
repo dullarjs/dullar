@@ -2,14 +2,14 @@
  * @Author: Just be free
  * @Date:   2020-03-12 18:44:56
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-11-19 13:38:06
+ * @Last Modified time: 2021-11-30 14:52:40
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 import { getScrollTop } from "../modules/dom";
-import { on, off } from "../modules/event";
+import { on, off, preventDefault } from "../modules/event";
 import { EventBus } from "../modules/event/bus";
 import { slotsMixins } from "../mixins/slots";
 export default defineComponent({
@@ -46,6 +46,10 @@ export default defineComponent({
       type: [Number, String],
       default: 0,
     },
+    scrollable: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -57,31 +61,44 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.handleEventBus();
-    if (this.monitor) {
-      const ele = this.$refs.scrollElement.$el;
-      if (!ele) {
-        return false;
-      }
-      on(ele, "scroll", this.handleBodyScroll);
-    }
+    this.init();
+  },
+  activated() {
+    this.init();
+  },
+  deactivated() {
+    this.destory();
   },
   beforeDestroy() {
-    if (this.monitor) {
-      const ele = this.$refs.scrollElement.$el;
-      if (!ele) {
-        return false;
-      }
-      off(ele, "scroll", this.handleBodyScroll);
-    }
+    this.destory();
   },
   methods: {
+    init() {
+      this.handleEventBus();
+      if (this.monitor) {
+        const ele = this.$refs.scrollElement.$el;
+        if (!ele) {
+          return false;
+        }
+        on(ele, "scroll", this.handleBodyScroll);
+      }
+    },
+    destory() {
+      if (this.monitor) {
+        const ele = this.$refs.scrollElement.$el;
+        if (!ele) {
+          return false;
+        }
+        off(ele, "scroll", this.handleBodyScroll);
+      }
+    },
     handleEventBus() {
       EventBus.$on("popup:opening", (status) => {
         this.hasPopupOpened = status;
       });
     },
     handleBodyScroll(e) {
+      preventDefault(e);
       const scrollTop = getScrollTop(e.target);
       const clientHeight = e.target.clientHeight;
       const diff =
@@ -146,6 +163,7 @@ export default defineComponent({
                 "yn-layout-body",
                 "yn-layout-body-scroll-ele",
                 this.hasPopupOpened ? "" : "ios-scrolling",
+                this.scrollable ? "" : "overflow-hidden",
               ],
               props: { flex: 1 },
               ref: "scrollElement",
