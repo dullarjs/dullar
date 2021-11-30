@@ -7,6 +7,7 @@
     bottomDistance="500"
     @reachTop="handleReachTop"
     topDistance="100"
+    :scrollable="true"
   >
     <div slot="header" class="header">header</div>
     <div slot="body">
