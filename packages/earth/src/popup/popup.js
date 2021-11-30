@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-20 16:43:52
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-02 14:04:40
+ * @Last Modified time: 2021-11-30 14:19:12
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -75,6 +75,7 @@ export default defineComponent({
     removeModal() {
       if (this.singleton) {
         document.body.style.overflow = this.bodyOverflow;
+        document.body.parentNode.style.overflow = this.htmlOverflow;
       }
       this.events["closeModal"] &&
         typeof this.events["closeModal"] === "function" &&
@@ -91,6 +92,7 @@ export default defineComponent({
       );
       EventBus.$emit("popup:opening", true);
       this.bodyOverflow = document.body.style.overflow;
+      this.htmlOverflow = document.body.parentNode.style.overflow;
       const parent = node.parentNode;
       const modal = document.createElement("div");
       addClass(modal, "v-ynpopup-modal");
@@ -100,6 +102,7 @@ export default defineComponent({
         this.$el.style.zIndex = this.zIndex + idSeed + 1;
         if (this.lockScreen) {
           document.body.style.overflow = "hidden";
+          document.body.parentNode.style.overflow = "hidden";
         }
         this.events["closeModal"] = function () {
           parent.removeChild(modal);

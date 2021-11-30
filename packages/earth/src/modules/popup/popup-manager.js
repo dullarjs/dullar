@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-25 14:19:11
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-06 16:28:29
+ * @Last Modified time: 2021-11-30 14:24:52
  */
 class PopuoManager {
   constructor() {
@@ -32,11 +32,13 @@ class PopuoManager {
       this.deregister(id);
       this.modalStack.pop();
       document.body.style.overflow = instance.bodyOverflow;
+      document.body.parentNode.style.overflow = instance.htmlOverflow;
     }
   }
   openModal(id, instance) {
     if (instance.lockScreen) {
       document.body.style.overflow = "hidden";
+      document.body.parentNode.style.overflow = "hidden";
     }
     const node = instance.$el;
     const modal = node.previousElementSibling;
