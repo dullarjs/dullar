@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:25:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-22 17:47:17
+ * @Last Modified time: 2021-11-30 11:55:48
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -22,6 +22,13 @@ export default defineComponent({
       actualHeight: "",
     };
   },
+  watch: {
+    "parent.activedIndex": function (newVal) {
+      if (newVal === this.indexKey) {
+        this.$refs.swipeItem.parentNode.style.height = `${this.actualHeight}px`;
+      }
+    },
+  },
   created() {
     if (!this.resource) {
       this.loaded = true;
@@ -32,7 +39,6 @@ export default defineComponent({
         const { width } = this.parent;
         const l = e[0].naturalWidth / e[0].naturalHeight;
         this.actualHeight = width / l;
-        this.$refs.swipeItem.parentNode.style.height = `${width / l}px`;
         this.loaded = true;
       })
       .catch((err) => {
