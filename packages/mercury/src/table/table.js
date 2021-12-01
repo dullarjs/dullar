@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-12-01 15:40:00
+ * @Last Modified time: 2021-12-01 18:14:13
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -539,6 +539,7 @@ export default defineComponent({
           }
         });
       dropDownInfoSelectRows.length > 0 && this.getNewDataList();
+      this.dropDownStyle = {};
     },
     getNewDataList() {
       const dataList = [];
@@ -1149,7 +1150,7 @@ export default defineComponent({
                     [
                       h(
                         "span",
-                        { on: { click: () => this.checkDropDownChage } },
+                        { on: { click: this.checkDropDownChage.bind(this) } },
                         [this.okText]
                       ),
                     ]
