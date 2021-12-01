@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-12-01 15:01:58
+ * @Last Modified time: 2021-12-01 15:40:00
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -1021,7 +1021,6 @@ export default defineComponent({
       thead: { style: thStyle = {}, className: thClassName = "" } = {},
       tbody: { style: tbStyle = {}, className: tbClassName = "" } = {},
     } = setting || {};
-    console.log(dropDownStyle);
     return h(
       "div",
       {
