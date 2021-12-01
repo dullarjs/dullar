@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-24 10:30:25
+ * @Last Modified time: 2021-12-01 15:40:00
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -149,23 +149,19 @@ export default defineComponent({
       }
     },
     dropDownListener(e) {
-      const offsetParent =
-        e.target && e.target.offsetParent && e.target.offsetParent.className;
       const { dropDownStyle = {} } = this;
-      const patentsList = [
-        "yn-dropdown",
-        "yn-dropdown-menu",
-        "yn-table-filter-trigger",
-        "yn-table-cell",
-        "yn-button yn-button-default yn-button-small yn-button-disable",
-        "yn-button yn-button-default yn-button-small",
-      ];
+      const parentNode = this.$el.querySelector(".yn-dropdown");
+      const isSearchNode =
+        e.target.attributes &&
+        e.target.attributes.iconname &&
+        e.target.attributes.iconname.value === "search";
       if (
-        (!this.$el.contains(e.target) ||
-          patentsList.indexOf(offsetParent) < 0) &&
-        Object.keys(dropDownStyle).length > 0
+        !parentNode.contains(e.target) &&
+        Object.keys(dropDownStyle).length > 0 &&
+        !isSearchNode
       ) {
         this.initDropDownList();
+        off(document, "click", this.dropDownListener);
       }
     },
     setPagination() {
@@ -317,6 +313,7 @@ export default defineComponent({
         this.initDropDownList();
         off(document, "click", this.dropDownListener);
       } else {
+        on(document, "click", this.dropDownListener);
         const dropDownStyle = {};
         const columnList = this.fieldsList.filter((item) => {
           return item.key === columnKey;
@@ -348,7 +345,6 @@ export default defineComponent({
         this.filterContent = this.getDropDowmList(h);
         this.dropDownStyle = { ...dropDownStyle };
         this.checkResetDisabled();
-        on(document, "click", this.dropDownListener);
       }
     },
     setDDCoordinate(e) {
@@ -627,7 +623,7 @@ export default defineComponent({
     initChildRows(rowContent, parentRow, h, currentPageData, level = 1) {
       const _childList = parentRow.children;
       _childList.forEach((item) => {
-        item.level = level;
+        item.ynTableRowlevel = level;
         if (this.keyName) item.key = item[this.keyName];
         currentPageData.push(item);
         rowContent.push(
@@ -710,7 +706,7 @@ export default defineComponent({
           _content = value;
         }
         if (ind === 0) {
-          const _left = (rowDatas.level || 0) * 10;
+          const _left = (rowDatas.ynTableRowlevel || 0) * 10;
           _contentNode = h(
             "td",
             {
