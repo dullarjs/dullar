@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-24 11:58:43
+ * @Last Modified time: 2021-12-01 15:01:58
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -623,7 +623,7 @@ export default defineComponent({
     initChildRows(rowContent, parentRow, h, currentPageData, level = 1) {
       const _childList = parentRow.children;
       _childList.forEach((item) => {
-        item.level = level;
+        item.ynTableRowlevel = level;
         if (this.keyName) item.key = item[this.keyName];
         currentPageData.push(item);
         rowContent.push(
@@ -706,7 +706,7 @@ export default defineComponent({
           _content = value;
         }
         if (ind === 0) {
-          const _left = (rowDatas.level || 0) * 10;
+          const _left = (rowDatas.ynTableRowlevel || 0) * 10;
           _contentNode = h(
             "td",
             {
