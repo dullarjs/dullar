@@ -9,7 +9,9 @@ import { defineComponent, genComponentName } from "../modules/component";
 import Iconfont from "../iconfont";
 export default defineComponent({
   name: "Counter",
-  components: { Iconfont },
+  components: {
+    Iconfont,
+  },
   props: {
     max: {
       default: Number.MAX_VALUE,
@@ -22,6 +24,10 @@ export default defineComponent({
     steps: {
       default: 1,
       type: [Number, String],
+    },
+    autofocus: {
+      type: Boolean,
+      default: true,
     },
     value: {
       default: -1,
@@ -36,19 +42,25 @@ export default defineComponent({
     name: String,
     editable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     iconSize: {
       type: Number,
-      default: 10
+      default: 10,
     },
     height: {
       type: Number,
-      default: 30
-    }
+      default: 30,
+    },
   },
   initPropsToData() {
-    return [{ key: "count", value: "value", parse: Number }];
+    return [
+      {
+        key: "count",
+        value: "value",
+        parse: Number,
+      },
+    ];
   },
   watch: {
     value: function (n) {
@@ -57,8 +69,11 @@ export default defineComponent({
   },
   computed: {
     style() {
-      return { height: `${this.height}px`, lineHeight: `${this.height}px` }
-    }
+      return {
+        height: `${this.height}px`,
+        lineHeight: `${this.height}px`,
+      };
+    },
   },
   methods: {
     set(val) {
@@ -98,7 +113,10 @@ export default defineComponent({
     },
     handleBlur(e) {
       const value = e.target.value;
-      if (Number(value) > Number(this.max) || Number(value) < Number(this.min)) {
+      if (
+        Number(value) > Number(this.max) ||
+        Number(value) < Number(this.min)
+      ) {
         this.set(this.oldValue);
         this.error(value);
       }
@@ -120,7 +138,7 @@ export default defineComponent({
       throw new Error(
         `${value} is out of range, the valid value should be range ${this.min} to ${this.max}`
       );
-    }
+    },
   },
   render(h) {
     if (
@@ -133,34 +151,81 @@ export default defineComponent({
       const rightButtonClass = this.isEqual(this.value, this.max)
         ? "disabled"
         : "";
-      return h("div", { class: ["yn-counter"] }, [
-        h(
-          genComponentName("iconfont"),
-          {
-            on: { click: this.subtract },
-            style: { ...this.style },
-            class: ["yn-counter-subtract", leftButtonClass],
-            props: { name: "minus", size: this.iconSize },
-          },
-          []
-        ),
+      return h(
+        "div",
+        {
+          class: ["yn-counter"],
+        },
         [
-          this.editable ?
-            h("input", { style: { ...this.style }, ref: "countInput", class: ["yn-counter-input"], attrs: { type: "number", value: this.count }, on: { blur: this.handleBlur, focus: this.handleFocus } }, [])
-            :
-            h("span", { style: { ...this.style }, class: ["yn-counter-screen"] }, [this.count])
-        ],
-        h(
-          genComponentName("iconfont"),
-          {
-            on: { click: this.add },
-            style: { ...this.style },
-            class: ["yn-counter-plus", rightButtonClass],
-            props: { name: "add", size: this.iconSize },
-          },
-          []
-        ),
-      ]);
+          h(
+            genComponentName("iconfont"),
+            {
+              on: {
+                click: this.subtract,
+              },
+              style: {
+                ...this.style,
+              },
+              class: ["yn-counter-subtract", leftButtonClass],
+              props: {
+                name: "minus",
+                size: this.iconSize,
+              },
+            },
+            []
+          ),
+          [
+            this.editable
+              ? h(
+                  "input",
+                  {
+                    style: {
+                      ...this.style,
+                    },
+                    ref: "countInput",
+                    class: ["yn-counter-input"],
+                    attrs: {
+                      type: "number",
+                      autofocus: true,
+                      value: this.count,
+                    },
+                    on: {
+                      blur: this.handleBlur,
+                      focus: this.handleFocus,
+                    },
+                  },
+                  []
+                )
+              : h(
+                  "span",
+                  {
+                    style: {
+                      ...this.style,
+                    },
+                    class: ["yn-counter-screen"],
+                  },
+                  [this.count]
+                ),
+          ],
+          h(
+            genComponentName("iconfont"),
+            {
+              on: {
+                click: this.add,
+              },
+              style: {
+                ...this.style,
+              },
+              class: ["yn-counter-plus", rightButtonClass],
+              props: {
+                name: "add",
+                size: this.iconSize,
+              },
+            },
+            []
+          ),
+        ]
+      );
     } else {
       this.error(this.value);
     }

@@ -14,15 +14,18 @@
     cursor: pointer;
     margin: 0 0.5px;
     font-size: 15px;
-    user-select: none;
+    // -webkit-user-select: none;
+
     &.disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
   }
+
   .yn-counter-screen {
     padding: 0 5px;
   }
+
   .yn-counter-input {
     outline: none;
     -moz-appearance: textfield;
@@ -31,6 +34,7 @@
     padding: 0;
     vertical-align: top;
   }
+
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
