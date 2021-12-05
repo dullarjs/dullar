@@ -41,6 +41,7 @@
       <li @click="jump('form')">form</li>
       <li @click="jump('picker')">picker</li>
       <li @click="jump('datePicker')">datePicker</li>
+      <li @click="jump('switch')">switch</li>
     </ul>
   </div>
 </template>
