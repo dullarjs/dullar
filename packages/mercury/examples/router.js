@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-10 18:11:51
+ * @Last Modified time: 2021-12-06 04:15:06
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -48,6 +48,7 @@ import Image from "./image/image.vue";
 import Form from "./form/fd.vue"
 import Picker from "./picker/picker.vue";
 import DatePicker from "./date-picker/datePicker.vue";
+import Switch from "./switch/switch.vue";
 const router = new Router({
   routes: [{
       path: "/",
@@ -254,6 +255,11 @@ const router = new Router({
       path: "/datePicker",
       name: "datePicker",
       component: DatePicker
+    },
+    {
+      path: "/switch",
+      name: "switch",
+      component: Switch
     }
   ]
 });

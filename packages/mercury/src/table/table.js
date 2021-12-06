@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-12-01 18:14:13
+ * @Last Modified time: 2021-12-02 13:44:14
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -939,7 +939,7 @@ export default defineComponent({
       if (rowSelection && rowSelection.selectedRowKeys && rowSelection.type) {
         if (rowSelection.type === "radio") {
           const key = rowSelection.selectedRowKeys[0];
-          this.selectedRows = [key];
+          this.selectedRows = key ? [key] : [];
           this.selectedRowDatas = currentPageData.filter(
             (item) => item.key === key
           );
