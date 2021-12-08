@@ -1,0 +1,20 @@
+.yn-magic-layer {
+  height: 100%;
+  position: relative;
+}
+
+.yn-magic-layer-item {
+  // position: absolute;
+  &.animated {
+    transition: all ease 0.5s;
+  }
+  width: 100%;
+  &:first-child {
+    background: red;
+    // height: 50%;
+  }
+  &:last-child {
+    background: yellow;
+    height: 100%;
+  }
+}
