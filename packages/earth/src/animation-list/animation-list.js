@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-11-11 10:03:24
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-07 15:49:51
+ * @Last Modified time: 2021-12-08 16:59:22
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -33,7 +33,7 @@ export default defineComponent({
     },
     handleEnter(el, done) {
       let delay = el.getAttribute("dataindex") * 5 + 100;
-      setTimeout(() => {
+      el.timer = setTimeout(() => {
         el.setAttribute(
           "style",
           `
@@ -45,6 +45,14 @@ export default defineComponent({
         );
         done();
       }, delay);
+    },
+    handleAfterEnter(el) {
+      clearTimeout(el.timer);
+      const timer = setTimeout(() => {
+        // el.style.animation = "no-animation 0ms infinite";
+        el.setAttribute("style", "");
+        clearTimeout(timer);
+      }, this.getSlots().length * 5);
     },
     getSlots() {
       const prefix = this.VUE_APP_PREFIX;
@@ -63,7 +71,11 @@ export default defineComponent({
         {
           props: { css: false, tag: `${this.VUE_APP_PREFIX}-flex` },
           class: [`${this.VUE_APP_PREFIX}-flex-direction-column`],
-          on: { beforeEnter: this.handleBeforeEnter, enter: this.handleEnter },
+          on: {
+            beforeEnter: this.handleBeforeEnter,
+            enter: this.handleEnter,
+            afterEnter: this.handleAfterEnter,
+          },
         },
         Array.apply(null, this.getSlots()).map((item, key) => {
           return h(
