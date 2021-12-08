@@ -1,7 +1,13 @@
 <template>
   <div id="example">
+    <!-- <keep-alive>
+    </keep-alive> -->
     <yn-layout :showFooter="false">
-      <router-view slot="body"></router-view>
+      <div slot="body">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </div>
     </yn-layout>
   </div>
 </template>
