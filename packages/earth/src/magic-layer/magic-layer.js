@@ -2,55 +2,62 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-08 15:30:04
+ * @Last Modified time: 2021-12-13 15:30:56
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
 import { touchMixins } from "../mixins/touch";
-import { getOffset, addClass, removeClass } from "../modules/dom";
-import { getPropertyValue } from "../modules/dom/style";
-import { move } from "../modules/dom/animate/move";
-// genComponentName
-import Flex from "../flex";
-import FlexItem from "../flex-item";
-// import { getScrollTop } from "../modules/dom";
-// import { on, off, preventDefault } from "../modules/event";
-import { preventDefault } from "../modules/event";
-// import { EventBus } from "../modules/event/bus";
+import { getOffset, getScrollTop, addClass, removeClass } from "../modules/dom";
+import { getScroller } from "../modules/dom/scroll";
+import { on, off, preventDefault } from "../modules/event";
 import { slotsMixins } from "../mixins/slots";
 export default defineComponent({
   name: "MagicLayer",
   mixins: [slotsMixins, touchMixins],
-  components: { Flex, FlexItem },
   props: {
     bottomHeight: {
       type: Number,
       default: 100,
     },
+    triggerPoint: {
+      type: Number,
+      default: 50,
+    },
   },
   data() {
     return {
+      moved: false,
+      opened: false,
+      scrollElement: null,
+      scrollTop: 0,
       rect: {
         height: window.innerHeight,
       },
     };
   },
   methods: {
-    handleTransitionend() {
-      console.log("运动结束");
+    init() {
+      const el = this.$el;
+      if (!el) return;
+      this.scrollElement = getScroller(this.$el);
+      on(this.scrollElement, "scroll", this.handleScroll);
     },
-    startMove(el, b = 0, c = 0, fn) {
-      const { vertical } = this;
-      const attr = vertical ? "top" : "left";
-      move(el, { attr, b, c }, () => {
-        fn && typeof fn === "function" && fn.call(this, el);
-      });
+    destory() {
+      off(this.scrollElement, "scroll", this.handleScroll);
+    },
+    handleScroll(e) {
+      const scrollTop = getScrollTop(e.target);
+      this.scrollTop = scrollTop;
+    },
+    handleTransitionstart() {
+      this.$emit("transitionstart");
+    },
+    handleTransitionend() {
+      this.$emit("transitionend", { opened: this.opened });
     },
     drag() {
       const el = this.$el;
-      if (!el) {
-        return;
-      }
+      if (!el) return;
       this.el = el;
       const that = this;
       let startTime = 0;
@@ -64,26 +71,53 @@ export default defineComponent({
           that.currentTop = offset.top;
         },
         dragging(e) {
-          preventDefault(e.e);
-          let top = that.currentTop + that.deltaY;
-          innerLayer.style.height = `${innerLayerHeight + top}px`;
-          innerLayer.style.marginTop = `-${top}px`;
-          el.style.transform = `translate3d(0, ${top}px, 0)`;
-          removeClass(innerLayer, "animated");
-          // innerLayer.style.transition = "none";
+          let l = 1;
+          if (that.deltaY >= 0) {
+            l = 1;
+          } else {
+            l = -1;
+          }
+          if (
+            (that.opened && l < 0) ||
+            (!that.opened && l > 0 && that.scrollTop === 0)
+          ) {
+            preventDefault(e.e);
+            let top = l * that.currentTop + that.deltaY;
+            if (
+              (!that.opened && that.deltaY < 0) ||
+              (that.opened && that.deltaY > 0)
+            ) {
+              that.moved = false;
+              return true;
+            }
+            that.moved = true;
+            innerLayer.style.height = `${innerLayerHeight + top}px`;
+            that.$emit("dragging", { height: innerLayerHeight + top });
+            innerLayer.style.marginTop = `-${top}px`;
+            el.style.transform = `translate3d(0, ${top}px, 0)`;
+            removeClass(innerLayer, "animated");
+          }
         },
         stop(e) {
-          const currentTop = parseInt(getPropertyValue(innerLayer, "height"));
-          // console.log("currentTop = ", currentTop);
+          if (!that.moved || that.scrollTop > 0) return;
           addClass(innerLayer, "animated");
-          // const offset = getOffset(el);
-          // console.log(Math.abs(offset.top), that.rect.height);
-          if (currentTop > that.rect.height / 2) {
-            console.log("过了一半");
-          } else {
+          if (that.deltaY > that.triggerPoint) {
+            that.opened = true;
+            const actualHeight = that.rect.height - that.bottomHeight;
+            that.$refs.innerLayer.style.marginTop = `-${
+              actualHeight - innerLayerHeight
+            }px`;
+            that.$refs.innerLayer.style.height = `${actualHeight}px`;
+            that.$emit("stoped", { height: actualHeight });
+            el.style.transform = `translate3D(0, ${
+              actualHeight - innerLayerHeight
+            }px, 0)`;
+          } else if (that.deltaY < 0 && Math.abs(that.deltaY) > 10) {
             // back where it comes from
             // that.startMove();
+            that.opened = false;
             that.$refs.innerLayer.style.height = `${innerLayerHeight}px`;
+            that.$emit("stoped", { height: innerLayerHeight });
             that.$refs.innerLayer.style.marginTop = "auto";
             el.style.transform = "translate3D(0, 0, 0)";
           }
@@ -91,7 +125,7 @@ export default defineComponent({
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200) {
             preventDefault(e.e);
-            that.$emit("click");
+            that.$emit("click", { opened: that.opened });
             return;
           }
         },
@@ -99,7 +133,17 @@ export default defineComponent({
     },
   },
   mounted() {
+    this.init();
     this.drag();
+  },
+  activated() {
+    this.init();
+  },
+  beforeDestroy() {
+    this.destory();
+  },
+  deactivated() {
+    this.destory();
   },
   render(h) {
     return h("div", { class: ["yn-magic-layer"] }, [
@@ -108,7 +152,10 @@ export default defineComponent({
         {
           class: ["yn-magic-layer-item"],
           ref: "innerLayer",
-          on: { transitionend: this.handleTransitionend },
+          on: {
+            transitionstart: this.handleTransitionstart,
+            transitionend: this.handleTransitionend,
+          },
         },
         [this.slots("inner")]
       ),
