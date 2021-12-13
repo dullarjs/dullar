@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-20 16:43:52
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-30 14:19:12
+ * @Last Modified time: 2021-12-13 10:22:10
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -118,7 +118,7 @@ export default defineComponent({
       }
       this.idSeed = idSeed;
       idSeed++;
-      this.$emit("beforeEnter");
+      this.$emit("beforeEnter", { modal });
     },
     handleEnter() {
       this.$emit("enter");

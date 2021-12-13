@@ -31,6 +31,7 @@
         <li @click="jump('skeleton')">skeleton</li>
         <li @click="jump('animationList')">animationList</li>
         <li @click="jump('dragable')">dragable</li>
+        <li @click="jump('magicLayer')">magicLayer</li>
       </ul>
   </div>
 </template>

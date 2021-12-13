@@ -1,0 +1,18 @@
+.yn-magic-layer {
+  height: 100%;
+  transform: translate3d(0px, 0px, 0px);
+  // position: relative;
+}
+
+.yn-magic-layer-item {
+  &.animated {
+    transition: height ease 0.5s;
+  }
+  width: 100%;
+  &:first-child {
+    // height: 50%;
+  }
+  &:last-child {
+    height: 100%;
+  }
+}

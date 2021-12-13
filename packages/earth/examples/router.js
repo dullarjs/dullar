@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-24 10:51:05
+ * @Last Modified time: 2021-12-06 16:10:20
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -38,6 +38,7 @@ import Counter from "./counter/counter.vue";
 import Skeleton from "./skeleton/skeleton.vue";
 import AnimationList from "./animation-list/list.vue";
 import Dragable from "./dragable/dragable.vue";
+import MagicLayer from "./magic-layer/magicLayer.vue";
 // import Massive from "./massive/massive.vue";
 // import loadable from "./load";
 const router = new Router({
@@ -196,6 +197,11 @@ const router = new Router({
       path: "/dragable",
       name: "dragable",
       component: Dragable
+    },
+    {
+      path: "/magic-layer",
+      name: "magicLayer",
+      component: MagicLayer
     }
   ]
 });
