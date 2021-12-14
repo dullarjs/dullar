@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-13 15:30:56
+ * @Last Modified time: 2021-12-14 11:57:44
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -33,6 +33,8 @@ export default defineComponent({
       rect: {
         height: window.innerHeight,
       },
+      executed: false,
+      orginInnerLayerHeight: 0,
     };
   },
   methods: {
@@ -48,12 +50,27 @@ export default defineComponent({
     handleScroll(e) {
       const scrollTop = getScrollTop(e.target);
       this.scrollTop = scrollTop;
+      if (scrollTop > 0) {
+        this.fold();
+      }
     },
     handleTransitionstart() {
       this.$emit("transitionstart");
     },
     handleTransitionend() {
+      if (!this.opened) {
+        this.$refs.magicLayer.style = null;
+      }
       this.$emit("transitionend", { opened: this.opened });
+    },
+    fold() {
+      const innerLayer = this.$refs.innerLayer;
+      addClass(innerLayer, "animated");
+      this.opened = false;
+      this.$refs.innerLayer.style.height = `${this.orginInnerLayerHeight}px`;
+      this.$emit("stoped", { height: this.orginInnerLayerHeight });
+      this.$refs.innerLayer.style.marginTop = "auto";
+      this.el.style.transform = null;
     },
     drag() {
       const el = this.$el;
@@ -63,9 +80,9 @@ export default defineComponent({
       let startTime = 0;
       const innerLayer = this.$refs.innerLayer;
       const innerLayerHeight = innerLayer.offsetHeight;
+      this.orginInnerLayerHeight = innerLayerHeight;
       this.bindEvent(el, {
         start() {
-          that.dragging = true;
           startTime = Date.now();
           const offset = getOffset(el);
           that.currentTop = offset.top;
@@ -121,7 +138,6 @@ export default defineComponent({
             that.$refs.innerLayer.style.marginTop = "auto";
             el.style.transform = "translate3D(0, 0, 0)";
           }
-          that.dragging = false;
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200) {
             preventDefault(e.e);
@@ -146,7 +162,7 @@ export default defineComponent({
     this.destory();
   },
   render(h) {
-    return h("div", { class: ["yn-magic-layer"] }, [
+    return h("div", { class: ["yn-magic-layer"], ref: "magicLayer" }, [
       h(
         "div",
         {
