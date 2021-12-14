@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-11-30 11:48:44
+ * @Last Modified time: 2021-12-14 17:09:30
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -31,6 +31,14 @@ export default defineComponent({
     showIndicator: {
       type: Boolean,
       default: true,
+    },
+    indicatorTopPosition: {
+      type: Number,
+      default: 200,
+    },
+    indicatorFixed: {
+      type: Boolean,
+      default: false,
     },
     indicatorType: {
       type: String,
@@ -74,6 +82,13 @@ export default defineComponent({
       return {
         "min-height": `${this.height}px`,
       };
+    },
+    indicatorStyle() {
+      if (this.indicatorFixed) {
+        return {
+          top: `${this.indicatorTopPosition}px`,
+        };
+      }
     },
   },
   methods: {
@@ -286,6 +301,7 @@ export default defineComponent({
         return h(
           "div",
           {
+            style: { ...this.indicatorStyle },
             class: [
               "yn-swipe-indicators",
               indicatorType,
