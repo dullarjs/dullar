@@ -32,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/dullarjs/dullar/issues"
   },
-  "gitHead": "2da5a2eb505483ad256b7dad67cf5044db856200",
+  "gitHead": "2d8910e206f12d84a931a9fc61f8c8dcb28089d6",
   "devDependencies": {
     "typescript": "^4.3.2"
   }

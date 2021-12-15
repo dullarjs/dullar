@@ -26,6 +26,7 @@ import FlexItem from "./flex-item";
 import Iconfont from "./iconfont";
 import Indicator from "./indicator";
 import Layout from "./layout";
+import MagicLayer from "./magic-layer";
 import Picker from "./picker";
 import PickyStepper from "./picky-stepper";
 import Popup from "./popup";
@@ -67,6 +68,7 @@ const components = [
   Iconfont,
   Indicator,
   Layout,
+  MagicLayer,
   Picker,
   PickyStepper,
   Popup,
@@ -148,6 +150,7 @@ export { FlexItem as YnFlexItem };
 export { Iconfont as YnIconfont };
 export { Indicator as YnIndicator };
 export { Layout as YnLayout };
+export { MagicLayer as YnMagicLayer };
 export { Picker as YnPicker };
 export { PickyStepper as YnPickyStepper };
 export { Popup as YnPopup };
