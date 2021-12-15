@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-14 11:57:44
+ * @Last Modified time: 2021-12-14 18:35:59
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -86,6 +86,7 @@ export default defineComponent({
           startTime = Date.now();
           const offset = getOffset(el);
           that.currentTop = offset.top;
+          that.$emit("dragstart");
         },
         dragging(e) {
           let l = 1;
@@ -125,7 +126,7 @@ export default defineComponent({
               actualHeight - innerLayerHeight
             }px`;
             that.$refs.innerLayer.style.height = `${actualHeight}px`;
-            that.$emit("stoped", { height: actualHeight });
+            that.$emit("stoped", { height: actualHeight, opened: true });
             el.style.transform = `translate3D(0, ${
               actualHeight - innerLayerHeight
             }px, 0)`;
@@ -134,7 +135,7 @@ export default defineComponent({
             // that.startMove();
             that.opened = false;
             that.$refs.innerLayer.style.height = `${innerLayerHeight}px`;
-            that.$emit("stoped", { height: innerLayerHeight });
+            that.$emit("stoped", { height: innerLayerHeight, opened: false });
             that.$refs.innerLayer.style.marginTop = "auto";
             el.style.transform = "translate3D(0, 0, 0)";
           }
