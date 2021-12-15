@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-11-11 10:03:24
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-07-07 15:49:51
+ * @Last Modified time: 2021-12-15 11:46:45
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -17,6 +17,10 @@ export default defineComponent({
       type: [Number, String],
       default: 600,
     },
+    animated: {
+      type: Boolean,
+      default: true,
+    },
     animationType: {
       type: String,
       default: "list",
@@ -29,22 +33,32 @@ export default defineComponent({
   components: { Flex, FlexItem },
   methods: {
     handleBeforeEnter(el) {
+      this.$emit("beforeEnter", el);
       el.style.opacity = 0;
     },
     handleEnter(el, done) {
-      let delay = el.getAttribute("dataindex") * 5 + 100;
-      setTimeout(() => {
-        el.setAttribute(
-          "style",
+      this.$emit("enter", el);
+      if (this.animated) {
+        let delay = el.getAttribute("dataindex") * 5 + 100;
+        setTimeout(() => {
+          el.setAttribute(
+            "style",
+            `
+            transition: opacity ${this.duration}ms;
+            opacity: 1;
+            animation: ${this.animationType}-one-by-one ${this.duration}ms infinite;
+            animation-iteration-count: 1;
           `
-          transition: opacity ${this.duration}ms;
-          opacity: 1;
-          animation: ${this.animationType}-one-by-one ${this.duration}ms infinite;
-          animation-iteration-count: 1;
-        `
-        );
+          );
+          done();
+        }, delay);
+      } else {
+        el.setAttribute("style", "opacity: 1; transition: opacity 0ms");
         done();
-      }, delay);
+      }
+    },
+    handleAfterEnter(el) {
+      this.$emit("afterEnter", el);
     },
     getSlots() {
       const prefix = this.VUE_APP_PREFIX;
@@ -63,7 +77,11 @@ export default defineComponent({
         {
           props: { css: false, tag: `${this.VUE_APP_PREFIX}-flex` },
           class: [`${this.VUE_APP_PREFIX}-flex-direction-column`],
-          on: { beforeEnter: this.handleBeforeEnter, enter: this.handleEnter },
+          on: {
+            beforeEnter: this.handleBeforeEnter,
+            enter: this.handleEnter,
+            afterEnter: this.handleAfterEnter,
+          },
         },
         Array.apply(null, this.getSlots()).map((item, key) => {
           return h(
