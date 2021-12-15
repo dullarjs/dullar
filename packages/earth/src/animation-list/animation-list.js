@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-11-11 10:03:24
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-15 11:46:45
+ * @Last Modified time: 2021-12-15 17:07:27
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,8 +10,10 @@ import { slotsMixins } from "../mixins/slots";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 const VALID_CHILD_COMPONENT = "animation-list-item";
+import { provideMixins } from "../mixins/provide";
 export default defineComponent({
   name: "AnimationList",
+  mixins: [slotsMixins, provideMixins()],
   props: {
     duration: {
       type: [Number, String],
@@ -29,7 +31,6 @@ export default defineComponent({
       },
     },
   },
-  mixins: [slotsMixins],
   components: { Flex, FlexItem },
   methods: {
     handleBeforeEnter(el) {
