@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <yn-magic-layer @dragstart="handleDragstart" @dragging="handleDragging" @stoped="handleStpped" @transitionend="handleTransitionend">
+    <yn-magic-layer ref="magicLayer" @dragstart="handleDragstart" @dragging="handleDragging" @stoped="handleStpped" @transitionend="handleTransitionend">
       <div class="inner" :class="animated ? 'animated' : ''" ref="inner" slot="inner">
         <div class="filter-background" ref="filter"></div>
         <div :class="(this.dragstart || this.opened) ? 'swipe-view-box' : ''">
@@ -13,7 +13,9 @@
           </yn-swipe>
         </div>
       </div>
-      <div slot="outside" class="outside">2</div>
+      <div slot="outside" class="outside">
+        <p @click="giveItATry">尝试点击一下吧，看还能否触发</p>
+      </div>
     </yn-magic-layer>
     <yn-popup class="background" @beforeEnter="beforeEnter" @afterLeave="afterLeave" @afterEnter="afterEnter" v-model="popup" position="middle">
       <template v-if="entered">
@@ -52,6 +54,9 @@
       }
     },
     methods: {
+      giveItATry() {
+        this.Toast("点击触发了~~哈哈");
+      },
       handleDragstart() {
         // this.dragstart = true;
       },
@@ -67,6 +72,7 @@
       handleTicking(e) {
         if (!this.opened) {
           this.dragstart = false;
+          // this.$refs.magicLayer.fold();
         }
         this.$refs.filter.style.backgroundImage = `url(${this.images[e.activeIndex - 1]})`;
       },
