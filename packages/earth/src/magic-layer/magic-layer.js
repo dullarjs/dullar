@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-14 18:35:59
+ * @Last Modified time: 2021-12-15 18:32:19
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -64,13 +64,15 @@ export default defineComponent({
       this.$emit("transitionend", { opened: this.opened });
     },
     fold() {
+      const el = this.$el;
+      if (!el) return;
       const innerLayer = this.$refs.innerLayer;
       addClass(innerLayer, "animated");
       this.opened = false;
       this.$refs.innerLayer.style.height = `${this.orginInnerLayerHeight}px`;
       this.$emit("stoped", { height: this.orginInnerLayerHeight });
       this.$refs.innerLayer.style.marginTop = "auto";
-      this.el.style.transform = null;
+      el.style.transform = null;
     },
     drag() {
       const el = this.$el;
@@ -89,6 +91,7 @@ export default defineComponent({
           that.$emit("dragstart");
         },
         dragging(e) {
+          if (that.deltaY === 0) return;
           let l = 1;
           if (that.deltaY >= 0) {
             l = 1;
@@ -117,6 +120,7 @@ export default defineComponent({
           }
         },
         stop(e) {
+          if (that.deltaY === 0) return;
           if (!that.moved || that.scrollTop > 0) return;
           addClass(innerLayer, "animated");
           if (that.deltaY > that.triggerPoint) {
