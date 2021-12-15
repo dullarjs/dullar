@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <yn-magic-layer @dragging="handleDragging" @stoped="handleStpped" @transitionend="handleTransitionend">
+    <yn-magic-layer @dragstart="handleDragstart" @dragging="handleDragging" @stoped="handleStpped" @transitionend="handleTransitionend">
       <div class="inner" :class="animated ? 'animated' : ''" ref="inner" slot="inner">
         <div class="filter-background" ref="filter"></div>
-        <yn-swipe class="swipe-view" @click="handleClick" @ticking="handleTicking" ref="swipex" indicatorType="number">
-          <yn-swipe-item v-for="(item, index) in images" :key="index" :resource="item">
-            <div>
-              <img :src="item" />
-            </div>
-          </yn-swipe-item>
-        </yn-swipe>
+        <div :class="(this.dragstart || this.opened) ? 'swipe-view-box' : ''">
+          <yn-swipe :indicatorTopPosition="200" :indicatorFixed="indicatorFixed" class="swipe-view" @click="handleClick" @ticking="handleTicking" ref="swipex" indicatorType="number">
+            <yn-swipe-item v-for="(item, index) in images" :key="index" :resource="item">
+              <div>
+                <img :src="item" />
+              </div>
+            </yn-swipe-item>
+          </yn-swipe>
+        </div>
       </div>
       <div slot="outside" class="outside">2</div>
     </yn-magic-layer>
@@ -31,6 +33,9 @@
     name: "YnMagicLayerPage",
     data() {
       return {
+        dragstart: false,
+        dragging: false,
+        indicatorFixed: true,
         opened: false,
         modalDom: null,
         popup: false,
@@ -47,10 +52,22 @@
       }
     },
     methods: {
+      handleDragstart() {
+        // this.dragstart = true;
+      },
       handleTransitionend(e) {
         this.opened = e.opened;
+        if (e.opened) {
+          this.indicatorFixed = false;
+        } else {
+          this.indicatorFixed = true;
+          this.dragstart = false;
+        }
       },
       handleTicking(e) {
+        if (!this.opened) {
+          this.dragstart = false;
+        }
         this.$refs.filter.style.backgroundImage = `url(${this.images[e.activeIndex - 1]})`;
       },
       handleTicking2(e) {
@@ -59,10 +76,14 @@
         this.modalDom.style.backgroundSize = "cover";
       },
       handleDragging(e) {
+        this.dragstart = true;
+        this.dragging = true;
         this.animated = false;
         this.$refs.inner.style.height = `${e.height}px`;
       },
       handleStpped(e) {
+        this.opened = e.opened;
+        this.dragging = false;
         this.animated = true;
         this.$refs.inner.style.height = `${e.height}px`;
       },
@@ -111,11 +132,12 @@
   .outside {
     background: yellow;
   }
-  .swipe-view {
+  .swipe-view-box {
     position: absolute;
     top: 50%;
-    /* margin-top: -120px; */
     transform: translate3d(0, -50%, 0);
+    width: 100%;
+    height: auto;
   }
   .background {
     background:  rgba(0, 0, 0, 0) !important;
