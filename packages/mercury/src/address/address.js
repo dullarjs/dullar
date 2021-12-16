@@ -129,7 +129,7 @@ export default defineComponent({
     },
     handleItemClick(region) {
       if (this.currentRegionId === region[this.attributeMapping["id"]]) return;
-      this.currentRegionId = region.region_id;
+      this.currentRegionId = region[this.attributeMapping["id"]];
       const cache = this.CACHE[region[this.attributeMapping["id"]]];
       if (Array.isArray(cache)) {
         this.updateRegionList(cache, region);
