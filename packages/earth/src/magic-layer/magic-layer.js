@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-16 11:48:56
+ * @Last Modified time: 2021-12-16 14:51:42
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -123,7 +123,10 @@ export default defineComponent({
           if (that.deltaY === 0) return;
           if (!that.moved || that.scrollTop > 0) return;
           addClass(innerLayer, "animated");
-          if (that.deltaY > that.triggerPoint) {
+          if (
+            that.deltaY > that.triggerPoint ||
+            (that.deltaY < 0 && Math.abs(that.deltaY) < that.triggerPoint)
+          ) {
             that.opened = true;
             const actualHeight = that.rect.height - that.bottomHeight;
             that.$refs.innerLayer.style.marginTop = `-${
@@ -135,8 +138,8 @@ export default defineComponent({
               actualHeight - innerLayerHeight
             }px, 0)`;
           } else if (
-            that.deltaY < 0 &&
-            Math.abs(that.deltaY) > that.triggerPoint
+            (that.deltaY < 0 && Math.abs(that.deltaY) > that.triggerPoint) ||
+            (that.deltaY > 0 && that.deltaY < that.triggerPoint)
           ) {
             // back where it comes from
             // that.startMove();
