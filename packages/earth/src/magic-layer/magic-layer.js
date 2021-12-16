@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-16 16:23:55
+ * @Last Modified time: 2021-12-16 17:24:30
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -59,7 +59,7 @@ export default defineComponent({
     },
     handleTransitionend() {
       if (!this.opened) {
-        this.$refs.magicLayer.style = null;
+        this.$refs.magicLayer.setAttribute("style", "");
       }
       this.$emit("transitionend", { opened: this.opened });
     },
