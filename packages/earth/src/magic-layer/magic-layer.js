@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-15 18:32:19
+ * @Last Modified time: 2021-12-16 16:23:55
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -123,7 +123,11 @@ export default defineComponent({
           if (that.deltaY === 0) return;
           if (!that.moved || that.scrollTop > 0) return;
           addClass(innerLayer, "animated");
-          if (that.deltaY > that.triggerPoint) {
+          if (
+            that.deltaY > that.triggerPoint ||
+            (that.deltaY < 0 && Math.abs(that.deltaY) < that.triggerPoint)
+          ) {
+            console.log("if = deltaY = ", that.deltaY);
             that.opened = true;
             const actualHeight = that.rect.height - that.bottomHeight;
             that.$refs.innerLayer.style.marginTop = `-${
@@ -134,9 +138,13 @@ export default defineComponent({
             el.style.transform = `translate3D(0, ${
               actualHeight - innerLayerHeight
             }px, 0)`;
-          } else if (that.deltaY < 0 && Math.abs(that.deltaY) > 10) {
+          } else if (
+            (that.deltaY < 0 && Math.abs(that.deltaY) > that.triggerPoint) ||
+            (that.deltaY > 0 && that.deltaY < that.triggerPoint)
+          ) {
             // back where it comes from
             // that.startMove();
+            console.log("else = deltaY = ", that.deltaY);
             that.opened = false;
             that.$refs.innerLayer.style.height = `${innerLayerHeight}px`;
             that.$emit("stoped", { height: innerLayerHeight, opened: false });
