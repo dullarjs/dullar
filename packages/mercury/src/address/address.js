@@ -13,7 +13,12 @@ import FlexItem from "../flex-item";
 import Iconfont from "../iconfont";
 export default defineComponent({
   name: "Address",
-  components: { Popup, Flex, FlexItem, Iconfont },
+  components: {
+    Popup,
+    Flex,
+    FlexItem,
+    Iconfont,
+  },
   props: {
     showCloseIcon: {
       type: Boolean,
@@ -76,6 +81,7 @@ export default defineComponent({
       regionList: [],
       regionHeader: [],
       CACHE: {},
+      currentRegionId: "",
     };
   },
   methods: {
@@ -101,7 +107,10 @@ export default defineComponent({
       }
     },
     requestAddress(args) {
-      const params = { ...this.address.params, ...args };
+      const params = {
+        ...this.address.params,
+        ...args,
+      };
       const promise = this.address.action(params);
       promise
         .then((res) => {
@@ -119,6 +128,8 @@ export default defineComponent({
       this.$emit("input", false);
     },
     handleItemClick(region) {
+      if (this.currentRegionId === region[this.attributeMapping["id"]]) return;
+      this.currentRegionId = region.region_id;
       const cache = this.CACHE[region[this.attributeMapping["id"]]];
       if (Array.isArray(cache)) {
         this.updateRegionList(cache, region);
@@ -134,126 +145,195 @@ export default defineComponent({
     },
   },
   render(h) {
-    return h("div", { class: ["yn-address"] }, [
-      h(
-        genComponentName("popup"),
-        {
-          class: ["address-popup"],
-          ref: "popup",
-          props: {
-            position: this.position,
-            showCloseIcon: this.showCloseIcon,
-            fixed: true,
-            closeOnClickModal: true,
+    return h(
+      "div",
+      {
+        class: ["yn-address"],
+      },
+      [
+        h(
+          genComponentName("popup"),
+          {
+            class: ["address-popup"],
+            ref: "popup",
+            props: {
+              position: this.position,
+              showCloseIcon: this.showCloseIcon,
+              fixed: true,
+              closeOnClickModal: true,
+            },
+            on: {
+              beforeEnter: this.handleBeforeEnter,
+              input: this.handleInput,
+            },
+            directives: [
+              {
+                name: "show",
+                value: this.value,
+              },
+            ],
           },
-          on: {
-            beforeEnter: this.handleBeforeEnter,
-            input: this.handleInput,
-          },
-          directives: [{ name: "show", value: this.value }],
-        },
-        [
-          h("div", { class: ["address-container"] }, [
+          [
             h(
-              genComponentName("flex"),
-              { class: ["address-flex"], props: { flexDirection: "column" } },
+              "div",
+              {
+                class: ["address-container"],
+              },
               [
                 h(
-                  genComponentName("flex-item"),
-                  { class: ["address-header"] },
+                  genComponentName("flex"),
+                  {
+                    class: ["address-flex"],
+                    props: {
+                      flexDirection: "column",
+                    },
+                  },
                   [
                     h(
-                      "div",
+                      genComponentName("flex-item"),
                       {
-                        class: [
-                          "address-header-back",
-                          this.showBackIcon ? "" : "hidden",
-                        ],
-                        on: {
-                          click: () => {
-                            this.$emit("input", false);
-                          },
-                        },
+                        class: ["address-header"],
                       },
                       [
-                        // "返回"
                         h(
-                          genComponentName("iconfont"),
-                          { props: { name: "back", size: 14 } },
-                          []
+                          "div",
+                          {
+                            class: [
+                              "address-header-back",
+                              this.showBackIcon ? "" : "hidden",
+                            ],
+                            on: {
+                              click: () => {
+                                this.$emit("input", false);
+                              },
+                            },
+                          },
+                          [
+                            // "返回"
+                            h(
+                              genComponentName("iconfont"),
+                              {
+                                props: {
+                                  name: "back",
+                                  size: 14,
+                                },
+                              },
+                              []
+                            ),
+                          ]
+                        ),
+                        h(
+                          "div",
+                          {
+                            class: ["address-header-title"],
+                          },
+                          [h("span", {}, this.title)]
                         ),
                       ]
                     ),
-                    h("div", { class: ["address-header-title"] }, [
-                      h("span", {}, this.title),
-                    ]),
+                    h(
+                      genComponentName("flex-item"),
+                      {
+                        class: ["address-title"],
+                      },
+                      [
+                        Array.isArray(this.regionList) &&
+                        this.regionList.length > 0
+                          ? h(
+                              genComponentName("flex"),
+                              {
+                                props: {},
+                                class: ["header-container"],
+                              },
+                              Array.apply(null, this.regionHeader).map(
+                                (region, key) => {
+                                  const isStringType = isString(region);
+                                  const text = isStringType
+                                    ? region
+                                    : this.address.parse(region);
+                                  const iWidth = this.$refs.popup.$el
+                                    .offsetWidth;
+                                  const total = iWidth / 15;
+                                  const flex = `0 0 ${
+                                    (text.length / total) * 100
+                                  }%`;
+                                  const isLast =
+                                    key === this.regionHeader.length - 1;
+                                  return h(
+                                    genComponentName("flex-item"),
+                                    {
+                                      props: {
+                                        flex,
+                                      },
+                                      on: {
+                                        click: this.handleTabClick.bind(this, {
+                                          region: {
+                                            [this.attributeMapping["id"]]:
+                                              region[
+                                                this.attributeMapping[
+                                                  "parentId"
+                                                ]
+                                              ],
+                                            [this.attributeMapping["type"]]:
+                                              region[
+                                                this.attributeMapping["type"]
+                                              ],
+                                          },
+                                          key,
+                                        }),
+                                      },
+                                      key,
+                                      class: [
+                                        "header-tab",
+                                        isLast ? "active" : "",
+                                      ],
+                                    },
+                                    [h("span", {}, text)]
+                                  );
+                                }
+                              )
+                            )
+                          : null,
+                      ]
+                    ),
+                    h(
+                      genComponentName("flex-item"),
+                      {
+                        class: ["address-body"],
+                      },
+                      [
+                        h(
+                          "ul",
+                          {
+                            class: ["ul-container"],
+                          },
+                          Array.apply(null, this.regionList).map(
+                            (region, key) => {
+                              return h(
+                                "li",
+                                {
+                                  key,
+                                  on: {
+                                    click: this.handleItemClick.bind(
+                                      this,
+                                      region
+                                    ),
+                                  },
+                                },
+                                this.address.parse(region)
+                              );
+                            }
+                          )
+                        ),
+                      ]
+                    ),
                   ]
                 ),
-                h(genComponentName("flex-item"), { class: ["address-title"] }, [
-                  Array.isArray(this.regionList) && this.regionList.length > 0
-                    ? h(
-                        genComponentName("flex"),
-                        { props: {}, class: ["header-container"] },
-                        Array.apply(null, this.regionHeader).map(
-                          (region, key) => {
-                            const isStringType = isString(region);
-                            const text = isStringType
-                              ? region
-                              : this.address.parse(region);
-                            const iWidth = this.$refs.popup.$el.offsetWidth;
-                            const total = iWidth / 15;
-                            const flex = `0 0 ${(text.length / total) * 100}%`;
-                            const isLast = key === this.regionHeader.length - 1;
-                            return h(
-                              genComponentName("flex-item"),
-                              {
-                                props: { flex },
-                                on: {
-                                  click: this.handleTabClick.bind(this, {
-                                    region: {
-                                      [this.attributeMapping["id"]]:
-                                        region[
-                                          this.attributeMapping["parentId"]
-                                        ],
-                                      [this.attributeMapping["type"]]:
-                                        region[this.attributeMapping["type"]],
-                                    },
-                                    key,
-                                  }),
-                                },
-                                key,
-                                class: ["header-tab", isLast ? "active" : ""],
-                              },
-                              [h("span", {}, text)]
-                            );
-                          }
-                        )
-                      )
-                    : null,
-                ]),
-                h(genComponentName("flex-item"), { class: ["address-body"] }, [
-                  h(
-                    "ul",
-                    { class: ["ul-container"] },
-                    Array.apply(null, this.regionList).map((region, key) => {
-                      return h(
-                        "li",
-                        {
-                          key,
-                          on: {
-                            click: this.handleItemClick.bind(this, region),
-                          },
-                        },
-                        this.address.parse(region)
-                      );
-                    })
-                  ),
-                ]),
               ]
             ),
-          ]),
-        ]
-      ),
-    ]);
+          ]
+        ),
+      ]
+    );
   },
 });
