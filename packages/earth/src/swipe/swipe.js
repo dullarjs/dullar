@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-14 17:09:30
+ * @Last Modified time: 2021-12-16 17:17:34
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -142,7 +142,12 @@ export default defineComponent({
           startTime = Date.now();
         },
         dragging(e) {
-          preventDefault(e.e);
+          if (
+            (that.direction !== "vertical" && !that.vertical) ||
+            (that.direction !== "horizontal" && that.vertical)
+          ) {
+            preventDefault(e.e, true);
+          }
           if (moving) {
             return;
           }
@@ -182,7 +187,7 @@ export default defineComponent({
           const disXY = that.vertical ? that.deltaY : that.deltaX;
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200 && disXY === 0) {
-            preventDefault(e.e);
+            preventDefault(e.e, true);
             that.$emit("click", that.activedIndex);
             return;
           }
