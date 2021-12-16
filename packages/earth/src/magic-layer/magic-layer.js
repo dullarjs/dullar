@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-15 18:32:19
+ * @Last Modified time: 2021-12-16 11:48:56
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -134,7 +134,10 @@ export default defineComponent({
             el.style.transform = `translate3D(0, ${
               actualHeight - innerLayerHeight
             }px, 0)`;
-          } else if (that.deltaY < 0 && Math.abs(that.deltaY) > 10) {
+          } else if (
+            that.deltaY < 0 &&
+            Math.abs(that.deltaY) > that.triggerPoint
+          ) {
             // back where it comes from
             // that.startMove();
             that.opened = false;
