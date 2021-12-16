@@ -81,7 +81,7 @@ export default defineComponent({
       regionList: [],
       regionHeader: [],
       CACHE: {},
-      currentRegionId: "",
+      lock: false,
     };
   },
   methods: {
@@ -116,8 +116,11 @@ export default defineComponent({
         .then((res) => {
           this.updateRegionList(res, args);
           this.setCache(args, res);
+          this.lock = false;
         })
-        .catch(() => {});
+        .catch(() => {
+          this.lock = false;
+        });
     },
     handleBeforeEnter() {
       if (this.regionList.length === 0) {
@@ -128,11 +131,12 @@ export default defineComponent({
       this.$emit("input", false);
     },
     handleItemClick(region) {
-      if (this.currentRegionId === region[this.attributeMapping["id"]]) return;
-      this.currentRegionId = region[this.attributeMapping["id"]];
+      if (this.lock) return;
+      this.lock = true;
       const cache = this.CACHE[region[this.attributeMapping["id"]]];
       if (Array.isArray(cache)) {
         this.updateRegionList(cache, region);
+        this.lock = false;
         return;
       }
       this.requestAddress(region);
