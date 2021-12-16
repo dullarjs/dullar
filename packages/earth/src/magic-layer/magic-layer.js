@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-16 14:51:42
+ * @Last Modified time: 2021-12-16 16:23:55
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -127,6 +127,7 @@ export default defineComponent({
             that.deltaY > that.triggerPoint ||
             (that.deltaY < 0 && Math.abs(that.deltaY) < that.triggerPoint)
           ) {
+            console.log("if = deltaY = ", that.deltaY);
             that.opened = true;
             const actualHeight = that.rect.height - that.bottomHeight;
             that.$refs.innerLayer.style.marginTop = `-${
@@ -143,6 +144,7 @@ export default defineComponent({
           ) {
             // back where it comes from
             // that.startMove();
+            console.log("else = deltaY = ", that.deltaY);
             that.opened = false;
             that.$refs.innerLayer.style.height = `${innerLayerHeight}px`;
             that.$emit("stoped", { height: innerLayerHeight, opened: false });
