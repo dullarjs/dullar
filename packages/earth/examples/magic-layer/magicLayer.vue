@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <yn-magic-layer ref="magicLayer" @dragstart="handleDragstart" @dragging="handleDragging" @stoped="handleStpped" @transitionend="handleTransitionend">
+    <yn-magic-layer :cancelBubbles="cancelBubbles" ref="magicLayer" @dragstart="handleDragstart" @dragging="handleDragging" @stoped="handleStpped" @transitionend="handleTransitionend">
       <div class="inner" :class="animated ? 'animated' : ''" ref="inner" slot="inner">
         <div class="filter-background" ref="filter"></div>
         <div :class="(this.dragstart || this.opened) ? 'swipe-view-box' : ''">
@@ -15,6 +15,15 @@
       </div>
       <div slot="outside" class="outside">
         <p @click="giveItATry">尝试点击一下吧，看还能否触发</p>
+        <p @click="handleDatePick">弹出日历来看看</p>
+        <yn-calendar
+          class="cancel-bubble-event"
+          mode="single"
+          :before="10"
+          :after="10"
+          v-model="calendar1"
+          noticeText="温馨提示：为配合各地政府落实疫情防控常态化措施，避免重复退票带来的不便，铁路车票预售期调整为15天"
+        ></yn-calendar>
       </div>
     </yn-magic-layer>
     <yn-popup class="background" @beforeEnter="beforeEnter" @afterLeave="afterLeave" @afterEnter="afterEnter" v-model="popup" position="middle">
@@ -35,6 +44,8 @@
     name: "YnMagicLayerPage",
     data() {
       return {
+        cancelBubbles: [".cancel-bubble-event"],
+        calendar1: false,
         dragstart: false,
         dragging: false,
         indicatorFixed: true,
@@ -54,6 +65,9 @@
       }
     },
     methods: {
+      handleDatePick() {
+        this.calendar1 = true;
+      },
       giveItATry() {
         this.Toast("点击触发了~~哈哈");
       },
