@@ -2,11 +2,10 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-21 13:50:12
+ * @Last Modified time: 2021-12-21 15:06:58
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
-import { on, off, preventDefault } from "../modules/event";
 import { drop, push } from "../modules/utils";
 import { YnDate } from "../modules/date";
 import Popup from "../popup";
@@ -753,34 +752,9 @@ export default defineComponent({
     handleChange(e) {
       this.$emit("input", e);
     },
-    handleOnScroll(e) {
-      preventDefault(e, true);
-    },
-    initEvent() {
-      const el = this.$refs.scroller.$el;
-      if (!el) return;
-      on(el, "scroll", this.handleOnScroll);
-    },
-    destoryEvent() {
-      const el = this.$refs.scroller;
-      if (!el) return;
-      off(el, "scroll", this.handleOnScroll);
-    },
   },
   created() {
     this.highLightDefault();
-  },
-  mounted() {
-    this.initEvent();
-  },
-  activated() {
-    this.initEvent();
-  },
-  deactivated() {
-    this.destoryEvent();
-  },
-  beforeDestroy() {
-    this.destoryEvent();
   },
   render(h) {
     return h("div", { class: ["yn-calendar"] }, [
