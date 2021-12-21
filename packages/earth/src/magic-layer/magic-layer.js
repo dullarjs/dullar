@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-21 09:37:29
+ * @Last Modified time: 2021-12-21 15:07:52
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -11,6 +11,7 @@ import { getOffset, getScrollTop, addClass, removeClass } from "../modules/dom";
 import { getScroller } from "../modules/dom/scroll";
 import { on, off, preventDefault } from "../modules/event";
 import { slotsMixins } from "../mixins/slots";
+import { contains } from "../modules/dom/contains";
 export default defineComponent({
   name: "MagicLayer",
   mixins: [slotsMixins, touchMixins],
@@ -23,6 +24,12 @@ export default defineComponent({
       type: Number,
       default: 50,
     },
+    cancelBubbles: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
   },
   data() {
     return {
@@ -33,6 +40,11 @@ export default defineComponent({
       executed: false,
       orginInnerLayerHeight: 0,
     };
+  },
+  computed: {
+    bubbleDoms() {
+      return this.cancelBubbles.map((i) => document.querySelector(i));
+    },
   },
   methods: {
     init() {
@@ -71,6 +83,15 @@ export default defineComponent({
       this.$refs.innerLayer.style.marginTop = "auto";
       el.style.transform = null;
     },
+    contains(target) {
+      let contain = false;
+      this.bubbleDoms.forEach((dom) => {
+        if (dom && contains(dom, target)) {
+          contain = true;
+        }
+      });
+      return contain;
+    },
     drag() {
       const el = this.$el;
       if (!el) return;
@@ -81,13 +102,15 @@ export default defineComponent({
       const innerLayerHeight = innerLayer.offsetHeight;
       this.orginInnerLayerHeight = innerLayerHeight;
       this.bindEvent(el, {
-        start() {
+        start(event) {
+          if (that.contains(event.e.target)) return;
           startTime = Date.now();
           const offset = getOffset(el);
           that.currentTop = offset.top;
           that.$emit("dragstart");
         },
         dragging(e) {
+          if (that.contains(e.e.target)) return;
           if (that.deltaY === 0) return;
           let l = 1;
           if (that.deltaY >= 0) {
@@ -117,6 +140,7 @@ export default defineComponent({
           }
         },
         stop(e) {
+          if (that.contains(e.e.target)) return;
           if (that.deltaY === 0) return;
           if (!that.moved || that.scrollTop > 0) return;
           addClass(innerLayer, "animated");
