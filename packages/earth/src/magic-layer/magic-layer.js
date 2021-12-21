@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-06 16:01:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-16 17:24:30
+ * @Last Modified time: 2021-12-21 09:37:29
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -30,9 +30,6 @@ export default defineComponent({
       opened: false,
       scrollElement: null,
       scrollTop: 0,
-      rect: {
-        height: window.innerHeight,
-      },
       executed: false,
       orginInnerLayerHeight: 0,
     };
@@ -127,9 +124,9 @@ export default defineComponent({
             that.deltaY > that.triggerPoint ||
             (that.deltaY < 0 && Math.abs(that.deltaY) < that.triggerPoint)
           ) {
-            console.log("if = deltaY = ", that.deltaY);
             that.opened = true;
-            const actualHeight = that.rect.height - that.bottomHeight;
+            const actualHeight =
+              document.documentElement.clientHeight - that.bottomHeight;
             that.$refs.innerLayer.style.marginTop = `-${
               actualHeight - innerLayerHeight
             }px`;
@@ -144,7 +141,6 @@ export default defineComponent({
           ) {
             // back where it comes from
             // that.startMove();
-            console.log("else = deltaY = ", that.deltaY);
             that.opened = false;
             that.$refs.innerLayer.style.height = `${innerLayerHeight}px`;
             that.$emit("stoped", { height: innerLayerHeight, opened: false });
