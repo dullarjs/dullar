@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
  * @Last Modified by: yegl
- * @Last Modified time: 2021-12-02 13:44:14
+ * @Last Modified time: 2021-12-24 11:24:09
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -125,6 +125,9 @@ export default defineComponent({
     // 头部序列变化
     this.serializationThead();
     this.getDefaultCellLeft();
+  },
+  mounted() {
+    this.setSelectRowKeys();
   },
   watch: {
     dataList: "setPagination",
