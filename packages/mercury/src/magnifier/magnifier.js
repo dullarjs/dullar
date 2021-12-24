@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-16 18:39:36
+ * @Last Modified time: 2021-12-24 11:12:00
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -22,6 +22,10 @@ export default defineComponent({
     zoom: {
       type: Number,
       default: 3,
+    },
+    maxRowCount: {
+      type: Number,
+      default: 5,
     },
   },
   data() {
@@ -68,13 +72,17 @@ export default defineComponent({
         width: `${length * 60 + length * margin}px`,
         marginLeft: `${this.steps * (60 + margin)}px`,
       };
-    }
+    },
   },
   methods: {
     handleAfterEnter() {
       this.popupEntered = true;
-      this.$refs.a.style.width = `${this.$refs[`zoomImage_${this.previewIndex}`].offsetWidth}px`;
-      this.$refs.a.style.height = `${this.$refs[`zoomImage_${this.previewIndex}`].offsetHeight}px`;
+      this.$refs.a.style.width = `${
+        this.$refs[`zoomImage_${this.previewIndex}`].offsetWidth
+      }px`;
+      this.$refs.a.style.height = `${
+        this.$refs[`zoomImage_${this.previewIndex}`].offsetHeight
+      }px`;
     },
     handleAfterLeave() {
       this.popupEntered = false;
@@ -138,11 +146,12 @@ export default defineComponent({
     handlePreviewMouseOut() {},
     nextOrPrevious(button) {
       const length = this.images.length;
-      if (length < 6) {
+      const maxRowCount = this.maxRowCount;
+      if (length <= maxRowCount) {
         return;
       }
       if (button === "next") {
-        if (Math.abs(this.steps) >= length - 5) {
+        if (Math.abs(this.steps) >= length - maxRowCount) {
           return;
         }
         this.steps -= 1;
@@ -165,16 +174,17 @@ export default defineComponent({
       } else if (a === "right") {
         index += 1;
       }
-      index = (index % this.images.length);
+      index = index % this.images.length;
       if (index < 0) {
         index = index + this.images.length;
       }
       this.previewIndex = index;
-    }
+    },
   },
   render(h) {
     const preview = this.images[this.previewIndex];
-    const disabled = this.images.length < 6;
+    const maxRowCount = this.maxRowCount;
+    const disabled = this.images.length <= maxRowCount;
     return h("div", { class: ["yn-magnifier"] }, [
       h("div", { class: ["preview"], on: { click: this.zoomUpImage } }, [
         h(
@@ -238,7 +248,7 @@ export default defineComponent({
                       class: ["left"],
                       props: {
                         name: `magnifier-arrow${
-                          (this.steps === 0 || disabled) ? "" : "-active"
+                          this.steps === 0 || disabled ? "" : "-active"
                         }`,
                         size: 16,
                       },
@@ -292,7 +302,9 @@ export default defineComponent({
                   attrs: { href: "javascript:;" },
                   class: [
                     "next-button",
-                    5 - this.steps === this.images.length ? "disabled" : "",
+                    maxRowCount - this.steps === this.images.length
+                      ? "disabled"
+                      : "",
                   ],
                 },
                 [
@@ -302,7 +314,10 @@ export default defineComponent({
                       class: ["right"],
                       props: {
                         name: `magnifier-arrow${
-                          ((5 - this.steps === this.images.length) || disabled) ? "" : "-active"
+                          maxRowCount - this.steps === this.images.length ||
+                          disabled
+                            ? ""
+                            : "-active"
                         }`,
                         size: 16,
                       },
@@ -342,7 +357,9 @@ export default defineComponent({
                   attrs: { href: "javascript:;" },
                 },
                 [
-                  h("div", { class: ["image-gallery-box"] },
+                  h(
+                    "div",
+                    { class: ["image-gallery-box"] },
                     Array.apply(null, this.images).map((image, index) => {
                       const className = [];
                       if (index > this.previewIndex) {
@@ -356,16 +373,32 @@ export default defineComponent({
                           ref: `zoomImage_${index}`,
                           class: [
                             this.popupEntered && this.zoomEnter ? "hide" : "",
-                            ...className
+                            ...className,
                           ],
                           attrs: { src: image },
                         },
                         []
-                      )
+                      );
                     })
                   ),
-                  h(genComponentName("iconfont"), { on: { click: this.handleImageSwitch.bind(this, "left") }, class: ["left"], props: { name: "yn-left-arrow", size: 60 } }, []),
-                  h(genComponentName("iconfont"), { on: { click: this.handleImageSwitch.bind(this, "right") }, class: ["right"], props: { name: "yn-left-arrow", size: 60 } }, [])
+                  h(
+                    genComponentName("iconfont"),
+                    {
+                      on: { click: this.handleImageSwitch.bind(this, "left") },
+                      class: ["left"],
+                      props: { name: "yn-left-arrow", size: 60 },
+                    },
+                    []
+                  ),
+                  h(
+                    genComponentName("iconfont"),
+                    {
+                      on: { click: this.handleImageSwitch.bind(this, "right") },
+                      class: ["right"],
+                      props: { name: "yn-left-arrow", size: 60 },
+                    },
+                    []
+                  ),
                 ]
               ),
             ]
