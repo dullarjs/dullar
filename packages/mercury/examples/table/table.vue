@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-05 10:07:28
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-17 18:42:23
+ * @Last Modified time: 2021-12-24 11:16:38
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -340,7 +340,7 @@ export default {
             ],
             // 选择系列
             rowSelection: {
-                selectedRowKeys: [], // radio 默认取第一个
+                selectedRowKeys: [0, 3, 5], // radio 默认取第一个
                 onChange: this.handleSelectChange, // 选中之后提供数据调整入口
                 type: "checkbox", // radio 或者checkbox
             },
