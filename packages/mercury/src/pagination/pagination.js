@@ -33,6 +33,10 @@ export default defineComponent({
       type: Object,
       default: null,
     },
+    showLastPage: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -205,7 +209,7 @@ export default defineComponent({
     },
     pageList(h) {
       const list = [];
-      const { totalPage, page } = this;
+      const { totalPage, page, showLastPage } = this;
       let active;
       if (totalPage <= 7) {
         for (let i = 1; i <= totalPage; i++) {
@@ -241,16 +245,18 @@ export default defineComponent({
           list.push(
             h("li", { class: ["yn-pagination-item-ellipsis"] }, ["•••"])
           );
-          list.push(
-            h(
-              "li",
-              {
-                class: ["yn-pagination-button"],
-                on: { click: this.toPage.bind(this, "jump", totalPage) },
-              },
-              [totalPage]
-            )
-          );
+          if (showLastPage) {
+            list.push(
+              h(
+                "li",
+                {
+                  class: ["yn-pagination-button"],
+                  on: { click: this.toPage.bind(this, "jump", totalPage) },
+                },
+                [totalPage]
+              )
+            );
+          }
         }
         if (page > 4 && totalPage - page >= 4) {
           list.push(
@@ -282,16 +288,18 @@ export default defineComponent({
           list.push(
             h("li", { class: ["yn-pagination-item-ellipsis"] }, ["•••"])
           );
-          list.push(
-            h(
-              "li",
-              {
-                class: ["yn-pagination-button"],
-                on: { click: this.toPage.bind(this, "jump", totalPage) },
-              },
-              [totalPage]
-            )
-          );
+          if (showLastPage) {
+            list.push(
+              h(
+                "li",
+                {
+                  class: ["yn-pagination-button"],
+                  on: { click: this.toPage.bind(this, "jump", totalPage) },
+                },
+                [totalPage]
+              )
+            );
+          }
         }
         if (totalPage - page < 4) {
           list.push(
