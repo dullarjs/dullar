@@ -33,6 +33,7 @@
         <li @click="jump('dragable')">dragable</li>
         <li @click="jump('magicLayer')">magicLayer</li>
         <li @click="jump('magicLayer2')">magicLayer basic</li>
+        <li @click="jump('textarea')">textarea</li>
       </ul>
   </div>
 </template>
