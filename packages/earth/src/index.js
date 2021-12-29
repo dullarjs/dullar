@@ -44,6 +44,7 @@ import Swipe from "./swipe";
 import SwipeItem from "./swipe-item";
 import TabItem from "./tab-item";
 import Tabs from "./tabs";
+import Textarea from "./textarea";
 import Toast from "./toast";
 
 const components = [
@@ -86,6 +87,7 @@ const components = [
   SwipeItem,
   TabItem,
   Tabs,
+  Textarea,
   Toast,
 ];
 const install = (Vue) => {
@@ -168,4 +170,5 @@ export { Swipe as YnSwipe };
 export { SwipeItem as YnSwipeItem };
 export { TabItem as YnTabItem };
 export { Tabs as YnTabs };
+export { Textarea as YnTextarea };
 export { Toast as YnToast };
