@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-29 13:41:28
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-29 18:44:41
+ * @Last Modified time: 2021-12-30 16:40:56
  * @E-mail: justbefree@126.com
  */
 
@@ -75,8 +75,18 @@ export default defineComponent({
       this.autoWrap(e.target);
     },
     handleFocus(e) {
+      const value = e.target.value;
       this.focused = true;
       this.$emit("focus", { e, wrapped: this.wrapped, focused: this.focused });
+      if (value !== "") {
+        e.target.value = "";
+        this.$emit("input", "");
+        const timer = setTimeout(() => {
+          e.target.value = value;
+          this.$emit("input", clearBr(value));
+          clearTimeout(timer);
+        }, 0);
+      }
     },
     handleBlur(e) {
       this.focused = false;
