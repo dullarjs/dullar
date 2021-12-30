@@ -2,13 +2,14 @@
  * @Author: Just be free
  * @Date:   2021-12-29 13:41:28
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-29 17:07:50
+ * @Last Modified time: 2021-12-29 18:44:41
  * @E-mail: justbefree@126.com
  */
 
 import { defineComponent } from "../modules/component";
 import { getPropertyValue } from "../modules/dom/style";
 import { getScroller } from "../modules/dom/scroll";
+import { clearBr } from "../modules/utils";
 export default defineComponent({
   name: "Textarea",
   props: {
@@ -70,7 +71,7 @@ export default defineComponent({
     },
     handleInput(e) {
       this.$emit("change", { e, wrapped: this.wrapped, focused: this.focused });
-      this.$emit("input", e.target.value);
+      this.$emit("input", clearBr(e.target.value));
       this.autoWrap(e.target);
     },
     handleFocus(e) {
