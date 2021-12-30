@@ -9,7 +9,7 @@
       <li @click="handlePicker(9)">受限城市搜索</li>
       <li @click="handlePicker(5)">显示历史记录</li>
       <li @click="handlePicker(6)">不显示热门城市</li>
-      <li @click="handlePicker(7)">可搜索</li>
+      <li @click="handlePicker(7)">可搜索【关闭后会自动清除上次搜索记录】</li>
       <li @click="handlePicker(8)">可搜索(三列布局)</li>
     </ul>
     <yn-city-picker
@@ -71,6 +71,7 @@
       :showHotCity="false"
     ></yn-city-picker>
     <yn-city-picker
+      ref="cityPicker"
       :search="getSearch()"
       :alphaBeta="getAlphaBeta()"
       :history="getHistory()"
@@ -79,6 +80,7 @@
       @pick="handlePick"
       v-model="picker7"
       :parse="parse"
+      @afterLeave="handleAfterLeave"
     ></yn-city-picker>
     <yn-city-picker
       :search="getSearch()"
@@ -126,6 +128,9 @@ export default {
     };
   },
   methods: {
+    handleAfterLeave() {
+      this.$refs.cityPicker.clearSearchKeywords();
+    },
     parse(h, city, nameSpace) {
       if (nameSpace === "search-result") {
         return  h("span", {}, [
