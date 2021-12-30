@@ -51,8 +51,8 @@ export default {
       // this.text1 = value.trim();
       // this.text1 = value.replace(/^\s+|\s+$/g,"").replace(/<\/?.+?>/g,"").replace(/[\r\n]/g, "");
       this.text2 = value;
-      this.focused = e.focused;
-      this.wrapped = e.wrapped;
+      this.focused2 = e.focused;
+      this.wrapped2 = e.wrapped;
     }
   }
 };
