@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-29 13:41:28
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-30 16:40:56
+ * @Last Modified time: 2021-12-30 17:51:11
  * @E-mail: justbefree@126.com
  */
 
@@ -17,6 +17,10 @@ export default defineComponent({
     maxHeight: {
       type: Number,
       default: 200,
+    },
+    fixedCursor: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -78,7 +82,7 @@ export default defineComponent({
       const value = e.target.value;
       this.focused = true;
       this.$emit("focus", { e, wrapped: this.wrapped, focused: this.focused });
-      if (value !== "") {
+      if (this.fixedCursor && value !== "") {
         e.target.value = "";
         this.$emit("input", "");
         const timer = setTimeout(() => {
