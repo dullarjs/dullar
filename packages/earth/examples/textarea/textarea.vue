@@ -26,7 +26,8 @@ export default {
       const value = e.e.target.value;
       console.log(value);
       // this.text1 = value.trim();
-      this.text1 = value.replace(/^\s+|\s+$/g,"").replace(/<\/?.+?>/g,"").replace(/[\r\n]/g, "");
+      // this.text1 = value.replace(/^\s+|\s+$/g,"").replace(/<\/?.+?>/g,"").replace(/[\r\n]/g, "");
+      this.text1 = value;
       this.focused = e.focused;
       this.wrapped = e.wrapped;
     }
