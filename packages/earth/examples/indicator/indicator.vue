@@ -21,12 +21,13 @@ export default {
     indicator(spinType, transparent) {
       if (spinType === "rotate") {
         this.Indicator.open({ spinType, background: "#fff", lockScreen: true, transparent });
-        setTimeout(() => {
-          this.Indicator.close();
-        }, 3000);
       } else {
         this.Indicator.open({ text: spinType, spinType });
       }
+      const timer = setTimeout(() => {
+        this.Indicator.close();
+        clearTimeout(timer);
+      }, 3000);
     }
   }
 };
