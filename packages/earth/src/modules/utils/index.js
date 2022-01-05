@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-09 18:03:10
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-29 18:25:46
+ * @Last Modified time: 2022-01-05 15:06:37
  */
 export const hasOwnProperty = (obj, props) => {
   return Object.prototype.hasOwnProperty.call(obj, props);
@@ -108,8 +108,6 @@ export const guid = () => {
   );
 };
 export const clearBr = (str) => {
-  console.log("before = ", str);
   const after = str.replace(/<\/?.+?>/g, "").replace(/[\r\n]/g, "");
-  console.log("after = ", after);
   return after;
 };
