@@ -29,6 +29,7 @@ export default defineComponent({
       minHeight: 24,
       wrapped: false,
       focused: false,
+      id:Date.now()
     };
   },
   computed: {
@@ -83,12 +84,9 @@ export default defineComponent({
       this.focused = true;
       this.$emit("focus", { e, wrapped: this.wrapped, focused: this.focused });
       if (this.fixedCursor && value !== "") {
-        e.target.value = "";
-        this.$emit("input", "");
-        const timer = setTimeout(() => {
-          e.target.value = value;
-          this.$emit("input", clearBr(value));
-          clearTimeout(timer);
+        const obj = document.getElementsByClassName(`${this.id}`)[0]; 
+        setTimeout(() => {
+          obj.selectionStart= e.target.value.length
         }, 0);
       }
     },
@@ -106,7 +104,7 @@ export default defineComponent({
     return h(
       "textarea",
       {
-        class: ["yn-textarea", this.className],
+        class: ["yn-textarea", this.className,`${this.id}`],
         attrs: { ...props },
         domProps: { value: this.value },
         on: {
