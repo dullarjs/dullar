@@ -83,11 +83,9 @@ export default defineComponent({
       this.focused = true;
       this.$emit("focus", { e, wrapped: this.wrapped, focused: this.focused });
       if (this.fixedCursor && value !== "") {
-        e.target.value = "";
-        this.$emit("input", "");
+        const obj = this.$refs.textarea; 
         const timer = setTimeout(() => {
-          e.target.value = value;
-          this.$emit("input", clearBr(value));
+          obj.selectionStart= e.target.value.length
           clearTimeout(timer);
         }, 0);
       }
@@ -106,6 +104,7 @@ export default defineComponent({
     return h(
       "textarea",
       {
+        ref: "textarea",
         class: ["yn-textarea", this.className],
         attrs: { ...props },
         domProps: { value: this.value },
