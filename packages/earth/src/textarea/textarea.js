@@ -29,7 +29,6 @@ export default defineComponent({
       minHeight: 24,
       wrapped: false,
       focused: false,
-      flag: 0,
     };
   },
   computed: {
