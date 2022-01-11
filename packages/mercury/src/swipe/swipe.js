@@ -427,14 +427,14 @@ export default defineComponent({
           h(
             "div",
             {
-              class: ["swipe-arrow-left-box center"],
+              class: ["swipe-arrow-left-box"],
             },
             [
               h(
                 "div",
                 {
                   class: [
-                    "swipe-arrow-left center",
+                    "swipe-arrow-left",
                     arrow === "hover" ? "arrow-none" : "",
                   ],
                 },
@@ -459,14 +459,14 @@ export default defineComponent({
           h(
             "div",
             {
-              class: ["swipe-arrow-right-box center"],
+              class: ["swipe-arrow-right-box"],
             },
             [
               h(
                 "div",
                 {
                   class: [
-                    "swipe-arrow-right center",
+                    "swipe-arrow-right",
                     arrow === "hover" ? "arrow-none" : "",
                   ],
                 },
