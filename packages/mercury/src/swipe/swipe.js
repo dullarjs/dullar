@@ -36,14 +36,6 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    indicatorActive: {
-      type: String,
-      default: "#007aff", // circular dashed
-    },
-    indicatorDefault: {
-      type: String,
-      default: "#B1D5FD", // circular dashed
-    },
     indicatorType: {
       type: String,
       default: "dashed", // circular dashed
