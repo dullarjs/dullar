@@ -63,7 +63,7 @@
         <yn-button @click="next('swipe2')">close</yn-button>
       </div>
     </div>
-    <div class="box3" style="width: 1200px; margin: 36px">
+    <div class="box3">
       <h3>左右滑动轮播图</h3>
       <yn-swipe :autoPlay="-1" :height="400" :imageViewer="true" arrow="hover" indicatorType="circular" trigger="click" :showCloseIcon="false" ref="swipe3">
         <yn-swipe-item>
