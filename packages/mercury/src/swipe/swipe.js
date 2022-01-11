@@ -25,8 +25,12 @@ export default defineComponent({
   props: {
     vertical: Boolean,
     autoPlay: {
+      type: Boolean,
+      default: true,
+    },
+    duration: {
       type: [Number, String],
-      default: 1000,
+      default: 3000,
     },
     autoPlayWhenPopup: {
       type: Boolean,
@@ -51,6 +55,10 @@ export default defineComponent({
     height: {
       type: [String, Number],
       default: 240,
+    },
+    hoverPause: {
+      type: Boolean,
+      default: false,
     },
     showCloseIcon: {
       type: Boolean,
@@ -228,18 +236,19 @@ export default defineComponent({
       );
     },
     paly() {
-      if (this.showPopup && !this.autoPlayWhenPopup) {
+      const { showPopup, autoPlayWhenPopup, autoPlay, duration } = this;
+      if (showPopup && !autoPlayWhenPopup && !autoPlay) {
         return;
       }
-      const autoPlay = this.showPopup ? 99999999999 : this.autoPlay;
-      if (Number(this.autoPlay) > 0 && this.children.length > 1) {
+      const durationTime = showPopup ? 99999999999 : duration;
+      if (autoPlay && this.children.length > 1) {
         this.stop();
         this.timer = setTimeout(() => {
           if (!this.showPopup) {
             this.updateActivedIndex(1);
             this.paly();
           }
-        }, Number(autoPlay));
+        }, Number(durationTime));
       }
     },
     next() {
@@ -283,13 +292,13 @@ export default defineComponent({
     stop() {
       clearTimeout(this.timer);
     },
-    swipeMouseenter(key) {
+    indicatorMouseenter(key) {
       if (this.trigger !== "hover") {
         return;
       }
       this.switchSwipe(key);
     },
-    swipeClick(key) {
+    indicatorClick(key) {
       if (this.trigger !== "click") {
         return;
       }
@@ -355,8 +364,8 @@ export default defineComponent({
               {
                 class: ["indicator-dot-box"],
                 on: {
-                  click: () => this.swipeClick(key),
-                  mouseenter: () => this.swipeMouseenter(key),
+                  click: () => this.indicatorClick(key),
+                  mouseenter: () => this.indicatorMouseenter(key),
                 },
               },
               [
@@ -484,6 +493,18 @@ export default defineComponent({
         ];
       }
     },
+    swipeMouseenter() {
+      if (!this.hoverPause) {
+        return;
+      }
+      this.stop();
+    },
+    swipeMouseleave() {
+      if (!this.hoverPause) {
+        return;
+      }
+      this.paly();
+    },
     getSwipper(h, slots) {
       const { vertical } = this;
       const swiper = [
@@ -496,6 +517,10 @@ export default defineComponent({
             },
             class: ["yn-swipe-list-container"],
             ref: "swipeContainer",
+            on: {
+              mouseenter: this.swipeMouseenter,
+              mouseleave: this.swipeMouseleave,
+            },
           },
           slots
         ),
