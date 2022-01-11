@@ -1,25 +1,78 @@
 @import "../../theme/variable.less";
+
 .yn-swipe {
   width: 100%;
   user-select: none;
   position: relative;
   background: #fff;
   cursor: grab;
+
+  .swipe-arrow-left {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    padding: 8px;
+    border-radius: 50%;
+    background: #999;
+    opacity: 0.3;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  .swipe-arrow-right {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    padding: 8px;
+    border-radius: 50%;
+    background: #999;
+    opacity: 0.3;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+
+    .arrow-right-icon {
+      transform: rotate(180deg);
+    }
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arrow-none {
+    display: none;
+  }
+
   > .v-ynpopup-modal {
     background: #000;
   }
+
   .yn-swipe-list-container,
   .yn-swipe-popup-list-container {
     position: relative;
     overflow: hidden;
+
     .yn-swipe-item {
       width: 100%;
       height: 100%;
       position: absolute;
+
       &.loaded {
       }
+
       &.loading {
       }
+
       img {
         display: block;
         pointer-events: none;
@@ -29,16 +82,30 @@
       }
     }
   }
+
   .yn-swipe-indicators {
+    z-index: 2;
+
     &.vertical {
       left: 5px;
       top: 50%;
       transform: translateY(-50%);
-      .indicator-dot {
-        display: block;
-        width: 2px;
-        height: 15px;
-        margin: 3px 0;
+
+      .indicator-dot-box {
+        .indicator-dot {
+          display: block;
+          width: 2px;
+          height: 15px;
+          margin: 3px 0;
+        }
+
+        .indicator-circular {
+          display: block;
+          width: 10px;
+          height: 10px;
+          padding: 5px;
+          border-radius: 50%;
+        }
       }
       &.number {
         bottom: 5px;
@@ -47,31 +114,52 @@
         top: auto;
       }
     }
+
     &.horizontal {
       bottom: 5px;
       left: 50%;
       transform: translateX(-50%);
-      .indicator-dot {
-        width: 15px;
-        height: 2px;
-        margin: 0 3px;
-        display: inline-block;
+      display: flex;
+
+      .indicator-dot-box {
+        cursor: auto;
+        .indicator-dot {
+          width: 15px;
+          height: 2px;
+          margin: 0 3px;
+          display: inline-block;
+        }
+
+        .indicator-circular {
+          display: block;
+          width: 10px;
+          height: 10px;
+          margin: 5px;
+          border-radius: 50%;
+        }
       }
     }
-    pointer-events: none;
+
+    // pointer-events: none;
     position: absolute;
+
     .indicator-dot {
       background: @theme-color;
     }
+
     .index {
       font-size: 13px;
       display: inline-block;
       height: 20px;
       line-height: 20px;
     }
+
     &.number {
       text-align: right;
+      display: flex;
+      justify-content: end;
       width: 100%;
+
       .index {
         background: rgba(0, 0, 0, 0.5);
         margin-right: 5px;
@@ -80,11 +168,19 @@
         color: #fff;
       }
     }
+
     .indicator-dot {
       opacity: 0.3;
+
       &.active {
         opacity: 1;
       }
     }
+  }
+}
+
+.yn-swipe-hover:hover {
+  .arrow-none {
+    display: block;
   }
 }

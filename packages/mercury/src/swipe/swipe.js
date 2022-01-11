@@ -18,13 +18,15 @@ import Popup from "../popup";
 import { EventBus } from "../modules/event/bus";
 export default defineComponent({
   name: "Swipe",
-  components: { Popup },
+  components: {
+    Popup,
+  },
   mixins: [slotsMixins, provideMixins(), touchMixins, renderedMixins],
   props: {
     vertical: Boolean,
     autoPlay: {
       type: [Number, String],
-      default: 3000,
+      default: 1000,
     },
     autoPlayWhenPopup: {
       type: Boolean,
@@ -36,7 +38,15 @@ export default defineComponent({
     },
     indicatorType: {
       type: String,
-      default: "dashed",
+      default: "dashed", // circular dashed
+    },
+    arrow: {
+      type: String,
+      default: "none", // hover always none
+    },
+    trigger: {
+      type: String,
+      default: "none", // hover click none
     },
     height: {
       type: [String, Number],
@@ -70,6 +80,7 @@ export default defineComponent({
       children: [],
       fullScreen: false,
       counts: 0,
+      oldActivedIndex: 0,
     };
   },
   computed: {
@@ -169,6 +180,10 @@ export default defineComponent({
           const disXY = that.vertical ? that.deltaY : that.deltaX;
           const timeDiff = Date.now() - startTime;
           if (timeDiff < 200 && disXY === 0) {
+            if (that.showPopup) {
+              that.closeImageViewer();
+              return;
+            }
             preventDefault(e.e);
             that.$emit("click", that.activedIndex);
             that.openImageViewer();
@@ -182,33 +197,49 @@ export default defineComponent({
           that.startMove(prevEle, disXY, -1 * num * that.size - disXY);
           curEle.style[attr] = `${num * that.size + disXY}px`;
           nextEle.style[attr] = `${num * that.size}px`;
-          that.startMove(curEle, num * that.size + disXY, -1 * num * that.size - disXY, () => {
-            moving = false;
-            prevEle = null;
-            curEle = null;
-            nextEle = null;
-            r = null;
-          });
+          that.startMove(
+            curEle,
+            num * that.size + disXY,
+            -1 * num * that.size - disXY,
+            () => {
+              moving = false;
+              prevEle = null;
+              curEle = null;
+              nextEle = null;
+              r = null;
+            }
+          );
         },
       });
     },
     startMove(el, b = 0, c = 0, fn) {
       const { vertical } = this;
       const attr = vertical ? "top" : "left";
-      move(el, { attr, b, c }, () => {
-        fn && typeof fn === "function" && fn.call(this, el);
-      });
+      move(
+        el,
+        {
+          attr,
+          b,
+          c,
+        },
+        () => {
+          fn && typeof fn === "function" && fn.call(this, el);
+        }
+      );
     },
     paly() {
       if (this.showPopup && !this.autoPlayWhenPopup) {
         return;
       }
+      const autoPlay = this.showPopup ? 99999999999 : this.autoPlay;
       if (Number(this.autoPlay) > 0 && this.children.length > 1) {
         this.stop();
         this.timer = setTimeout(() => {
-          this.updateActivedIndex(1);
-          this.paly();
-        }, Number(this.autoPlay));
+          if (!this.showPopup) {
+            this.updateActivedIndex(1);
+            this.paly();
+          }
+        }, Number(autoPlay));
       }
     },
     next() {
@@ -252,6 +283,55 @@ export default defineComponent({
     stop() {
       clearTimeout(this.timer);
     },
+    swipeMouseenter(key) {
+      if (this.trigger !== "hover") {
+        return;
+      }
+      this.switchSwipe(key);
+    },
+    swipeClick(key) {
+      if (this.trigger !== "click") {
+        return;
+      }
+      this.switchSwipe(key);
+    },
+    switchSwipe(key) {
+      const num = key - this.delayActivedIndex;
+      this.oldActivedIndex = this.delayActivedIndex;
+      this.activedIndex = key;
+      this.delayActivedIndex = key;
+      this.moving = false;
+      this.stop();
+      this.copyUpdateActivedIndex(num > 0 ? 1 : -1, key, () => {
+        this.paly();
+      });
+    },
+    copyUpdateActivedIndex(num, key, callback) {
+      // 正在运动的时候不允许连续点击
+      if (this.moving) {
+        return false;
+      }
+      this.moving = true;
+      let r;
+      const isPositive = num > 0;
+      if (isPositive) {
+        r = this.R.next();
+      } else {
+        r = this.R.previous();
+      }
+      r.i = key;
+      const prevEle = this.children[this.oldActivedIndex];
+      const curEle = this.children[r.getIndex()];
+      const nextEle = this.children[r.getNext()];
+      const attr = this.vertical ? "top" : "left";
+      this.startMove(prevEle, 0, -1 * num * this.size);
+      curEle.style[attr] = `${num * this.size}px`;
+      this.startMove(curEle, num * this.size, -1 * num * this.size, (el) => {
+        this.moving = false;
+        callback && typeof callback === "function" && callback(el);
+      });
+      nextEle.style[attr] = `${num * this.size}px`;
+    },
     creteIndicator(h, length = 0) {
       const { showIndicator, indicatorType, delayActivedIndex } = this;
       if (showIndicator) {
@@ -260,21 +340,38 @@ export default defineComponent({
           type = [
             h(
               "span",
-              { class: ["index"] },
+              {
+                class: ["index"],
+              },
               `${delayActivedIndex + 1}/${length}`
             ),
           ];
         } else {
-          type = Array.apply(null, { length }).map((i, key) => {
+          type = Array.apply(null, {
+            length,
+          }).map((i, key) => {
             return h(
-              "i",
+              "div",
               {
-                class: [
-                  "indicator-dot",
-                  Math.abs(delayActivedIndex) === key ? "active" : "",
-                ],
+                class: ["indicator-dot-box"],
+                on: {
+                  click: () => this.swipeClick(key),
+                  mouseenter: () => this.swipeMouseenter(key),
+                },
               },
-              []
+              [
+                h(
+                  "i",
+                  {
+                    class: [
+                      "indicator-dot",
+                      indicatorType === "circular" ? "indicator-circular" : "",
+                      Math.abs(delayActivedIndex) === key ? "active" : "",
+                    ],
+                  },
+                  []
+                ),
+              ]
             );
           });
         }
@@ -314,18 +411,96 @@ export default defineComponent({
         this.drag();
       });
     },
+    creteArrow(h) {
+      const { arrow, showPopup } = this;
+      if (arrow === "always" || (arrow === "hover" && !showPopup)) {
+        return [
+          h(
+            "div",
+            {
+              class: ["swipe-arrow-left-box center"],
+            },
+            [
+              h(
+                "div",
+                {
+                  class: [
+                    "swipe-arrow-left center",
+                    arrow === "hover" ? "arrow-none" : "",
+                  ],
+                },
+                [
+                  h(
+                    genComponentName("iconfont"),
+                    {
+                      props: {
+                        name: "arrow",
+                        size: "28",
+                      },
+                      nativeOn: {
+                        click: this.prev,
+                      },
+                    },
+                    []
+                  ),
+                ]
+              ),
+            ]
+          ),
+          h(
+            "div",
+            {
+              class: ["swipe-arrow-right-box center"],
+            },
+            [
+              h(
+                "div",
+                {
+                  class: [
+                    "swipe-arrow-right center",
+                    arrow === "hover" ? "arrow-none" : "",
+                  ],
+                },
+                [
+                  h(
+                    genComponentName("iconfont"),
+                    {
+                      props: {
+                        name: "arrow",
+                        size: "28",
+                        color: "#fff",
+                      },
+                      class: ["arrow-right-icon"],
+                      nativeOn: {
+                        click: this.next,
+                      },
+                    },
+                    []
+                  ),
+                ]
+              ),
+            ]
+          ),
+        ];
+      }
+    },
     getSwipper(h, slots) {
+      const { vertical } = this;
       const swiper = [
         h(
           "div",
           {
-            style: { width: `${this.width}px`, height: `${this.height}px` },
+            style: {
+              width: `${this.width}px`,
+              height: `${this.height}px`,
+            },
             class: ["yn-swipe-list-container"],
             ref: "swipeContainer",
           },
           slots
         ),
         this.creteIndicator(h, slots.length),
+        !vertical && this.creteArrow(h),
       ];
       if (this.fullScreen) {
         return [
@@ -342,7 +517,12 @@ export default defineComponent({
                 showCloseIcon: this.showCloseIcon,
                 // closeOnClickModal: false,
               },
-              directives: [{ name: "show", value: this.showPopup }],
+              directives: [
+                {
+                  name: "show",
+                  value: this.showPopup,
+                },
+              ],
             },
             swiper
           ),
@@ -367,6 +547,7 @@ export default defineComponent({
     off(window, "visibilitychange", this.visibilityChangeEvent);
   },
   render(h) {
+    const { arrow } = this;
     const prefix = this.VUE_APP_PREFIX;
     let validChildComponent = VALID_CHILD_COMPONENT;
     if (prefix !== "") {
@@ -376,7 +557,10 @@ export default defineComponent({
     this.count = slots.length;
     return h(
       "div",
-      { class: ["yn-swipe"], style: this.swipeStyle },
+      {
+        class: ["yn-swipe", arrow === "hover" ? "yn-swipe-hover" : ""],
+        style: this.swipeStyle,
+      },
       this.getSwipper(h, slots)
     );
   },
