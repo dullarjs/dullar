@@ -41,7 +41,7 @@
     </div>
     <div class="box">
       <h3>上下滑动轮播图</h3>
-      <yn-swipe vertical :showCloseIcon="false" ref="swipe2">
+      <yn-swipe vertical :showCloseIcon="false" :autoPlay="false" ref="swipe2">
         <yn-swipe-item>
           <img src="./images/apple-1.jpg" />
         </yn-swipe-item>
@@ -65,7 +65,7 @@
     </div>
     <div class="box3">
       <h3>左右滑动轮播图</h3>
-      <yn-swipe :autoPlay="-1" :height="400" :imageViewer="true" arrow="hover" indicatorType="circular" trigger="click" :showCloseIcon="false" ref="swipe3">
+      <yn-swipe :height="400" hoverPause :imageViewer="false" arrow="hover" indicatorType="circular" trigger="click" :showCloseIcon="false" ref="swipe3">
         <yn-swipe-item>
           <img src="./images/apple-1.jpg" />
         </yn-swipe-item>
