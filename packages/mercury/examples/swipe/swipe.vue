@@ -3,11 +3,23 @@
     <h2>yn-swipe</h2>
     <div class="box">
       <h3>左右滑动轮播图</h3>
-      <yn-swipe ref="swipe1" indicatorType="number">
+      <yn-swipe ref="swipe1" :showCloseIcon="false" indicatorType="number">
         <yn-swipe-item>
           <div>
             <img src="./images/apple-1.jpg" />
           </div>
+        </yn-swipe-item>
+        <yn-swipe-item>
+          <img src="./images/apple-2.jpg" />
+        </yn-swipe-item>
+        <yn-swipe-item>
+          <img src="./images/apple-3.jpg" />
+        </yn-swipe-item>
+        <yn-swipe-item>
+          <img src="./images/apple-4.jpg" />
+        </yn-swipe-item>
+        <yn-swipe-item>
+          <img src="./images/apple-1.jpg" />
         </yn-swipe-item>
         <yn-swipe-item>
           <img src="./images/apple-2.jpg" />
@@ -29,7 +41,7 @@
     </div>
     <div class="box">
       <h3>上下滑动轮播图</h3>
-      <yn-swipe vertical ref="swipe2">
+      <yn-swipe vertical :showCloseIcon="false" ref="swipe2">
         <yn-swipe-item>
           <img src="./images/apple-1.jpg" />
         </yn-swipe-item>
@@ -50,6 +62,23 @@
         <yn-button @click="next('swipe2')">open</yn-button>
         <yn-button @click="next('swipe2')">close</yn-button>
       </div>
+    </div>
+    <div class="box3" style="width: 1200px; margin: 36px">
+      <h3>左右滑动轮播图</h3>
+      <yn-swipe :autoPlay="-1" :height="400" :imageViewer="true" arrow="hover" indicatorType="circular" trigger="click" :showCloseIcon="false" ref="swipe3">
+        <yn-swipe-item>
+          <img src="./images/apple-1.jpg" />
+        </yn-swipe-item>
+        <yn-swipe-item>
+          <img src="./images/apple-2.jpg" />
+        </yn-swipe-item>
+        <yn-swipe-item>
+          <img src="./images/apple-3.jpg" />
+        </yn-swipe-item>
+        <yn-swipe-item>
+          <img src="./images/apple-4.jpg" />
+        </yn-swipe-item>
+      </yn-swipe>
     </div>
   </div>
 </template>
@@ -73,8 +102,8 @@ export default {
     },
     close(ref) {
       this.$refs[ref].closeImageViewer();
-    }
-  }
+    },
+  },
 };
 </script>
 <style type="text/css" scoped="scoped">
@@ -89,5 +118,8 @@ export default {
 img {
   width: 100%;
   height: 240px;
+}
+.box3 img {
+  height: 400px;
 }
 </style>
