@@ -76,6 +76,7 @@ export default defineComponent({
     },
     handleInput(e) {
       this.$emit("change", { e, wrapped: this.wrapped, focused: this.focused });
+      e.target.value = e.target.value.replace(/\n/,'')
       this.$emit("input", clearBr(e.target.value));
       this.autoWrap(e.target);
     },
@@ -100,16 +101,7 @@ export default defineComponent({
     this.scrollElement = getScroller(this.$el);
     this.minHeight = parseInt(getPropertyValue(this.$el, "height"));
   },
-  watch: {
-    value: {
-      handler() {
-        this.$nextTick(() => {
-          this.autoWrap(this.$refs.textarea);
-        });
-      },
-      deep: true,
-    },
-  },
+
 
   render(h) {
     const props = this.$props;
