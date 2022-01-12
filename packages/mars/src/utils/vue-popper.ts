@@ -48,9 +48,9 @@ export default class Popup extends Vue {
 
   arrowAppended = false;
   currentPlacement = "";
-  popperJS: AnyObject | null = null;
-  popperElm: HTMLElement = document.createElement("span");
-  referenceElm: HTMLElement = document.createElement("span");
+  popperJS: AnyObject | undefined = undefined;
+  popperElm: HTMLElement | undefined = undefined;
+  referenceElm: HTMLElement | undefined = undefined;
 
   @Watch("visible")
   onVisible(n: boolean) {
@@ -67,8 +67,8 @@ export default class Popup extends Vue {
       return;
     }
     const options: AnyObject = {};
-    const popper = this.popperElm = this.popperElm || this.$refs.popper;
-    let reference = this.referenceElm = this.referenceElm || this.$refs.reference;
+    const popper = this.popperElm = (this.popperElm || this.$refs.popper) as HTMLElement;
+    let reference = this.referenceElm = (this.referenceElm || this.$refs.reference) as HTMLElement;
 
     if (!reference &&
       this.$slots.reference &&
@@ -113,6 +113,7 @@ export default class Popup extends Vue {
     if (this.arrowAppended) return;
     const arrow = document.createElement("div");
     arrow.setAttribute("class", "popper__arrow");
+    arrow.setAttribute('x-arrow', '');
     ele.appendChild(arrow);
     this.arrowAppended = true;
   }

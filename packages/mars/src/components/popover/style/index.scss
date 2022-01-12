@@ -1,20 +1,18 @@
 @import "src/theme/varible.scss";
-.el-popover__wrapper {
-  .el-popover{
-    position:absolute;
-    background: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
-    border: 1px solid #EBEEF5;
-    box-sizing:border-box;
-    padding: 18px 20px;
-    min-width: 180px;
-    word-break: break-all;
-    text-align: justify;
-    font-size: 14px;
-    line-height: 1.4;
-    color:#606266;
-  }
+.el-popover{
+  position:absolute;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
+  border: 1px solid #EBEEF5;
+  box-sizing:border-box;
+  padding: 18px 20px;
+  min-width: 180px;
+  word-break: break-all;
+  text-align: justify;
+  font-size: 14px;
+  line-height: 1.4;
+  color:#606266;
 }
 .el-popover__title{
   margin-bottom: 12px;

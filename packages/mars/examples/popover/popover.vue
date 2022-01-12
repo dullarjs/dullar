@@ -12,7 +12,7 @@
     </Popover>
     <Popover
       :visible.sync="popoverVisible2"
-      :placement="'top'"
+      :placement="'top-end'"
       :width="150"
     >
       <template v-slot:reference>
@@ -22,7 +22,7 @@
     <Popover
       :visible.sync="popoverVisible3"
       :width="200"
-      :placement="'left'"
+      :placement="'left-end'"
     >
       <template v-slot:reference>
         <button >click激活,左边展示</button>
@@ -68,7 +68,7 @@
 import Vue from "vue";
 import "./style/index.scss";
 import { Component } from "vue-property-decorator";
-import Popover from "@/components/popover";
+import Popover from "../../src/components/popover";
 @Component({
   name: "popoverPage",
   components: {
