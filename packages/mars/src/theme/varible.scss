@@ -1,0 +1,14 @@
+/* Color
+-------------------------- */
+$--color-primary: #409EFF !default;
+$--color-white: #FFFFFF !default;
+$--color-black: #000000 !default;
+
+/* Popup
+-------------------------- */
+$--popup-modal-background-color: $--color-black !default;
+$--popup-modal-opacity: 0.5 !default;
+$--popover-arrow-size: 6px !default;
+
+/** transition*/
+$--fade-linear-transition: opacity 200ms linear !default;
