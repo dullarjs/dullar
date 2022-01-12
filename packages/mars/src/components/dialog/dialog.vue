@@ -29,9 +29,9 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Mixins, Prop  } from "vue-property-decorator";
-import Popup from "@/utils/popup";
+import Popup from "../../utils/popup";
 import "./style/index.scss";
-import { AnyObject } from "@/types";
+import { AnyObject } from "../../types";
 @Component({
   name: "Dialog"
 })

@@ -36,9 +36,9 @@ import Vue from "vue";
 import { Component, Mixins, Prop, Watch  } from "vue-property-decorator";
 import "./style/index.scss";
 import "@/theme/transition.scss";
-import { AnyObject } from "@/types";
-import { on, off } from "@/utils/dom";
-import Popper from "@/utils/vue-popper";
+import { AnyObject } from "../../types";
+import { on, off } from "../../utils/dom";
+import Popper from "../../utils/vue-popper";
 
 @Component({
   name: "Popper"
