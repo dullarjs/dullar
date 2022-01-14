@@ -117,10 +117,17 @@ export default defineComponent({
         Number(value) > Number(this.max) ||
         Number(value) < Number(this.min)
       ) {
-        // this.set(this.oldValue);
-        this.set(value > this.max ? this.max : this.min);
+        const newValue = value > this.max ? this.max : this.min;
+        this.set(newValue);
+        if (newValue === this.oldValue) {
+          return;
+        }
+        this.handleChange(e, newValue);
         this.error(value);
       }
+      this.handleChange(e, value);
+    },
+    handleChange(e, value) {
       this.count = Number(value);
       this.$emit("input", Number(value));
       e.target.value = this.count;
