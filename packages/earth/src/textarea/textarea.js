@@ -76,6 +76,7 @@ export default defineComponent({
     },
     handleInput(e) {
       this.$emit("change", { e, wrapped: this.wrapped, focused: this.focused });
+      e.target.value = e.target.value.replace(/\n/,'');
       this.$emit("input", clearBr(e.target.value));
       this.autoWrap(e.target);
     },
