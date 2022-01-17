@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-24 11:12:00
+ * @Last Modified time: 2022-01-14 18:09:26
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -14,6 +14,7 @@ import Popup from "../popup";
 import Iconfont from "../iconfont";
 const VIEWBOX_WIDTH = 400;
 const VIEWBOX_HEIGHT = 529;
+const errorImg = require("./imgs/onImgError.svg");
 export default defineComponent({
   name: "Magnifier",
   components: { Flex, FlexItem, Popup, Iconfont },
@@ -42,6 +43,7 @@ export default defineComponent({
       showZoom: false,
       zoomEnter: false,
       popupEntered: false,
+      loading: true,
     };
   },
   computed: {
@@ -142,6 +144,7 @@ export default defineComponent({
     },
     handlePreviewMouseEnter(index) {
       this.previewIndex = index;
+      this.loading = true;
     },
     handlePreviewMouseOut() {},
     nextOrPrevious(button) {
@@ -180,11 +183,19 @@ export default defineComponent({
       }
       this.previewIndex = index;
     },
+    handleShowPreview() {
+      this.loading = false;
+    },
+    handleError(e) {
+      this.loading = false;
+      e.target.src = errorImg;
+    },
   },
   render(h) {
     const preview = this.images[this.previewIndex];
     const maxRowCount = this.maxRowCount;
     const disabled = this.images.length <= maxRowCount;
+    const loading = this.loading;
     return h("div", { class: ["yn-magnifier"] }, [
       h("div", { class: ["preview"], on: { click: this.zoomUpImage } }, [
         h(
@@ -198,9 +209,25 @@ export default defineComponent({
               mousemove: this.handleMouseMove,
               mouseleave: this.handleMouseLeave,
             },
+            style: { display: loading ? "none" : "block" },
           },
           [
-            h("img", { attrs: { src: preview } }, []),
+            h(
+              "img",
+              {
+                ref: "preview",
+                attrs: { src: preview },
+                on: {
+                  error: (e) => {
+                    return this.handleError(e);
+                  },
+                  load: () => {
+                    return this.handleShowPreview();
+                  },
+                },
+              },
+              []
+            ),
             h(
               "div",
               {
@@ -208,6 +235,45 @@ export default defineComponent({
                 style: { ...this.crosshairStyle },
               },
               []
+            ),
+          ]
+        ),
+        h(
+          "div",
+          {
+            style: {
+              width: "100%",
+              height: "100%",
+              display: loading ? "block" : "none",
+            },
+          },
+          [
+            h(
+              genComponentName("flex"),
+              {
+                props: {
+                  alignItems: "center",
+                  justifyContent: "spaceAround",
+                  alignContent: "stretch",
+                  flexDirection: "row",
+                },
+                style: { height: "100%" },
+              },
+              [
+                h(genComponentName("flex-item"), {}, [
+                  h(
+                    genComponentName("spin"),
+                    {
+                      class: ["loading"],
+                      props: {
+                        type: "rotate-svg",
+                        size: 40,
+                      },
+                    },
+                    []
+                  ),
+                ]),
+              ]
             ),
           ]
         ),
@@ -284,7 +350,20 @@ export default defineComponent({
                             attrs: { href: img },
                             on: { click: preventDefault },
                           },
-                          [h("img", { attrs: { src: img } }, [])]
+                          [
+                            h(
+                              "img",
+                              {
+                                attrs: { src: img },
+                                on: {
+                                  error: (e) => {
+                                    return this.handleError(e);
+                                  },
+                                },
+                              },
+                              []
+                            ),
+                          ]
                         ),
                       ]
                     );

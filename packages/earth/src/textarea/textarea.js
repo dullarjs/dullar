@@ -101,7 +101,6 @@ export default defineComponent({
     this.scrollElement = getScroller(this.$el);
     this.minHeight = parseInt(getPropertyValue(this.$el, "height"));
   },
-
   watch: {
     value: {
       handler() {
@@ -112,7 +111,6 @@ export default defineComponent({
       deep: true,
     },
   },
-
 
   render(h) {
     const props = this.$props;
