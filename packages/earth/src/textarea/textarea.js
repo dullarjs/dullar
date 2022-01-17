@@ -102,6 +102,17 @@ export default defineComponent({
     this.minHeight = parseInt(getPropertyValue(this.$el, "height"));
   },
 
+  watch: {
+    value: {
+      handler() {
+        this.$nextTick(() => {
+          this.autoWrap(this.$refs.textarea);
+        });
+      },
+      deep: true,
+    },
+  },
+
 
   render(h) {
     const props = this.$props;
