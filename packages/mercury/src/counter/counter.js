@@ -117,9 +117,17 @@ export default defineComponent({
         Number(value) > Number(this.max) ||
         Number(value) < Number(this.min)
       ) {
-        this.set(this.oldValue);
+        const newValue = value > this.max ? this.max : this.min;
+        this.set(newValue);
+        if (newValue === this.oldValue) {
+          return;
+        }
+        this.handleChange(e, newValue);
         this.error(value);
       }
+      this.handleChange(e, value);
+    },
+    handleChange(e, value) {
       this.count = Number(value);
       this.$emit("input", Number(value));
       e.target.value = this.count;
@@ -135,6 +143,12 @@ export default defineComponent({
       });
     },
     error(value) {
+      this.$emit("error", {
+        parsedValue: this.parse(value),
+        value: value,
+        type: Number(value) < this.oldValue ? "subtract" : "add",
+        name: this.name,
+      });
       throw new Error(
         `${value} is out of range, the valid value should be range ${this.min} to ${this.max}`
       );
@@ -186,7 +200,7 @@ export default defineComponent({
                     class: ["yn-counter-input"],
                     attrs: {
                       type: "number",
-                      autofocus: true,
+                      autofocus: this.autofocus,
                       value: this.count,
                     },
                     on: {
