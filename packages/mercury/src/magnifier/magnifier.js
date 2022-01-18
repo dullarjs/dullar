@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-20 13:32:35
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-01-14 18:09:26
+ * @Last Modified time: 2022-01-18 16:13:43
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -44,6 +44,7 @@ export default defineComponent({
       zoomEnter: false,
       popupEntered: false,
       loading: true,
+      cacheList: [],
     };
   },
   computed: {
@@ -144,7 +145,10 @@ export default defineComponent({
     },
     handlePreviewMouseEnter(index) {
       this.previewIndex = index;
-      this.loading = true;
+      const preview = this.images[this.previewIndex];
+      if (this.cacheList.indexOf(preview) < 0) {
+        this.loading = true;
+      }
     },
     handlePreviewMouseOut() {},
     nextOrPrevious(button) {
@@ -183,8 +187,11 @@ export default defineComponent({
       }
       this.previewIndex = index;
     },
-    handleShowPreview() {
+    handleShowPreview(preview) {
       this.loading = false;
+      if (this.cacheList.indexOf(preview) < 0) {
+        this.cacheList.push(preview);
+      }
     },
     handleError(e) {
       this.loading = false;
@@ -222,7 +229,7 @@ export default defineComponent({
                     return this.handleError(e);
                   },
                   load: () => {
-                    return this.handleShowPreview();
+                    return this.handleShowPreview(preview);
                   },
                 },
               },
