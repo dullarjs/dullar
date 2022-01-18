@@ -9,7 +9,7 @@
               <p>默认长度</p>
               <yn-input maxlength="3" placeholder="默认长度为3"/>
               <p>textarea</p>
-              <yn-input v-model="v" type="textarea" width="300" height="100"/>
+              <yn-input v-model="v" type="textarea" maxlength="20" width="300" height="100" resize="vertical" />
               <p>可切换密码</p>
               <yn-input v-model="v" showPassword/>
               <p>可清除</p>
@@ -60,5 +60,6 @@ export default {
     padding: 0 10px;
     background-color: #e9e9e9;
     line-height: 2;
+    border-radius: 4px;
   }
 </style>
