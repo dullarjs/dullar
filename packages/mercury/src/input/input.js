@@ -2,7 +2,7 @@
  * @Author: tongh
  * @Date:   2020-08-25 10:44:56
  * @Last Modified by:   tongh
- * @Last Modified time: 2020-08-25 13:38:06
+ * @Last Modified time: 2022-01-18 15:44:52
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { slotsMixins } from "@/mixins/slots";
@@ -82,6 +82,19 @@ export default defineComponent({
     readonly: {
       type: Boolean,
       default: false,
+    },
+    resize: {
+      type: String,
+      default: "vertical",
+    },
+    iconSize: {
+      type: Number,
+      default: 16,
+    },
+  },
+  computed: {
+    textLength() {
+      return (this.value || "").length;
     },
   },
   data() {
@@ -185,7 +198,7 @@ export default defineComponent({
               [
                 h(genComponentName("iconfont"), {
                   props: {
-                    size: "16",
+                    size: this.iconSize,
                     name: this[name],
                   },
                 }),
@@ -204,7 +217,7 @@ export default defineComponent({
               [
                 h(genComponentName("iconfont"), {
                   props: {
-                    size: "16",
+                    size: this.iconSize,
                     name: this[name],
                   },
 
@@ -239,7 +252,7 @@ export default defineComponent({
                     h(genComponentName("iconfont"), {
                       props: {
                         name: "clear",
-                        size: "16",
+                        size: this.iconSize,
                       },
                       on: {
                         click: this.clearFn,
@@ -275,7 +288,7 @@ export default defineComponent({
               h(genComponentName("iconfont"), {
                 props: {
                   name: "yanjing",
-                  size: "16",
+                  size: this.iconSize,
                 },
                 on: {
                   click: this.ShowPassWordFn,
@@ -329,17 +342,44 @@ export default defineComponent({
       if (!this.textArea) {
         temp.push(...this.createInput(h));
       } else {
+        const limit = this.maxlength > 0;
+        const _attrs = limit
+          ? {
+              maxlength: this.maxlength,
+            }
+          : {};
         temp.push(
-          h("textarea", {
-            domProps: {
-              value: this.textValue,
+          h(
+            "textarea",
+            {
+              on: {
+                input: this.input,
+              },
+              props: {
+                ...this.$attrs,
+              },
+              attrs: { ..._attrs, disabled: this.disabled },
+              style: {
+                fontSize: this.fontSize,
+                resize: this.resize,
+                width: this.width + "px",
+                height: this.height + "px",
+              },
             },
-            on: {
-              input: this.input,
-            },
-            style: { fontSize: this.fontSize },
-          })
+            [this.value]
+          )
         );
+        if (limit) {
+          temp.push(
+            h(
+              "div",
+              {
+                class: ["yn-input-textarea-counter"],
+              },
+              [h("span", {}, `${this.textLength}/${parseInt(this.maxlength)}`)]
+            )
+          );
+        }
       }
       return temp;
     },
@@ -356,7 +396,7 @@ export default defineComponent({
         ref: "inputWrap",
         style: {
           width: this.width + "px",
-          height: this.height + "px",
+          height: !this.textArea && this.height + "px",
           backgroundColor: this.backgroundColor,
           cursor: this.cursor,
           [this.underline ? "borderBottom" : "border"]: this.textArea
