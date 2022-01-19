@@ -1,5 +1,5 @@
 import Vue from "vue"
-import myNotice from "./notice.vue"
+import myNotice from "./notification.vue"
 const instances:any[] = [];
 let seed = 0;
 // 继承
@@ -20,7 +20,7 @@ const oncloseNotice = function(args: string) {
     dom.style.top = parseInt(dom.style.top) - removedHeight -10 + 'px';
   }
 }
-const Notice = function(options: any) {
+const Notification = function(options: any) {
 //   const { message, type, center } = options;
   // 实例化
   const instance = new noticeConstructor({
@@ -53,4 +53,4 @@ const Notice = function(options: any) {
   instances.push(instance);
   return instance;
 }
-export default Notice
+export default Notification

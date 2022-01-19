@@ -21,9 +21,9 @@ import infoIcon from "./images/info.svg";
 import warningIcon from "./images/warning.svg";
 import { Component, Prop, Watch } from 'vue-property-decorator'
 @Component({
-  name: "Notice"
+  name: "Notification"
 })
-export default class Notice extends Vue {
+export default class Notification extends Vue {
   visable = false;
   top = 20;
   onClose = null;
@@ -65,7 +65,7 @@ export default class Notice extends Vue {
     }
   }
   get typeIcon() {
-    return this[`${this.type}Icon`]
+    return (this as any)[`${this.type}Icon`]
   }
   //  离开之前
   destoryNotice(): void {

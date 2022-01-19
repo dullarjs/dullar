@@ -10,20 +10,20 @@
 import Vue from "vue"
 import { Component } from 'vue-property-decorator'
 @Component({
-  name: "Notice"
+  name: "Notification"
 })
-export default class Notice extends Vue {
+export default class Notification extends Vue {
   openMessage() {
-    (this as any).$notice({message: "这是一条消息提示"});
+    (this as any).$notification({message: "这是一条消息提示"});
   }
   openMessageSuccess() {
-    (this as any).$notice({message: "这是一条好消息提示", type: "success", center: false, timer: 3000}); 
+    (this as any).$notification({message: "这是一条好消息提示", type: "success", center: false, timer: 3000}); 
   }
   openMessageerror() {
-    (this as any).$notice({message: "这是一条坏消息提示", type: "error"}); 
+    (this as any).$notification({message: "这是一条坏消息提示", type: "error"}); 
   }
   openMessagewarn() {
-    (this as any).$notice({message: "这是一条警告消息提示", type: "warning"}); 
+    (this as any).$notification({message: "这是一条警告消息提示", type: "warning"}); 
   }
 }
 </script>
