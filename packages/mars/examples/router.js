@@ -10,6 +10,7 @@ Vue.use(Router);
 import Content from "./Content.vue";
 import Dialog from "./dialog";
 import Popover from "./popover";
+import Notice from "./notice"
 const router = new Router({
   routes: [
     {
@@ -26,6 +27,11 @@ const router = new Router({
           path: "popover",
           name: "popover",
           component: Popover
+        },
+        {
+          path: "notice",
+          name: "notice",
+          component: Notice
         }
       ]
     }
