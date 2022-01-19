@@ -9,6 +9,7 @@
 import Vue from "vue";
 import App from "./App";
 import router from "./router";
+import notification from "@/components/notification"
 
 import "normalize.css";
 import "@/theme/global.scss";
@@ -18,7 +19,7 @@ if (process.env.NODE_ENV === "development") {
   // const VConsole = require("vconsole");
   // new VConsole();
 }
-
+ Vue.prototype.$notification = notification;
 new Vue({
   router,
   render: h => h(App)

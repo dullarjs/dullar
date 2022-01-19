@@ -10,6 +10,11 @@ Vue.use(Router);
 import Content from "./Content.vue";
 import Dialog from "./dialog";
 import Popover from "./popover";
+import Notification from "./notification"
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 const router = new Router({
   routes: [
     {
@@ -26,6 +31,11 @@ const router = new Router({
           path: "popover",
           name: "popover",
           component: Popover
+        },
+        {
+          path: "notification",
+          name: "notification",
+          component: Notification
         }
       ]
     }
