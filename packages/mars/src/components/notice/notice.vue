@@ -85,7 +85,7 @@ export default class Notice extends Vue {
     const { duration } = this.$props;
     if (this.timer > 0) {
       this.timer = setTimeout(() => {
-        // this.visable = false;
+        this.visable = false;
       }, duration);
     }
   }
