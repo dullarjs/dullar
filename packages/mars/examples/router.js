@@ -11,6 +11,10 @@ import Content from "./Content.vue";
 import Dialog from "./dialog";
 import Popover from "./popover";
 import Notice from "./notice"
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 const router = new Router({
   routes: [
     {
