@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-08-12 16:21:39
+ * @Last Modified time: 2022-01-19 17:22:11
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -10,7 +10,15 @@ import { encrypt } from "../modules/utils";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 import Iconfont from "../iconfont";
-const VALID_TYPE = ["number", "textarea", "password", "text", "email", "tel"];
+const VALID_TYPE = [
+  "number",
+  "textarea",
+  "password",
+  "text",
+  "email",
+  "tel",
+  "search",
+];
 import { slotsMixins } from "../mixins/slots";
 export default defineComponent({
   name: "Field",
