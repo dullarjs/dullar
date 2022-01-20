@@ -2,6 +2,10 @@
   <div>
     <h2>yn-elastic-search</h2>
     <yn-elastic-search closeWhenSearch v-model="keywords" :history="getHistory()" :delete="deleteHistory()" v-on:fireSearch="hanleFireSearch" placeholder="请输入要搜索的商品"></yn-elastic-search>
+    <h2>yn-elastic-search label 插槽</h2>
+    <yn-elastic-search closeWhenSearch v-model="keywords" :history="getHistory()" :delete="deleteHistory()" v-on:fireSearch="hanleFireSearch" placeholder="请输入要搜索的商品">
+      <span slot="label" class="label">插槽</span>
+    </yn-elastic-search>
   </div>
 </template>
 <script type="text/javascript">
@@ -73,5 +77,7 @@
 </script>
 
 <style type="text/css" scoped="scoped">
-
+.label {
+  font-size: 13px;
+}
 </style>

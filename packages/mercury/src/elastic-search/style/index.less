@@ -4,6 +4,7 @@
     background: @theme-color;
     box-sizing: border-box;
     text-align: center;
+
     .input {
       width: 90%;
       padding: 0;
@@ -16,24 +17,29 @@
       font-size: 12px;
       text-align: left;
       color: #666;
+
       :first-child {
         margin: -2px 4px 0 3px;
         vertical-align: middle;
       }
     }
   }
+
   .elastic-serach-popup {
     height: 100%;
     transition: all 300ms linear;
   }
+
   .search-panel {
     width: 100%;
     height: 100%;
     background: @white;
+
     .search-head {
       width: 100%;
       height: 50px;
       position: relative;
+
       .search-head-flex {
         position: absolute;
         top: 10px;
@@ -41,8 +47,10 @@
         width: 94%;
         // height: 32px;
         margin: 0 auto;
+
         .input-flex {
           width: 100%;
+
           .input-field {
             // padding: 0;
             height: 30px;
@@ -54,14 +62,28 @@
             outline: none;
             text-indent: 5px;
             line-height: 30px;
+
             &::after {
               border: none;
             }
+
             .input-ele {
               font-size: 12px;
             }
+
+            .yn-field-label {
+              width: auto;
+              padding-right: 16px;
+              display: flex;
+              align-items: center;
+
+              span {
+                font-size: 13px;
+              }
+            }
           }
         }
+
         .cancel-flex {
           line-height: 32px;
           text-align: right;
@@ -70,18 +92,23 @@
         }
       }
     }
+
     .search-body {
       &.loading {
         text-align: center;
       }
+
       .hisotry-spin {
         display: inline-block;
       }
+
       .histroy-record {
         width: 94%;
         margin: 0 auto;
+
         .operation {
           font-size: 12px;
+
           .delete-all:after {
             content: "";
             border-left: 1px solid @border-color;
@@ -89,20 +116,25 @@
             margin: 0 3px;
             display: inline-block;
           }
+
           .done {
             color: #ec5151;
           }
         }
+
         .history-flex {
           width: 100%;
+
           .history-label {
             font-size: 14px;
             margin: 0;
             padding: 0;
           }
         }
+
         .delete-flex {
           text-align: right;
+
           .records {
             .record {
               color: #666;
@@ -112,6 +144,7 @@
               padding: 3px 10px;
               font-size: 12px;
               border-radius: 10px;
+
               .record-clear {
                 &::before {
                   content: "";

@@ -74,7 +74,14 @@ export default defineComponent({
       isEdit: false,
     };
   },
-  components: { Flex, FlexItem, Iconfont, Popup, Field, Spin },
+  components: {
+    Flex,
+    FlexItem,
+    Iconfont,
+    Popup,
+    Field,
+    Spin,
+  },
   methods: {
     handleFireSearch() {
       if (this.isEdit) {
@@ -99,7 +106,10 @@ export default defineComponent({
       this.isEdit = true;
       const records = [];
       this.historyRecords.forEach((record) => {
-        records.push({ ...record, closeAble: true });
+        records.push({
+          ...record,
+          closeAble: true,
+        });
       });
       this.historyRecords = records;
     },
@@ -107,13 +117,20 @@ export default defineComponent({
       this.isEdit = false;
       const records = [];
       this.historyRecords.forEach((record) => {
-        records.push({ ...record, closeAble: false });
+        records.push({
+          ...record,
+          closeAble: false,
+        });
       });
       this.historyRecords = records;
     },
     handleDelete(e) {
       const { type, record } = e;
-      const params = { ...this.delete.params, type, record };
+      const params = {
+        ...this.delete.params,
+        type,
+        record,
+      };
       const promise = this.delete.action(params);
       promise
         .then((res) => {
@@ -135,7 +152,10 @@ export default defineComponent({
       this.$emit("input", e);
     },
     historyRequest() {
-      const params = { ...this.history.params, type: "request" };
+      const params = {
+        ...this.history.params,
+        type: "request",
+      };
       const promise = this.history.action(params);
       this.historyStatus = true;
       promise
@@ -150,7 +170,12 @@ export default defineComponent({
     handleRecordClick(e) {
       if (this.isEdit) return;
       this.$refs.input.$el.getElementsByTagName("input")[0].focus();
-      this.$emit("input", this.history.parse(e, { type: "parser" }));
+      this.$emit(
+        "input",
+        this.history.parse(e, {
+          type: "parser",
+        })
+      );
       this.showSearchPanel = false;
       this.$emit("fireSearch", e);
     },
@@ -167,261 +192,353 @@ export default defineComponent({
   },
   render(h) {
     const hasDefault = this.value && this.value !== "";
-    return h("div", { class: ["yn-elastic-search"] }, [
-      h("div", { class: ["search-warrper"] }, [
+    return h(
+      "div",
+      {
+        class: ["yn-elastic-search"],
+      },
+      [
         h(
-          "p",
+          "div",
           {
-            class: ["input"],
+            class: ["search-warrper"],
+          },
+          [
+            h(
+              "p",
+              {
+                class: ["input"],
+                on: {
+                  click: this.handleFireSearch,
+                },
+              },
+              [
+                h(
+                  genComponentName("iconfont"),
+                  {
+                    props: {
+                      name: "search",
+                      size: 16,
+                    },
+                  },
+                  []
+                ),
+                h(
+                  "span",
+                  {
+                    class: [hasDefault ? "value" : "placeholder"],
+                  },
+                  hasDefault ? this.value : this.placeholder
+                ),
+              ]
+            ),
+          ]
+        ),
+        h(
+          genComponentName("popup"),
+          {
+            props: {
+              position: "middle",
+              value: this.showSearchPanel,
+              disableMask: true,
+            },
+            class: ["elastic-serach-popup"],
             on: {
-              click: this.handleFireSearch,
+              beforeEnter: this.handleBeforeEnter,
+              afterEnter: this.handleAfterEnter,
             },
           },
           [
             h(
-              genComponentName("iconfont"),
-              { props: { name: "search", size: 16 } },
-              []
-            ),
-            h(
-              "span",
-              { class: [hasDefault ? "value" : "placeholder"] },
-              hasDefault ? this.value : this.placeholder
-            ),
-          ]
-        ),
-      ]),
-      h(
-        genComponentName("popup"),
-        {
-          props: {
-            position: "middle",
-            value: this.showSearchPanel,
-            disableMask: true,
-          },
-          class: ["elastic-serach-popup"],
-          on: {
-            beforeEnter: this.handleBeforeEnter,
-            afterEnter: this.handleAfterEnter,
-          },
-        },
-        [
-          h("div", { class: ["search-panel"] }, [
-            h("div", { class: ["search-head"] }, [
-              h("div", { class: ["search-head-flex"] }, [
+              "div",
+              {
+                class: ["search-panel"],
+              },
+              [
                 h(
-                  genComponentName("flex"),
-                  { props: { justifyContent: "spaceBetween" } },
+                  "div",
+                  {
+                    class: ["search-head"],
+                  },
                   [
                     h(
-                      genComponentName("flex-item"),
+                      "div",
                       {
-                        class: ["input-flex"],
+                        class: ["search-head-flex"],
                       },
                       [
                         h(
-                          "form",
-                          { attrs: { action: "javascript:return true" } },
+                          genComponentName("flex"),
+                          {
+                            props: {
+                              justifyContent: "spaceBetween",
+                            },
+                          },
                           [
                             h(
-                              genComponentName("field"),
+                              genComponentName("flex-item"),
                               {
-                                ref: "input",
-                                props: {
-                                  placeholder: this.placeholder,
-                                  clearable: true,
-                                  value: this.value,
-                                  type: "search",
-                                },
-                                on: {
-                                  input: this.handleOnInput,
-                                  keydown: this.handleKeydown,
-                                },
-                                class: ["input-field"],
+                                class: ["input-flex"],
                               },
-                              []
+                              [
+                                h(
+                                  "form",
+                                  {
+                                    attrs: {
+                                      action: "javascript:return true",
+                                    },
+                                  },
+                                  [
+                                    h(
+                                      genComponentName("field"),
+                                      {
+                                        ref: "input",
+                                        props: {
+                                          placeholder: this.placeholder,
+                                          clearable: true,
+                                          value: this.value,
+                                          type: "search",
+                                        },
+                                        scopedSlots: this.$scopedSlots,
+                                        on: {
+                                          input: this.handleOnInput,
+                                          keydown: this.handleKeydown,
+                                        },
+                                        class: ["input-field"],
+                                      },
+                                      []
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            ),
+                            h(
+                              genComponentName("flex-item"),
+                              {
+                                class: ["cancel-flex"],
+                              },
+                              [
+                                h(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: this.handleFireSearch,
+                                    },
+                                  },
+                                  this.cancelText
+                                ),
+                              ]
                             ),
                           ]
                         ),
                       ]
                     ),
-                    h(
-                      genComponentName("flex-item"),
-                      {
-                        class: ["cancel-flex"],
-                      },
-                      [
-                        h(
-                          "span",
-                          {
-                            on: {
-                              click: this.handleFireSearch,
-                            },
-                          },
-                          this.cancelText
-                        ),
-                      ]
-                    ),
                   ]
                 ),
-              ]),
-            ]),
-            h(
-              "div",
-              { class: ["search-body", this.historyStatus ? "loading" : ""] },
-              [
-                this.historyStatus
-                  ? h(
-                      genComponentName("spin"),
-                      {
-                        class: ["hisotry-spin"],
-                        props: { type: "rotate-svg", size: 40 },
-                      },
-                      []
-                    )
-                  : h("div", { class: ["histroy-record"] }, [
-                      this.historyRecords.length > 0
-                        ? h(
-                            genComponentName("flex"),
-                            { props: { flexDirection: "column" } },
-                            [
-                              h(
-                                genComponentName("flex-item"),
-                                { class: ["history-flex"] },
-                                [
-                                  h(
-                                    genComponentName("flex"),
-                                    {
-                                      props: { justifyContent: "spaceBetween" },
+                h(
+                  "div",
+                  {
+                    class: ["search-body", this.historyStatus ? "loading" : ""],
+                  },
+                  [
+                    this.historyStatus
+                      ? h(
+                          genComponentName("spin"),
+                          {
+                            class: ["hisotry-spin"],
+                            props: {
+                              type: "rotate-svg",
+                              size: 40,
+                            },
+                          },
+                          []
+                        )
+                      : h(
+                          "div",
+                          {
+                            class: ["histroy-record"],
+                          },
+                          [
+                            this.historyRecords.length > 0
+                              ? h(
+                                  genComponentName("flex"),
+                                  {
+                                    props: {
+                                      flexDirection: "column",
                                     },
-                                    [
-                                      h(genComponentName("flex-item"), {}, [
+                                  },
+                                  [
+                                    h(
+                                      genComponentName("flex-item"),
+                                      {
+                                        class: ["history-flex"],
+                                      },
+                                      [
                                         h(
-                                          "h3",
-                                          { class: ["history-label"] },
-                                          this.histroyLabel
-                                        ),
-                                      ]),
-                                      h(genComponentName("flex-item"), {}, [
-                                        this.isEdit
-                                          ? h(
-                                              "span",
-                                              { class: ["operation"] },
-                                              [
-                                                h(
-                                                  "small",
-                                                  {
-                                                    class: ["delete-all"],
-                                                    on: {
-                                                      click:
-                                                        this.handleDelete.bind(
-                                                          this,
-                                                          { type: "all" }
-                                                        ),
-                                                    },
-                                                  },
-                                                  this.deleteAllText
-                                                ),
-                                                h(
-                                                  "small",
-                                                  {
-                                                    class: ["done"],
-                                                    on: {
-                                                      click: this.handleDone,
-                                                    },
-                                                  },
-                                                  this.doneText
-                                                ),
-                                              ]
-                                            )
-                                          : h(
-                                              genComponentName("iconfont"),
-                                              {
-                                                props: {
-                                                  name: "delete",
-                                                  size: 16,
-                                                },
-                                                on: {
-                                                  click: this.handleEdit,
-                                                },
-                                              },
-                                              []
-                                            ),
-                                      ]),
-                                    ]
-                                  ),
-                                ]
-                              ),
-                              h(
-                                genComponentName("flex-item"),
-                                { class: ["delete-flex"] },
-                                [
-                                  h(
-                                    genComponentName("flex"),
-                                    {
-                                      props: { flexWrap: "wrap" },
-                                      class: ["records"],
-                                    },
-                                    Array.apply(null, this.historyRecords).map(
-                                      (record, key) => {
-                                        return h(
-                                          genComponentName("flex-item"),
-                                          { key, class: ["record"] },
+                                          genComponentName("flex"),
+                                          {
+                                            props: {
+                                              justifyContent: "spaceBetween",
+                                            },
+                                          },
                                           [
                                             h(
-                                              "span",
-                                              {
-                                                on: {
-                                                  click:
-                                                    this.handleRecordClick.bind(
-                                                      this,
-                                                      record
-                                                    ),
-                                                },
-                                              },
-                                              this.history.parse(record, {
-                                                type: "parser",
-                                              })
-                                            ),
-                                            record.closeAble
-                                              ? h(
-                                                  genComponentName("iconfont"),
+                                              genComponentName("flex-item"),
+                                              {},
+                                              [
+                                                h(
+                                                  "h3",
                                                   {
-                                                    class: ["record-clear"],
-                                                    props: {
-                                                      name: "clear",
-                                                      size: 12,
-                                                    },
-                                                    on: {
-                                                      click:
-                                                        this.handleDelete.bind(
-                                                          this,
+                                                    class: ["history-label"],
+                                                  },
+                                                  this.histroyLabel
+                                                ),
+                                              ]
+                                            ),
+                                            h(
+                                              genComponentName("flex-item"),
+                                              {},
+                                              [
+                                                this.isEdit
+                                                  ? h(
+                                                      "span",
+                                                      {
+                                                        class: ["operation"],
+                                                      },
+                                                      [
+                                                        h(
+                                                          "small",
                                                           {
-                                                            type: "single",
-                                                            record,
-                                                          }
+                                                            class: [
+                                                              "delete-all",
+                                                            ],
+                                                            on: {
+                                                              click: this.handleDelete.bind(
+                                                                this,
+                                                                {
+                                                                  type: "all",
+                                                                }
+                                                              ),
+                                                            },
+                                                          },
+                                                          this.deleteAllText
                                                         ),
+                                                        h(
+                                                          "small",
+                                                          {
+                                                            class: ["done"],
+                                                            on: {
+                                                              click: this
+                                                                .handleDone,
+                                                            },
+                                                          },
+                                                          this.doneText
+                                                        ),
+                                                      ]
+                                                    )
+                                                  : h(
+                                                      genComponentName(
+                                                        "iconfont"
+                                                      ),
+                                                      {
+                                                        props: {
+                                                          name: "delete",
+                                                          size: 16,
+                                                        },
+                                                        on: {
+                                                          click: this
+                                                            .handleEdit,
+                                                        },
+                                                      },
+                                                      []
+                                                    ),
+                                              ]
+                                            ),
+                                          ]
+                                        ),
+                                      ]
+                                    ),
+                                    h(
+                                      genComponentName("flex-item"),
+                                      {
+                                        class: ["delete-flex"],
+                                      },
+                                      [
+                                        h(
+                                          genComponentName("flex"),
+                                          {
+                                            props: {
+                                              flexWrap: "wrap",
+                                            },
+                                            class: ["records"],
+                                          },
+                                          Array.apply(
+                                            null,
+                                            this.historyRecords
+                                          ).map((record, key) => {
+                                            return h(
+                                              genComponentName("flex-item"),
+                                              {
+                                                key,
+                                                class: ["record"],
+                                              },
+                                              [
+                                                h(
+                                                  "span",
+                                                  {
+                                                    on: {
+                                                      click: this.handleRecordClick.bind(
+                                                        this,
+                                                        record
+                                                      ),
                                                     },
                                                   },
-                                                  []
-                                                )
-                                              : null,
-                                          ]
-                                        );
-                                      }
-                                    )
-                                  ),
-                                ]
-                              ),
-                            ]
-                          )
-                        : null,
-                    ]),
+                                                  this.history.parse(record, {
+                                                    type: "parser",
+                                                  })
+                                                ),
+                                                record.closeAble
+                                                  ? h(
+                                                      genComponentName(
+                                                        "iconfont"
+                                                      ),
+                                                      {
+                                                        class: ["record-clear"],
+                                                        props: {
+                                                          name: "clear",
+                                                          size: 12,
+                                                        },
+                                                        on: {
+                                                          click: this.handleDelete.bind(
+                                                            this,
+                                                            {
+                                                              type: "single",
+                                                              record,
+                                                            }
+                                                          ),
+                                                        },
+                                                      },
+                                                      []
+                                                    )
+                                                  : null,
+                                              ]
+                                            );
+                                          })
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                )
+                              : null,
+                          ]
+                        ),
+                  ]
+                ),
               ]
             ),
-          ]),
-        ]
-      ),
-    ]);
+          ]
+        ),
+      ]
+    );
   },
 });
