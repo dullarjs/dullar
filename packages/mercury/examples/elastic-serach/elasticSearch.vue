@@ -77,7 +77,5 @@
 </script>
 
 <style type="text/css" scoped="scoped">
-.label {
-  font-size: 13px;
-}
+
 </style>

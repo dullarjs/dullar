@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-01-19 17:28:32
+ * @Last Modified time: 2021-10-13 13:51:57
  * @E-mail: justbefree@126.com
  */
 
@@ -189,6 +189,10 @@ export default defineComponent({
         }
       }
     },
+    onsubmit(e) {
+      e.preventDefault();
+      return false;
+    },
   },
   render(h) {
     const hasDefault = this.value && this.value !== "";
@@ -284,8 +288,8 @@ export default defineComponent({
                                 h(
                                   "form",
                                   {
-                                    attrs: {
-                                      action: "javascript:return true",
+                                    on: {
+                                      onsubmit: this.onsubmit,
                                     },
                                   },
                                   [
@@ -293,13 +297,13 @@ export default defineComponent({
                                       genComponentName("field"),
                                       {
                                         ref: "input",
+                                        scopedSlots: this.$scopedSlots,
                                         props: {
                                           placeholder: this.placeholder,
                                           clearable: true,
                                           value: this.value,
-                                          type: "search",
+                                          type: "text",
                                         },
-                                        scopedSlots: this.$scopedSlots,
                                         on: {
                                           input: this.handleOnInput,
                                           keydown: this.handleKeydown,
