@@ -28,13 +28,13 @@ export default defineComponent({
     bottomTipFixed: Boolean,
     preload: {
       type: String,
-      default: ""
+      default: "",
     },
     preloadStyle: {
       type: Object,
       default: () => {
         return {};
-      }
+      },
     },
     mapKeys: {
       type: Object,
@@ -78,7 +78,10 @@ export default defineComponent({
   watch: {
     categories: function (v) {
       const firstCategory = v[this.currentTab];
-      this.requestCategory({ parentId: firstCategory[this.mapKeys["id"]] }, firstCategory);
+      this.requestCategory(
+        { parentId: firstCategory[this.mapKeys["id"]] },
+        firstCategory
+      );
     },
   },
   methods: {
@@ -86,9 +89,13 @@ export default defineComponent({
       const { key, cat } = e;
       this.currentTab = key;
       if (CAT_CACHE[cat[this.mapKeys["id"]]]) {
-        this.categoryList = CAT_CACHE[cat[this.mapKeys["id"]]];
         // scroll top
+        this.loading = true;
         this.$refs.pullRefresh.setScrollTop(0);
+        this.categoryList = CAT_CACHE[cat[this.mapKeys["id"]]];
+        setTimeout(() => {
+          this.loading = false;
+        }, 100);
         return;
       }
       this.requestCategory({ parentId: cat[this.mapKeys["id"]] }, cat);
@@ -138,7 +145,7 @@ export default defineComponent({
       const { target } = e;
       const node = target.parentNode;
       removeClass(node, "loading");
-    }
+    },
   },
   render(h) {
     return h("div", { class: ["yn-category-mobile"] }, [
@@ -160,9 +167,7 @@ export default defineComponent({
                     },
                     class: [this.currentTab === key ? "active" : ""],
                   },
-                  [
-                    h("span", {}, cat[this.mapKeys["label"]])
-                  ]
+                  [h("span", {}, cat[this.mapKeys["label"]])]
                 );
               })
             ),
@@ -185,7 +190,12 @@ export default defineComponent({
                       genComponentName("pull-refresh"),
                       {
                         class: ["category-pull-refresh"],
-                        props: { topTipFixed: this.topTipFixed, bottomTipFixed: this.bottomTipFixed, topDraggingTip: this.topDraggingTip, bottomDraggingTip: this.bottomDraggingTip },
+                        props: {
+                          topTipFixed: this.topTipFixed,
+                          bottomTipFixed: this.bottomTipFixed,
+                          topDraggingTip: this.topDraggingTip,
+                          bottomDraggingTip: this.bottomDraggingTip,
+                        },
                         ref: "pullRefresh",
                         on: {
                           pullRefresh: this.handlePull,
@@ -194,71 +204,91 @@ export default defineComponent({
                       [
                         Array.apply(null, this.categoryList).map((cat) => {
                           const children = cat[this.mapKeys["children"]];
-                          return children.length > 0 && [
-                            h(
-                              "h4",
-                              { key: `title-${cat.id}` },
-                              cat[this.mapKeys["label"]]
-                            ),
-                            h(
-                              genComponentName("flex"),
-                              {
-                                key: `content-${cat.id}`,
-                                props: { flexWrap: "wrap" },
-                              },
-                              [
-                                ...Array.apply(
-                                  null,
-                                  children
-                                ).map((subCat) => {
-                                  return h(
-                                    genComponentName("flex-item"),
-                                    {
-                                      key: subCat[this.mapKeys["id"]],
-                                      class: ["goods-item"],
-                                    },
-                                    [
-                                      h(
-                                        "a",
+                          return (
+                            children.length > 0 && [
+                              h(
+                                "h4",
+                                { key: `title-${cat.id}` },
+                                cat[this.mapKeys["label"]]
+                              ),
+                              h(
+                                genComponentName("flex"),
+                                {
+                                  key: `content-${cat.id}`,
+                                  props: { flexWrap: "wrap" },
+                                },
+                                [
+                                  ...Array.apply(null, children).map(
+                                    (subCat) => {
+                                      return h(
+                                        genComponentName("flex-item"),
                                         {
-                                          on: {
-                                            click: this.handleItemClick.bind(
-                                              this,
-                                              subCat
-                                            ),
-                                          },
-                                          class: ["hypelink"],
-                                          attrs: { href: "javascript:;" },
+                                          key: subCat[this.mapKeys["id"]],
+                                          class: ["goods-item"],
                                         },
                                         [
-                                          h("div", { class: ["image-box", "loading"], style: { backgroundImage: `url(${this.preload})`, ...this.preloadStyle } }, [
-                                            h(
-                                              "img",
-                                              {
-                                                on: {
-                                                  error: this.handleError,
-                                                  load: this.handleImageOnload
-                                                },
-                                                attrs: {
-                                                  src: subCat[
-                                                    this.mapKeys["imgUrl"]
-                                                  ],
-                                                },
+                                          h(
+                                            "a",
+                                            {
+                                              on: {
+                                                click: this.handleItemClick.bind(
+                                                  this,
+                                                  subCat
+                                                ),
                                               },
-                                              []
-                                            ),
-                                          ]),
-                                          h("span", { class: ["goods-name"] }, [
-                                            subCat[this.mapKeys["label"]],
-                                          ]),
+                                              class: ["hypelink"],
+                                              attrs: { href: "javascript:;" },
+                                            },
+                                            [
+                                              h(
+                                                "div",
+                                                {
+                                                  class: [
+                                                    "image-box",
+                                                    "loading",
+                                                  ],
+                                                  style: {
+                                                    backgroundImage: `url(${this.preload})`,
+                                                    ...this.preloadStyle,
+                                                  },
+                                                },
+                                                [
+                                                  h(
+                                                    "img",
+                                                    {
+                                                      on: {
+                                                        error: this.handleError,
+                                                        load: this
+                                                          .handleImageOnload,
+                                                      },
+                                                      attrs: {
+                                                        src:
+                                                          subCat[
+                                                            this.mapKeys[
+                                                              "imgUrl"
+                                                            ]
+                                                          ],
+                                                      },
+                                                    },
+                                                    []
+                                                  ),
+                                                ]
+                                              ),
+                                              h(
+                                                "span",
+                                                { class: ["goods-name"] },
+                                                [subCat[this.mapKeys["label"]]]
+                                              ),
+                                            ]
+                                          ),
                                         ]
-                                      ),
-                                    ]
-                                  );
-                                }),
-                              ]
-                            ),
-                          ];
+                                      );
+                                    }
+                                  ),
+                                ]
+                              ),
+                            ]
+                          );
                         }),
                       ]
                     ),
