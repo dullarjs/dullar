@@ -89,7 +89,6 @@ export default defineComponent({
       const { key, cat } = e;
       this.currentTab = key;
       if (CAT_CACHE[cat[this.mapKeys["id"]]]) {
-        // scroll top
         this.loading = true;
         this.$refs.pullRefresh.setScrollTop(0);
         this.categoryList = CAT_CACHE[cat[this.mapKeys["id"]]];
