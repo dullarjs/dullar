@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-20 16:25:59
  * @Last Modified by: yegl
- * @Last Modified time: 2022-01-24 19:17:20
+ * @Last Modified time: 2022-01-24 19:28:06
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -67,7 +67,6 @@ export default defineComponent({
       if (this.$scopedSlots.customize) {
         node = this.slots("customize", { ...item });
       }
-      this.onVisibleChange();
       return node;
     },
   },
