@@ -2,10 +2,10 @@
  * @Author: yegl
  * @Date: 2022-01-20 16:25:59
  * @Last Modified by: yegl
- * @Last Modified time: 2022-01-24 15:46:12
+ * @Last Modified time: 2022-01-24 19:17:20
  * @E-mail: yglgzyx@126.com
  */
-import { defineComponent } from "../modules/component";
+import { defineComponent, genComponentName } from "../modules/component";
 import { slotsMixins } from "../mixins/slots";
 export default defineComponent({
   name: "ScrollerBar",
@@ -16,11 +16,9 @@ export default defineComponent({
     },
     suggestions: Array,
     scrollerBarVisible: Boolean,
+    loading: Boolean,
   },
   mixins: [slotsMixins],
-  mounted() {
-    console.log(this);
-  },
   data() {
     return {
       scrollTop: 0,
@@ -31,8 +29,9 @@ export default defineComponent({
   },
   watch: {
     inputNodeInfo: "onInputHandleChange",
-    scrollerBarVisible: "onVisibleChange",
-    suggestions: "onVisibleChange",
+  },
+  updated() {
+    this.onVisibleChange();
   },
   methods: {
     onInputHandleChange() {
@@ -46,14 +45,16 @@ export default defineComponent({
       this.scrollWidht = inputWidth;
       this.toScreenBottom = window.innerHeight - bottom;
       this.top = top;
-      this.onVisibleChange();
     },
     onVisibleChange() {
-      const { toScreenBottom, top, $el: _el, scrollerBarVisible } = this;
+      const { toScreenBottom, top, scrollerBarVisible, inputNodeInfo } = this;
       if (scrollerBarVisible === true) {
         this.$nextTick(() => {
+          const { $el: _el } = this;
           if (toScreenBottom < _el.clientHeight && top > _el.clientHeight) {
             this.scrollTop = -_el.clientHeight - 12;
+          } else {
+            this.scrollTop = inputNodeInfo.height + 12;
           }
         });
       }
@@ -66,11 +67,12 @@ export default defineComponent({
       if (this.$scopedSlots.customize) {
         node = this.slots("customize", { ...item });
       }
+      this.onVisibleChange();
       return node;
     },
   },
   render(h) {
-    const { scrollWidht, scrollTop, suggestions } = this;
+    const { scrollWidht, scrollTop, suggestions, loading } = this;
     return h(
       "div",
       {
@@ -79,19 +81,30 @@ export default defineComponent({
       },
       [
         h("ul", { class: "yn-scroll-list" }, [
-          Array.apply(null, suggestions).map((item) => {
-            return h(
-              "li",
-              {
-                on: {
-                  click: () => {
-                    return this.handleSelect(item);
+          !loading
+            ? Array.apply(null, suggestions).map((item) => {
+                return h(
+                  "li",
+                  {
+                    on: {
+                      click: () => {
+                        return this.handleSelect(item);
+                      },
+                    },
+                  },
+                  [this.getSlots(item)]
+                );
+              })
+            : h(
+                genComponentName("spin"),
+                {
+                  props: {
+                    type: "rotate",
+                    size: 12,
                   },
                 },
-              },
-              [this.getSlots(item)]
-            );
-          }),
+                []
+              ),
         ]),
       ]
     );

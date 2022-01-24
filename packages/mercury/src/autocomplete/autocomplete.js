@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-20 14:48:36
  * @Last Modified by: yegl
- * @Last Modified time: 2022-01-24 15:49:19
+ * @Last Modified time: 2022-01-24 18:46:27
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -12,24 +12,18 @@ export default defineComponent({
   props: {
     value: String,
     haddleSearch: Function,
+    showLoading: Boolean,
   },
   data() {
     return {
       scrollerBarVisible: false,
       inputNodeInfo: null,
       searchList: [],
+      loading: false,
     };
-  },
-  mounted() {
-    // const slots = this.slots("default");
-    // console.log(slots)
   },
   watch: {
     scrollerBarVisible: "getSuggestions",
-    value: function () {
-      const { scrollerBarVisible } = this;
-      scrollerBarVisible && this.getSuggestions(scrollerBarVisible);
-    },
   },
   methods: {
     suggestionVisible(value) {
@@ -59,18 +53,18 @@ export default defineComponent({
     },
     observerInput(e) {
       this.$emit("input", e);
+      this.getSuggestions(true, e);
     },
-    getSuggestions(state) {
-      const { value: inputValue } = this;
+    getSuggestions(state, value) {
+      let { value: inputValue } = this;
+      inputValue = value || inputValue;
       if (state === true) {
-        this.loading = true;
+        if (this.showLoading) this.loading = true;
         this.haddleSearch(inputValue, (suggestions) => {
-          // this.loading = false;
-          if (this.suggestionDisabled) {
-            return;
-          }
+          this.loading = false;
           if (Array.isArray(suggestions)) {
             this.suggestions = suggestions;
+            this.scrollerBarVisible = suggestions.length > 0;
           } else {
             console.error("suggestions 必须为数组");
           }
@@ -90,6 +84,7 @@ export default defineComponent({
       inputNodeInfo,
       value: inputValue,
       suggestions,
+      loading,
     } = this;
     return h("div", { class: "yn-autocomplete" }, [
       h(
@@ -124,6 +119,7 @@ export default defineComponent({
             inputNodeInfo: inputNodeInfo,
             suggestions,
             scrollerBarVisible,
+            loading,
           },
           ref: "scrollerBar",
         },

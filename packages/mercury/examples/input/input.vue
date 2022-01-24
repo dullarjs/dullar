@@ -44,6 +44,13 @@
           <span class="name">{{ item.goods_name }}</span>
         </template>
       </yn-autocomplete>
+      <p>输入建议(自定义模板-异步获取)</p>
+      <yn-autocomplete v-model="value" :haddleSearch="querySearchL" @select="handleSelect" showLoading>
+        <template v-slot:customize="item">
+          <div class="value">{{ item.value }}</div>
+          <span class="name">{{ item.goods_name }}</span>
+        </template>
+      </yn-autocomplete>
     </div>
   </div>
 </template>
@@ -59,7 +66,8 @@ export default {
     return {
       v: "222",
       value: "",
-      searchList: []
+      searchList: [],
+      timeout: null
     };
   },
   mounted() {
@@ -74,6 +82,14 @@ export default {
       // 头部匹配
       var results = queryString ? searchList.filter(item => { return item.value.indexOf(queryString) === 0; }) : searchList;
       cb(results);
+    },
+    querySearchL(queryString, cb) {
+      var searchList = this.searchList;
+      var results = queryString ? searchList.filter(item => { return item.value.indexOf(queryString) === 0; }) : searchList;
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+          cb(results);
+        }, 1000 * Math.random());
     },
     handleSelect(rowData) {
       console.log(rowData)
