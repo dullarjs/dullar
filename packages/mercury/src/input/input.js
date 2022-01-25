@@ -2,7 +2,7 @@
  * @Author: tongh
  * @Date:   2020-08-25 10:44:56
  * @Last Modified by:   tongh
- * @Last Modified time: 2022-01-18 15:44:52
+ * @Last Modified time: 2022-01-24 14:44:31
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { slotsMixins } from "@/mixins/slots";
@@ -106,6 +106,7 @@ export default defineComponent({
       DataType: "text",
       time: null,
       DataSuffixIcon: "",
+      lock: false,
     };
   },
   watch: {
@@ -138,8 +139,10 @@ export default defineComponent({
   },
   methods: {
     input(e) {
-      this.$emit("input", e.target.value);
-      this.clearShowFn();
+      if (!this.lock) {
+        this.$emit("input", e.target.value);
+        this.clearShowFn();
+      }
     },
     clearFn() {
       this.$emit("input", "");
@@ -157,6 +160,7 @@ export default defineComponent({
       if (_this.time) {
         _this.time = null;
       }
+      this.$emit("handleFocus");
       _this.clearShowFn();
     },
     mouseenter(e) {
@@ -177,6 +181,15 @@ export default defineComponent({
           this.$emit("change", this.value);
           break;
       }
+    },
+    // 中文输入法开始
+    onCompositionStart() {
+      this.lock = true;
+    },
+    // 中文输入法结束
+    onCompositionEnd(e) {
+      this.lock = false;
+      this.input(e);
     },
     searchBtn() {
       this.$emit("change", this.value);
@@ -322,6 +335,8 @@ export default defineComponent({
             input: this.input,
             focus: this.onFocus,
             blur: this.onBlur,
+            compositionstart: this.onCompositionStart,
+            compositionend: this.onCompositionEnd,
           },
 
           style: {
