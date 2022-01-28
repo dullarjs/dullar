@@ -81,7 +81,7 @@ export default defineComponent({
         this.isEdit = false;
       }
       this.showSearchPanel = !this.showSearchPanel;
-      this.$emit("fireSearch", this.showSearchPanel);
+      this.$emit("fireSearchChange", this.showSearchPanel);
     },
     handleBeforeEnter() {
       this.historyRequest();
