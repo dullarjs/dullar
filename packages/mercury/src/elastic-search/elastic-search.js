@@ -81,6 +81,7 @@ export default defineComponent({
         this.isEdit = false;
       }
       this.showSearchPanel = !this.showSearchPanel;
+      this.$emit("togglePanel", this.showSearchPanel);
     },
     handleBeforeEnter() {
       this.historyRequest();
