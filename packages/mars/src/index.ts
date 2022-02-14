@@ -8,7 +8,7 @@ export const components: AnyObject = {
   Popover
 }
 
-const install = (Vue: VueConstructor) => {
+const install = (Vue: VueConstructor): void => {
   Object.keys(components).map(compName => {
     const comp = components[compName];
     Vue.component(compName, comp);

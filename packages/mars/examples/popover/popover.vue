@@ -78,7 +78,7 @@ export default class ExDialog extends Vue {
   popoverVisible4 = false;
   popoverVisible5 = false;
   popoverVisible6 = false;
-  handleDel() {
+  handleDel(): void {
     this.popoverVisible6 = false;
   }
 }
