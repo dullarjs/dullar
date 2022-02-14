@@ -68,12 +68,8 @@
 import Vue from "vue";
 import "./style/index.scss";
 import { Component } from "vue-property-decorator";
-import Popover from "../../src/components/popover";
 @Component({
-  name: "popoverPage",
-  components: {
-    Popover
-  }
+  name: "popoverPage"
 })
 export default class ExDialog extends Vue {
   popoverVisible1 = false;

@@ -14,6 +14,9 @@ import notification from "@/components/notification"
 import "normalize.css";
 import "@/theme/global.scss";
 
+import OneUi from "../src/index";
+Vue.use(OneUi);
+
 // YuiComponent.config({ iconfont: "../" });
 if (process.env.NODE_ENV === "development") {
   // const VConsole = require("vconsole");
