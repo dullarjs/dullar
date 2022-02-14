@@ -11,6 +11,7 @@ import Content from "./Content.vue";
 import Dialog from "./dialog";
 import Popover from "./popover";
 import Notification from "./notification"
+import CityPicker from "./cityPicker";
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -22,6 +23,11 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "cityPicker",
+          name: "cityPicker",
+          component: CityPicker
+        },
         {
           path: "dialog",
           name: "dialog",

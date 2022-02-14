@@ -12,6 +12,7 @@
         ref="popper"
         v-show="visible"
         :style="style"
+        :class="[popperClass]"
       >
         <div class="el-popover__title" v-if="title">
           {{ title }}
@@ -61,7 +62,12 @@ export default class Dialog extends Mixins(
     type: String,
     default: ""
   })
-  title!: string
+  title!: string;
+  @Prop({
+    type: String,
+    default: ""
+  })
+  popperClass!: string;
   get style() {
     const style: AnyObject = {};
     if (this.width) style.width = this.width + "px";
@@ -70,6 +76,7 @@ export default class Dialog extends Mixins(
 
   toggle() {
     this.$emit("update:visible", !this.visible);
+    console.log("toggle");
   }
   handleDocumentClick(e: Event) {
     const domPop = this.$refs.popper as HTMLElement;

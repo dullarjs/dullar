@@ -1,0 +1,21 @@
+@import "src/theme/varible.scss";
+.city-picker {
+  .city-picker__input{
+    outline: none;
+    width:100%;
+  }
+}
+.popper-city-picker{
+  p{
+    margin:0px;
+  }
+  &.el-popover[x-placement^=bottom] {
+    margin-top: 3px;
+  }
+  .city-picker-input-des{
+    color: #999;
+    margin-bottom:10px;
+  }
+  .city-picker__content{
+  }
+}
