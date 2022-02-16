@@ -1,0 +1,11 @@
+@import "./varible.scss";
+
+.fade-in-linear-enter-active,
+.fade-in-linear-leave-active {
+  transition: $--fade-linear-transition;
+}
+.fade-in-linear-enter,
+.fade-in-linear-leave,
+.fade-in-linear-leave-active {
+  opacity: 0;
+}
