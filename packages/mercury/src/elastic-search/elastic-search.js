@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-08-11 13:15:09
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-13 13:51:57
+ * @Last Modified time: 2022-01-19 17:28:32
  * @E-mail: justbefree@126.com
  */
 
@@ -81,6 +81,7 @@ export default defineComponent({
         this.isEdit = false;
       }
       this.showSearchPanel = !this.showSearchPanel;
+      this.$emit("togglePanel", this.showSearchPanel);
     },
     handleBeforeEnter() {
       this.historyRequest();
@@ -220,22 +221,29 @@ export default defineComponent({
                       },
                       [
                         h(
-                          genComponentName("field"),
-                          {
-                            ref: "input",
-                            props: {
-                              placeholder: this.placeholder,
-                              clearable: true,
-                              value: this.value,
-                              type: "text",
-                            },
-                            on: {
-                              input: this.handleOnInput,
-                              keydown: this.handleKeydown,
-                            },
-                            class: ["input-field"],
-                          },
-                          []
+                          "form",
+                          { attrs: { action: "javascript:return true" } },
+                          [
+                            h(
+                              genComponentName("field"),
+                              {
+                                ref: "input",
+                                scopedSlots: this.$scopedSlots,
+                                props: {
+                                  placeholder: this.placeholder,
+                                  clearable: true,
+                                  value: this.value,
+                                  type: "search",
+                                },
+                                on: {
+                                  input: this.handleOnInput,
+                                  keydown: this.handleKeydown,
+                                },
+                                class: ["input-field"],
+                              },
+                              []
+                            ),
+                          ]
                         ),
                       ]
                     ),
@@ -307,11 +315,10 @@ export default defineComponent({
                                                   {
                                                     class: ["delete-all"],
                                                     on: {
-                                                      click:
-                                                        this.handleDelete.bind(
-                                                          this,
-                                                          { type: "all" }
-                                                        ),
+                                                      click: this.handleDelete.bind(
+                                                        this,
+                                                        { type: "all" }
+                                                      ),
                                                     },
                                                   },
                                                   this.deleteAllText
@@ -366,11 +373,10 @@ export default defineComponent({
                                               "span",
                                               {
                                                 on: {
-                                                  click:
-                                                    this.handleRecordClick.bind(
-                                                      this,
-                                                      record
-                                                    ),
+                                                  click: this.handleRecordClick.bind(
+                                                    this,
+                                                    record
+                                                  ),
                                                 },
                                               },
                                               this.history.parse(record, {
@@ -387,14 +393,13 @@ export default defineComponent({
                                                       size: 12,
                                                     },
                                                     on: {
-                                                      click:
-                                                        this.handleDelete.bind(
-                                                          this,
-                                                          {
-                                                            type: "single",
-                                                            record,
-                                                          }
-                                                        ),
+                                                      click: this.handleDelete.bind(
+                                                        this,
+                                                        {
+                                                          type: "single",
+                                                          record,
+                                                        }
+                                                      ),
                                                     },
                                                   },
                                                   []
