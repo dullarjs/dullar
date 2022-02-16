@@ -42,6 +42,7 @@ jobs:
           cd packages/queen
           npm install eslint@6.8.0 --save-dev
           npm install eslint-plugin-vue@7.10.0 --save-dev
+          npm install @vue/cli-service@4.5.0 --save-dev
           npm install --save @dullar/cube
           npm run build
 
