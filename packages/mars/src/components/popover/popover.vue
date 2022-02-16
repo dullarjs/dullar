@@ -34,7 +34,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { Component, Mixins, Prop, Watch  } from "vue-property-decorator";
+import { Component, Mixins, Prop } from "vue-property-decorator";
 import "./style/index.scss";
 import "@/theme/transition.scss";
 import { AnyObject } from "../../types";
