@@ -35,6 +35,6 @@ jobs:
     - name: Build queen
         run: |
           cd packages/queen
-          yarn install
+          npm install
           npm install --save @dullar/cube
-          yarn run build
+          npm run build
