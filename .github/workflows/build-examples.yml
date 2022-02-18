@@ -33,8 +33,16 @@ jobs:
     #   run: npm run bootstrap
 
     - name: Build queen
-        run: |
-          cd packages/queen
-          npm install
-          npm install --save @dullar/cube
-          npm run build
+      run: |
+        cd packages/queen
+        npm install
+        npm install eslint@6.8.0 --save-dev
+        npm install eslint-plugin-vue@7.10.0 --save-dev
+        npm install --save @dullar/cube
+        npm run build
+
+    - name: Move queen to root docs
+      run: |
+        mkdir docs
+        mkdir docs/queen
+        mv packages/queen/docs/* docs/queen
