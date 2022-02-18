@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-28 15:42:16
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-18 13:37:44
+ * @Last Modified time: 2022-02-18 16:47:10
  * @E-mail: justbefree@126.com
  */
 
@@ -39,11 +39,12 @@ export default defineComponent({
       scrollTop: 0,
     };
   },
-  computed: {
-    bubbleDoms() {
-      return this.cancelBubbles.map((i) => document.querySelector(i));
-    },
-  },
+  // 如果被阻止冒泡的元素会动态渲染则通过computed的方式获取元素会有问题
+  // computed: {
+  //   bubbleDoms() {
+  //     return this.cancelBubbles.map((i) => document.querySelector(i));
+  //   },
+  // },
   mounted() {
     this.pull();
   },
@@ -51,9 +52,12 @@ export default defineComponent({
     this.scrollElement.removeEventListener("scroll", this.handleScroll, false);
   },
   methods: {
+    getBubbleDoms() {
+      return this.cancelBubbles.map((i) => document.querySelector(i));
+    },
     contains(target) {
       let contain = false;
-      this.bubbleDoms.forEach((dom) => {
+      this.getBubbleDoms().forEach((dom) => {
         if (dom && contains(dom, target)) {
           contain = true;
         }
