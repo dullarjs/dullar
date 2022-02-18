@@ -47,3 +47,50 @@ jobs:
         mkdir docs
         mkdir docs/queen
         mv packages/queen/docs/* docs/queen
+
+    - name: Build venus
+      run: |
+        cd packages/venus
+        npm install eslint@6.8.0 --save-dev
+        npm install eslint-plugin-vue@7.10.0 --save-dev
+        npm install --save @dullar/cube
+        npm run build
+
+    - name: Move venus to root docs
+      run: |
+        mkdir docs/venus
+        mv packages/venus/docs/* docs/venus
+
+    - name: Build mercury
+      run: |
+        cd packages/mercury
+        npm install
+        npm run build
+
+    - name: Move mercury to root docs
+      run: |
+        mkdir docs/mercury
+        mv packages/mercury/docs/* docs/mercury
+
+    - name: Build earth
+      run: |
+        cd packages/earth
+        npm install
+        npm run build
+
+    - name: Move earth to root docs
+      run: |
+        mkdir docs/earth
+        mv packages/earth/docs/* docs/earth
+
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: docs # The folder the action should deploy.
+
+    - name: Robot notice
+      run: |
+        cd robot
+        npm install
+        npm run robot:github
