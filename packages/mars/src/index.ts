@@ -1,3 +1,6 @@
+import "./utils/window-event";
+
+
 import { VueConstructor } from "vue/types/umd";
 import CityPicker from "./components/cityPicker";
 import Dialog from "./components/dialog";
