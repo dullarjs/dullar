@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-20 16:43:52
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-13 10:22:10
+ * @Last Modified time: 2022-02-18 16:09:15
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -14,6 +14,7 @@ import Iconfont from "../iconfont";
 import { slotsMixins } from "../mixins/slots";
 import { isDef } from "../modules/utils";
 import { EventBus } from "../modules/event/bus";
+import { stopPropagation } from "../modules/event";
 let idSeed = 1;
 export default defineComponent({
   name: "Popup",
@@ -107,7 +108,8 @@ export default defineComponent({
         this.events["closeModal"] = function () {
           parent.removeChild(modal);
         };
-        modal.onclick = () => {
+        modal.onclick = (e) => {
+          stopPropagation(e);
           if (this.closeOnClickModal) {
             this.close();
           }

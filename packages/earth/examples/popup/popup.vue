@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="handleBackgroundClick">
     <h2>yn-popup</h2>
     <hr />
     <ul>
@@ -27,7 +27,7 @@
         </template>
       </div>
     </yn-popup>
-    <yn-popup v-model="popup2" position="right" :showCloseIcon="true">
+    <yn-popup v-model="popup2" :singleton="true" position="right" :showCloseIcon="true">
       <div class="popup-content">右侧出现遮罩</div>
     </yn-popup>
     <yn-popup v-model="popup3" position="top" :showCloseIcon="true">
@@ -64,6 +64,9 @@ export default {
     };
   },
   methods: {
+    handleBackgroundClick() {
+      this.Toast("冒泡事件");
+    },
     handleClick(num) {
       this[`popup${num}`] = !this[`popup${num}`];
     }

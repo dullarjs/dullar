@@ -2,8 +2,9 @@
  * @Author: Just be free
  * @Date:   2020-02-25 14:19:11
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-10 18:07:38
+ * @Last Modified time: 2022-02-18 16:07:02
  */
+import { stopPropagation } from "../event";
 class PopuoManager {
   constructor() {
     this.zIndex = 2000;
@@ -49,7 +50,8 @@ class PopuoManager {
     this.nextZindex();
   }
   addEvent(modal) {
-    modal.onclick = () => {
+    modal.onclick = (e) => {
+      stopPropagation(e);
       this.onModalClick();
     };
   }
