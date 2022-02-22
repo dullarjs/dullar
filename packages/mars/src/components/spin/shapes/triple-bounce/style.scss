@@ -1,0 +1,26 @@
+.yn-spin-triple-bounce {
+  .triple-bounce1,
+  .triple-bounce2,
+  .triple-bounce3 {
+    background: #ccc;
+    border-radius: 100%;
+    display: inline-block;
+    animation: yn-triple-bounce 1.4s infinite ease-in-out both;
+  }
+  .triple-bounce1 {
+    animation-delay: -0.32s;
+  }
+  .triple-bounce2 {
+    animation-delay: -0.16s;
+  }
+}
+@keyframes yn-triple-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}

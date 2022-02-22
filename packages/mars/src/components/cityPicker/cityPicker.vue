@@ -122,7 +122,7 @@ import { EventBus } from "@/utils/eventBus";
   name: "CityPicker"
 })
 export default class CityPicker extends Mixins(Vue) {
-  throttleSearch = (args: InputEvent) => { return; };
+  throttleSearch!: (args: InputEvent) => void;
   currentTab = "";
   selecteDalphabetTab = "";
   popoverVisible = false;

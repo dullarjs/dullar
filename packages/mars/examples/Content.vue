@@ -2,6 +2,7 @@
   <div class="example-container">
     <div class="example-container__left">
       <ul class="page-title">
+        <li class="page-title__item" @click="jump('spin')">spin</li>
         <li class="page-title__item" @click="jump('dialog')">dialog</li>
         <li class="page-title__item" @click="jump('popover')">Popover</li>
         <li class="page-title__item" @click="jump('toast')">toast</li>

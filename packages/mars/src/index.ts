@@ -2,12 +2,14 @@ import "./utils/window-event";
 
 
 import { VueConstructor } from "vue/types/umd";
+import Spin from "./components/spin";
 import CityPicker from "./components/cityPicker";
 import Dialog from "./components/dialog";
 import Popover from "./components/popover";
 import { AnyObject } from "./types";
 
 export const components: AnyObject = {
+  Spin,
   CityPicker,
   Dialog,
   Popover
