@@ -102,6 +102,10 @@
         overflow: hidden;
         word-break: break-all;
         white-space: nowrap;
+        i {
+          font-style: normal;
+          color: $--color-primary;
+        }
       }
     }
   }

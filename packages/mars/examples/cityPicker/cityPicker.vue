@@ -181,7 +181,11 @@ export default class CityPickerPage extends Vue {
                       <span class="city-province">${city.CityName}-${city.CountryName}</span>
                       <span class="distance">无机场</span>
                   </span>`;
-      return str;
+      const innerHTML = `${str.replace(
+            new RegExp(this.keywords, "ig"),
+            `<i>${this.keywords}</i>`
+          )}`;
+      return innerHTML;
     } else {
       const str = `<span>${nameSpace} ${city.CityName}</span>`;
       return str;
@@ -267,8 +271,10 @@ export default class CityPickerPage extends Vue {
       console.log(err, "异常在组件外面处理");
     });
   }
-  getSearchAction(params = {}) {
+  getSearchAction(params: AnyObject = {}) {
     console.log("这里处理请求的参数", params);
+    const { value } = params;
+    this.keywords = value;
     return new Promise((resolve, reject) => {
       console.log(reject);
       // setTimeout(() => {
