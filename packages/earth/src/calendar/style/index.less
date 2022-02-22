@@ -16,7 +16,7 @@
         height: 44px;
         text-align: center;
         line-height: 44px;
-        color: @text-color;
+        color: @yn-text-color;
         font-size: 16px;
       }
       .yn-calendar-notice {
@@ -32,7 +32,7 @@
       .yn-calendar-week-bar {
         height: 44px;
         line-height: 44px;
-        color: @text-color;
+        color: @yn-text-color;
       }
     }
     .yn-calendar-body {
@@ -40,7 +40,7 @@
       overflow: auto; /* winphone8和android4+ */
       -webkit-overflow-scrolling: touch; /* ios5+ */
       .yn-calendar-month {
-        border-bottom: 1px solid @border-color;
+        border-bottom: 1px solid @yn-border-color-base;
         padding-bottom: 14px;
         box-sizing: border-box;
         &:last-of-type {
@@ -50,7 +50,7 @@
           text-align: center;
           height: 44px;
           line-height: 44px;
-          color: @text-color;
+          color: @yn-text-color;
           margin: 0 5px;
         }
         .yn-calendar-date {
@@ -59,7 +59,7 @@
           // height: 64px;
           height: 54px;
           margin: 1px 0;
-          color: @text-color2;
+          color: @yn-text-color-secondary;
           .yn-calendar-date-festival,
           .yn-calendar-date-mark {
             height: 18px;
@@ -78,7 +78,7 @@
           }
         }
         .yn-calendar-date.disable {
-          color: @disable-color;
+          color: @yn-disabled-color;
           cursor: default;
         }
         .yn-calendar-date.clickable {
@@ -100,8 +100,9 @@
           border-top-right-radius: 10%;
         }
         .yn-calendar-date.during-active {
-          background: rgba(0, 122, 255, 0.15);
-          color: @text-color2;
+          // background: rgba(0, 122, 255, 0.15);
+          background: @yn-background-color-light;
+          color: @yn-text-color-secondary;
         }
       }
     }
@@ -115,7 +116,7 @@
       .yn-calendar-date-result {
         display: flex;
         font-size: 17px;
-        color: #2a2a2a;
+        color: @yn-text-color;
         padding: 0 calc((100% / 7 - 20px) / 2);
         margin-bottom: 15px;
         .yn-calendar-reulst-left {
@@ -173,7 +174,7 @@
         background: @theme-color;
       }
       .yn-calendar-confirm-button.disable {
-        background: @disable-color;
+        background: @yn-disabled-color;
       }
     }
   }

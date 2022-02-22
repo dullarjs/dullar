@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-09 09:20:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-16 17:17:34
+ * @Last Modified time: 2022-02-21 13:29:07
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -89,6 +89,7 @@ export default defineComponent({
           top: `${this.indicatorTopPosition}px`,
         };
       }
+      return null;
     },
   },
   methods: {

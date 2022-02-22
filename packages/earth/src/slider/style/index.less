@@ -3,7 +3,7 @@
   user-select: none;
   width: 100%;
   height: 2px;
-  background: @background-color;
+  background: @yn-background-color;
   cursor: pointer;
   position: relative;
   &::before {
@@ -17,7 +17,7 @@
   .yn-slider-bar {
     height: 100%;
     &.start {
-      background: @background-color;
+      background: @yn-background-color;
       z-index: 2;
     }
     &.end {
@@ -54,10 +54,10 @@
       }
       .yn-slider-button-tip {
         transform: translate3d(0, -20px, 0);
-        background: #000;
+        background: @black;
         border-radius: 2px;
         padding: 0 4px;
-        color: #fff;
+        color: @white;
         height: 15px;
         line-height: 15px;
         text-align: center;
@@ -67,7 +67,7 @@
           position: absolute;
           border-left: 3px solid transparent;
           border-right: 3px solid transparent;
-          border-top: 3px solid #000;
+          border-top: 3px solid @black;
           border-bottom: 3px solid transparent;
           content: " ";
           bottom: -6px;

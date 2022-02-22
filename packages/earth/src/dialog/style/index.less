@@ -14,9 +14,9 @@
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-  background-color: #fff;
+  background-color: @white;
   width: 85%;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 16px;
   -webkit-user-select: none;
   overflow: hidden;
@@ -27,7 +27,7 @@
     font-weight: 700;
     line-height: 24px;
     text-align: center;
-    color: @text-color;
+    color: @yn-text-color;
   }
   .yn-dialog-content {
     padding: 20px;
@@ -38,7 +38,7 @@
     text-align: center;
     word-wrap: break-word;
     -webkit-overflow-scrolling: touch;
-    color: @text-color;
+    color: @yn-text-color-secondary;
   }
   .yn-dialog-buttons {
     display: flex;
@@ -52,7 +52,7 @@
       border-radius: 0px;
     }
     .yn-dialog-cancel-button {
-      color: @text-color;
+      color: @yn-text-color-secondary;
     }
     .yn-dialog-confirm-button {
       color: @theme-color;

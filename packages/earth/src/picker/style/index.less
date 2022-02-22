@@ -2,19 +2,20 @@
 .yn-picker {
   .yn-picker-header {
     user-select: none;
-    height: 44px;
+    height: 48px;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.14);
     .yn-picker-header-back,
     .yn-picker-header-close {
       cursor: pointer;
       height: 100%;
       min-width: 30px;
-      line-height: 44px;
+      line-height: 48px;
     }
     .yn-picker-header-title {
-      line-height: 44px;
+      line-height: 48px;
       text-align: center;
-      color: @text-color;
-      font-size: 15px;
+      color: @yn-text-color;
+      font-size: 16px;
       &.ml30 {
         margin-left: 30px;
       }
@@ -27,12 +28,13 @@
   .yn-picker-confirm {
     display: inline-block;
     // width: 50px;
+    font-size: 14px;
     padding: 0 20px;
     text-align: center;
     color: @theme-color;
   }
   .yn-picker-cancel {
-    color: #2a2a2a;
+    color: @yn-label-color;
   }
   .yn-picker-container {
     overflow: hidden;
@@ -64,8 +66,8 @@
       top: 50%;
       margin-top: -21px;
       width: 100%;
-      border-top: 1px solid @border-color;
-      border-bottom: 1px solid @border-color;
+      border-top: 1px solid @yn-border-color-base;
+      border-bottom: 1px solid @yn-border-color-base;
       pointer-events: none;
       z-index: 3;
     }

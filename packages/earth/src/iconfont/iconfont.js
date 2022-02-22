@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:20:36
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-01-20 11:31:21
+ * @Last Modified time: 2022-02-22 18:22:15
  */
 import { defineComponent } from "../modules/component";
 import { warn, error } from "../modules/error";
@@ -16,6 +16,10 @@ export default defineComponent({
       default: 28,
       require: false,
     },
+    rotate: {
+      type: Number,
+      default: 0
+    }
   },
   data() {
     return {
@@ -62,6 +66,7 @@ export default defineComponent({
         h(
           "img",
           {
+            style: { transform: `rotate(${this.rotate}deg)` },
             attrs: { src: this.getSvg(), iconname: this.name },
             class: ["yn-iconfont", `yn-iconfont-size-${this.size}`],
           },

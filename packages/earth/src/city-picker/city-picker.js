@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:53
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-02 15:13:16
+ * @Last Modified time: 2022-02-22 17:47:13
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { renderedMixins } from "../mixins/rendered";
@@ -768,7 +768,7 @@ export default defineComponent({
             afterLeave: this.afterLeave,
           },
           props: { position: "bottom" },
-          style: { height: "90%" },
+          style: { height: "85%" },
           directives: [{ name: "show", value: this.value }],
         },
         [
