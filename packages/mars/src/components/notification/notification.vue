@@ -84,14 +84,14 @@ export default class Notification extends Vue {
   startTimer() {
     const { duration } = this.$props;
     if (this.timer > 0) {
-      this.timer = setTimeout(() => {
+      this.timer = window.setTimeout(() => {
         this.visable = false;
       }, duration);
     }
   }
   mounted () {
     const { duration } = this.$props;
-    this.timer = setTimeout(() => {
+    this.timer = window.setTimeout(() => {
       this.visable = false;
     }, duration)
   }

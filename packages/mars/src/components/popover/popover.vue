@@ -4,7 +4,9 @@
   >
     <transition
       :name="transition"
+      @before-enter="beforeEnter"
       @after-enter="afterEnter"
+      @before-leave="beforeLeave"
       @after-leave="afterLeave"
     >
       <div
@@ -34,7 +36,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { Component, Mixins, Prop, Watch  } from "vue-property-decorator";
+import { Component, Mixins, Prop } from "vue-property-decorator";
 import "./style/index.scss";
 import "@/theme/transition.scss";
 import { AnyObject } from "../../types";
@@ -97,8 +99,14 @@ export default class Dialog extends Mixins(
   handleMouseLeave() {
     this.$emit("update:visible", false);
   }
+  beforeEnter() {
+    this.$emit("beforeEnter");
+  }
   afterEnter() {
     this.$emit("opend");
+  }
+  beforeLeave() {
+    this.$emit("beforeLeave");
   }
   afterLeave() {
     this.$emit("close");
