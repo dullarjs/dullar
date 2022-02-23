@@ -33,21 +33,21 @@
   height: 33px;
 }
 .yn-button-default {
-  color: #656b79;
-  background-color: #f6f8fa;
-  box-shadow: 0 0 1px #b8bbbf;
+  color: @yn-text-color;
+  background-color: @yn-background-color;
+  box-shadow: 0 0 1px @yn-border-color-base;
 }
 .yn-button-primary {
   background-color: @theme-color;
   color: @white;
 }
 .yn-button-warning {
-  background-color: @warn-color;
+  background-color: @yn-warning-color;
   color: @white;
 }
 .yn-button-danger {
   color: @white;
-  background-color: @danger-color;
+  background-color: @yn-error-color;
 }
 .yn-button-default.is-plain {
   border: 1px solid @yn-border-color-base;
@@ -61,14 +61,14 @@
   color: @theme-color;
 }
 .yn-button-danger.is-plain {
-  border: 1px solid @danger-color;
+  border: 1px solid @yn-error-color;
   background-color: transparent;
-  color: @danger-color;
+  color: @yn-error-color;
 }
 .yn-button-warning.is-plain {
-  border: 1px solid @warn-color;
+  border: 1px solid @yn-warning-color;
   background-color: transparent;
-  color: @warn-color;
+  color: @yn-warning-color;
 }
 .yn-button-loading {
   cursor: default;

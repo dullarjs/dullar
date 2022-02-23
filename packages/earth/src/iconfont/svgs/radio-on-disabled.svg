@@ -1,1 +1,14 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1632634854250" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8507" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><defs><style type="text/css"></style></defs><path d="M510.937254 0c274.675546 0.210335 500.116065 217.381362 510.594076 491.863178l0.337643 19.074076c-0.210335 274.675546-217.381362 500.116065-491.857643 510.594076l-19.074076 0.337643C228.728389 1021.868973 0 792.548324 0 510.937254 0.210335 236.261708 217.381362 10.815654 491.863178 0.343178L510.937254 0z m323.589535 304.941665a40.362205 40.362205 0 0 0-59.353254 0l-346.582486 359.783784-138.123763-145.103568a40.362205 40.362205 0 0 0-59.270227 0 45.471135 45.471135 0 0 0 0 62.419719L398.955935 758.313514a41.131589 41.131589 0 0 0 59.270227 0.254616l376.300627-391.206746a45.985903 45.985903 0 0 0 0-62.419719z" fill="#B5B5B5" p-id="8508"></path></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 12</title>
+    <g id="----2.4单选-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="单选" transform="translate(-890.000000, -1112.000000)">
+            <g id="编组-11" transform="translate(650.000000, 876.000000)">
+                <g id="编组-12" transform="translate(240.000000, 236.000000)">
+                    <rect id="Rectangle-271" stroke="#D0D3DB" fill="#F5F5F7" x="0.5" y="0.5" width="15" height="15" rx="7.5"></rect>
+                    <circle id="Oval-1-Copy-5" fill="#D0D3DB" cx="8" cy="8" r="4"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
