@@ -1,7 +1,7 @@
-export const on = (el: Document | HTMLElement, eventName: string, cb: (e: Event) => void) => {
+export const on = (el: Document | HTMLElement | Window, eventName: string, cb: (e: Event) => void) => {
   el.addEventListener(eventName, cb);
 }
-export const off = (el: Document | HTMLElement, eventName: string, cb: (e: Event) => void) => {
+export const off = (el: Document | HTMLElement | Window, eventName: string, cb: (e: Event) => void) => {
   el.removeEventListener(eventName, cb);
 }
 export const hasClass = (el: HTMLElement, cls: string) => {

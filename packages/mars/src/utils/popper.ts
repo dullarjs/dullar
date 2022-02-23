@@ -276,6 +276,7 @@ class Popper {
 	}
 	_removeEventListeners(): void {
 		// NOTE: 1 DOM access here
+		console.log("_removeEventListeners");
 		root.removeEventListener('resize', this.state.updateBound);
 		if (this._options.boundariesElement !== 'window' && this.state.scrollTarget) {
 			this.state.scrollTarget.removeEventListener('scroll', this.state.updateBound);

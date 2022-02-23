@@ -3,9 +3,12 @@
   .city-picker__input{
     outline: none;
     width:100%;
+    padding-left:10px;
   }
 }
-.popper-city-picker{
+.el-popover.popper-city-picker{
+  font-size: 12px;
+  padding: 0px 10px;
   p{
     margin:0px;
   }
@@ -14,8 +17,96 @@
   }
   .city-picker-input-des{
     color: #999;
-    margin-bottom:10px;
+    margin:10px 0px;
   }
   .city-picker__content{
+    .domestic-international-tabs{
+      display: flex;
+      margin-bottom:10px;
+      .domestic-tab,.international-tab{
+        padding:5px 10px;
+        border-radius: 2px;
+        border: 1px solid $--border-color-primary;
+      }
+      .domestic-tab{
+        margin-right:10px;
+      }
+      // .international-tab{}
+      .active{
+        color: #fff;
+        background-color: $--color-primary;
+        border-color: $--color-primary;
+      }
+    }
+    .font-active{
+      color: $--color-primary;
+    }
+    .history-city-block{
+      .history-city-block__title{
+        margin-bottom:10px;
+      }
+    }
+    .hot-alphaBeta-block{
+      .tabs-nav{
+        border-bottom: 1px solid $--border-color-primary;
+        display: flex;
+        .tabs-nav__item{
+          flex:1;
+          .tabs-nav--text{}
+          &.active{
+            .tabs-nav--text{
+              border-bottom: 1px solid $--color-primary;
+              color: $--color-primary;
+            }
+          }
+        }
+      }
+      .tabs-content{
+        padding-top:10px;
+        min-height: 100px;
+        max-height: 200px;
+        overflow-x: auto;
+      }
+    }
+    .history-city-block,.hot-alphaBeta-block,.limited-city-block{
+      .city-block-list{
+        display:grid;
+        grid-template-columns: repeat(auto-fill, 65px);
+        .city-block-item{
+          margin: 2px 5px 2px 0px;
+          &:hover{
+            color: $--color-primary;
+            cursor: pointer;
+          }
+          height: 20px;
+          overflow: hidden;
+          word-break: break-all;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+  .search-picker-block{
+    min-height: 100px;
+    max-height: 300px;
+    overflow-x: auto;
+    .city-block-list{
+      display: flex;
+      flex-direction: column;
+      .city-block-item{
+        line-height: 25px;
+        &:hover{
+          color: $--color-primary;
+          cursor: pointer;
+        }
+        overflow: hidden;
+        word-break: break-all;
+        white-space: nowrap;
+        i {
+          font-style: normal;
+          color: $--color-primary;
+        }
+      }
+    }
   }
 }
