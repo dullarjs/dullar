@@ -4,7 +4,7 @@
   line-height: 24px;
   box-sizing: border-box;
   width: 100%;
-  background: #fff;
+  background: @white;
   position: relative;
   .yn-field-container {
     .yn-field-label {
@@ -19,7 +19,7 @@
     }
     .yn-field-input,
     .yn-field-textarea {
-      color: #323233;
+      color: @yn-text-color;
       > input.input-ele {
         font-size: 14px;
         outline: none;
@@ -32,7 +32,7 @@
         min-width: 0;
         margin: 0;
         padding: 0;
-        color: #323233;
+        color: @yn-text-color;
         line-height: inherit;
         text-align: left;
         background-color: transparent;
@@ -68,7 +68,7 @@
     right: 0;
     bottom: 0;
     left: 16px;
-    border-bottom: 1px solid #ebedf0;
+    border-bottom: 1px solid @yn-border-color-base;
     transform: scaleY(0.5);
   }
 }
@@ -80,7 +80,7 @@
   right: 0;
   bottom: 0;
   left: 16px;
-  border-bottom: 1px solid #ebedf0;
+  border-bottom: 1px solid @yn-border-color-base;
   transform: scaleY(0.5);
 }
 .border-top-bottom::after {
@@ -92,7 +92,7 @@
   right: -50%;
   bottom: -50%;
   left: -50%;
-  border: 0 solid #ebedf0;
+  border: 0 solid @yn-border-color-base;
   -webkit-transform: scale(0.5);
   transform: scale(0.5);
   border-width: 1px 0;

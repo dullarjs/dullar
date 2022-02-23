@@ -1,7 +1,9 @@
 <template>
   <div>
     <h2>yn-pull-refresh</h2>
-    <yn-pull-refresh @pullRefresh="handlePullRefresh" :loading="isLoading">
+    <yn-pull-refresh :cancelBubbles="cancelBubbles" @pullRefresh="handlePullRefresh" :loading="isLoading">
+      <div class="cancel-bubble-event" v-if="show">我是一块比较特殊的区域，拖拽我的话将不生效。不信你试试</div>
+      <button @click="refresh">refresh</button>
       <ul>
         <li v-for="i in list" :key="i">{{ i }}</li>
       </ul>
@@ -15,13 +17,21 @@ export default {
     return {
       isLoading: false,
       list: [],
-      index: 0
+      index: 0,
+      cancelBubbles: [".cancel-bubble-event"],
+      show: true
     };
   },
   mounted() {
     this.load(0);
   },
   methods: {
+    refresh() {
+      this.show = false;
+      setTimeout(() => {
+        this.show = true;
+      }, 100);
+    },
     load(time = 3000, callback) {
       const timer = setTimeout(() => {
         for (let i = this.index * 10; i < (this.index + 1) * 10; i++) {
@@ -52,5 +62,11 @@ ul li {
   line-height: 40px;
   text-align: center;
   border-bottom: 1px solid #e4e4e4;
+}
+.cancel-bubble-event {
+  height: 100px;
+  background: yellow;
+  text-align: center;
+  line-height: 50px;
 }
 </style>

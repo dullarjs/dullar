@@ -2,10 +2,10 @@
   .yn-counter-subtract,
   .yn-counter-screen,
   .yn-counter-plus {
-    color: #2a2a2a;
+    color: @yn-text-color;
     height: 28px;
     display: inline-block;
-    background: #ffffff;
+    background: @white;
     text-align: center;
     line-height: 28px;
     cursor: pointer;
@@ -14,13 +14,13 @@
   }
   .yn-counter-screen {
     min-width: 30px;
-    border-top: 1px solid #e5e6e8;
-    border-bottom: 1px solid #e5e6e8;
+    border-top: 1px solid @yn-border-color-base;
+    border-bottom: 1px solid @yn-border-color-base;
   }
   .yn-counter-subtract,
   .yn-counter-plus {
     width: 30px;
-    border: 1px solid #e5e6e8;
+    border: 1px solid @yn-border-color-base;
   }
   .yn-counter-subtract {
     border-radius: 2px 0px 0px 2px;

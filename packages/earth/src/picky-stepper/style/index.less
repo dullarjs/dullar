@@ -6,8 +6,8 @@
       display: inline-block;
       height: 100%;
       line-height: 50px;
-      color: #666;
-      font-size: 17px;
+      color: @yn-text-color;
+      font-size: 16px;
     }
     height: 50px;
     position: relative;
@@ -31,7 +31,7 @@
       li {
         cursor: pointer;
         line-height: 44px;
-        border-bottom: 1px solid @border-color;
+        border-bottom: 1px solid @yn-border-color-base;
         user-select: none;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         &:last-child {
@@ -40,7 +40,7 @@
         .text {
           margin-left: 5px;
           font-size: 15px;
-          color: @text-color;
+          color: @yn-text-color;
         }
         .textarea-wapper {
           width: 100%;
@@ -50,7 +50,7 @@
             bottom: 20px;
             right: 8px;
             font-size: 12px;
-            color: #999;
+            color: @yn-auxiliary-color;
             height: 15px;
             line-height: 15px;
           }
@@ -58,7 +58,7 @@
         .input,
         .textarea {
           border-radius: 5px;
-          border: 1px solid #e2e2e2;
+          border: 1px solid @yn-border-color-base;
           outline: none;
           font-size: 15px;
           height: 30px;
@@ -66,10 +66,10 @@
           // box-shadow: none;
           text-shadow: none;
           -webkit-appearance: none;
-          box-shadow: 0px 0px 0px #fff inset;
+          box-shadow: 0px 0px 0px @white inset;
           &.active {
-            color: @text-color;
-            background: @background-color;
+            color: @yn-text-color;
+            background: @yn-background-color;
           }
         }
         .input {
@@ -86,8 +86,8 @@
         }
         .input:focus,
         .textarea:focus {
-          color: @text-color;
-          background: @background-color;
+          color: @yn-text-color;
+          background: @yn-background-color;
         }
       }
     }

@@ -1,0 +1,100 @@
+name: NodeJS with Webpack
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # Runs a single command using the runners shell
+    # - name: Install dependences
+    #   run: |
+    #     npm cache clear --force
+    #     npm install
+
+    # # Runs a single command using the runners shell
+    # - name: Lerna bootstrap
+    #   run: npm run bootstrap
+
+    - name: Build queen
+      run: |
+        cd packages/queen
+        npm install
+        npm install @vue/cli-service@4.5.0 --save-dev
+        npm install eslint@6.8.0 --save-dev
+        npm install eslint-plugin-vue@7.10.0 --save-dev
+        npm install --save @dullar/cube
+        npm run build
+
+    - name: Move queen to root docs
+      run: |
+        mkdir docs
+        mkdir docs/queen
+        mv packages/queen/docs/* docs/queen
+
+    - name: Build venus
+      run: |
+        cd packages/venus
+        npm install
+        npm install @vue/cli-service@4.5.0 --save-dev
+        npm install eslint@6.8.0 --save-dev
+        npm install eslint-plugin-vue@7.10.0 --save-dev
+        npm install --save @dullar/cube
+        npm run build
+
+    - name: Move venus to root docs
+      run: |
+        mkdir docs/venus
+        mv packages/venus/docs/* docs/venus
+
+    - name: Build mercury
+      run: |
+        cd packages/mercury
+        npm install
+        npm install @vue/cli-service@4.3.0 --save-dev
+        npm run build
+
+    - name: Move mercury to root docs
+      run: |
+        mkdir docs/mercury
+        mv packages/mercury/docs/* docs/mercury
+
+    - name: Build earth
+      run: |
+        cd packages/earth
+        npm install
+        npm install @vue/cli-service@4.3.0 --save-dev
+        npm run build
+
+    - name: Move earth to root docs
+      run: |
+        mkdir docs/earth
+        mv packages/earth/docs/* docs/earth
+
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: docs # The folder the action should deploy.
+
+    - name: Robot notice
+      run: |
+        cd robot
+        npm install
+        npm run robot:github
