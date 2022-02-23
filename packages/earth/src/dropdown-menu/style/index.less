@@ -5,14 +5,14 @@
     width: 100%;
     height: 42px;
     line-height: 42px;
-    border-bottom: 1px solid @border-color;
-    border-top: 1px solid @border-color;
+    border-bottom: 1px solid @yn-border-color-base;
+    border-top: 1px solid @yn-border-color-base;
     .menu-bar-item {
       user-select: none;
       cursor: pointer;
       position: relative;
       text-align: center;
-      color: @text-color;
+      color: @yn-text-color;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -24,7 +24,7 @@
       &:not(:last-child)::after {
         content: " ";
         position: absolute;
-        border-left: 1px solid #cccccc;
+        border-left: 1px solid @yn-border-color-base;
         height: 28%;
         top: 36%;
         right: 0;
@@ -64,7 +64,7 @@
     }
   }
   .yn-dropdown-menu-item-content {
-    background-color: #fff;
+    background-color: @white;
     width: 100%;
     ul.yn-dropdown-menu-item-content-list {
       padding: 0;
@@ -89,12 +89,12 @@
           content: "";
           position: absolute;
           width: 100%;
-          // border-bottom: 1px solid @border-color;
+          // border-bottom: 1px solid @yn-border-color-base;
           // z-index: -1; /* z-index in question */
         }
       }
       li:not(:last-of-type) {
-        border-bottom: 1px solid #e5e6e8;
+        border-bottom: 1px solid @yn-border-color-base;
       }
     }
   }

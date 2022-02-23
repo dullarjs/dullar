@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-02 15:47:54
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-05-24 14:26:02
+ * @Last Modified time: 2022-02-22 17:54:58
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -448,5 +448,6 @@ export default defineComponent({
         ]
       );
     }
+    return null;
   },
 });

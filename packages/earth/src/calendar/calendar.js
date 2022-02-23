@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-21 15:06:58
+ * @Last Modified time: 2022-02-22 15:25:29
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -770,7 +770,7 @@ export default defineComponent({
           },
           directives: [{ name: "show", value: this.value }],
           props: { position: "bottom" },
-          style: { height: "90%" },
+          style: { height: "85%" },
           ref: "popup",
         },
         [

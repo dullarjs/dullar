@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-02 15:11:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-12-16 13:48:49
+ * @Last Modified time: 2022-02-22 18:33:38
  * @E-mail: justbefree@126.com
  */
 
@@ -112,21 +112,6 @@ export default defineComponent({
       }
       this.currentTab = key;
     },
-    getProperlyIcon(slideDown, active = false) {
-      if (slideDown) {
-        if (active) {
-          return "collapsed-selected";
-        } else {
-          return "collapsed-default";
-        }
-      } else {
-        if (active) {
-          return "expanded-selected";
-        } else {
-          return "expanded-default";
-        }
-      }
-    },
     createMenu(h, slots) {
       return h("div", { class: ["yn-dropdown-menu-bar"] }, [
         h(
@@ -176,8 +161,9 @@ export default defineComponent({
                     directives: [{ name: "show", value: showDirectionIcon }],
                     class: ["dropdown-icon"],
                     props: {
-                      size: 6,
-                      name: this.getProperlyIcon(down, active),
+                      size: 8,
+                      name: `cpllapsed-expand-${active ? "active" : "default"}`,
+                      rotate: down ? 180 : 0
                     },
                   },
                   []

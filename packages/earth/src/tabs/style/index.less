@@ -2,20 +2,20 @@
 .yn-tabs {
   .yn-tabs-nav {
     height: 44px;
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid @yn-border-color-base;
     line-height: 44px;
     overflow: hidden;
     .yn-tab-text {
       display: inline-block;
       height: calc(100% - 4px);
-      color: @text-color;
+      color: @yn-text-color;
       &.active {
         color: @theme-color;
         border-bottom: 2px solid @theme-color;
       }
       &.disabled {
         cursor: not-allowed;
-        color: @disable-color;
+        color: @yn-disabled-color;
       }
     }
   }
