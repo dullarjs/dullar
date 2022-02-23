@@ -44,12 +44,13 @@ import { on, off } from "../../utils/dom";
 import Popper from "../../utils/vue-popper";
 
 @Component({
-  name: "Popper"
+  name: "Popover"
 })
-export default class Dialog extends Mixins(
+export default class Popover extends Mixins(
   Vue,
   Popper
 ) {
+  static componentName = "MPopover";
   @Prop({
     type: String,
     default: "click"

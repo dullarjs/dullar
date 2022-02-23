@@ -87,6 +87,18 @@ jobs:
         mkdir docs/earth
         mv packages/earth/docs/* docs/earth
 
+    - name: Build mars
+      run: |
+        cd packages/mars
+        npm install
+        npm install @vue/cli-service@4.3.0 --save-dev
+        npm run build
+
+    - name: Move mars to root docs
+      run: |
+        mkdir docs/mars
+        mv packages/mars/docs/* docs/mars
+
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
