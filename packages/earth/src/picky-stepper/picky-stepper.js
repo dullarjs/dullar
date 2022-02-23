@@ -2,13 +2,13 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-23 11:47:05
+ * @Last Modified time: 2022-02-23 15:16:56
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
 import Button from "../button";
-import Iconfont from "../iconfont";
+// import Iconfont from "../iconfont";
 import Radiobox from "../radiobox";
 import Checkbox from "../checkbox";
 import Flex from "../flex";
@@ -18,7 +18,7 @@ export default defineComponent({
   name: "PickyStepper",
   components: {
     Popup,
-    Iconfont,
+    // Iconfont,
     Flex,
     FlexItem,
     Button,
@@ -44,6 +44,14 @@ export default defineComponent({
       type: String,
       default: "确认",
     },
+    cancelText: {
+      type: String,
+      default: "取消"
+    },
+    previousText: {
+      type: String,
+      default: "上一步"
+    }
   },
   data() {
     return {
@@ -109,15 +117,16 @@ export default defineComponent({
       this.caculateSteps = [];
     },
     createClose(h) {
-      return h(
-        genComponentName("iconfont"),
-        {
-          class: ["yn-picky-stepper-close"],
-          props: { name: "close", size: 12 },
-          on: { click: this.close },
-        },
-        []
-      );
+      // return h(
+      //   genComponentName("iconfont"),
+      //   {
+      //     class: ["yn-picky-stepper-close"],
+      //     props: { name: "close", size: 12 },
+      //     on: { click: this.close },
+      //   },
+      //   []
+      // );
+      return h("span", { class: ["yn-picky-stepper-close"], on: { click: this.close } }, [this.cancelText])
     },
     stepBack() {
       const { previousNode } = this.currentStep;
@@ -133,15 +142,16 @@ export default defineComponent({
         previousNode !== undefined &&
         previousNode !== ""
       ) {
-        return h(
-          genComponentName("iconfont"),
-          {
-            class: ["yn-picky-stepper-back"],
-            props: { name: "back", size: 20 },
-            on: { click: this.stepBack },
-          },
-          []
-        );
+        // return h(
+        //   genComponentName("iconfont"),
+        //   {
+        //     class: ["yn-picky-stepper-back"],
+        //     props: { name: "back", size: 20 },
+        //     on: { click: this.stepBack },
+        //   },
+        //   []
+        // );
+        return h("span", { class: ["yn-picky-stepper-back"], on: { click: this.stepBack } }, [this.previousText])
       }
     },
     createTitle(h) {
