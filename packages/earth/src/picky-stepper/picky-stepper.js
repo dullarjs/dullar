@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-02 15:14:41
+ * @Last Modified time: 2022-02-23 11:47:05
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -383,7 +383,7 @@ export default defineComponent({
                             {
                               props: {
                                 checked: item.checked,
-                                size: 20,
+                                size: 12,
                                 disabled: item.disabled,
                               },
                             },
@@ -394,7 +394,7 @@ export default defineComponent({
                             {
                               props: {
                                 checked: item.checked,
-                                size: 20,
+                                size: 12,
                                 disabled: item.disabled,
                               },
                             },
