@@ -1,7 +1,7 @@
 .yn-textarea {
   width: 100%;
   border: none;
-  border-bottom: 1px solid #e5e6e8;
+  border-bottom: 1px solid @yn-border-color-base;
   outline: none;
   resize: none;
   font-size: 14px;
@@ -9,6 +9,7 @@
   height: 24px;
   line-height: 24px;
   border-radius: 0px;
+  color: @yn-text-color;
   &.focused-wrapped,
   &.focused-unwrapped,
   &.blured-unwrapped {
@@ -20,11 +21,11 @@
 
   &::-webkit-input-placeholder {
     font-size: 14px;
-    color: #bcc1cc;
+    color: @yn-auxiliary-color;
   }
   &:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     font-size: 14px;
-    color: #bcc1cc;
+    color: @yn-auxiliary-color;
   }
 }

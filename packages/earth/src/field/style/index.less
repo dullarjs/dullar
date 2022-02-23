@@ -14,7 +14,7 @@
       text-align: left;
       span {
         font-size: 15px;
-        color: #888888;
+        color: @yn-label-color;
       }
     }
     .yn-field-input,
@@ -38,6 +38,15 @@
         background-color: transparent;
         border: 0;
         resize: none;
+        &::-webkit-input-placeholder {
+          font-size: 14px;
+          color: @yn-auxiliary-color;
+        }
+        &:-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          font-size: 14px;
+          color: @yn-auxiliary-color;
+        }
       }
       > textarea.textarea-ele {
         word-break: break-all;
@@ -46,12 +55,21 @@
         outline: none;
         width: 100%;
         padding: 0;
+        &::-webkit-input-placeholder {
+          font-size: 14px;
+          color: @yn-auxiliary-color;
+        }
+        &:-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          font-size: 14px;
+          color: @yn-auxiliary-color;
+        }
       }
       .yn-field-textarea-counter {
         text-align: right;
         span {
           font-size: 12px;
-          color: #646566;
+          color: @yn-disabled-color;
         }
       }
       > input.input-ele.disable,
