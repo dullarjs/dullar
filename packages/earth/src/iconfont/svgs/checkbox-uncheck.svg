@@ -1,1 +1,15 @@
-<svg t="1601372961825" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5512" width="200" height="200"><path d="M837.376 0C940.416 0 1024 83.84 1024 186.624v650.752C1024 940.416 940.16 1024 837.376 1024H186.624A186.752 186.752 0 0 1 0 837.376V186.624C0 83.584 83.84 0 186.624 0h650.752z" fill="#FFFFFF" p-id="5513"></path><path d="M837.376 0C940.416 0 1024 83.84 1024 186.624v650.752C1024 940.416 940.16 1024 837.376 1024H186.624A186.752 186.752 0 0 1 0 837.376V186.624C0 83.584 83.84 0 186.624 0h650.752z m0 73.152H186.624c-62.528 0-113.472 50.88-113.472 113.472v650.752c0 62.528 50.88 113.472 113.472 113.472h650.752c62.528 0 113.472-50.88 113.472-113.472V186.624c0-62.528-50.88-113.472-113.472-113.472z" fill="#CCCCCC" p-id="5514"></path></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/Checkbox-Normal</title>
+    <g id="----2.5多选-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="多选" transform="translate(-874.000000, -490.000000)">
+            <g id="编组-5" transform="translate(666.000000, 423.000000)">
+                <g id="Icon/Checkbox-Normal" transform="translate(208.000000, 67.000000)">
+                    <g id="save"></g>
+                    <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                    <rect id="Rectangle" stroke="#D0D3DB" fill="#FFFFFF" x="0.5" y="0.5" width="15" height="15" rx="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
