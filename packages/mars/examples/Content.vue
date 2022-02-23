@@ -2,12 +2,12 @@
   <div class="example-container">
     <div class="example-container__left">
       <ul class="page-title">
+        <li class="page-title__item" @click="jump('indicator')">indicator</li>
         <li class="page-title__item" @click="jump('spin')">spin</li>
         <li class="page-title__item" @click="jump('dialog')">dialog</li>
         <li class="page-title__item" @click="jump('popover')">Popover</li>
-        <li class="page-title__item" @click="jump('toast')">toast</li>
-        <li class="page-title__item" @click="jump('calendar')">calendar</li>
         <li class="page-title__item" @click="jump('cityPicker')">cityPicker</li>
+        <li class="page-title__item" @click="jump('calendar')">calendar</li>
         <li class="page-title__item" @click="jump('datePicker')">datePicker</li>
         <li class="page-title__item" @click="jump('notification')">notification</li>
       </ul>

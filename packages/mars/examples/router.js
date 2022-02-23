@@ -13,6 +13,7 @@ import Popover from "./popover";
 import Notification from "./notification"
 import CityPicker from "./cityPicker";
 import Spin from "./spin";
+import Indicator from "./indicator";
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -24,6 +25,11 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "indicator",
+          name: "indicator",
+          component: Indicator
+        },
         {
           path: "spin",
           name: "spin",
