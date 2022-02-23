@@ -1,5 +1,4 @@
 import { on } from "./dom";
-import { throttle } from "./index";
 import { EventBus } from "./eventBus";
 (function (w) {
   on(w, "resize", (ev) => {

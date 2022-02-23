@@ -11,13 +11,13 @@
     >
       <div class="search-picker-block" v-show="isSearching">
         <ul class="city-block-list">
-            <li class="city-block-item"
-              v-for="(city, index) in searchList"
-              :key="index"
-              v-html="parse(city, 'search-result')"
-              @click="handlePick(city)"
-            ></li>
-          </ul>
+          <li class="city-block-item"
+            v-for="(city, index) in searchList"
+            :key="index"
+            v-html="parse(city, 'search-result')"
+            @click="handlePick(city)"
+          ></li>
+        </ul>
       </div>
       <div class="city-picker__content" v-show="!isSearching">
         <p class="city-picker-input-des">可直接选择城市或输入城市名称</p>
@@ -44,7 +44,8 @@
           </div>
           <div class="history-city-block" v-if="showHistory">
             <p class="history-city-block__title font-active">历史查询</p>
-            <ul class="city-block-list">
+            <spin v-if="historyLoading" type="tripleBounce" :size="30"></spin>
+            <ul class="city-block-list" v-else>
               <li class="city-block-item"
                 v-for="(city, index) in historyList"
                 :key="index"
@@ -66,7 +67,8 @@
             </div>
             <div class="tabs-content">
               <div class="hot-city-block" v-if="selecteDalphabetTab === 'hot'">
-                <ul class="city-block-list">
+                <spin v-if="historyLoading" type="tripleBounce" :size="30"></spin>
+                <ul class="city-block-list" v-else>
                   <li class="city-block-item"
                     v-for="(city, index) in hotCityList"
                     :key="index"
@@ -78,7 +80,9 @@
               <div class="alphabet-city-block"
                 v-else
               >
+                <spin v-if="alphaBetaLoading" type="tripleBounce" :size="30"></spin>
                 <div class="one-alphabet-block"
+                  v-else
                   v-for="(item, key, index) in alphaBetaCities"
                   :key="index"
                 >
@@ -118,11 +122,15 @@ import "./style/index.scss";
 import { AnyObject } from "@/types";
 import { isPromise, throttle } from "@/utils";
 import { EventBus } from "@/utils/eventBus";
+import Spin from "../spin";
 @Component({
-  name: "CityPicker"
+  name: "CityPicker",
+  components: {
+    Spin
+  }
 })
 export default class CityPicker extends Mixins(Vue) {
-  throttleSearch = (args: InputEvent) => { return; };
+  throttleSearch!: (args: InputEvent) => void;
   currentTab = "";
   selecteDalphabetTab = "";
   popoverVisible = false;
