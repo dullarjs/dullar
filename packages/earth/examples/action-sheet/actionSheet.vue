@@ -83,6 +83,8 @@ export default {
       this.Toast(e.name);
     },
     handleBeforeEnter() {
+      console.log("window.innerHeight", window.innerHeight);
+      console.log("document.documentElement.clientHeight", document.documentElement.clientHeight);
       if (this.asyncActions.length > 0) {
         return false;
       }
