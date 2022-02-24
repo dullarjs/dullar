@@ -24,7 +24,7 @@ import { Component, Prop, Watch } from 'vue-property-decorator'
   name: "Notification"
 })
 export default class Notification extends Vue {
-  static componentName = "MNotification";
+  static componentName = "YnNotification";
   visable = false;
   top = 20;
   onClose = null;

@@ -16,7 +16,7 @@ import Spin from "../spin";
   }
 })
 export default class Indicator extends Mixins(Vue, renderedMixins){
-  static componentName = "MIndicator";
+  static componentName = "YnIndicator";
   visible = false;
   @Prop({
     type: String

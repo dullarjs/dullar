@@ -1,33 +1,33 @@
 <template>
   <div>
-    <h2>m-checkbox</h2>
+    <h2>Yn-checkbox</h2>
     <ul>
       <li>
-        <m-checkbox v-model="checked" @change="handleClick"></m-checkbox>
+        <Yn-checkbox v-model="checked" @change="handleClick"></Yn-checkbox>
         <span>当前状态{{ checked }}</span>
       </li>
       <li>
-        <m-checkbox v-model="checked" disabled @change="handleClick"></m-checkbox>
+        <Yn-checkbox v-model="checked" disabled @change="handleClick"></Yn-checkbox>
         <span>此状态不可修改{{ checked }}</span>
       </li>
       <li>
-        <m-checkbox v-model="value"></m-checkbox>
+        <Yn-checkbox v-model="value"></Yn-checkbox>
         <span>当前状态{{ value }}</span>
       </li>
       <li>
-        <m-checkbox v-model="value" disabled></m-checkbox>
+        <Yn-checkbox v-model="value" disabled></Yn-checkbox>
         <span>此状态不可修改{{ value }}</span>
       </li>
     </ul>
     <h2>下面是动态循环的案例</h2>
-    <m-checkbox :indeterminate="isIndeterminate"
+    <Yn-checkbox :indeterminate="isIndeterminate"
       v-model="checkAll"
       @change="handleCheckAll(list)"
-    ></m-checkbox>
+    ></Yn-checkbox>
     <span>全选</span>
     <ul>
       <li class="outer-box" @click="handleItemClick(item, list)" v-for="(item, key) in list" :key="key">
-        <m-checkbox disableClick v-model="item.status"></m-checkbox>
+        <Yn-checkbox disableClick v-model="item.status"></Yn-checkbox>
         <span>支持整行点击</span>
       </li>
     </ul>

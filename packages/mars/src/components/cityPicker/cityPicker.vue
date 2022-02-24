@@ -132,7 +132,7 @@ import Popover from "../popover";
   }
 })
 export default class CityPicker extends Mixins(Vue) {
-  static componentName = "MCityPicker";
+  static componentName = "YnCityPicker";
   throttleSearch!: (args: InputEvent) => void;
   currentTab = "";
   selecteDalphabetTab = "";

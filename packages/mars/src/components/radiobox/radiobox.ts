@@ -13,7 +13,7 @@ import "./style/index.scss";
   }
 })
 export default class Radiobox extends Vue {
-  static componentName = "MRadiobox";
+  static componentName = "YnRadiobox";
   @Prop({
     type: Boolean,
     default: false,

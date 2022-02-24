@@ -17,7 +17,7 @@ import "./style/index.scss";
   }
 })
 export default class Checkbox extends Vue{
-  static componentName = "MCheckbox";
+  static componentName = "YnCheckbox";
   @Prop({
     type: Boolean,
     default: false

@@ -36,7 +36,7 @@ import { AnyObject } from "../../types";
   name: "Dialog"
 })
 export default class Dialog extends Mixins(Vue, Popup) {
-  static componentName = "MDialog";
+  static componentName = "YnDialog";
   @Prop({
     type: Boolean,
     default: true

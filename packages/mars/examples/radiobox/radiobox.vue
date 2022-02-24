@@ -3,19 +3,19 @@
     <h2>radiobox</h2>
     <ul>
       <li>
-        <m-radiobox v-model="value"></m-radiobox>
+        <Yn-radiobox v-model="value"></Yn-radiobox>
         <span>激活可选状态{{ value }}</span>
       </li>
       <li>
-        <m-radiobox v-model="value" disabled></m-radiobox>
+        <Yn-radiobox v-model="value" disabled></Yn-radiobox>
         <span>激活不可选状态{{ value }}</span>
       </li>
       <li>
-        <m-radiobox v-model="disabledValue"></m-radiobox>
+        <Yn-radiobox v-model="disabledValue"></Yn-radiobox>
         <span>非激活可选状态</span>
       </li>
       <li>
-        <m-radiobox v-model="disabledValue" disabled></m-radiobox>
+        <Yn-radiobox v-model="disabledValue" disabled></Yn-radiobox>
         <span>非激活不可选状态</span>
       </li>
     </ul>

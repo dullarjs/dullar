@@ -16,7 +16,7 @@ import "@/theme/global.scss";
 import svgs from "./iconfont/svgs";
 
 import Mars from "../src/index";
-Mars.config({ MIconfont: svgs });
+Mars.config({ YnIconfont: svgs });
 Vue.use(Mars);
 
 // YuiComponent.config({ iconfont: "../" });
