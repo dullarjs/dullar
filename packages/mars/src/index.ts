@@ -8,13 +8,15 @@ import CityPicker from "./components/cityPicker";
 import Dialog from "./components/dialog";
 import Popover from "./components/popover";
 import Indicator from "./components/indicator";
-import Iconfont from "./components/iconfont/";
+import Iconfont from "./components/iconfont";
+import Radiobox from "./components/radiobox";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  Radiobox,
   Iconfont,
   Indicator,
   Spin,
