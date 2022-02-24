@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-09 12:18:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-15 14:43:52
+ * @Last Modified time: 2022-02-24 10:27:58
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
@@ -49,6 +49,28 @@ export default defineComponent({
       default: 36,
     },
     iconColor: String,
+  },
+  computed: {
+    windowHeight() {
+      return window.innerHeight;
+    },
+    controlArea() {
+      return this.windowHeight * 0.85 - 108;
+    },
+    countActions() {
+      return this.actions.length * 50;
+    },
+    popupStyle() {
+      if (this.countActions > this.controlArea) {
+        return {
+          height: "85%"
+        }
+      } else {
+        return {
+          height: `${(this.countActions + 108 + (this.loading ? 58 : 0)) / this.windowHeight * 100}%`
+        }
+      }
+    }
   },
   methods: {
     handleChange(e) {
@@ -103,18 +125,6 @@ export default defineComponent({
           );
         });
       }
-      if (this.showCancel) {
-        list.push(
-          h(
-            "li",
-            {
-              class: ["yn-action-sheet-cancel"],
-              on: { click: this.handleCancel },
-            },
-            [h("span", {}, this.cancelText)]
-          )
-        );
-      }
       return list;
     },
     handleBeforeEnter() {
@@ -144,13 +154,40 @@ export default defineComponent({
           },
           directives: [{ name: "show", value: this.value }],
           props: { position: "bottom" },
-          style: { "max-height": "80%" },
+          style: { ...this.popupStyle, overflow: "hidden" },
         },
         [
-          h("h3", { class: ["yn-action-sheet-title"] }, this.title),
-          h("ul", { class: ["yn-action-sheet-content"] }, [this.createList(h)]),
+          h(genComponentName("flex"), {
+            class: ["yn-action-sheet-wrapper"],
+            props: { flexDirection: "column", justifyContent: "spaceBetween" }
+          }, [
+            h(genComponentName("flex-item"), {
+              ref: "header", class: ["yn-action-sheet-header"]
+            }, [
+              h("h3", { class: ["yn-action-sheet-title"] }, this.title)
+            ]),
+            h(genComponentName("flex-item"), {
+              class: ["yn-action-sheet-body"],
+              props: { flex: 1 }
+            }, [
+              h("ul", { class: ["yn-action-sheet-content"] }, [this.createList(h)])
+            ]),
+            h(genComponentName("flex-item"), {
+              ref: "header",
+              class: ["yn-action-sheet-footer"]
+            }, [
+              h(
+                "div",
+                {
+                  class: ["yn-action-sheet-cancel"],
+                  on: { click: this.handleCancel },
+                },
+                [h("span", {}, this.cancelText)]
+              )
+            ])
+          ])
         ]
-      ),
+      )
     ]);
   },
 });
