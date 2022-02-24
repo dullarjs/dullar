@@ -1,4 +1,7 @@
+const publicPath = process.env.NODE_ENV === 'production' ? "/mars/" : "/local/";
 module.exports = {
+  publicPath,
+  outputDir: "docs",
   css: {
     extract: false
   },

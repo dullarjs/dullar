@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-09 12:18:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-24 10:27:58
+ * @Last Modified time: 2022-02-24 11:38:06
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
@@ -55,10 +55,10 @@ export default defineComponent({
       return window.innerHeight;
     },
     controlArea() {
-      return this.windowHeight * 0.85 - 108;
+      return this.windowHeight * 0.85 - 106;
     },
     countActions() {
-      return this.actions.length * 50;
+      return this.actions.length * 48;
     },
     popupStyle() {
       if (this.countActions > this.controlArea) {
@@ -67,7 +67,7 @@ export default defineComponent({
         }
       } else {
         return {
-          height: `${(this.countActions + 108 + (this.loading ? 58 : 0)) / this.windowHeight * 100}%`
+          height: `${(this.countActions + 106 + (this.loading ? 60 : 0)) / this.windowHeight * 100}%`
         }
       }
     }
