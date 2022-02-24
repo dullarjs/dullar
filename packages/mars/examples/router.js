@@ -14,6 +14,7 @@ import Notification from "./notification"
 import CityPicker from "./cityPicker";
 import Spin from "./spin";
 import Indicator from "./indicator";
+import Iconfont from "./iconfont";
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -25,6 +26,11 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "iconfont",
+          name: "iconfont",
+          component: Iconfont
+        },
         {
           path: "indicator",
           name: "indicator",

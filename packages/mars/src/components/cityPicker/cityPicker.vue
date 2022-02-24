@@ -123,13 +123,16 @@ import { AnyObject } from "@/types";
 import { isPromise, throttle } from "@/utils";
 import { EventBus } from "@/utils/eventBus";
 import Spin from "../spin";
+import Popover from "../popover";
 @Component({
   name: "CityPicker",
   components: {
+    Popover,
     Spin
   }
 })
 export default class CityPicker extends Mixins(Vue) {
+  static componentName = "MCityPicker";
   throttleSearch!: (args: InputEvent) => void;
   currentTab = "";
   selecteDalphabetTab = "";

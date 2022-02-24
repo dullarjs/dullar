@@ -13,9 +13,11 @@ import notification from "@/components/notification"
 
 import "normalize.css";
 import "@/theme/global.scss";
+import svgs from "./iconfont/svgs";
 
-import OneUi from "../src/index";
-Vue.use(OneUi);
+import Mars from "../src/index";
+Mars.config({ MIconfont: svgs });
+Vue.use(Mars);
 
 // YuiComponent.config({ iconfont: "../" });
 if (process.env.NODE_ENV === "development") {

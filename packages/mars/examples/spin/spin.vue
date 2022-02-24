@@ -1,32 +1,32 @@
 <template>
-  <div class="spin">
+  <div class="spin-page">
     <div>
       <h4>triple-bounce</h4>
-      <spin type="triple-bounce"></spin>
+      <m-spin type="triple-bounce"></m-spin>
     </div>
     <div>
       <h4>default snake</h4>
-      <spin type="snake"></spin>
+      <m-spin type="snake"></m-spin>
     </div>
     <div>
       <h4>snake set borderWidth as 2</h4>
-      <spin borderWidth="2" type="snake"></spin>
+      <m-spin borderWidth="2" type="snake"></m-spin>
     </div>
     <div>
       <h4>fading-circle</h4>
-      <spin type="fading-circle"></spin>
+      <m-spin type="fading-circle"></m-spin>
     </div>
     <div>
       <h4>double-bounce</h4>
-      <spin type="double-bounce"></spin>
+      <m-spin type="double-bounce"></m-spin>
     </div>
     <div>
       <h4>rotate</h4>
-      <spin type="rotate" :size="50"></spin>
+      <m-spin type="rotate" :size="50"></m-spin>
     </div>
     <div>
       <h4>rotate svg</h4>
-      <spin type="rotate-svg" size="40"></spin>
+      <m-spin type="rotate-svg" size="40"></m-spin>
     </div>
   </div>
 </template>
