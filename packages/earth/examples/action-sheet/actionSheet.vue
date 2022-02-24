@@ -101,6 +101,7 @@ export default {
   },
   mounted() {
     console.log("window.innerHeight", window.innerHeight);
+    console.log("document.documentElement.clientHeight", document.documentElement.clientHeight);
   }
 };
 </script>
