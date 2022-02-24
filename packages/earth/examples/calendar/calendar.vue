@@ -183,8 +183,6 @@
     <yn-calendar
       mode="double"
       :doubleModeAllowSameDate="false"
-      :fromDateMark="''"
-      :toDateMark="''"
       :dateLocked="true"
       :lockDateParse="lockDateParse"
       :before="9"

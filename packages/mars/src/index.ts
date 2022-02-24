@@ -24,7 +24,6 @@ export const components: AnyObject = {
 }
 
 const install = (Vue: VueConstructor): void => {
-  debugger;
   Object.keys(components).map(compName => {
     const comp = components[compName];
     const merge = (comp as any).extendData;

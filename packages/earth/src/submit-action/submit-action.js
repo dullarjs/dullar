@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-24 12:04:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-02-03 11:50:53
+ * @Last Modified time: 2022-02-23 14:05:48
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -170,11 +170,11 @@ export default defineComponent({
     },
     genIcon(h) {
       if (this.showIcon) {
-        const iconName = this.showPopup ? "down-arrow" : "up-arrow";
+        const rotate = this.showPopup ? 0 : 180;
         return h("span", { class: ["yn-submit-action-icon"] }, [
           h(
             genComponentName("iconfont"),
-            { props: { name: iconName, size: 12 } },
+            { props: { name: "cpllapsed-expand-default", size: 10, rotate } },
             []
           ),
         ]);
