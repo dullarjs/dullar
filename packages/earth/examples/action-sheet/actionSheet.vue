@@ -98,6 +98,9 @@ export default {
         ];
       }, 3000);
     }
+  },
+  mounted() {
+    console.log("window.innerHeight", window.innerHeight);
   }
 };
 </script>
