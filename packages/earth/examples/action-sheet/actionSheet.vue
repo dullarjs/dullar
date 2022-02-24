@@ -5,6 +5,7 @@
       <li @click="handleBasicUsage">基础用法</li>
       <li @click="handleCancelUsage">带取消 & 禁止某些选线</li>
       <li @click="handleAsyncUsage">异步加载</li>
+      <li @click="handleBigData">我的内容很长</li>
     </ul>
     <yn-action-sheet
       v-model="basic"
@@ -25,9 +26,18 @@
       v-on:getSelected="getSelect"
       showCancel
     ></yn-action-sheet>
+    <yn-action-sheet
+      v-model="bigData"
+      :actions="bigDataActions"
+      v-on:getSelected="getSelect"
+    ></yn-action-sheet>
   </div>
 </template>
 <script>
+const bigDataActions = [];
+for (let i = 0; i < 20; i++) {
+  bigDataActions.push({ name: `option-${i}`, className: "", disable: false, key: i });
+}
 export default {
   name: "YnActionSheetPage",
   data() {
@@ -50,7 +60,9 @@ export default {
       ],
       async: false,
       loading: false,
-      asyncActions: []
+      asyncActions: [],
+      bigData: false,
+      bigDataActions
     };
   },
   methods: {
@@ -62,6 +74,9 @@ export default {
     },
     handleAsyncUsage() {
       this.async = !this.async;
+    },
+    handleBigData() {
+      this.bigData = !this.bigData;
     },
     getSelect(e) {
       console.log(e.name);
