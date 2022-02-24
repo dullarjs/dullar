@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-09 12:18:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-24 11:38:06
+ * @Last Modified time: 2022-02-24 18:32:42
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
@@ -51,9 +51,6 @@ export default defineComponent({
     iconColor: String,
   },
   computed: {
-    windowHeight() {
-      return window.innerHeight;
-    },
     controlArea() {
       return this.windowHeight * 0.85 - 106;
     },
@@ -70,6 +67,11 @@ export default defineComponent({
           height: `${(this.countActions + 106 + (this.loading ? 60 : 0)) / this.windowHeight * 100}%`
         }
       }
+    }
+  },
+  data() {
+    return {
+      windowHeight: 0
     }
   },
   methods: {
@@ -128,6 +130,7 @@ export default defineComponent({
       return list;
     },
     handleBeforeEnter() {
+      this.windowHeight = window.innerHeight; // make sure get window.innerHeight properly
       this.$emit("beforeEnter");
     },
     handleAfterEnter() {
