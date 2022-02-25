@@ -47,26 +47,6 @@
         <span>close</span>
       </li>
       <li>
-        <yn-iconfont name="collapsed-default"></yn-iconfont>
-        <span>collapsed-default</span>
-      </li>
-      <li>
-        <yn-iconfont name="collapsed-selected"></yn-iconfont>
-        <span>collapsed-selected</span>
-      </li>
-      <li>
-        <yn-iconfont name="down-arrow"></yn-iconfont>
-        <span>down-arrow</span>
-      </li>
-      <li>
-        <yn-iconfont name="expanded-default"></yn-iconfont>
-        <span>expanded-default</span>
-      </li>
-      <li>
-        <yn-iconfont name="expanded-selected"></yn-iconfont>
-        <span>expanded-selected</span>
-      </li>
-      <li>
         <yn-iconfont name="minus-disabled"></yn-iconfont>
         <span>minus-disabled</span>
       </li><li>
@@ -90,9 +70,6 @@
       <li>
         <yn-iconfont name="search"></yn-iconfont>
         <span>search</span>
-      </li><li>
-        <yn-iconfont name="up-arrow"></yn-iconfont>
-        <span>up-arrow</span>
       </li>
     </ul>
   </div>
