@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-20 16:25:59
  * @Last Modified by: yegl
- * @Last Modified time: 2022-01-24 19:28:06
+ * @Last Modified time: 2022-02-18 18:41:24
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -17,6 +17,14 @@ export default defineComponent({
     suggestions: Array,
     scrollerBarVisible: Boolean,
     loading: Boolean,
+    isSelected: {
+      type: Boolean,
+      default: false,
+    },
+    scrollerBarTop: {
+      type: Number,
+      default: 0,
+    },
   },
   mixins: [slotsMixins],
   data() {
@@ -69,31 +77,45 @@ export default defineComponent({
       }
       return node;
     },
+    getContentList(isSelected, h) {
+      if (isSelected) {
+        const _slots = this.slots("default") || "暂无数据";
+        return _slots;
+      } else {
+        return Array.apply(null, this.suggestions).map((item) => {
+          return h(
+            "li",
+            {
+              class: "yn-autocomplete-item",
+              on: {
+                click: () => {
+                  return this.handleSelect(item);
+                },
+              },
+            },
+            [this.getSlots(item)]
+          );
+        });
+      }
+    },
   },
   render(h) {
-    const { scrollWidht, scrollTop, suggestions, loading } = this;
+    const { scrollWidht, scrollTop, loading, isSelected, scrollerBarTop } =
+      this;
+    const _list = this.getContentList(isSelected, h);
     return h(
       "div",
       {
         class: "yn-scroller-bar",
-        style: { width: scrollWidht + "px", top: scrollTop + "px" },
+        style: {
+          width: scrollWidht + "px",
+          top: (scrollerBarTop || scrollTop) + "px",
+        },
       },
       [
         h("ul", { class: "yn-scroll-list" }, [
           !loading
-            ? Array.apply(null, suggestions).map((item) => {
-                return h(
-                  "li",
-                  {
-                    on: {
-                      click: () => {
-                        return this.handleSelect(item);
-                      },
-                    },
-                  },
-                  [this.getSlots(item)]
-                );
-              })
+            ? _list
             : h(
                 genComponentName("spin"),
                 {

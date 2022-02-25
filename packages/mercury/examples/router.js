@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-07 13:50:45
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-06 04:15:06
+ * @Last Modified time: 2022-01-25 11:35:37
  */
 import Router from "vue-router";
 import Vue from "vue";
@@ -49,6 +49,7 @@ import Form from "./form/fd.vue"
 import Picker from "./picker/picker.vue";
 import DatePicker from "./date-picker/datePicker.vue";
 import Switch from "./switch/switch.vue";
+import Select from "./select/select.vue";
 const router = new Router({
   routes: [{
       path: "/",
@@ -260,6 +261,11 @@ const router = new Router({
       path: "/switch",
       name: "switch",
       component: Switch
+    },
+    {
+      path: "/select",
+      name: "select",
+      component: Select
     }
   ]
 });
