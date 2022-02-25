@@ -26,6 +26,10 @@
     <hr />
     <yn-button type="primary" plain>plain</yn-button>
     <hr />
+    <yn-button type="texted">text</yn-button>
+    <hr />
+    <yn-button type="texted" :loading="true">text loading</yn-button>
+    <hr />
     <yn-button type="warning" plain>plain</yn-button>
     <hr />
     <yn-button :loading="true" loadingText="loading text">plain</yn-button>
