@@ -14,7 +14,7 @@ import "./style/index.scss";
   name: "Iconfont"
 })
 export default class Iconfont extends Vue {
-  static componentName = "MIconfont";
+  static componentName = "YnIconfont";
   svgPrefix = "";
   static svgs: AnyObject = svgs;
   static extendData(options: typeof svgs) {

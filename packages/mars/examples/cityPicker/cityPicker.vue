@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h2>m-city-picker</h2>
+    <h2>Yn-city-picker</h2>
     <ul>
       <li @click="handlePicker(1)">
         国内城市
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName1"
           :searchable="false"
           @pick="handlePick"
@@ -14,11 +14,11 @@
           :history="getHistory()"
           :hotCity="getHotCity()"
           showHistory
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
       <li @click="handlePicker(2)">
         国际城市
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName2"
           :alphaBeta="getAlphaBeta()"
           :history="getHistory()"
@@ -28,11 +28,11 @@
           @pick="handlePick"
           v-model="picker2"
           :tabs="tabs2"
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
       <li @click="handlePicker(3)">
         全部城市
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName3"
           :alphaBeta="getAlphaBeta()"
           :history="getHistory()"
@@ -40,33 +40,33 @@
           :searchable="false"
           @pick="handlePick"
           v-model="picker3"
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
       <li @click="handlePicker(4)">
         受限城市
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName4"
           :searchable="false"
           @pick="handlePick"
           v-model="picker4"
           :limitedData="data.cnCitiesList"
           limited
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
       <li @click="handlePicker(9)">
         受限城市搜索
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName9"
           @pick="handlePick"
           v-model="picker9"
           :limitedData="data.cnCitiesList"
           :search="getSearch()"
           limited
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
       <li @click="handlePicker(5)">
         显示历史记录
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName5"
           @pick="handlePick"
           v-model="picker5"
@@ -74,11 +74,11 @@
           showHistory
           :history="getHistory()"
           :alphaBeta="getAlphaBeta()"
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
       <li @click="handlePicker(6)">
         不显示热门城市
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName6"
           :alphaBeta="getAlphaBeta()"
           :searchable="false"
@@ -86,11 +86,11 @@
           v-model="picker6"
           :tabs="tabs2"
           :showHotCity="false"
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
       <li @click="handlePicker(7)">
         可搜索【关闭后会自动清除上次搜索记录】
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName7"
           ref="cityPicker"
           :search="getSearch()"
@@ -102,11 +102,11 @@
           v-model="picker7"
           :parse="parse"
           @afterLeave="handleAfterLeave"
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
       <li @click="handlePicker(8)">
         可搜索(三列布局)
-        <m-city-picker
+        <Yn-city-picker
           :defalutCityName="defalutCityName8"
           :search="getSearch()"
           :alphaBeta="getAlphaBeta()"
@@ -116,11 +116,11 @@
           @pick="handlePick"
           v-model="picker8"
           column="3"
-        ></m-city-picker>
+        ></Yn-city-picker>
       </li>
     </ul>
     
-    <!-- <m-city-picker
+    <!-- <Yn-city-picker
       :search="getSearch()"
       :alphaBeta="getAlphaBeta()"
       :history="getHistory()"
@@ -129,7 +129,7 @@
       @pick="handlePick"
       v-model="picker10"
       :parse="parse"
-    ></m-city-picker> -->
+    ></Yn-city-picker> -->
   </div>
 </template>
 

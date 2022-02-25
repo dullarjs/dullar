@@ -50,7 +50,7 @@ export default class Popover extends Mixins(
   Vue,
   Popper
 ) {
-  static componentName = "MPopover";
+  static componentName = "YnPopover";
   @Prop({
     type: String,
     default: "click"

@@ -15,6 +15,8 @@ import CityPicker from "./cityPicker";
 import Spin from "./spin";
 import Indicator from "./indicator";
 import Iconfont from "./iconfont";
+import Radiobox from "./radiobox";
+import Checkbox from "./checkbox";
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -26,6 +28,16 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "checkbox",
+          name: "checkbox",
+          component: Checkbox
+        },
+        {
+          path: "radiobox",
+          name: "radiobox",
+          component: Radiobox
+        },
         {
           path: "iconfont",
           name: "iconfont",

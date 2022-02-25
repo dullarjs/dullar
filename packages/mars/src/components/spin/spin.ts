@@ -8,7 +8,7 @@ import { hyphenate, camelize } from "@/utils";
   name: "Spin"
 })
 export default class Spin extends Vue {
-  static componentName = "MSpin";
+  static componentName = "YnSpin";
   @Prop({
     type: String,
     default: "snake"

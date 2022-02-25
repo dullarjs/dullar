@@ -1,97 +1,97 @@
 <template>
   <div>
-    <h2>m-iconfont</h2>
+    <h2>Yn-iconfont</h2>
     <p>扩展icon</p>
-    <m-iconfont name="elm" size="40" @click="handleClick"></m-iconfont>
-    <m-iconfont name="eldddm"></m-iconfont>
+    <Yn-iconfont name="elm" size="40" @click="handleClick"></Yn-iconfont>
+    <Yn-iconfont name="eldddm"></Yn-iconfont>
     <p>内置icon</p>
     <ul>
       <li>
-        <m-iconfont name="add-disabled"></m-iconfont>
+        <Yn-iconfont name="add-disabled"></Yn-iconfont>
         <span>add-disabled</span>
       </li>
       <li>
-        <m-iconfont name="add"></m-iconfont>
+        <Yn-iconfont name="add"></Yn-iconfont>
         <span>add</span>
       </li>
       <li>
-        <m-iconfont name="back"></m-iconfont>
+        <Yn-iconfont name="back"></Yn-iconfont>
         <span>back</span>
       </li>
       <li>
-        <m-iconfont name="check-mark"></m-iconfont>
+        <Yn-iconfont name="check-mark"></Yn-iconfont>
         <span>check-mark</span>
       </li>
       <li>
-        <m-iconfont name="checkbox-checked-disabled"></m-iconfont>
+        <Yn-iconfont name="checkbox-checked-disabled"></Yn-iconfont>
         <span>checkbox-checked-disabled</span>
       </li>
       <li>
-        <m-iconfont name="checkbox-checked"></m-iconfont>
+        <Yn-iconfont name="checkbox-checked"></Yn-iconfont>
         <span>checkbox-checked</span>
       </li>
       <li>
-        <m-iconfont name="checkbox-uncheck-disabled"></m-iconfont>
+        <Yn-iconfont name="checkbox-uncheck-disabled"></Yn-iconfont>
         <span>checkbox-uncheck-disabled</span>
       </li>
       <li>
-        <m-iconfont name="checkbox-uncheck"></m-iconfont>
+        <Yn-iconfont name="checkbox-uncheck"></Yn-iconfont>
         <span>checkbox-uncheck</span>
       </li>
       <li>
-        <m-iconfont name="clear"></m-iconfont>
+        <Yn-iconfont name="clear"></Yn-iconfont>
         <span>clear</span>
       </li>
       <li>
-        <m-iconfont name="close"></m-iconfont>
+        <Yn-iconfont name="close"></Yn-iconfont>
         <span>close</span>
       </li>
       <li>
-        <m-iconfont name="collapsed-default"></m-iconfont>
+        <Yn-iconfont name="collapsed-default"></Yn-iconfont>
         <span>collapsed-default</span>
       </li>
       <li>
-        <m-iconfont name="collapsed-selected"></m-iconfont>
+        <Yn-iconfont name="collapsed-selected"></Yn-iconfont>
         <span>collapsed-selected</span>
       </li>
       <li>
-        <m-iconfont name="doarrow"></m-iconfont>
+        <Yn-iconfont name="doarrow"></Yn-iconfont>
         <span>doarrow</span>
       </li>
       <li>
-        <m-iconfont name="expanded-default"></m-iconfont>
+        <Yn-iconfont name="expanded-default"></Yn-iconfont>
         <span>expanded-default</span>
       </li>
       <li>
-        <m-iconfont name="expanded-selected"></m-iconfont>
+        <Yn-iconfont name="expanded-selected"></Yn-iconfont>
         <span>expanded-selected</span>
       </li>
       <li>
-        <m-iconfont name="minus-disabled"></m-iconfont>
+        <Yn-iconfont name="minus-disabled"></Yn-iconfont>
         <span>minus-disabled</span>
       </li><li>
-        <m-iconfont name="minus"></m-iconfont>
+        <Yn-iconfont name="minus"></Yn-iconfont>
         <span>minus</span>
       </li>
       <li>
-        <m-iconfont name="radio-off-disabled"></m-iconfont>
+        <Yn-iconfont name="radio-off-disabled"></Yn-iconfont>
         <span>radio-off-disabled</span>
       </li><li>
-        <m-iconfont name="radio-off"></m-iconfont>
+        <Yn-iconfont name="radio-off"></Yn-iconfont>
         <span>radio-off</span>
       </li>
       <li>
-        <m-iconfont name="radio-disabled"></m-iconfont>
+        <Yn-iconfont name="radio-disabled"></Yn-iconfont>
         <span>radio-disabled</span>
       </li><li>
-        <m-iconfont name="radio-on"></m-iconfont>
+        <Yn-iconfont name="radio-on"></Yn-iconfont>
         <span>radio-on</span>
       </li>
       <li>
-        <m-iconfont name="search"></m-iconfont>
+        <Yn-iconfont name="search"></Yn-iconfont>
         <span>search</span>
       </li><li>
-        <m-iconfont name="up-arrow"></m-iconfont>
+        <Yn-iconfont name="up-arrow"></Yn-iconfont>
         <span>up-arrow</span>
       </li>
     </ul>
