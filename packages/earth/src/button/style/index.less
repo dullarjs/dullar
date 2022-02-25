@@ -49,26 +49,42 @@
   color: @white;
   background-color: @yn-error-color;
 }
+.yn-button-texted {
+  color: @yn-text-color;
+  background-color: @white;
+}
 .yn-button-default.is-plain {
   border: 1px solid @yn-border-color-base;
   background-color: transparent;
   box-shadow: none;
   color: @yn-border-color-base;
+  &.is-text {
+    border: none;
+  }
 }
 .yn-button-primary.is-plain {
   border: 1px solid @theme-color;
   background-color: transparent;
   color: @theme-color;
+  &.is-text {
+    border: none;
+  }
 }
 .yn-button-danger.is-plain {
   border: 1px solid @yn-error-color;
   background-color: transparent;
   color: @yn-error-color;
+  &.is-text {
+    border: none;
+  }
 }
 .yn-button-warning.is-plain {
   border: 1px solid @yn-warning-color;
   background-color: transparent;
   color: @yn-warning-color;
+  &.is-text {
+    border: none;
+  }
 }
 .yn-button-loading {
   cursor: default;

@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:15:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-23 17:10:28
+ * @Last Modified time: 2022-02-25 15:17:19
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Spin from "../spin";
@@ -29,6 +29,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    text: {
+      type: Boolean,
+      default: false
+    },
     loading: {
       type: Boolean,
       default: false,
@@ -54,7 +58,7 @@ export default defineComponent({
   },
   methods: {
     isValidType() {
-      return ["primary", "info", "warning", "danger"].indexOf(this.type) > -1;
+      return ["primary", "warning", "danger", "texted"].indexOf(this.type) > -1;
     },
     isValidSize() {
       return ["large", "small", "normal"].indexOf(this.size) > -1;
@@ -121,6 +125,9 @@ export default defineComponent({
     if (this.plain) {
       className.push("is-plain");
     }
+    // if (this.text) {
+    //   className.push("is-text");
+    // }
     const text =
       this.loading && (this.loadingText || this.loadingText === "")
         ? this.loadingText
