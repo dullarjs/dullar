@@ -1,3 +1,10 @@
+<!--
+ * @Author: yegl
+ * @Date: 2021-12-24 10:50:28
+ * @Last Modified by: yegl
+ * @Last Modified time: 2022-01-25 11:36:00
+ * @E-mail: yglgzyx@126.com
+-->
 <template>
   <div class="example-container">
     <ul>
@@ -42,6 +49,7 @@
       <li @click="jump('picker')">picker</li>
       <li @click="jump('datePicker')">datePicker</li>
       <li @click="jump('switch')">switch</li>
+      <li @click="jump('select')">select</li>
     </ul>
   </div>
 </template>

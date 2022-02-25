@@ -4,7 +4,6 @@
   border: 1px solid @light-grey-bc;
   box-sizing: border-box;
   max-height: 265px;
-  min-height: 56px;
   overflow: hidden auto;
   background-color: @white;
   .yn-scroll-list {
@@ -12,6 +11,7 @@
     width: 100%;
     max-height: 265px;
     text-align: center;
+    margin: 7px 0;
     > li {
       text-align: left;
       list-style: none;
@@ -19,11 +19,13 @@
       font-size: 14px;
       box-sizing: border-box;
       padding: 7px 10px;
-      cursor: pointer;
       line-height: normal;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    .yn-autocomplete-item {
+      cursor: pointer;
       &:hover {
         background-color: @t-b-color;
       }

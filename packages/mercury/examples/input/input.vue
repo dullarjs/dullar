@@ -35,7 +35,7 @@
       <p>无边框（底线）</p>
       <yn-input type="text" underline />
       <p>输入建议</p>
-      <yn-autocomplete v-model="value" :haddleSearch="querySearch" @select="handleSelect">
+      <yn-autocomplete v-model="value" :haddleSearch="querySearch" @select="handleSelect" iconName="down-arrow">
       </yn-autocomplete>
       <p>输入建议(自定义模板)</p>
       <yn-autocomplete v-model="value" :haddleSearch="querySearch" @select="handleSelect">

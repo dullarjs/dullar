@@ -1,0 +1,36 @@
+.yn-option-list-item {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  li {
+    text-align: left;
+    list-style: none;
+    width: 100%;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 7px 10px;
+    line-height: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .yn-option-list-label {
+    font-size: 12px;
+    color: @text-color2;
+  }
+  &:not(:last-of-type) {
+    padding-bottom: 24px;
+  }
+  &:not(:last-of-type):after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 20px;
+    right: 20px;
+    bottom: 12px;
+    height: 1px;
+    background: #e4e7ed;
+  }
+}

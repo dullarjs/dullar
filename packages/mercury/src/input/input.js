@@ -2,7 +2,7 @@
  * @Author: tongh
  * @Date:   2020-08-25 10:44:56
  * @Last Modified by:   tongh
- * @Last Modified time: 2022-01-24 14:44:31
+ * @Last Modified time: 2022-02-16 17:01:17
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { slotsMixins } from "@/mixins/slots";
@@ -107,6 +107,8 @@ export default defineComponent({
       time: null,
       DataSuffixIcon: "",
       lock: false,
+      isFocus: false,
+      isSelect: false,
     };
   },
   watch: {
@@ -155,8 +157,7 @@ export default defineComponent({
     },
     onFocus() {
       let _this = this;
-      let i = _this.$refs.inputWrap;
-      i.style.borderColor = "#139ff0";
+      _this.isFocus = true;
       if (_this.time) {
         _this.time = null;
       }
@@ -168,10 +169,14 @@ export default defineComponent({
     },
     onBlur() {
       let _this = this;
-      let i = _this.$refs.inputWrap;
-      i.style.borderColor = "#dcdfe6";
       _this.time = setTimeout(function () {
         _this.clearShow = false;
+        if (_this.isSelect === true) {
+          _this.isSelect = false;
+          _this.isFocus = true;
+        } else {
+          _this.isFocus = false;
+        }
       }, 200);
     },
     f(e) {
@@ -414,6 +419,7 @@ export default defineComponent({
           height: !this.textArea && this.height + "px",
           backgroundColor: this.backgroundColor,
           cursor: this.cursor,
+          borderColor: this.isFocus ? "#139ff0" : "#dcdfe6",
           [this.underline ? "borderBottom" : "border"]: this.textArea
             ? "none"
             : "1px solid #dcdfe6",

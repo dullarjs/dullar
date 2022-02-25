@@ -1,0 +1,38 @@
+.yn-select {
+  display: inline-block;
+  position: relative;
+  input {
+    cursor: pointer;
+    border: none;
+  }
+  .yn-select-tags {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    min-height: 34px;
+    box-sizing: border-box;
+    padding: 2px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    .yn-select-tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 0 5px;
+      margin: 2px;
+      line-height: 26px;
+      border-radius: 4px;
+      background-color: #e9e9eb;
+      color: #909399;
+    }
+    .yn-select-tag-icon {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    .yn-select-filter-input {
+      width: 2px;
+      flex-grow: 1;
+      outline: none;
+    }
+  }
+}
