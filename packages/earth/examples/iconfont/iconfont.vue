@@ -15,10 +15,6 @@
         <span>add</span>
       </li>
       <li>
-        <yn-iconfont name="back"></yn-iconfont>
-        <span>back</span>
-      </li>
-      <li>
         <yn-iconfont name="check-mark"></yn-iconfont>
         <span>check-mark</span>
       </li>
