@@ -2,13 +2,12 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-23 15:16:56
+ * @Last Modified time: 2022-02-28 15:34:23
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
 import Button from "../button";
-// import Iconfont from "../iconfont";
 import Radiobox from "../radiobox";
 import Checkbox from "../checkbox";
 import Flex from "../flex";
@@ -18,7 +17,6 @@ export default defineComponent({
   name: "PickyStepper",
   components: {
     Popup,
-    // Iconfont,
     Flex,
     FlexItem,
     Button,
@@ -29,6 +27,10 @@ export default defineComponent({
     value: {
       type: Boolean,
       default: false,
+    },
+    oneStepMode: {
+      type: Boolean,
+      default: false
     },
     steps: {
       type: Array,
@@ -117,16 +119,24 @@ export default defineComponent({
       this.caculateSteps = [];
     },
     createClose(h) {
-      // return h(
-      //   genComponentName("iconfont"),
-      //   {
-      //     class: ["yn-picky-stepper-close"],
-      //     props: { name: "close", size: 12 },
-      //     on: { click: this.close },
-      //   },
-      //   []
-      // );
-      return h("span", { class: ["yn-picky-stepper-close"], on: { click: this.close } }, [this.cancelText])
+      if (this.oneStepMode) {
+        return h(genComponentName("button"), {
+          on: { click: this.handleStepConfirm },
+          class: ["yn-picky-stepper-close", "confirm-button"],
+          props: {
+            size: "large",
+            loadingSize: 12,
+            type: "texted",
+            loading: this.submitLoading,
+            disabled: this.getDisabledStatus(),
+            loadingColor: "#0052CC",
+          }
+        }, [this.confirmText]);
+      }
+      return h("span", {
+        class: ["yn-picky-stepper-close"],
+        on: { click: this.close }
+      }, [this.cancelText])
     },
     stepBack() {
       const { previousNode } = this.currentStep;
@@ -136,22 +146,22 @@ export default defineComponent({
       });
     },
     createBack(h) {
+      if (this.oneStepMode) {
+        return h("span", {
+          class: ["yn-picky-stepper-back"],
+          on: { click: this.close }
+        }, [this.cancelText])
+      }
       const { previousNode } = this.currentStep;
       if (
         previousNode !== null &&
         previousNode !== undefined &&
         previousNode !== ""
       ) {
-        // return h(
-        //   genComponentName("iconfont"),
-        //   {
-        //     class: ["yn-picky-stepper-back"],
-        //     props: { name: "back", size: 20 },
-        //     on: { click: this.stepBack },
-        //   },
-        //   []
-        // );
-        return h("span", { class: ["yn-picky-stepper-back"], on: { click: this.stepBack } }, [this.previousText])
+        return h("span", {
+          class: ["yn-picky-stepper-back"],
+          on: { click: this.stepBack }
+        }, [this.previousText])
       }
     },
     createTitle(h) {
@@ -199,7 +209,7 @@ export default defineComponent({
     },
     handleStepConfirm() {
       const { currentStep, caculateSteps } = this;
-      if (currentStep.nextNode) {
+      if (!this.oneStepMode && currentStep.nextNode) {
         this.currentStep = caculateSteps.find((step) => {
           return step.key === currentStep.nextNode;
         });
@@ -271,6 +281,7 @@ export default defineComponent({
       return this.submitLoading || !actived;
     },
     createFooter(h) {
+      if (this.oneStepMode) return null;
       return h("div", { class: ["yn-picky-stepper-footer"] }, [
         h(
           genComponentName("button"),

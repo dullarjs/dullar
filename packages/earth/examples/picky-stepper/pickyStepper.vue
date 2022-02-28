@@ -13,6 +13,7 @@
         <yn-button @click="switchData(1)">切换数据源1</yn-button>
         <yn-button @click="switchData(2)">切换数据源2</yn-button>
       </li>
+      <li @click="handleClick(8)">oneStepMode</li>
     </ul>
     <yn-picky-stepper
       v-model="picker1"
@@ -54,6 +55,14 @@
       v-model="picker7"
       @success="handleSuccess"
       :steps="steps7"
+      @picked="handleOnPick"
+    ></yn-picky-stepper>
+    <yn-picky-stepper
+      v-model="picker8"
+      oneStepMode
+      @success="handleSuccess"
+      :steps="steps1"
+      :submit="submit"
       @picked="handleOnPick"
     ></yn-picky-stepper>
   </div>
@@ -100,6 +109,7 @@ export default {
       picker5: false,
       picker6: false,
       picker7: false,
+      picker8: false,
       steps7: [],
       steps5: [
         {
@@ -207,6 +217,18 @@ export default {
               // required: true
             }
           ],
+          multiple: false
+        }
+      ],
+      steps8: [
+        {
+          title: "请选择改签人员",
+          list: persons,
+          multiple: true
+        },
+        {
+          title: "请选择原因",
+          list: reasons,
           multiple: false
         }
       ]
