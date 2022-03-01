@@ -1,5 +1,8 @@
 import { AnyObject, Callback } from "@/types";
 
+export const encrypt = (str = "") => {
+  return String(str).replace(/^(\S{2})(\S+)(\S{2})$/, "$1******$3");
+};
 export const capitalize = (str = "") => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };

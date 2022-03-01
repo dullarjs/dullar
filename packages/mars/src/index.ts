@@ -11,12 +11,14 @@ import Indicator from "./components/indicator";
 import Iconfont from "./components/iconfont";
 import Radiobox from "./components/radiobox";
 import Checkbox from "./components/checkbox";
+import Field from "./components/field";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  Field,
   Checkbox,
   Radiobox,
   Iconfont,
