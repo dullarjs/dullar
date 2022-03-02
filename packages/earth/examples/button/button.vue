@@ -34,7 +34,7 @@
     <hr />
     <yn-button :loading="true" loadingText="loading text">plain</yn-button>
     <hr />
-    <yn-button iconName="iconback" iconColor="red">button with icon</yn-button>
+    <yn-button iconName="elm" iconColor="red">button with icon</yn-button>
   </div>
 </template>
 <script>
