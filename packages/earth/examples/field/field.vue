@@ -10,6 +10,12 @@
           </yn-field-group>
         </li>
         <li>
+          <span class="label">基础用法 靠右</span>
+          <yn-field-group>
+            <yn-field v-model="basicUsage" textAlign="right" placeholder="请输入内容"></yn-field>
+          </yn-field-group>
+        </li>
+        <li>
           <span class="label">数字类型</span>
           <yn-field-group>
             <yn-field
