@@ -1,0 +1,54 @@
+@import "src/theme/variable.scss";
+.yn-select{
+  width: 240px;
+}
+/** dialog-fade 过渡 */
+// .dialog-fade-enter-active, .dialog-fade-leave-active{
+//   transition: opacity .5s;
+// }
+// .dialog-fade-enter, .dialog-fade-leave-to{
+//   opacity: 0;
+// }
+/** dialog-fade 动画 */
+.dialog-fade-enter-active{
+  animation: dialog-fade-in 0.3s;
+}
+.dialog-fade-leave-active{
+  animation: dialog-fade-out 0.3s;
+}
+@keyframes dialog-fade-in {
+  0%{
+    transform:translateY(-20px);
+    opacity: 0;
+  }
+  100%{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes dialog-fade-out {
+  0%{
+    transform:translateY(0px);
+    opacity: 1;
+  }
+  100%{
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+.yn-select-dropdown__item{
+  font-size: 14px;
+  padding: 0 20px;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #606266;
+  height: 34px;
+  line-height: 34px;
+  box-sizing: border-box;
+  cursor: pointer
+}
+.yn-select-dropdown__item.hover, .yn-select-dropdown__item:hover {
+  background-color: #f5f7fa;
+}

@@ -89,22 +89,6 @@
             clearable
           ></yn-field>
         </li>
-        <li>
-          <span>未加密字符串{{ynIdNoEncrpt}}</span>
-          <!-- <yn-field-group> -->
-            <yn-field v-model="ynName" label="中文姓名"></yn-field>
-            <yn-field v-model="ynPhone" label="手机号码"></yn-field>
-            <yn-field v-model="ynIdType" label="证件类型"></yn-field>
-            <yn-field v-model="ynIdNo" label="证件号码"></yn-field>
-            <yn-field
-              v-model="ynIdNoEncrpt"
-              ref="YnField"
-              label="加密证件"
-              encrypted
-            ></yn-field>
-            <yn-field v-model="ynBirthday" label="出生日期"></yn-field>
-          <!-- </yn-field-group> -->
-        </li>
       </ul>
     </div>
   </div>

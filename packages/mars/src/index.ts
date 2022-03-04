@@ -12,12 +12,16 @@ import Iconfont from "./components/iconfont";
 import Radiobox from "./components/radiobox";
 import Checkbox from "./components/checkbox";
 import Field from "./components/field";
+import Select from "./components/select";
+import Option from "./components/select/option.vue";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  Option,
+  Select,
   Field,
   Checkbox,
   Radiobox,

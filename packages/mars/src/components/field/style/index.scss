@@ -1,6 +1,5 @@
 @import "src/theme/variable.scss";
 .yn-field-base {
-  padding: 10px 10px;
   line-height: 24px;
   box-sizing: border-box;
   width: 100%;
@@ -104,17 +103,6 @@
       }
     }
   }
-  &:not(:last-child)::after {
-    position: absolute;
-    box-sizing: border-box;
-    content: " ";
-    pointer-events: none;
-    right: 0;
-    bottom: 0;
-    left: 16px;
-    border-bottom: 1px solid $yn-border-color-base;
-    transform: scaleY(0.5);
-  }
 }
 .yn-field-solo::after {
   position: absolute;
@@ -126,4 +114,12 @@
   left: 16px;
   border-bottom: 1px solid $yn-border-color-base;
   transform: scaleY(0.5);
+}
+.yn-select-dropdown{
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  box-sizing: border-box;
+  margin: 5px 0
 }

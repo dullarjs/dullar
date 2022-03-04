@@ -31,3 +31,45 @@ export const throttle = (callback: Callback, delay = 800) => {
     }, delay);
   };
 };
+export const valueEquals = (a: string | number | AnyObject[], b: string | number | AnyObject[]) => {
+  if (a === b) return true;
+  if (!(a instanceof Array)) return false;
+  if (!(b instanceof Array)) return false;
+  if (a.length !== b.length) return false;
+  for (let i = 0; i !== a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+};
+export const getValueByPath = function(object: AnyObject, prop: string) {
+  prop = prop || '';
+  const paths = prop.split('.');
+  let current = object;
+  let result = null;
+  for (let i = 0, j = paths.length; i < j; i++) {
+    const path = paths[i];
+    if (!current) break;
+
+    if (i === j - 1) {
+      result = current[path];
+      break;
+    }
+    current = current[path];
+  }
+  return result;
+};
+export const isIE = function() {
+  if (!!window.ActiveXObject || "ActiveXObject" in window) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const isEdge = function() {
+  return navigator.userAgent.indexOf('Edge') > -1;
+};
+
+export const isFirefox = function() {
+  return !!window.navigator.userAgent.match(/firefox/i);
+};

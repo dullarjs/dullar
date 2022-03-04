@@ -1,0 +1,163 @@
+<template>
+  <div class="yn-select"
+    @click.stop="toggleMenu"
+    v-clickoutside="handleClose"
+  >
+    <field
+      ref="reference"
+      v-model="selectedLabel"
+      type="text"
+      :placeholder="currentPlaceholder"
+      :disabled="disabled"
+      :readonly="readonly"
+      @focus="handleFocus"
+      @blur="handleBlur"
+    ></field>
+    <selectDropdown
+      ref="popper"
+      v-show="visible"
+    >
+      <slot></slot>
+    </selectDropdown>
+  </div>
+</template>
+<script lang="ts">
+import Vue from "vue";
+import { Component, Prop, Watch  } from "vue-property-decorator";
+import "./style/index.scss";
+import { AnyObject } from "../../types";
+import field from "@/components/field";
+import selectDropdown from "@/components/selectDropdown";
+import { valueEquals } from "@/utils";
+import Emitter from "@/components/mixins/emitter";
+import Clickoutside from '@/utils/clickoutside.js';
+@Component({
+  name: "YnSelect",
+  components: {
+    selectDropdown,
+    field
+  },
+  provide() {
+    return {
+      "select": this
+    }
+  },
+  directives: { Clickoutside }
+})
+export default class Select extends (Vue) {
+  static componentName = "YnSelect";
+
+  optionsCount = 0;
+  hoverIndex = -1;
+  selected:AnyObject = {};
+  options: AnyObject[] = [];
+  cachedOptions: AnyObject[] = [];
+  selectedLabel = "";
+  currentPlaceholder = "";
+  visible = false;
+  softFocus = false;
+
+  @Prop({
+    type: [Number, String],
+    default: "",
+    required: true
+  })
+  value!: number | string;
+  @Prop({
+    type: String,
+    default: ""
+  })
+  placeholder!: string;
+  @Prop({
+    type: Boolean,
+    default: false
+  })
+  disabled!: boolean;
+
+  get readonly() {
+    return true;
+  }
+  @Watch("value")
+  onValue() {
+    this.setSelected();
+  }
+  emitChange(val: number | string) {
+    if (!valueEquals(this.value, val)) {
+      this.$emit('change', val);
+    }
+  }
+  handleFocus(e: Event) {
+    if (!this.softFocus) {
+      this.$emit('focus', e)
+    } else {
+      this.softFocus = true;
+    }
+  }
+  handleBlur(e: Event) {
+    this.softFocus = false;
+    this.$emit('blur', e);
+  }
+  handleOptionSelect(option: AnyObject) {
+    this.$emit("input", option.value);
+    this.emitChange(option.value);
+    this.visible = false;
+    this.setSoftFocus();
+  }
+  setSelected() {
+    let option = this.getOption(this.value);
+    this.selectedLabel = option.currentLabel;
+    this.selected = option;
+  }
+  getOption(value: string | number): AnyObject {
+    let option;
+    const isObject = Object.prototype.toString.call(value).toLowerCase() === '[object object]';
+    const isNull = Object.prototype.toString.call(value).toLowerCase() === '[object null]';
+    const isUndefined = Object.prototype.toString.call(value).toLowerCase() === '[object undefined]';
+    for (let i = this.cachedOptions.length - 1; i >= 0; i--) {
+      const cachedOption = this.cachedOptions[i];
+      const isEqual = cachedOption.value === value;
+      if (isEqual) {
+        option = cachedOption;
+        break;
+      }
+    }
+    if (option) return option;
+    const label = (!isObject && !isNull && !isUndefined)
+      ? String(value) : '';
+    let newOption = {
+      value: value,
+      currentLabel: label
+    };
+    return newOption;
+  }
+  setSoftFocus() {
+    this.softFocus = true;
+    const input = (this.$refs.input || this.$refs.reference) as HTMLInputElement;
+    if (input) {
+      input.focus();
+    }
+  }
+  toggleMenu() {
+    if (!this.disabled) {
+      this.visible = !this.visible;
+      const input = (this.$refs.input || this.$refs.reference) as HTMLInputElement;
+      if (this.visible) {
+        input.focus();
+      }
+    }
+  }
+  onOptionDestroy(index: number) {
+    if (index > -1) {
+      this.optionsCount--;
+      this.options.splice(index, 1);
+    }
+  }
+  handleClose() {
+    this.visible = false;
+  }
+  created() {
+    this.$on('handleOptionClick', this.handleOptionSelect);
+    this.$on('setSelected', this.setSelected);
+  }
+}
+</script>

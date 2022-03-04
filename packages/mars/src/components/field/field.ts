@@ -127,6 +127,15 @@ export default class Field extends Mixins(Vue, slotsMixins){
     return [{ key: "originalText", value: "value" }];
   }
 
+  focus() {
+    this.getInput().focus();
+  }
+  blur() {
+    this.getInput().blur();
+  }
+  getInput() {
+    return (this.$refs.input as HTMLInputElement) || (this.$refs.textarea as HTMLTextAreaElement);
+  }
   handleOnFocus(e: Event) {
     this.target = (e.target as HTMLInputElement);
     this.$emit("focus", e);
@@ -207,6 +216,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
               h(
                 "textarea",
                 {
+                  ref: "textarea",
                   class: ["textarea-ele", ...className],
                   on: { ...events },
                   attrs: { ...attrs },
@@ -236,6 +246,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
               h(
                 "input",
                 {
+                  ref: "input",
                   on: { ...events },
                   class: ["input-ele", ...className],
                   attrs: { ...attrs, type: this.type },
