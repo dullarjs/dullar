@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-28 15:34:23
+ * @Last Modified time: 2022-03-04 13:40:16
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -60,10 +60,41 @@ export default defineComponent({
       title: "",
       caculateSteps: [],
       currentStep: {},
+      currentHeight: 0,
       submitLoading: false,
+      windowHeight: 0
     };
   },
+  computed: {
+    controlArea() {
+      return this.windowHeight * 0.85 - (this.oneStepMode ? 44 : 106);
+    },
+    popupStyle() {
+      if (this.currentHeight > this.controlArea) {
+        return {
+          height: "85%"
+        }
+      } else {
+        return {
+          height: `${(this.currentHeight + 44 + (this.oneStepMode ? 0 : 54)) / this.windowHeight * 100}%`
+        }
+      }
+    }
+  },
   watch: {
+    "currentStep.list": function (val) {
+      let height = 0;
+      if (Array.isArray(val)) {
+        val.forEach(v => {
+          if (v.type === "textarea") {
+            height += 145;
+          } else {
+            height += 45.5;
+          }
+        })
+        this.currentHeight = height;
+      }
+    },
     steps: function () {
       this.initData();
     },
@@ -73,6 +104,7 @@ export default defineComponent({
       this.$emit("input", e);
     },
     handleBeforeEnter() {
+      this.windowHeight = window.innerHeight; // make sure get window.innerHeight properly
       if (this.caculateSteps.length === 0) {
         this.initData();
       }
@@ -281,7 +313,6 @@ export default defineComponent({
       return this.submitLoading || !actived;
     },
     createFooter(h) {
-      if (this.oneStepMode) return null;
       return h("div", { class: ["yn-picky-stepper-footer"] }, [
         h(
           genComponentName("button"),
@@ -467,9 +498,17 @@ export default defineComponent({
           },
           directives: [{ name: "show", value: this.value }],
           props: { position: "bottom" },
-          style: { "max-height": "80%" },
+          style: { ...this.popupStyle, overflow: "hidden" }
         },
-        [this.createHeader(h), ...this.createSteps(h), this.createFooter(h)]
+        [
+          h(genComponentName("flex"), {
+            class: ["yn-picky-stepper-popup-content"],
+            props: { flexDirection: "column", justifyContent: "spaceBetween" }
+          }, [
+            h(genComponentName("flex-item"), { class: ["yn-picky-stepper-header-wrap"] }, [this.createHeader(h)]),
+            h(genComponentName("flex-item"), { ref: "body", class: ["yn-picky-stepper-body", this.oneStepMode ? "onstep" : ""] }, [...this.createSteps(h)]),
+            !this.oneStepMode && h(genComponentName("flex-item"), { class: ["yn-picky-stepper-footer-wrap"] }, [this.createFooter(h)])
+          ])]
       ),
     ]);
   },

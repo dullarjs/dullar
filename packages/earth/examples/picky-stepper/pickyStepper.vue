@@ -132,7 +132,13 @@ export default {
             { label: "keyanqin", value: "柯艳琴" },
             { label: "xionglonghui", value: "熊龙辉" },
             { label: "liyan", value: "李妍" },
-            { label: "wangshengzi", value: "王生资" }
+            { label: "wangshengzi", value: "王生资" },
+            { label: "zhangsan", value: "张三" },
+            { label: "lisi", value: "lisi" },
+            { label: "wanger", value: "王二" },
+            { label: "wangxiaoer", value: "王小二" },
+            { label: "wangerxiao", value: "王二小" },
+            { label: "libai", value: "李白" },
           ],
           multiple: true
         },

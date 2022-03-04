@@ -1,110 +1,127 @@
 @import "../../theme/variable.less";
 .yn-picky-stepper {
-  .yn-picky-stepper-header {
-    text-align: center;
-    background: @white;
-    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.15);
-    .yn-picky-stepper-title {
-      display: inline-block;
-      height: 100%;
-      line-height: 50px;
-      color: @yn-text-color;
-      font-size: 16px;
-    }
-    height: 50px;
-    position: relative;
-    .yn-picky-stepper-back {
-      left: 10px;
-    }
-    .yn-picky-stepper-back, .yn-picky-stepper-close {
-      position: absolute;
-      top: 15px;
-      font-size: 14px;
-      color: @yn-text-color-secondary;
-    }
-    .yn-picky-stepper-close {
-      right: 10px;
-      &.confirm-button {
-        width: auto;
-        height: auto;
-        color: @theme-color;
+  .yn-picky-stepper-popup-content {
+    height: 100%;
+  }
+  .yn-picky-stepper-header-wrap {
+    height: 44px;
+    .yn-picky-stepper-header {
+      text-align: center;
+      background: @white;
+      box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.15);
+      .yn-picky-stepper-title {
+        display: inline-block;
+        height: 100%;
+        line-height: 44px;
+        color: @yn-text-color;
+        font-size: 16px;
+      }
+      height: 44px;
+      position: relative;
+      .yn-picky-stepper-back {
+        left: 10px;
+      }
+      .yn-picky-stepper-back, .yn-picky-stepper-close {
+        position: absolute;
+        top: 12px;
+        font-size: 14px;
+        color: @yn-text-color-secondary;
+      }
+      .yn-picky-stepper-close {
+        right: 10px;
+        &.confirm-button {
+          width: auto;
+          height: auto;
+          color: @theme-color;
+        }
       }
     }
   }
-  .yn-picky-stepper-content {
-    ul {
-      width: 90%;
-      list-style-type: none;
-      padding: 0;
-      margin: 0 auto;
-      li {
-        cursor: pointer;
-        line-height: 44px;
-        border-bottom: 1px solid @yn-border-color-base;
-        user-select: none;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        &:last-child {
-          border-bottom: none;
-        }
-        .text {
-          margin-left: 5px;
-          font-size: 15px;
-          color: @yn-text-color;
-        }
-        .textarea-wapper {
-          width: 100%;
-          position: relative;
-          .textarea-counter {
-            position: absolute;
-            bottom: 20px;
-            right: 8px;
-            font-size: 12px;
-            color: @yn-auxiliary-color;
-            height: 15px;
-            line-height: 15px;
+  .yn-picky-stepper-body {
+    height: calc(100% - 44px - 54px);
+    overflow: auto;
+    &.onstep {
+      height: calc(100% - 44px);
+    }
+    .yn-picky-stepper-content {
+      ul {
+        width: 90%;
+        list-style-type: none;
+        padding: 0;
+        margin: 0 auto;
+        li {
+          cursor: pointer;
+          line-height: 44px;
+          border-bottom: 1px solid @yn-border-color-base;
+          user-select: none;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          &:last-child {
+            border-bottom: none;
           }
-        }
-        .input,
-        .textarea {
-          border-radius: 5px;
-          border: 1px solid @yn-border-color-base;
-          outline: none;
-          font-size: 15px;
-          height: 30px;
-          background: rgba(238, 238, 238, 1);
-          // box-shadow: none;
-          text-shadow: none;
-          -webkit-appearance: none;
-          box-shadow: 0px 0px 0px @white inset;
-          &.active {
+          .text {
+            margin-left: 5px;
+            font-size: 15px;
+            color: @yn-text-color;
+          }
+          .textarea-wapper {
+            width: 100%;
+            position: relative;
+            .textarea-counter {
+              position: absolute;
+              bottom: 20px;
+              right: 8px;
+              font-size: 12px;
+              color: @yn-auxiliary-color;
+              height: 15px;
+              line-height: 15px;
+            }
+          }
+          .input,
+          .textarea {
+            border-radius: 5px;
+            border: 1px solid @yn-border-color-base;
+            outline: none;
+            font-size: 15px;
+            height: 30px;
+            background: rgba(238, 238, 238, 1);
+            // box-shadow: none;
+            text-shadow: none;
+            -webkit-appearance: none;
+            box-shadow: 0px 0px 0px @white inset;
+            &.active {
+              color: @yn-text-color;
+              background: @yn-background-color;
+            }
+          }
+          .input {
+            padding: 0 8px;
+            margin-left: 8px;
+            width: calc(100% - 18px - 8px);
+          }
+          .textarea {
+            margin: 0;
+            padding: 8px;
+            width: calc(100% - 18px);
+            min-height: 65px;
+            resize: none;
+          }
+          .input:focus,
+          .textarea:focus {
             color: @yn-text-color;
             background: @yn-background-color;
           }
         }
-        .input {
-          padding: 0 8px;
-          margin-left: 8px;
-          width: calc(100% - 18px - 8px);
-        }
-        .textarea {
-          margin: 0;
-          padding: 8px;
-          width: calc(100% - 18px);
-          min-height: 65px;
-          resize: none;
-        }
-        .input:focus,
-        .textarea:focus {
-          color: @yn-text-color;
-          background: @yn-background-color;
-        }
       }
     }
   }
-  .yn-picky-stepper-footer {
-    .step-confirm {
-      margin: 10px auto;
-      width: 90%;
+  .yn-picky-stepper-footer-wrap {
+    height: 54px;
+    .yn-picky-stepper-footer {
+      // height: 54px;
+      .step-confirm {
+        margin: 8px auto;
+        width: 90%;
+      }
     }
   }
 }
