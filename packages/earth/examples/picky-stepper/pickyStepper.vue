@@ -136,9 +136,9 @@ export default {
             { label: "zhangsan", value: "张三" },
             { label: "lisi", value: "lisi" },
             { label: "wanger", value: "王二" },
-            { label: "wangxiaoer", value: "王小二" },
+            { label: "wangxiaoer", value: "王小二", type: "textarea" },
             { label: "wangerxiao", value: "王二小" },
-            { label: "libai", value: "李白" },
+            { label: "libai", value: "李白", type: "textarea" },
           ],
           multiple: true
         },
