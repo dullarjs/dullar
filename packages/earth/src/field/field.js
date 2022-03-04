@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-22 10:41:32
+ * @Last Modified time: 2022-03-04 14:44:10
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -71,6 +71,10 @@ export default defineComponent({
       type: Function,
       default: encrypt,
     },
+    textAlign: {
+      type: String,
+      default: "left"
+    }
   },
   data() {
     return {
@@ -160,6 +164,7 @@ export default defineComponent({
       if (this.disabled) {
         className.push("disable");
       }
+      className.push(`text-align-${this.textAlign}`);
       if (VALID_TYPE.indexOf(this.type) > -1) {
         if (this.type === "textarea") {
           area.push(
