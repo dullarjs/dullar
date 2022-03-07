@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { on } from '@/utils/dom';
 
 const nodeList = [];

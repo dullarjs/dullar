@@ -3,7 +3,7 @@ import { Component } from "vue-property-decorator";
 
 function broadcast(this: Vue, componentName: string, eventName: string, params?: any) {
   this.$children.forEach(child => {
-    var name = child.$options.name;
+    const name = child.$options.name;
 
     if (name === componentName) {
       child.$emit.call(child, eventName, params);
@@ -17,8 +17,8 @@ function broadcast(this: Vue, componentName: string, eventName: string, params?:
 })
 export default class Emitter extends Vue {
   dispatch(componentName: string, eventName: string, params?: any) {
-    var parent = this.$parent || this.$root;
-    var name = parent.$options.name;
+    let parent = this.$parent || this.$root;
+    let name = parent.$options.name;
 
     while (parent && (!name || name !== componentName)) {
       parent = parent.$parent;

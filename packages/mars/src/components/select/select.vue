@@ -38,7 +38,6 @@ import field from "@/components/field";
 import selectDropdown from "@/components/selectDropdown";
 import scrollbar from "@/components/scrollbar";
 import { valueEquals } from "@/utils";
-import Emitter from "@/components/mixins/emitter";
 import Clickoutside from '@/utils/clickoutside.js';
 @Component({
   name: "YnSelect",
