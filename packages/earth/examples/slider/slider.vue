@@ -28,38 +28,6 @@
       <span class="display"></span>
       <yn-slider ref="slider4" v-model="value4" :parse="doubleValue" tip></yn-slider>
     </div>
-    <div class="box">
-      <yn-dropdown-menu>
-        <yn-dropdown-menu-item
-          v-model="value6"
-          :options="setOtions()"
-          defaultSelectedIndex="2"
-        ></yn-dropdown-menu-item>
-        <yn-dropdown-menu-item
-          v-model="value7"
-          :mapStatus="mapStatus"
-          :titleChangealbe="true"
-          :fixed="true"
-          ref="mapStatus"
-        ></yn-dropdown-menu-item>
-        <yn-dropdown-menu-item
-          v-model="value8"
-          ref="closeAble"
-          @afterEnter="handleBeforeEnter"
-        >
-          <div style="height: 100px;width: 90%;margin: 0 auto;">
-            <yn-slider class="dropdown-slider" v-if="visiable1" v-model="value5" :parse="doubleValue" tip></yn-slider>
-          </div>
-        </yn-dropdown-menu-item>
-      </yn-dropdown-menu>
-    </div>
-    <span @click="handlePopup">弹框案例</span>
-    <yn-popup v-model="visiable">
-      <div class="box">
-        <span>自定义内容</span>
-        <yn-slider v-if="visiable" v-model="value5" :parse="doubleValue" tip></yn-slider>
-      </div>
-    </yn-popup>
   </div>
 </template>
 <script type="text/javascript">
@@ -84,17 +52,7 @@ export default {
       value6: "dddd",
       value7: "dddd",
       value8: "dddd",
-      dragIcon,
-      mapStatus: {
-        checked: {
-          value: 1,
-          label: "选中文案"
-        },
-        unchecked: {
-          value: 2,
-          label: "未选中文案"
-        }
-      }
+      dragIcon
     };
   },
   methods: {
