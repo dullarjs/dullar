@@ -17,7 +17,15 @@
       ref="popper"
       v-show="visible"
     >
-      <slot></slot>
+      <scrollbar
+        tag="ul"
+        wrapClass="yn-select-dropdown__wrap"
+        viewClass="yn-select-dropdown__list"
+        ref="scrollbar"
+        v-show="options.length > 0"
+      >
+        <slot></slot>
+      </scrollbar>
     </selectDropdown>
   </div>
 </template>
@@ -28,12 +36,14 @@ import "./style/index.scss";
 import { AnyObject } from "../../types";
 import field from "@/components/field";
 import selectDropdown from "@/components/selectDropdown";
+import scrollbar from "@/components/scrollbar";
 import { valueEquals } from "@/utils";
 import Emitter from "@/components/mixins/emitter";
 import Clickoutside from '@/utils/clickoutside.js';
 @Component({
   name: "YnSelect",
   components: {
+    scrollbar,
     selectDropdown,
     field
   },

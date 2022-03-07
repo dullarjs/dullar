@@ -1,14 +1,18 @@
 <template>
-  <div class="select-page">
+  <div class="scrollbar-page">
     <h3>基本用法</h3>
-    <yn-select v-model="value" @input="handleInput">
-      <yn-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-      </yn-option>
-    </yn-select>
+    <div class="scrollbar-oute-wrap">
+      <yn-scrollbar
+        wrapClass="yn-dropdown__wrap"
+        viewClass="yn-dropdown-view"
+      >
+        <ul>
+          <li v-for="(item, index) in options" :key="index">
+            {{ item.label }}
+          </li>
+        </ul>
+      </yn-scrollbar>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -16,10 +20,9 @@ import Vue from "vue";
 import "./style/index.scss";
 import { Component } from "vue-property-decorator";
 @Component({
-  name: "selectPage"
+  name: "scrollbarPage"
 })
-export default class SelectPage extends Vue {
-  value = "";
+export default class ScrollbarPage extends Vue {
   options = [{
     value: '选项1',
     label: '黄金糕'
@@ -41,15 +44,6 @@ export default class SelectPage extends Vue {
   }, {
     value: '选项7',
     label: '豆皮'
-  }, {
-    value: '选项8',
-    label: '天津大麻花'
-  }, {
-    value: '选项9',
-    label: '襄阳牛肉面'
   }];
-  handleInput(e: number | string) {
-    console.log("e:", e);
-  }
 }
 </script>

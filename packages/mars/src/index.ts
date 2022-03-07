@@ -14,12 +14,14 @@ import Checkbox from "./components/checkbox";
 import Field from "./components/field";
 import Select from "./components/select";
 import Option from "./components/select/option.vue";
+import Scrollbar from "./components/scrollbar";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  Scrollbar,
   Option,
   Select,
   Field,

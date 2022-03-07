@@ -1,0 +1,13 @@
+.scrollbar-page {
+  padding: 20px;
+  .yn-dropdown__wrap{
+    max-height: 100px;
+  }
+  .yn-dropdown-view{}
+  .scrollbar-oute-wrap{
+    width: 100px;
+    li{
+      white-space: nowrap;
+    }
+  }
+}

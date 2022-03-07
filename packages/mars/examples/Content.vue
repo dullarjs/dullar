@@ -2,6 +2,7 @@
   <div class="example-container">
     <div class="example-container__left">
       <ul class="page-title">
+        <li class="page-title__item" @click="jump('scrollbar')">scrollbar</li>
         <li class="page-title__item" @click="jump('select')">select</li>
         <li class="page-title__item" @click="jump('field')">field</li>
         <li class="page-title__item" @click="jump('checkbox')">checkbox</li>

@@ -73,3 +73,20 @@ export const isEdge = function() {
 export const isFirefox = function() {
   return !!window.navigator.userAgent.match(/firefox/i);
 };
+
+function extend(to: AnyObject, _from: any[]) {
+  for (const key in _from) {
+    to[key] = _from[key];
+  }
+  return to;
+}
+
+export function toObject(arr: any[]) {
+  const res = {};
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]) {
+      extend(res, arr[i]);
+    }
+  }
+  return res;
+}
