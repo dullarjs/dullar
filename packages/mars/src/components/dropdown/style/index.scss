@@ -1,14 +1,9 @@
 @import "src/theme/variable.scss";
-.yn-select{
-  width: 240px;
-  .yn-select__caret{
-    .yn-iconfont{
-      transition: transform .3s;
-      cursor: pointer;
-    }
-  }
+.yn-dropdown{
+  display: inline-block;
+  position: relative;
 }
-.yn-select-dropdown__item{
+.yn-dropdown-menu__item{
   font-size: 14px;
   padding: 0 20px;
   position: relative;
@@ -19,9 +14,16 @@
   height: 34px;
   line-height: 34px;
   box-sizing: border-box;
-  cursor: pointer
+  cursor: pointer;
+  .yn-dropdown-item__checkbox{
+    display: flex;
+    align-items: center;
+    .yn-dropdown-item__label{
+      margin-left: 10px;
+    }
+  }
 }
-.yn-select-dropdown__item.hover, .yn-select-dropdown__item:hover {
+.yn-dropdown-menu__item.hover, .yn-dropdown-menu__item:hover {
   background-color: #f5f7fa;
 }
 .yn-select-dropdown__wrap {
@@ -33,12 +35,12 @@
   padding: 6px 0px;
   margin: 0px;
 }
-.yn-select-dropdown{
+.yn-dropdown-menu{
   border: 1px solid #e4e7ed;
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
   box-sizing: border-box;
-  margin: 2px 0;
-  padding:0;
+  padding: 10px 0px;
+  margin: 5px 0px;
 }

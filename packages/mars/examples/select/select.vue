@@ -19,7 +19,7 @@ import { Component } from "vue-property-decorator";
   name: "selectPage"
 })
 export default class SelectPage extends Vue {
-  value = "";
+  value = "选项4";
   options = [{
     value: '选项1',
     label: '黄金糕'

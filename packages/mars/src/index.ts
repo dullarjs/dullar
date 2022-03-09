@@ -15,12 +15,18 @@ import Field from "./components/field";
 import Select from "./components/select";
 import Option from "./components/select/option.vue";
 import Scrollbar from "./components/scrollbar";
+import Dropdown from "./components/dropdown";
+import DropdownMenu from "./components/dropdown/dropdownMenu.vue";
+import DropdownItem from "./components/dropdown/dropdownItem.vue";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  DropdownItem,
+  DropdownMenu,
+  Dropdown,
   Scrollbar,
   Option,
   Select,

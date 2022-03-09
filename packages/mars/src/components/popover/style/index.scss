@@ -1,5 +1,5 @@
 @import "src/theme/variable.scss";
-.el-popover{
+.yn-popper{
   position:absolute;
   background: #ffffff;
   border-radius: 4px;
@@ -14,7 +14,7 @@
   line-height: 1.4;
   color:#606266;
 }
-.el-popover__title{
+.yn-popover__title{
   margin-bottom: 12px;
   font-size:16px;
   line-height: 1;
@@ -32,7 +32,7 @@
 .popper__arrow::after{
   content: "";
 }
-.el-popover{
+.yn-popper{
   // placement top
   &[x-placement^="top"] {
     margin-bottom: #{$--popover-arrow-size + 6};

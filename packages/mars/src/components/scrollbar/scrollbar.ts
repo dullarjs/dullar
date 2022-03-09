@@ -8,7 +8,6 @@ import Vue, { CreateElement } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { AnyObject } from '@/types';
 import "./style/index.scss";
-import { addResizeListener, removeResizeListener } from "@/utils/resize-event";
 
 @Component({
   name: "YnScrollbar",
@@ -20,6 +19,7 @@ export default class  Scrollbar extends Vue{
   sizeHeight = '0';
   moveX = 0;
   moveY = 0;
+  domRect!: DOMRect;
 
   @Prop({
     type: Boolean
@@ -155,13 +155,22 @@ export default class  Scrollbar extends Vue{
     this.sizeHeight = (heightPercentage < 100) ? (heightPercentage + '%') : '';
     this.sizeWidth = (widthPercentage < 100) ? (widthPercentage + '%') : '';
   }
+  checkThenUpdate() {
+    // 当 $refs.resize 尺寸变化时 调用 update 方法
+    type keyType = "x" | "y" | "width" | "height";
+    const keys: keyType[] = ["x", "y", "width", "height"];
+    const resizeEle = this.$refs.resize as HTMLElement;
+    const rect = resizeEle.getBoundingClientRect();
+    if (this.domRect && keys.some((key: keyType) => rect[key] !== this.domRect[key])) {
+      this.$nextTick(this.update);
+    }
+    this.domRect = rect;
+  }
   mounted() {
     if (this.native) return;
     this.$nextTick(this.update);
-    !this.noresize && addResizeListener(this.$refs.resize as HTMLElement, this.update);
   }
-  beforeDestroy() {
-    if (this.native) return;
-    !this.noresize && removeResizeListener(this.$refs.resize as HTMLElement, this.update);
+  updated() {
+    !this.noresize && this.checkThenUpdate();
   }
 }

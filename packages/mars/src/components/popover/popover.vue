@@ -1,6 +1,6 @@
 <template>
   <span
-    class="el-popover__wrapper"
+    class="yn-popover__wrapper"
   >
     <transition
       :name="transition"
@@ -10,16 +10,16 @@
       @after-leave="afterLeave"
     >
       <div
-        class="el-popover"
+        class="yn-popper"
         ref="popper"
         v-show="visible"
         :style="style"
         :class="[popperClass]"
       >
-        <div class="el-popover__title" v-if="title">
+        <div class="yn-popover__title" v-if="title">
           {{ title }}
         </div>
-        <div class="el-popover__content">
+        <div class="yn-popover__content">
           <slot>
             <span>这是popover弹框,这是popover弹框,这是popover弹框</span>
           </slot>
@@ -27,7 +27,7 @@
       </div>
     </transition>
     <span
-      class="el-reference"
+      class="yn-reference"
       ref="reference"
     >
       <slot name="reference"></slot>

@@ -6,13 +6,13 @@
     padding-left:10px;
   }
 }
-.el-popover.popper-city-picker{
+.yn-popper.popper-city-picker{
   font-size: 12px;
   padding: 0px 10px;
   p{
     margin:0px;
   }
-  &.el-popover[x-placement^=bottom] {
+  &.yn-popper[x-placement^=bottom] {
     margin-top: 3px;
   }
   .city-picker-input-des{

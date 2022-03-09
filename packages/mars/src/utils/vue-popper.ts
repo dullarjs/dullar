@@ -46,6 +46,7 @@ export default class Popup extends Vue {
   })
   arrowOffset!: number;
 
+  showPopper = false;
   arrowAppended = false;
   currentPlacement = "";
   popperJS: AnyObject | undefined = undefined;
@@ -54,6 +55,10 @@ export default class Popup extends Vue {
 
   @Watch("visible")
   onVisible(n: boolean) {
+    this.showPopper = n;
+  }
+  @Watch("showPopper")
+  onShowPopper(n: boolean) {
     if (n) {
       this.updatePopper();
       this.$nextTick(() => {
