@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:19:49
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-03-09 11:33:48
+ * @Last Modified time: 2022-03-09 12:10:11
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -68,6 +68,7 @@ export default defineComponent({
             return h(
               genComponentName("flex-item"),
               {
+                class: ["yn-tabs-nav-flex-item"],
                 style: { textAlign: "center" },
                 props: { flex },
                 on: { click: this.handleTabClick.bind(this, tab) },
