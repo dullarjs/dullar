@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:19:49
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-27 19:44:18
+ * @Last Modified time: 2022-03-09 11:33:48
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -63,7 +63,7 @@ export default defineComponent({
       h("div", { class: ["yn-tabs-nav"] }, [
         h(
           genComponentName("flex"),
-          { style: { overflowX: "auto", userSelect: "none" } },
+          { style: { overflowX: "auto", userSelect: "none" }, class: ["yn-tabs-nav-flex"] },
           Array.apply(null, tabTitles).map((tab) => {
             return h(
               genComponentName("flex-item"),
