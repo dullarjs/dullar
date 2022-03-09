@@ -2,20 +2,28 @@
 .yn-tabs {
   .yn-tabs-nav {
     height: 44px;
-    border-bottom: 1px solid @yn-border-color-base;
-    line-height: 44px;
     overflow: hidden;
-    .yn-tab-text {
-      display: inline-block;
-      height: calc(100% - 4px);
-      color: @yn-text-color;
-      &.active {
-        color: @theme-color;
-        border-bottom: 2px solid @theme-color;
-      }
-      &.disabled {
-        cursor: not-allowed;
-        color: @yn-disabled-color;
+    .yn-tabs-nav-flex {
+      height: 44px;
+      line-height: 44px;
+      .yn-tabs-nav-flex-item {
+        border-bottom: 1px solid @yn-border-color-base;
+        .yn-tab-text {
+          vertical-align: top;
+          font-size: 14px;
+          display: inline-block;
+          height: 41px;
+          color: @yn-text-color;
+          box-sizing: content-box;
+          &.active {
+            color: @theme-color;
+            border-bottom: 3px solid @theme-color;
+          }
+          &.disabled {
+            cursor: not-allowed;
+            color: @yn-disabled-color;
+          }
+        }
       }
     }
   }
