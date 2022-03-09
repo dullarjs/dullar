@@ -10,6 +10,10 @@
       :placeholder="currentPlaceholder"
       :disabled="disabled"
       :readonly="readonly"
+      :iconName="'down-arrow-cdcdcd'"
+      :iconSize="14"
+      :iconClass="iconArrowClass"
+      :iconRotate="iconRotate"
       @focus="handleFocus"
       @blur="handleBlur"
     ></field>
@@ -35,7 +39,7 @@ import { Component, Prop, Watch  } from "vue-property-decorator";
 import "./style/index.scss";
 import { AnyObject } from "../../types";
 import field from "@/components/field";
-import selectDropdown from "@/components/selectDropdown";
+import selectDropdown from "./selectDropdown.vue";
 import scrollbar from "@/components/scrollbar";
 import { valueEquals } from "@/utils";
 import Clickoutside from '@/utils/clickoutside.js';
@@ -65,6 +69,8 @@ export default class Select extends (Vue) {
   currentPlaceholder = "";
   visible = false;
   softFocus = false;
+  inputWidth = 0;
+  iconRotate = 0;
 
   @Prop({
     type: [Number, String],
@@ -83,6 +89,9 @@ export default class Select extends (Vue) {
   })
   disabled!: boolean;
 
+  get iconArrowClass (){
+    return ["yn-select__caret"];
+  }
   get readonly() {
     return true;
   }
@@ -90,6 +99,15 @@ export default class Select extends (Vue) {
   onValue() {
     this.setSelected();
   }
+  @Watch("visible")
+  onVisible(n: boolean) {
+    if (n) {
+      this.iconRotate = 180;
+    } else {
+      this.iconRotate = 0;
+    }
+  }
+
   emitChange(val: number | string) {
     if (!valueEquals(this.value, val)) {
       this.$emit('change', val);
@@ -167,6 +185,15 @@ export default class Select extends (Vue) {
   created() {
     this.$on('handleOptionClick', this.handleOptionSelect);
     this.$on('setSelected', this.setSelected);
+  }
+  mounted() {
+    const reference: Vue = this.$refs.reference as Vue;
+    this.$nextTick(() => {
+      if (reference && reference.$el) {
+        this.inputWidth = reference.$el.getBoundingClientRect().width;
+      }
+    });
+    this.setSelected();
   }
 }
 </script>
