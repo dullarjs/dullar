@@ -1,36 +1,6 @@
 @import "src/theme/variable.scss";
-.el-dialog__wrapper {
-  position:fixed;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  .el-dialog{
-    position:relative;
-    margin: 0 auto 50px;
-    background: #ffffff;
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
-    box-sizing:border-box;
-    width: 50%;
-    margin-top: 15vh;
-  }
-}
-.el-dialog__header{
-  padding:20px;
-  padding-bottom:10px;
-}
-.el-dialog__body{
-  padding:30px 20px;
-  color:#606266;
-  font-size:14px;
-  word-break: break-all;
-}
-.el-dialog__footer{
-  padding: 20px;
-  padding-top: 10px;
-  text-align: right;
-  box-sizing: border-box;
+.yn-select{
+  width: 240px;
 }
 /** dialog-fade 过渡 */
 // .dialog-fade-enter-active, .dialog-fade-leave-active{
@@ -65,4 +35,29 @@
     transform: translateY(-20px);
     opacity: 0;
   }
+}
+.yn-select-dropdown__item{
+  font-size: 14px;
+  padding: 0 20px;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #606266;
+  height: 34px;
+  line-height: 34px;
+  box-sizing: border-box;
+  cursor: pointer
+}
+.yn-select-dropdown__item.hover, .yn-select-dropdown__item:hover {
+  background-color: #f5f7fa;
+}
+.yn-select-dropdown__wrap {
+  max-height: 274px;
+}
+.yn-select-dropdown__list {
+  box-sizing: border-box;
+  list-style: none;
+  padding: 6px 0px;
+  margin: 0px;
 }

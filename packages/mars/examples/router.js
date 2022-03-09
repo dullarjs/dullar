@@ -17,6 +17,9 @@ import Indicator from "./indicator";
 import Iconfont from "./iconfont";
 import Radiobox from "./radiobox";
 import Checkbox from "./checkbox";
+import Field from "./field";
+import Select from "./select";
+import Scrollbar from "./scrollbar";
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -28,6 +31,21 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "scrollbar",
+          name: "scrollbar",
+          component: Scrollbar
+        },
+        {
+          path: "select",
+          name: "select",
+          component: Select
+        },
+        {
+          path: "field",
+          name: "field",
+          component: Field
+        },
         {
           path: "checkbox",
           name: "checkbox",

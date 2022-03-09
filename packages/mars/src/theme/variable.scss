@@ -1,0 +1,66 @@
+
+$yn-text-color-secondary: #4E5D78;
+$yn-primary-6: #1E88E5;
+
+// 主题色
+$theme-color: #0052CC; // modified
+// 边框颜色
+$yn-border-color-base: #E1E5EB;
+// 危险颜色
+$yn-error-color: #E65857;
+// 警告颜色
+$yn-warning-color: #F5792C;
+// 警告色背景色
+$yn-warning-bg-color: #FEF1E9;
+// 背景色
+$yn-background-color: #F5F7FA;
+// 背景水印
+$yn-auxiliary-color: #D0D3DB;
+// 选中色
+$yn-background-color-light: #E5EDF9;
+// 白色
+$white: #ffffff;
+// 黑色
+$black: #000000;
+// 文字颜色
+$yn-text-color: #1A253B;
+// 次文本颜色
+$yn-text-color2: #4E5D78;
+$yn-text-color-secondary: #4E5D78;
+// 不可选颜色，未激活颜色
+$yn-disabled-color: #BCC1CC;
+// 货币颜色
+$yn-money-color: #0052CC;
+
+// 标签文本，按钮
+$yn-label-color: $yn-text-color-secondary;
+
+
+input,
+textarea {
+  color: $yn-text-color;
+}
+input:-webkit-autofill {
+ -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+.normal-line-height {
+  line-height: normal;
+}
+.initial-line-height {
+  line-height: initial;
+}
+.inherit-line-height {
+  line-height: inherit;
+}
+.disable-highlight-tap, a,img,button,input,textarea {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+/* Popup
+-------------------------- */
+$--popup-modal-background-color: $black !default;
+$--popup-modal-opacity: 0.5 !default;
+$--popover-arrow-size: 6px !default;
+
+/** transition*/
+$--fade-linear-transition: opacity 200ms linear !default;
