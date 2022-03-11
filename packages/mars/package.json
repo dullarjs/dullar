@@ -19,7 +19,6 @@
     "@dullar/cube": "^0.3.36",
     "core-js": "^3.20.0",
     "normalize.css": "^8.0.1",
-    "resize-observer-polyfill": "^1.5.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",

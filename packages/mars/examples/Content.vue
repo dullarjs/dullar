@@ -8,21 +8,13 @@
       >
         <ul class="page-title">
           <li class="nav-item">组件</li>
-          <li class="page-title__item" @click="jump('dropdown')">dropdown</li>
-          <li class="page-title__item" @click="jump('scrollbar')">scrollbar</li>
-          <li class="page-title__item" @click="jump('select')">select</li>
-          <li class="page-title__item" @click="jump('field')">field</li>
-          <li class="page-title__item" @click="jump('checkbox')">checkbox</li>
-          <li class="page-title__item" @click="jump('radiobox')">radiobox</li>
-          <li class="page-title__item" @click="jump('iconfont')">iconfont</li>
-          <li class="page-title__item" @click="jump('indicator')">indicator</li>
-          <li class="page-title__item" @click="jump('spin')">spin</li>
-          <li class="page-title__item" @click="jump('dialog')">dialog</li>
-          <li class="page-title__item" @click="jump('popover')">Popover</li>
-          <li class="page-title__item" @click="jump('cityPicker')">cityPicker</li>
-          <li class="page-title__item" @click="jump('calendar')">calendar</li>
-          <li class="page-title__item" @click="jump('datePicker')">datePicker</li>
-          <li class="page-title__item" @click="jump('notification')">notification</li>
+          <li class="page-title__item"
+            v-for="(item, index) in routes"
+            :key="index"
+            @click="jump(item)"
+          >
+            {{ item }}
+          </li>
         </ul>
       </yn-scrollbar>
     </div>
@@ -40,6 +32,28 @@
 <script type="text/javascript">
 export default {
   name: "Content",
+  data() {
+    return {
+      routes: [
+        "icon",
+        "tag",
+        "scrollbar",
+        "select",
+        "field",
+        "checkbox",
+        "radiobox",
+        "iconfont",
+        "indicator",
+        "spin",
+        "dialog",
+        "popover",
+        "cityPicker",
+        "calendar",
+        "datePicker",
+        "notification"
+      ]
+    };
+  },
   methods: {
     jump(name = "") {
       this.$router.push({ name });

@@ -21,6 +21,8 @@ import Field from "./field";
 import Select from "./select";
 import Scrollbar from "./scrollbar";
 import Dropdown from "./dropdown";
+import Tag from "./tag";
+import Icon from "./icon";
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -32,6 +34,16 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "icon",
+          name: "icon",
+          component: Icon
+        },
+        {
+          path: "tag",
+          name: "tag",
+          component: Tag
+        },
         {
           path: "dropdown",
           name: "dropdown",
