@@ -9,3 +9,22 @@ html,body,ul{
 ul,li{
   list-style-type: none;
 }
+input,
+textarea {
+  color: $yn-text-color;
+}
+input:-webkit-autofill {
+ -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+.normal-line-height {
+  line-height: normal;
+}
+.initial-line-height {
+  line-height: initial;
+}
+.inherit-line-height {
+  line-height: inherit;
+}
+.disable-highlight-tap, a,img,button,input,textarea {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
