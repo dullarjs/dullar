@@ -1,6 +1,6 @@
 {
   "name": "@dullar/mars",
-  "version": "0.3.35",
+  "version": "0.3.36",
   "publishConfig": {
     "access": "public"
   },
@@ -10,13 +10,13 @@
     "types"
   ],
   "scripts": {
-    "build:components": "vue-cli-service build --mode production --target lib --name @dullar/mars --dest lib src/index.js",
+    "build:components": "vue-cli-service build --mode production --target lib --name @dullar/mars --dest lib src/index.ts",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@dullar/cube": "^0.3.35",
+    "@dullar/cube": "^0.3.36",
     "core-js": "^3.20.0",
     "normalize.css": "^8.0.1",
     "resize-observer-polyfill": "^1.5.1",
