@@ -2,7 +2,7 @@
  * @Author: tongh
  * @Date:   2021-09-27 14:49:59
  * @Last Modified by:   tongh
- * @Last Modified time: 2022-03-10 17:32:15
+ * @Last Modified time: 2022-03-11 15:11:03
  */
 import { defineComponent } from "../modules/component";
 import { slotsMixins } from "@/mixins/slots";
@@ -147,10 +147,10 @@ export default defineComponent({
       }
     },
     addEvent(rule, trigger, ruleList) {
-      let _method;
+      let _method = this.rules;
       if(rule.validator && typeof rule.validator === "function") {
         this.validator = rule.validator;
-        _method = rule.validator ? this.initValidator : this.rules;
+        _method = this.initValidator;
       }
       on(this.childNode, trigger, _method);
       ruleList.push({trigger: trigger, method: _method });
