@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-25 11:20:19
  * @Last Modified by: yegl
- * @Last Modified time: 2022-02-25 14:09:07
+ * @Last Modified time: 2022-03-04 18:58:22
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -16,7 +16,7 @@ export default defineComponent({
       require: true,
     },
     width: {
-      type: Number,
+      type: [Number, String],
       default: 180,
     },
     filterable: {
@@ -39,6 +39,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    clear: {
+      type: Boolean,
+      default: false,
+    }
   },
   provide() {
     return {
@@ -59,6 +63,7 @@ export default defineComponent({
       filterInputFocus: false,
       lock: false,
       filterInputValue: "",
+      showClearIcon: false
     };
   },
   mounted() {
@@ -205,6 +210,14 @@ export default defineComponent({
       this.filterInputValue = "";
       this.$refs.filterInput.value = "";
     },
+    isShowClearIcon(isShow) {
+      if (!this.clear) return;
+      this.showClearIcon = this.inputValue !== "" && isShow;
+    },
+    clearFn() {
+      this.$emit("input", "");
+      this.inputValue = "";
+    }
   },
   destroyed() {
     off(document, "click", this.onScrollBarListener);
@@ -224,6 +237,7 @@ export default defineComponent({
       tagNumber,
       inputLabelList,
       filterable,
+      showClearIcon
     } = this;
     let _placeholder = placeholder;
     if (multiple && Object.keys(inputLabelList).length > 0) {
@@ -237,14 +251,15 @@ export default defineComponent({
       "div",
       {
         class: "yn-select",
-        style: { width: defaultWidth + "px" },
+        style: { width: defaultWidth === "auto" ? "100%" : (defaultWidth + "px") },
+        on: { mouseenter: () => this.isShowClearIcon(true), mouseleave: () => this.isShowClearIcon(false) }
       },
       [
         h(
           genComponentName("input"),
           {
             props: {
-              width: defaultWidth + "px",
+              width: defaultWidth === "auto" ? defaultWidth: (defaultWidth + "px"),
               readonly: true,
               value: this.inputValue,
               placeholder: _placeholder,
@@ -254,6 +269,20 @@ export default defineComponent({
               handleFocus: this.handleFocus,
             },
             ref: "input",
+          },
+          []
+        ),
+        showClearIcon && h(
+          genComponentName("iconfont"),
+          {
+            props: {
+              name: "clear",
+              size: 12,
+            },
+            on: {
+              click: this.clearFn,
+            },
+            class: "clear-icon"
           },
           []
         ),
@@ -303,6 +332,7 @@ export default defineComponent({
               scrollerBarVisible,
               isSelected: true,
               scrollerBarTop,
+              width: defaultWidth,
             },
             ref: "scrollerBar",
           },

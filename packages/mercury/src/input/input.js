@@ -2,7 +2,7 @@
  * @Author: tongh
  * @Date:   2020-08-25 10:44:56
  * @Last Modified by:   tongh
- * @Last Modified time: 2022-02-16 17:01:17
+ * @Last Modified time: 2022-03-07 15:31:08
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { slotsMixins } from "@/mixins/slots";
@@ -406,6 +406,7 @@ export default defineComponent({
   },
 
   render(h) {
+    const _width = this.width === "auto" ? "100%" : (this.width + "px");
     return h(
       "div",
       {
@@ -415,7 +416,7 @@ export default defineComponent({
         ],
         ref: "inputWrap",
         style: {
-          width: this.width + "px",
+          width: _width,
           height: !this.textArea && this.height + "px",
           backgroundColor: this.backgroundColor,
           cursor: this.cursor,
