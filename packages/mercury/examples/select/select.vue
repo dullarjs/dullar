@@ -2,14 +2,14 @@
  * @Author: yegl
  * @Date: 2022-01-25 11:27:59
  * @Last Modified by: yegl
- * @Last Modified time: 2022-02-25 14:21:03
+ * @Last Modified time: 2022-03-04 18:30:06
  * @E-mail: yglgzyx@126.com
 -->
 <template>
     <div class="select-demo">
         <h2>yn-select</h2>
         <p>基础用法(有禁用选项)</p>
-        <yn-select v-model="value">
+        <yn-select v-model="value" clear>
             <yn-option v-for="item in options" placeholder="请选择" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled"><a>{{item.label}}</a></yn-option>
         </yn-select>
         <p>禁用状态</p>

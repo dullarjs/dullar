@@ -2,7 +2,7 @@
  * @Author: tongh
  * @Date:   2021-09-27 14:49:59
  * @Last Modified by:   tongh
- * @Last Modified time: 2021-09-27 14:49:59
+ * @Last Modified time: 2022-03-11 14:38:01
  */
 import { defineComponent } from "../modules/component";
 import { slotsMixins } from "@/mixins/slots";
@@ -18,9 +18,13 @@ export default defineComponent({
     model: {
       type: Object,
     },
-    "label-width": {
+    labelWidth: {
       type: String,
       default: "120px",
+    },
+    labelPosition: {
+      type: String,
+      default: "left",
     },
     inline: {
       type: Boolean,
@@ -30,30 +34,28 @@ export default defineComponent({
   methods: {
     validate(callback) {
       const slots = this.$slots.default;
-      let count = 0;
-      let boolean = true;
+      let failed = false;
       slots.forEach((item) => {
-        const value = this.model[item.child.prop];
-        if (item.child.required) {
-          count += Number(item.child.formPostMessage(value));
+        if (item.child.prop) {
+          const value = this.model[item.child.prop];
+          if (item.child.required) {
+            const result = !!item.child.formPostMessage({value, validate: true})
+            failed = failed || result;
+          }
         }
       });
-      if (count) boolean = false;
-      else boolean = true;
-      callback(boolean);
+      callback(!failed);
     },
   },
   render(h) {
-    return h("div", {}, [
-      h(
-        "form",
-        {
-          attrs: {
-            class: ["yn-form"],
-          },
+    return h(
+      "form",
+      {
+        attrs: {
+          class: ["yn-form"],
         },
-        this.slots()
-      ),
-    ]);
+      },
+      this.slots()
+    );
   },
 });

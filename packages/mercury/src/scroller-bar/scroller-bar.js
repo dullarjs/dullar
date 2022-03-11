@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-20 16:25:59
  * @Last Modified by: yegl
- * @Last Modified time: 2022-02-18 18:41:24
+ * @Last Modified time: 2022-03-04 18:14:28
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -13,6 +13,10 @@ export default defineComponent({
     inputNodeInfo: {
       type: DOMRect,
       default: null,
+    },
+    width: {
+      type: [Number, String],
+      default: ""
     },
     suggestions: Array,
     scrollerBarVisible: Boolean,
@@ -100,15 +104,16 @@ export default defineComponent({
     },
   },
   render(h) {
-    const { scrollWidht, scrollTop, loading, isSelected, scrollerBarTop } =
+    const { scrollWidht, scrollTop, loading, isSelected, scrollerBarTop, width } =
       this;
+    const _width = width === "auto" ? "100%" : (scrollWidht + "px");
     const _list = this.getContentList(isSelected, h);
     return h(
       "div",
       {
         class: "yn-scroller-bar",
         style: {
-          width: scrollWidht + "px",
+          width: _width,
           top: (scrollerBarTop || scrollTop) + "px",
         },
       },
