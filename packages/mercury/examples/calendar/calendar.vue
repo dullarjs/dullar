@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-09-02 19:00:52
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-17 10:48:39
+ * @Last Modified time: 2022-03-04 19:06:51
  * @E-mail: yglgzyx@126.com
 -->
 <template>
@@ -11,7 +11,7 @@
       <p>基础用法</p>
       <yn-calendar
         :defaultValue="defaultValue"
-        @onHandleChange="onChange"
+        v-model="defaultValue"
       ></yn-calendar>
       <p>时间段（最小、最大时间控制, 日历框单独显示待日后优化）</p>
       <yn-flex justifyContent="flexStart" flexDirection="row" flexWrap="nowrap" class="yn-calendar-content">

@@ -4,9 +4,9 @@
       <!--              <Input clear suffixIcon="search" v-model="v"/>-->
       <!--              <Input v-model="v" @change="f" maxlength="3"/>-->
       <p>基础用法</p>
-      <yn-input />
+      <yn-input v-model="v"/>
       <p>默认长度</p>
-      <yn-input maxlength="3" placeholder="默认长度为3" />
+      <yn-input maxlength="3" placeholder="默认长度为3" v-model="v"/>
       <p>textarea</p>
       <yn-input
         v-model="v"

@@ -2,12 +2,12 @@
  * @Author: tongh
  * @Date:   2021-09-27 14:49:59
  * @Last Modified by:   tongh
- * @Last Modified time: 2021-09-29 16:49:59
+ * @Last Modified time: 2022-03-10 17:32:15
  */
 import { defineComponent } from "../modules/component";
 import { slotsMixins } from "@/mixins/slots";
 import { injectMixins } from "@/mixins/inject";
-import { on } from "@/modules/event";
+import { on, off } from "@/modules/event";
 export default defineComponent({
   name: "FormItem",
 
@@ -16,9 +16,13 @@ export default defineComponent({
     return {
       formWrap: this.formWrap,
       required: false,
-      triggers: ["change", "blur"],
+      requiredMsg: "",
+      triggers: ["change", "blur", "keydown", "keyup"],
       message: "",
       formPostMessage: Function,
+      childNode: null,
+      ruleList: [],
+      validator: Function,
     };
   },
   props: {
@@ -29,6 +33,15 @@ export default defineComponent({
     label: {
       type: String,
     },
+    afterValidate: {
+      type: Object,
+      default: null
+    }
+  },
+  watch: {
+    afterValidate: function(v) {
+      this.message = v && v.success === true ? "" : v.message
+    }
   },
   created() {
     this.formPostMessage = this.rules;
@@ -37,60 +50,124 @@ export default defineComponent({
     this.initRule();
   },
   methods: {
-    rules(value, trigger) {
-      let rules = this.formWrap.rule[this.prop];
-      let r;
-      let count = 0;
+    rules(e) {
+      let r, value;
+      const { type: trigger, validate = false } = e || {};
+      if (!validate) {
+        value = (e.target && e.target.value) || "";
+      } else {
+        value = e.value;
+      }
+
+      const requiredRes = this.checkRequired(value);
+      if (requiredRes) {
+        this.message = this.requiredMsg;
+
+        return requiredRes;
+      }
+
+      const rules = this.formWrap.rule[this.prop];
       r = rules.filter((item) => {
-        if (trigger) {
-          return item.trigger == trigger;
-        } else {
-          return item;
-        }
+        const _trigger = item.trigger;
+        return  (trigger && (_trigger === trigger || _trigger.indexOf(trigger) > -1)) || validate;
       });
-      r.forEach((item) => {
-        if (item.required && String(value).trim() == "") {
-          this.message = item.message;
-          count++;
-          return false;
-        }
+      return this.checkRule(r, value);
+    },
+    checkRule(rList, value) {
+      this.message = "";
+      let failed = false;
+      for(const item of rList) {
         if (item.min && value.length < item.min) {
           this.message = item.message;
-          count++;
-          return false;
+          failed = true;
+          break;
         }
         if (item.max && value.length > item.max) {
           this.message = item.message;
-          count++;
-          return false;
+          failed = true;
+          break;
         }
-        if (item.pattern && !item.pattern.test(value)) {
-          this.message = item.message;
-          count++;
-          return false;
+        if (item.validator && typeof item.validator === "function") {
+          this.validator = item.validator;
+          const res = this.initValidator();
+          if (res.success === false) {
+            failed = true;
+            break;
+          }
         }
-        this.message = "";
-        count = 0;
-      });
-      return count;
+      }
+      return failed;
     },
-
+    checkRequired(value) {
+      const { required } = this;
+      if (!required) return false;
+      if(Object.prototype.toString.call(value) === '[object Object]' && Object.keys(value).length === 0) {
+        return true;
+      } else if (Array.isArray(value) && value.length === 0) {
+        return true;
+      } else if(String(value).trim() === "") {
+        return true;
+      }
+      return false;
+    },
     initRule() {
       const rules = this.formWrap.rule[this.prop];
       if (!rules) return false;
-      this.required = rules.some((item) => {
-        return item.required;
-      });
-      const dom =
+      this.childNode =
         this.$refs.formItem.querySelector("input") ||
         this.$refs.formItem.querySelector("select");
-      if (!dom) return false;
-      on(dom, "blur", (e) => {
-        this.rules(e.target.value, "blur");
+      // if (!this.childNode) return false;
+      rules.forEach(item => {
+        const {triggers} = this;
+        if (item.required) {
+          this.requiredMsg = item.message;
+          this.required = true;
+        }
+        this.childNode && this.bindListener(item, triggers)
       });
-      on(dom, "input", (e) => {
-        this.rules(e.target.value, "change");
-      });
+    },
+    bindListener(rule, triggers) {
+      if(!rule.trigger) return;
+      const { ruleList } = this;
+      if (Array.isArray(rule.trigger)) {
+        // 如果已经绑定默认的监听，不再重复绑定。
+        let hasBind = {};
+        const _trigger = rule.trigger;
+        for(const item of _trigger) {
+          const _hasBind = Object.keys(hasBind);
+          if (item && triggers.indexOf(item) > -1 && _hasBind.indexOf(item) < 0) {
+            hasBind[item] = true;
+            this.addEvent(rule, item, ruleList);
+          }
+        }
+
+      } else {
+        if (rule.trigger && triggers.indexOf(rule.trigger) < 0) return;
+        this.addEvent(rule, rule.trigger, ruleList);
+      }
+    },
+    addEvent(rule, trigger, ruleList) {
+      let _method;
+      if(rule.validator && typeof rule.validator === "function") {
+        this.validator = rule.validator;
+        _method = rule.validator ? this.initValidator : this.rules;
+      }
+      on(this.childNode, trigger, _method);
+      ruleList.push({trigger: trigger, method: _method });
+    },
+    initValidator() {
+      const value = this.formWrap.model[this.prop];
+      const resulut = this.validator(value);
+      if (resulut && resulut.success === false) {
+        this.message = resulut.message;
+      }
+      return resulut;
+    },
+    destroyed() {
+      const {ruleList} = this;
+      ruleList.forEach(item => {
+        off(this.childNode, item.trigger, item.method);
+      })
     },
     renderRequiredIcon(h) {
       let temp = [];
@@ -128,11 +205,13 @@ export default defineComponent({
   },
 
   render(h) {
+    const { formWrap, required, label } = this;
+    const _isTopPos = formWrap.labelPosition === "top";
     return h(
       "div",
       {
         ref: "formItem",
-        class: ["yn-form-item", this.required ? "is-required" : ""],
+        class: [ "yn-form-item", required ? "is-required" : "", _isTopPos ? "yn-form-item-top" : ""],
       },
       [
         h(
@@ -140,14 +219,16 @@ export default defineComponent({
           {
             class: ["label"],
             style: {
-              width: this.formWrap.labelWidth,
+              width: formWrap.labelWidth,
+              textAlign: _isTopPos ? "left" : formWrap.labelPosition,
+              marginBottom : _isTopPos ? "10px" : 0
             },
           },
           [
             ...this.renderRequiredIcon(h),
-            h("b", {
+            h("label", {
               domProps: {
-                innerHTML: this.label,
+                innerHTML: label,
               },
             }),
           ]

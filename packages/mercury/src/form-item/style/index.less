@@ -4,16 +4,23 @@
   align-items: center;
   margin-bottom: 20px;
   .label {
+    box-sizing: border-box;
+    padding: 0px 12px 0 0;
     text-align: right;
-    padding: 0px 8px;
+    font-size: 14px;
+    color: @text-color;
   }
   .required-icon {
     color: #f61f1f;
-    padding: 6px;
+    padding-right: 6px;
     box-sizing: border-box;
   }
   .yn-form-item-content {
     position: relative;
+    width: 100%;
+    input{
+      width: 100%;
+    }
     .error {
       position: absolute;
       width: 100%;
@@ -22,10 +29,16 @@
       border-radius: 2px;
       font-size: 12px;
       bottom: -18px;
-      background-color: #ec4a4a;
-      color: #fff;
+      color: @danger-color;
       box-sizing: border-box;
       padding: 0 5px;
     }
   }
+  .yn-iconfont-wrap {
+    margin-right: 5px;
+  }
+}
+.yn-form-item-top {
+  flex-direction: column;
+  align-items: flex-start;
 }
