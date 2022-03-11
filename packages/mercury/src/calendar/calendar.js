@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-09-02 18:05:19
  * @Last Modified by: yegl
- * @Last Modified time: 2021-11-17 10:52:24
+ * @Last Modified time: 2022-03-04 11:41:50
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -32,6 +32,10 @@ export default defineComponent({
     placeholder: {
       type: String,
       default: "选择日期",
+    },
+    value: {
+      type: String,
+      default: "",
     },
     defaultValue: {
       type: String,
@@ -300,6 +304,7 @@ export default defineComponent({
         "-" +
         (day < 10 ? `0${day}` : day);
       this.showCalendar = false;
+      this.$emit("input", this.inputValue);
       this.$emit("onHandleChange", this.inputValue);
     },
     handleBodyClick(e) {
@@ -328,6 +333,7 @@ export default defineComponent({
         this.selectedDay({ year, month, day });
       } else if (!e.target.value) {
         this.onReset();
+        this.$emit("input", this.inputValue);
         this.$emit("onHandleChange", this.inputValue);
       } else {
         e.target.value = this.inputValue;

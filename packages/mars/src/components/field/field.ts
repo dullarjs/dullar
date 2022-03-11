@@ -111,6 +111,21 @@ export default class Field extends Mixins(Vue, slotsMixins){
     default: encrypt,
   })
   encrypt!: (arg: string | number) => string;
+  @Prop({
+    type: Array,
+    default: []
+  })
+  iconClass!: string[];
+  @Prop({
+    type: Number,
+    default: 16
+  })
+  iconSize!: number;
+  @Prop({
+    type: Number,
+    default: 0
+  })
+  iconRotate!: number;
 
   get valueComputed() {
     return this.encrypted && !this.inputing
@@ -279,7 +294,10 @@ export default class Field extends Mixins(Vue, slotsMixins){
           [
             h(
               "iconfont",
-              { props: { name, size: "16" } },
+              { 
+                props: { name, size: this.iconSize, rotate: this.iconRotate },
+                "class": this.iconClass
+              },
               []
             ),
           ]

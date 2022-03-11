@@ -31,7 +31,7 @@ export const throttle = (callback: Callback, delay = 800) => {
     }, delay);
   };
 };
-export const valueEquals = (a: string | number | AnyObject[], b: string | number | AnyObject[]) => {
+export const valueEquals = (a: string | number | (number | string)[], b: string | number | (number | string)[]) => {
   if (a === b) return true;
   if (!(a instanceof Array)) return false;
   if (!(b instanceof Array)) return false;
