@@ -69,6 +69,7 @@ jobs:
       run: |
         cd packages/mercury
         yarn install
+        yarn build:components
         yarn build
 
     - name: Move mercury to root docs
