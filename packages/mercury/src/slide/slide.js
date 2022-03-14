@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-09-13 15:18:42
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-09 14:57:42
+ * @Last Modified time: 2022-03-14 17:36:46
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -172,5 +172,6 @@ export default defineComponent({
         ),
       ]);
     }
+    return null;
   },
 });

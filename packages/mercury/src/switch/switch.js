@@ -1,8 +1,8 @@
 /*
  * @Author: yegl
  * @Date: 2021-12-06 04:04:54
- * @Last Modified by: yegl
- * @Last Modified time: 2021-12-06 06:26:47
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2022-03-14 17:42:26
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -10,7 +10,7 @@ export default defineComponent({
   name: "Switch",
   props: {
     value: {
-      type: Boolean | String | Number,
+      type: [Boolean, String, Number],
       default: true,
     },
     activeColor: {
@@ -22,15 +22,15 @@ export default defineComponent({
       default: "",
     },
     width: {
-      type: String | Number,
+      type: [String, Number],
       default: 40,
     },
     activeValue: {
-      type: Boolean | String | Number,
+      type: [Boolean, String, Number],
       default: true,
     },
     inactiveValue: {
-      type: Boolean | String | Number,
+      type: [Boolean, String, Number],
       default: false,
     },
     disabled: {
