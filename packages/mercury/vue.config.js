@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-05-06 14:45:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2022-03-14 17:30:51
+* @Last Modified time: 2022-03-14 18:51:19
 * @E-mail: justbefree@126.com
 */
 process.env.VUE_APP_VERSION = require('./package.json').version;
@@ -38,7 +38,7 @@ const mfePlugin = () => {
 
 module.exports = defineConfig({
   publicPath,
-  // outputDir: "docs",
+  outputDir: "docs",
   transpileDependencies: true,
   configureWebpack: {
     optimization: {
