@@ -1,8 +1,8 @@
 /*
  * @Author: yegl
  * @Date: 2021-08-05 10:13:59
- * @Last Modified by: yegl
- * @Last Modified time: 2021-12-24 11:24:09
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2022-03-14 17:41:54
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -16,12 +16,14 @@ export default defineComponent({
   },
   props: {
     bordered: {
-      type: Boolean | String,
+      type: [Boolean, String],
       default: false,
     },
     columns: {
       type: Array,
-      default: [],
+      default: () => {
+        return [];
+      },
     },
     rowSelection: {
       type: Object,
@@ -29,7 +31,9 @@ export default defineComponent({
     },
     dataSource: {
       type: Array,
-      default: [],
+      default: () => {
+        return [];
+      },
     },
     pagination: {
       type: Object,

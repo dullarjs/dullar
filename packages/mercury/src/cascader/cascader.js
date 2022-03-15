@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2021-08-02 09:17:29
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-08 09:41:26
+ * @Last Modified time: 2022-03-14 17:46:56
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -40,8 +40,10 @@ export default defineComponent({
       if (selected === key) {
         return false;
       }
+      // eslint-disable-next-line
       this.categories[key].selected = true;
       if (selected > -1) {
+        // eslint-disable-next-line
         this.categories[selected].selected = false;
       }
       this.selected = key;

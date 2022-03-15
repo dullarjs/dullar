@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-07-27 13:32:18
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-09-27 14:05:55
+ * @Last Modified time: 2022-03-14 17:37:51
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -18,13 +18,15 @@ export default defineComponent({
         return {
           id: "id",
           type: "type",
-          parentId: "parentId"
+          parentId: "parentId",
         };
-      }
+      },
     },
     defaultParams: {
       type: Object,
-      default: {}
+      default: () => {
+        return {};
+      },
     },
     label: {
       type: String,
@@ -50,7 +52,7 @@ export default defineComponent({
       currentTab: 0,
       isLoading: false,
       regionList: [],
-      CACHE: {}
+      CACHE: {},
     };
   },
   initPropsToData() {
@@ -137,7 +139,16 @@ export default defineComponent({
                   {
                     class: ["label", this.currentTab === index ? "active" : ""],
                     on: {
-                      click: this.handleSwitchTab.bind(this, { [this.attributeMapping["id"]]: attr[this.attributeMapping["parentId"]], [this.attributeMapping["type"]]: attr[this.attributeMapping["type"]] }, index),
+                      click: this.handleSwitchTab.bind(
+                        this,
+                        {
+                          [this.attributeMapping["id"]]:
+                            attr[this.attributeMapping["parentId"]],
+                          [this.attributeMapping["type"]]:
+                            attr[this.attributeMapping["type"]],
+                        },
+                        index
+                      ),
                     },
                   },
                   [this.address.parse(attr)]
@@ -146,7 +157,9 @@ export default defineComponent({
             );
           }),
         ]),
-        h("div", { class: ["address-result", this.isLoading ? "loading" : ""] },
+        h(
+          "div",
+          { class: ["address-result", this.isLoading ? "loading" : ""] },
           [
             this.isLoading
               ? h(
@@ -157,30 +170,26 @@ export default defineComponent({
                   },
                   []
                 )
-              : Array.apply(null, this.regionList).map(
-                  (option, key) => {
-                    return h(
-                      "span",
-                      {
-                        attrs: {
-                          "data-id": option[this.attributeMapping["id"]],
-                          "data-parent-id": option[this.attributeMapping["parentId"]],
-                        },
-                        class: ["option"],
-                        key,
-                        on: {
-                          click: this.handleItemClick.bind(
-                            this,
-                            option
-                          ),
-                        },
+              : Array.apply(null, this.regionList).map((option, key) => {
+                  return h(
+                    "span",
+                    {
+                      attrs: {
+                        "data-id": option[this.attributeMapping["id"]],
+                        "data-parent-id":
+                          option[this.attributeMapping["parentId"]],
                       },
-                      [this.address.parse(option)]
-                    );
-                  }
-                ),
+                      class: ["option"],
+                      key,
+                      on: {
+                        click: this.handleItemClick.bind(this, option),
+                      },
+                    },
+                    [this.address.parse(option)]
+                  );
+                }),
           ]
-        )
+        ),
       ]),
     ]);
   },

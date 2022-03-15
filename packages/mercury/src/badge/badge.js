@@ -1,8 +1,8 @@
 /*
  * @Author: liuzx
  * @Date:   2021-08-13 16:53:33
- * @Last Modified by:   liuzx
- * @Last Modified time: 2021-08-16 18:15:18
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2022-03-14 17:43:12
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -18,7 +18,7 @@ export default defineComponent({
     },
     count: {
       type: Number,
-      default: "",
+      default: 0,
     },
     dot: {
       type: Boolean,

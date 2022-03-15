@@ -1,8 +1,8 @@
 /*
  * @Author: tongh
  * @Date:   2020-08-25 10:44:56
- * @Last Modified by:   tongh
- * @Last Modified time: 2020-08-25 13:38:06
+ * @Last Modified by:   Just be free
+ * @Last Modified time: 2022-03-14 17:43:46
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { throttle, isString } from "../modules/utils";
@@ -14,8 +14,8 @@ export default defineComponent({
   name: "Image",
   mixins: [slotsMixins],
   props: {
-    width: Number | String,
-    height: Number | String,
+    width: [Number, String],
+    height: [Number, String],
     iconSize: {
       type: Number,
       default: 50,
