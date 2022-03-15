@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       routes: [
+        "button",
         "icon",
         "tag",
         "scrollbar",

@@ -20,12 +20,14 @@ import DropdownMenu from "./components/dropdown/dropdownMenu.vue";
 import DropdownItem from "./components/dropdown/dropdownItem.vue";
 import Tag from "@/components/tag";
 import Icon from "@/components/icon";
+import Button from "@/components/button";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  Button,
   Icon,
   Tag,
   DropdownItem,
