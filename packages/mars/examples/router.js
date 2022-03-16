@@ -24,6 +24,7 @@ import Dropdown from "./dropdown";
 import Tag from "./tag";
 import Icon from "./icon";
 import Button from "./button";
+import Popconfirm from "./popconfirm";
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -35,6 +36,11 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "popconfirm",
+          name: "popconfirm",
+          component: Popconfirm
+        },
         {
           path: "button",
           name: "button",

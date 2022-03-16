@@ -27,8 +27,8 @@
       </div>
     </transition>
     <span
-      class="yn-reference"
-      ref="reference"
+      class="yn-popover__reference-wrapper"
+      ref="wrapper"
     >
       <slot name="reference"></slot>
     </span>
@@ -40,7 +40,7 @@ import { Component, Mixins, Prop } from "vue-property-decorator";
 import "./style/index.scss";
 import "@/theme/transition.scss";
 import { AnyObject } from "../../types";
-import { on, off } from "../../utils/dom";
+import { on, off, addClass } from "../../utils/dom";
 import Popper from "../../utils/vue-popper";
 
 @Component({
@@ -83,7 +83,7 @@ export default class Popover extends Mixins(
   }
   handleDocumentClick(e: Event) {
     const domPop = this.$refs.popper as HTMLElement;
-    const domReference = this.$refs.reference as HTMLElement;
+    const domReference = this.referenceElm;
     const target = e.target as HTMLElement;
     if (!this.$el || this.$el.contains(target) ||
       !domPop || domPop.contains(target) ||
@@ -113,8 +113,13 @@ export default class Popover extends Mixins(
     this.$emit("close");
   }
   mounted() {
-    let reference = this.$refs.reference as HTMLElement;
+    let reference = this.referenceElm = this.$refs.reference as HTMLElement;
     let poper = this.$refs.popper as HTMLElement;
+
+    if (!reference && (this.$refs.wrapper as HTMLElement).children) {
+      reference = this.referenceElm = (this.$refs.wrapper as HTMLElement).children[0] as HTMLElement;
+      addClass(reference, "yn-popover__reference");
+    }
     switch(this.trigger) {
       case "click": {
         on(reference, "click", this.toggle);
@@ -131,7 +136,7 @@ export default class Popover extends Mixins(
     }
   }
   beforeDestroy() {
-    let reference = this.$refs.reference as HTMLElement;
+    let reference = this.referenceElm as HTMLElement;
     off(reference, "click", this.toggle);
     off(document, "click", this.handleDocumentClick);
   }

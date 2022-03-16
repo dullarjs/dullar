@@ -21,12 +21,14 @@ import DropdownItem from "./components/dropdown/dropdownItem.vue";
 import Tag from "@/components/tag";
 import Icon from "@/components/icon";
 import Button from "@/components/button";
+import Popconfirm from "@/components/popconfirm";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  Popconfirm,
   Button,
   Icon,
   Tag,
