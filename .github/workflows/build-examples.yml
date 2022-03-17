@@ -92,9 +92,9 @@ jobs:
     - name: Build mars
       run: |
         cd packages/mars
-        npm install
-        npm install @vue/cli-service@4.3.0 --save-dev
-        npm run build
+        yarn install
+        yarn build:components
+        yarn run build
 
     - name: Move mars to root docs
       run: |
