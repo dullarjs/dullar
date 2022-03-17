@@ -5,4 +5,3 @@ export {
   Dialog,
   Popover
 }
-export function install(vue: typeof Vue): void;
