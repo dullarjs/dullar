@@ -3,6 +3,8 @@ import "./utils/window-event";
 
 import { VueConstructor } from "vue/types/umd";
 import { AnyObject } from "./types";
+
+import Notification from "@/components/notification";
 import Spin from "./components/spin";
 import CityPicker from "./components/cityPicker";
 import Dialog from "./components/dialog";
@@ -20,12 +22,18 @@ import DropdownMenu from "./components/dropdown/dropdownMenu.vue";
 import DropdownItem from "./components/dropdown/dropdownItem.vue";
 import Tag from "@/components/tag";
 import Icon from "@/components/icon";
+import Button from "@/components/button";
+import Popconfirm from "@/components/popconfirm";
+import MessageBox from "@/components/messageBox";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  // MessageBox,
+  Popconfirm,
+  Button,
   Icon,
   Tag,
   DropdownItem,
@@ -57,6 +65,8 @@ const install = (Vue: VueConstructor): void => {
     }
   });
   Vue.prototype.Indicator = Indicator;
+  Vue.prototype.$notification = Notification;
+  Vue.prototype.$msgbox = MessageBox;
 };
 const config = (options: MarsConfigOptions) => {
   Object.keys(options).forEach((attr: string) => {

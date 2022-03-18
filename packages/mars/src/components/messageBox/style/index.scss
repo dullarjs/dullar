@@ -1,0 +1,91 @@
+@import "src/theme/variable";
+.yn-message-box-wrapper{
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  text-align: center;
+  &:after{
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+  }
+  .yn-message-box{
+    display:inline-block;
+    width: 420px;
+    padding-bottom: 10px;
+    background: #ffffff;
+    border-radius: 4px;
+    border: 1px solid #ebeef5;
+    box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
+    text-align: left;
+    overflow: hidden;
+    .yn-message-box__header{
+      position: relative;
+      padding: 15px 15px 10px;
+      .yn-message-box__title{
+        padding-left: 0;
+        margin-bottom: 0;
+        font-size: 18px;
+        line-height: 1;
+        color: #303133;
+      }
+      .yn-message-box__headerbtn{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        padding: 0;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 16px;
+        cursor: pointer;
+        .yn-message-box__close{
+          color: #909399;
+        }
+        &:hover .yn-message-box__close{
+          color: $theme-color;
+        }
+      }
+    }
+    .yn-message-box__content{
+      padding: 10px 15px;
+      color: #606266;
+      font-size: 14px;
+    }
+    .yn-message-box__action{
+      padding: 5px 15px 0;
+      text-align: right;
+    }
+  }
+}
+/** dialog-fade 动画 */
+.dialog-fade-enter-active{
+  animation: dialog-fade-in 0.3s;
+}
+.dialog-fade-leave-active{
+  animation: dialog-fade-out 0.3s;
+}
+@keyframes dialog-fade-in {
+  0%{
+    transform:translateY(-20px);
+    opacity: 0;
+  }
+  100%{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes dialog-fade-out {
+  0%{
+    transform:translateY(0px);
+    opacity: 1;
+  }
+  100%{
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}

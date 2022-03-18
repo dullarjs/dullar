@@ -6,20 +6,23 @@
   >
     <div
       v-show="visible"
-      class="el-dialog__wrapper"
+      class="yn-dialog__wrapper"
       :style="style"
       @click.self="handleWrapperClick"
     >
-      <div class="el-dialog">
-        <div class="el-dialog__header">
-          <span class="el-dialog__title">{{title}}</span>
+      <div class="yn-dialog">
+        <div class="yn-dialog__header">
+          <span class="yn-dialog__title">{{title}}</span>
+          <button class="yn-dialog__headerbtn" @click="handleClose">
+            <Icon name="close" class="yn-dialog__close"></Icon>
+          </button>
         </div>
-        <div class="el-dialog__body">
+        <div class="yn-dialog__body">
           <slot>
             <span>这是一段信息</span>
           </slot>
         </div>
-        <div class="el-dialog__footer" v-if="$slots.footer">
+        <div class="yn-dialog__footer" v-if="$slots.footer">
           <slot name="footer"></slot>
         </div>
       </div>
@@ -30,10 +33,14 @@
 import Vue from "vue";
 import { Component, Mixins, Prop  } from "vue-property-decorator";
 import Popup from "../../utils/popup";
+import Icon from "@/components/icon";
 import "./style/index.scss";
 import { AnyObject } from "../../types";
 @Component({
-  name: "Dialog"
+  name: "Dialog",
+  components: {
+    Icon
+  }
 })
 export default class Dialog extends Mixins(Vue, Popup) {
   static componentName = "YnDialog";
@@ -41,32 +48,17 @@ export default class Dialog extends Mixins(Vue, Popup) {
     type: Boolean,
     default: true
   })
-  modal = true;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  modalAppendToBody = true;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
   appendToBody!: boolean;
   @Prop({
-    type: Boolean,
-    default: true
+    type: String,
+    default: ""
   })
-  closeOnClickModal = true;
+  top!: string;
   @Prop({
     type: String,
     default: ""
   })
-  top!: string
-  @Prop({
-    type: String,
-    default: ""
-  })
-  width!: string
+  width!: string;
   @Prop({
     type: String,
     default: "提示"
@@ -87,9 +79,9 @@ export default class Dialog extends Mixins(Vue, Popup) {
   }
   handleWrapperClick() {
     if (!this.closeOnClickModal) return;
-    this.handClose();
+    this.handleClose();
   }
-  handClose() {
+  handleClose() {
     this.$emit("update:visible", false);
     this.$emit("close", true);
   }

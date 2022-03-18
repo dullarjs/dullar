@@ -11,3 +11,8 @@ declare global {
     }
   }
 }
+declare module 'vue/types/vue'{
+  interface Vue{
+    [propName: string]: any;
+  }
+}

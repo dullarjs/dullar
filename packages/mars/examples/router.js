@@ -23,6 +23,10 @@ import Scrollbar from "./scrollbar";
 import Dropdown from "./dropdown";
 import Tag from "./tag";
 import Icon from "./icon";
+import Button from "./button";
+import Popconfirm from "./popconfirm";
+import MessageBox from "./messageBox";
+
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -34,6 +38,21 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "messageBox",
+          name: "messageBox",
+          component: MessageBox
+        },
+        {
+          path: "popconfirm",
+          name: "popconfirm",
+          component: Popconfirm
+        },
+        {
+          path: "button",
+          name: "button",
+          component: Button
+        },
         {
           path: "icon",
           name: "icon",

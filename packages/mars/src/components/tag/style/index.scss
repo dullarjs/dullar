@@ -103,26 +103,26 @@
   border-radius: 4px;
   box-sizing: border-box;
   white-space: nowrap;
+  .yn-icon-close {
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    top: -1px;
+    right: -5px;
+  
+    &::before {
+      display: block;
+    }
+  }
 }
 .yn-tag+.yn-tag{
   margin-left: 10px;
-}
-.yn-icon-close {
-  border-radius: 50%;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
-  font-size: 14px;
-  height: 16px;
-  width: 16px;
-  line-height: 16px;
-  vertical-align: middle;
-  top: -1px;
-  right: -5px;
-
-  &::before {
-    display: block;
-  }
 }
 
 .yn-tag--dark {

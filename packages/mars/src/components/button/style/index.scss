@@ -1,0 +1,230 @@
+@import "src/theme/variable";
+@import "src/theme/mixins/mixins";
+@import "src/theme/mixins/_button";
+@mixin genTheme {
+  &.yn-button--default {
+    color: $yn-text-color;
+    background-color: $yn-background-color;
+    box-shadow: 0 0 1px $yn-border-color-base;
+    &:hover, &:focus{
+      color: $theme-color;
+      background-color: mix($theme-color, $white, 10%);
+      border-color: mix($theme-color, $white, 20%);
+    }
+    @include when(plain) {
+      border: 1px solid $yn-border-color-base;
+      background-color: transparent;
+      box-shadow: none;
+      color: $yn-border-color-base;
+      &:hover, &:focus{
+        color: $theme-color;
+        background-color: mix($theme-color, $white, 0);
+        border-color: mix($theme-color, $white, 100%);
+      }
+      &.is-text {
+        border: none;
+      }
+    }
+  }
+  &.yn-button--primary {
+    background-color: $theme-color;
+    color: $white;
+    &:hover, &:focus{
+      background-color: mix($theme-color, $white, 80%);
+    }
+    @include when(plain) {
+      border: 1px solid $theme-color;
+      background-color: transparent;
+      color: $theme-color;
+      &:hover, &:focus{
+        color: $white;
+        background-color: mix($theme-color, $white, 100%);
+      }
+      &.is-text {
+        border: none;
+      }
+    }
+  }
+  &.yn-button--warning {
+    background-color: $yn-warning-color;
+    color: $white;
+    &:hover, &:focus{
+      background-color: mix($yn-warning-color, $white, 80%);
+    }
+    @include when(plain) {
+      border: 1px solid $yn-warning-color;
+      background-color: transparent;
+      color: $yn-warning-color;
+      &:hover, &:focus{
+        color: $white;
+        background-color: mix($yn-warning-color, $white, 100%);
+      }
+      &.is-text {
+        border: none;
+      }
+    }
+  }
+  &.yn-button--danger {
+    color: $white;
+    background-color: $yn-error-color;
+    &:hover, &:focus{
+      background-color: mix($yn-error-color, $white, 80%);
+    }
+    @include when(plain) {
+      border: 1px solid $yn-error-color;
+      background-color: transparent;
+      color: $yn-error-color;
+      &:hover, &:focus{
+        color: $white;
+        background-color: mix($yn-error-color, $white, 100%);
+      }
+      &.is-text {
+        border: none;
+      }
+    }
+  }
+  &.yn-button--text {
+    color: $theme-color;
+    background-color: $white;
+    &:hover, &:focus{
+      color: mix($theme-color, $white, 80%);
+    }
+    &.is-disable{
+      color: $yn-disabled-color;
+      background-color: transparent;
+    }
+  }
+}
+.yn-button {
+  display: inline-block;
+  padding: 12px 23px;
+  font-size: 14px;
+  // line-height: 1;
+  white-space: nowrap;
+  appearance: none;
+  border-radius: 4px;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  outline: 0;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  & + & {
+    margin-left: 10px;
+  }
+  & [class*="el-icon-"] {
+    & + span {
+      margin-left: 5px;
+    }
+  }
+  &{
+    border: 1px solid $yn-border-color-base;
+    background-color: $white;
+    box-shadow: none;
+    color: $yn-text-color;
+  }
+  &:hover,&:focus{
+    color: $theme-color;
+    background-color: mix($theme-color, $white, 10%);
+    border-color: mix($theme-color, $white, 20%);
+  }
+  &:active {
+    color: mix($black, $theme-color, 10%);
+    border-color: mix($black, $theme-color, 10%);
+    outline: none;
+  }
+  @include when(plain) {
+    &:hover, &:focus{
+      color: $theme-color;
+      background-color: mix($theme-color, $white, 0);
+      border-color: mix($theme-color, $white, 100%);
+    }
+    &:active {
+      background: $white;
+      border-color: mix($black, $theme-color, 50%);
+      color: mix($black, $theme-color, 50%);
+      outline: none;
+    }
+  }
+  @include when(disabled) {
+    &,
+    &:hover,
+    &:focus {
+      color: $yn-disabled-color;
+      cursor: not-allowed;
+      background-image: none;
+      background-color: $yn-disabled-bg-color;
+      border-color: $yn-border-color-base;
+    }
+
+    &.yn-button--text {
+      background-color: transparent;
+    }
+
+    &.is-plain {
+      &,
+      &:hover,
+      &:focus {
+        background-color: $white;
+        border-color: $yn-border-color-base;
+        color: $yn-disabled-color;
+      }
+    }
+  }
+  &.yn-button--primary{
+    @include button-variant($white, $theme-color, $theme-color);
+  }
+  &.yn-button--warning{
+    @include button-variant($white, $yn-warning-color, $yn-warning-color);
+  }
+  &.yn-button--danger{
+    @include button-variant($white, $yn-error-color, $yn-error-color);
+  }
+  &.yn-button--text {
+    border-color: transparent;
+    color: $theme-color;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+
+    &:hover,
+    &:focus {
+      color: mix($white, $theme-color, 20%);
+      border-color: transparent;
+      background-color: transparent;
+    }
+
+    &.is-disabled,
+    &.is-disabled:hover,
+    &.is-disabled:focus {
+      border-color: transparent;
+    }
+  }
+}
+
+.yn-button--loading {
+  cursor: default;
+}
+.yn-button__loading-icon, .yn-button__icon{
+  margin-right: 5px;
+}
+.yn-button__loading-icon,
+.yn-button__text {
+  display: inline-block;
+  vertical-align: middle;
+  line-height:1;
+}
+.yn-button--medium {
+  padding: 10px 16px;
+  font-size: 14px;
+}
+.yn-button--small {
+  padding: 9px 12px;
+  font-size: 12px;
+}
+.yn-button--mini {
+  font-size: 12px;
+  padding: 7px 8px;
+}

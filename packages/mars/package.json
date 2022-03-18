@@ -9,6 +9,7 @@
     "/lib",
     "types"
   ],
+  "typings": "types/index.d.ts",
   "scripts": {
     "build:components": "vue-cli-service build --mode production --target lib --name @dullar/mars --dest lib src/index.ts",
     "serve": "vue-cli-service serve",
