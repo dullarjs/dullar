@@ -1,8 +1,21 @@
-interface Vue{
-  // install: (Vue: typeof Vue) => void;
-  [key: string]: any;
-  $msgbox: any;
+export interface MessageBox{
+  alert: any
+
+  /** Show a confirm message box */
+  confirm: any
+
+  /** Show a prompt message box */
+  prompt: any
+
+  /** Set default options of message boxes */
+  setDefaults (defaults: any): void
+
+  /** Close current message box */
+  close (): void
 }
-interface VueConstructor{
-  $msgbox: any;
+
+declare module 'vue/types/vue'{
+  interface Vue{
+    $msgbox: any;
+  }
 }

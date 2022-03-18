@@ -1,71 +1,88 @@
 <template>
-  <popover
-    :visible.sync="visible"
-    v-bind="$attrs"
-    :trigger="'click'"
+  <transition
+    name="dialog-fade"
   >
-    <div class="yn-popconfirm">
-      <p class="yn-popconfirm__main">
-        {{ title }}
-      </p>
-      <div class="yn-popconfirm__action">
-        <Button :type="cancelButtonType" size="mini" @click="handleCancel">{{ cancelButtonText }}</Button>
-        <Button :type="confirmButtonType" size="mini" @click="handleConfirm">{{ confirmButtonText }}</Button>
+    <div
+      v-show="visible"
+      class="yn-message-box-wrapper"
+      @click.self="handleWrapperClick"
+    >
+      <div class="yn-message-box">
+        <div class="yn-message-box__header">
+          <div class="yn-message-box__title">
+            {{ title }}
+          </div>
+          <button class="yn-message-box__headerbtn" @click="handleClose">
+            <Icon name="close" class="yn-message-box__close"></Icon>
+          </button>
+        </div>
+        <div class="yn-message-box__content">
+          {{ message }}
+        </div>
+        <div class="yn-message-box__action">
+          <Button v-show="showCancelButton" size="mini" @click="handleCancel">{{ cancelButtonText }}</Button>
+          <Button v-show="showConfirmButton" type="primary" size="mini" @click="handleConfirm">{{ confirmButtonText }}</Button>
+        </div>
       </div>
     </div>
-    <template v-slot:reference>
-      <slot name="reference"></slot>
-    </template>
-  </popover>
+  </transition>
 </template>
 <script lang="ts">
 import "./style/index.scss";
 import Vue from 'vue'
-import { Component, Prop } from "vue-property-decorator";
-import Popover from "@/components/popover";
+import { Component, Prop, Mixins } from "vue-property-decorator";
 import Button from "@/components/button";
+import Popup from "../../utils/popup";
+import Icon from "@/components/icon";
+import { AnyObject, Callback } from "@/types";
 @Component({
   name: "MessageBox",
   components: {
-    Button,
-    Popover
+    Icon,
+    Button
   }
 })
-export default class MessageBox extends Vue{
+export default class MessageBox extends Mixins(Vue, Popup){
   static componentName = "YnMessageBox";
-  visible = false;
-  @Prop({
-    type: String,
-    default: ""
-  })
-  title!: string;
-  @Prop({
-    type: String,
-    default: "确定"
-  })
-  confirmButtonText!: string;
-  @Prop({
-    type: String,
-    default: "取消"
-  })
-  cancelButtonText!: string;
-  @Prop({
-    type: String,
-    default: "primary"
-  })
-  confirmButtonType!: string;
-  @Prop({
-    type: String,
-    default: "text"
-  })
-  cancelButtonType!: string;
+
+  action = '';
+  callback: null | Callback = null;
+  showConfirmButton = true;
+  showCancelButton = true;
+  confirmButtonText = '确定';
+  cancelButtonText = '取消';
+  message = "";
+  title = "";  
+
+  handleClose() {
+    this.handAction("close");
+  }
   handleConfirm() {
-    this.visible = false;
-    this.$emit("confirm");
+    this.handAction("confirm");
   }
   handleCancel() {
+    this.handAction("cancel");
+  }
+  handleWrapperClick() {
+    if (!this.closeOnClickModal) return;
+    this.handAction("close");
+  }
+  handAction(action: string) {
+    this.action = action;
+    if (typeof this.beforeClose === 'function') {
+      this.beforeClose(action, this, this.doClose);
+    } else {
+      this.doClose();
+    }
+  }
+  doClose() {
     this.visible = false;
-    this.$emit("cancel");
+    if (this.action && this.callback) this.callback(this.action);
+  }
+  beforeDestroy() {
+    if(document.body && this.$el) {
+      document.body.removeChild(this.$el);
+    }
   }
 }
 </script>

@@ -1,21 +1,21 @@
 <template>
   <div class="dialog-page">
     <h3>基本用法</h3>
-    <button @click="dialogVisible = true">点击打开 Dialog</button>
+    <yn-button type="text" @click="dialogVisible = true">点击打开 Dialog</yn-button>
     <Yn-dialog :visible.sync="dialogVisible">
       <span slot="footer">
-        <button class="btn btn--default" @click="dialogVisible = false">取消</button>
-        <button class="btn btn--primary" @click="dialogVisible = false">确定</button>
+        <yn-button @click="dialogVisible = false">取消</yn-button>
+        <yn-button type="primary" @click="dialogVisible = false">确定</yn-button>
       </span>
     </Yn-dialog>
     <h3>嵌套的Dialog</h3>
-    <button @click="outerVisible = true">点击打开外层Dialog</button>
+    <yn-button type="text" @click="outerVisible = true">点击打开外层Dialog</yn-button>
     <Yn-dialog :visible.sync="outerVisible" title="外层Dialog">
       <Yn-dialog :visible.sync="innerVisible" title="内层Dialog">
       </Yn-dialog>
       <span slot="footer">
-        <button class="btn btn--default" @click="outerVisible = false">取消</button>
-        <button class="btn btn--primary" @click="innerVisible = true">打开内侧Dialog</button>
+        <yn-button @click="outerVisible = false">取消</yn-button>
+        <yn-button type="primary" @click="innerVisible = true">打开内侧Dialog</yn-button>
       </span>
     </Yn-dialog>
   </div>

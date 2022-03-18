@@ -31,7 +31,7 @@ interface MarsConfigOptions {
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
-  MessageBox,
+  // MessageBox,
   Popconfirm,
   Button,
   Icon,
@@ -50,8 +50,7 @@ export const components: AnyObject = {
   Spin,
   CityPicker,
   Dialog,
-  Popover,
-  Notification
+  Popover
 }
 
 const install = (Vue: VueConstructor): void => {

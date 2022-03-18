@@ -1,2 +1,2 @@
-import messageBox from "./messageBox.vue";
+import messageBox from "./main";
 export default messageBox;
