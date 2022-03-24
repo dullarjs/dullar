@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-05-06 14:45:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2022-03-14 18:50:58
+* @Last Modified time: 2022-03-24 13:33:24
 * @E-mail: justbefree@126.com
 */
 process.env.VUE_APP_VERSION = require('./package.json').version;
@@ -15,6 +15,7 @@ const publicPath = process.env.NODE_ENV === 'production' ? "/earth/" : "/local/"
 const mfePlugin = () => {
   if (["build", "build", "serve"].includes(process.env.npm_lifecycle_event)) {
     return [new ModuleFederationPlugin({
+      runtime: "dullarjs-runtime",
       name: "dullarjs",
       // library: { type: "umd", name: "flight" },
       // library: { type: "umd" },
@@ -46,7 +47,21 @@ module.exports = defineConfig({
       splitChunks: false,
     },
     devtool: "source-map",
-    plugins: mfePlugin()
+    plugins: mfePlugin(),
+    module: {
+      rules: [
+        {
+          test: /\.(svg)(\?.*)?$/,
+          type: 'asset',
+          parser: {
+             dataUrlCondition: {
+               maxSize: 20 * 1024 // 20kb
+             }
+          },
+          use: 'svgo-loader'
+        }
+      ]
+    }
   },
   css: {
     extract: false
