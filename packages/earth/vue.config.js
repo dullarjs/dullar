@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-05-06 14:45:16
 * @Last Modified by:   Just be free
-* @Last Modified time: 2022-03-24 13:33:24
+* @Last Modified time: 2022-03-25 10:08:58
 * @E-mail: justbefree@126.com
 */
 process.env.VUE_APP_VERSION = require('./package.json').version;
@@ -15,7 +15,8 @@ const publicPath = process.env.NODE_ENV === 'production' ? "/earth/" : "/local/"
 const mfePlugin = () => {
   if (["build", "build", "serve"].includes(process.env.npm_lifecycle_event)) {
     return [new ModuleFederationPlugin({
-      runtime: "dullarjs-runtime",
+      // runtime: "dullarjs-runtime",
+      runtime: false,
       name: "dullarjs",
       // library: { type: "umd", name: "flight" },
       // library: { type: "umd" },
@@ -27,7 +28,7 @@ const mfePlugin = () => {
         // hotel: "hotel@http://localhost:8082/remoteEntry.js",
         // train: "train@http://localhost:8083/remoteEntry.js",
       },
-      // shared: require("./package.json").dependencies,
+      shared: ["vue", "vue-router", "core-js"]
     })];
   } else {
     return [
