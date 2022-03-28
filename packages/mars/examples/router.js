@@ -26,6 +26,7 @@ import Icon from "./icon";
 import Button from "./button";
 import Popconfirm from "./popconfirm";
 import MessageBox from "./messageBox";
+import Message from "./message";
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
@@ -38,6 +39,11 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "message",
+          name: "message",
+          component: Message
+        },
         {
           path: "messageBox",
           name: "messageBox",
