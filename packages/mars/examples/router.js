@@ -27,6 +27,7 @@ import Button from "./button";
 import Popconfirm from "./popconfirm";
 import MessageBox from "./messageBox";
 import Message from "./message";
+import Calendar from "./calendar";
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
@@ -39,6 +40,11 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "calendar",
+          name: "calendar",
+          component: Calendar
+        },
         {
           path: "message",
           name: "message",

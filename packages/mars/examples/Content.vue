@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       routes: [
+        "calendar",
         "message",
         "messageBox",
         "popconfirm",

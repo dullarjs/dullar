@@ -24,7 +24,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
   showEncryptInput = false;
   inputing = false;
   originalText: string | number = "";
-  
+
   @Prop({
     type: String
   })
@@ -113,7 +113,9 @@ export default class Field extends Mixins(Vue, slotsMixins){
   encrypt!: (arg: string | number) => string;
   @Prop({
     type: Array,
-    default: []
+    default: () => {
+      return [];
+    }
   })
   iconClass!: string[];
   @Prop({
@@ -294,7 +296,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
           [
             h(
               "iconfont",
-              { 
+              {
                 props: { name, size: this.iconSize, rotate: this.iconRotate },
                 "class": this.iconClass
               },

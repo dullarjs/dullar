@@ -26,12 +26,14 @@ import Button from "@/components/button";
 import Popconfirm from "@/components/popconfirm";
 import MessageBox from "@/components/messageBox";
 import Message from "@/components/message";
+import Calendar from "@/components/calendar"
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  Calendar,
   // MessageBox,
   Popconfirm,
   Button,

@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import Icon from "@/components/icon";
 import "./style/index.scss";
 import { AnyObject, Callback } from '@/types';
@@ -72,7 +72,7 @@ export default class Message extends Vue{
     this.close();
   }
   mounted() {
-   this.startTimer(); 
+   this.startTimer();
   }
   beforeDestroy() {
     document.body.removeChild(this.$el);
