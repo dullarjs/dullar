@@ -25,6 +25,7 @@ import Icon from "@/components/icon";
 import Button from "@/components/button";
 import Popconfirm from "@/components/popconfirm";
 import MessageBox from "@/components/messageBox";
+import Message from "@/components/message";
 
 interface MarsConfigOptions {
   [propName: string]: any;
@@ -67,6 +68,7 @@ const install = (Vue: VueConstructor): void => {
   Vue.prototype.Indicator = Indicator;
   Vue.prototype.$notification = Notification;
   Vue.prototype.$msgbox = MessageBox;
+  Vue.prototype.$message = Message;
 };
 const config = (options: MarsConfigOptions) => {
   Object.keys(options).forEach((attr: string) => {

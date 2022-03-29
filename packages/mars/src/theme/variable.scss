@@ -58,3 +58,19 @@ $tag-danger-color: $yn-error-color !default;
 $tag-font-size: 12px !default;
 $tag-border-radius: 4px !default;
 $tag-padding: 0 10px !default;
+
+/** message */
+$message-info-font-color: $yn-text-color-secondary;
+$message-info-bg-color: mix($white, $yn-text-color-secondary, 90%);
+$message-info-border-color: mix($white, $yn-text-color-secondary, 80%);
+$message-success-font-color: $yn-success-color;
+$message-success-bg-color: mix($white, $yn-success-color, 90%);
+$message-success-border-color: mix($white, $yn-success-color, 80%);
+$message-warning-font-color: $yn-warning-color;
+$message-warning-bg-color: mix($white, $yn-warning-color, 90%);
+$message-warning-border-color: mix($white, $yn-warning-color, 80%);
+$message-error-font-color: $yn-error-color;
+$message-error-bg-color: mix($white, $yn-error-color, 90%);
+$message-error-border-color: mix($white, $yn-error-color, 80%);
+$message-close-color: mix($white, $yn-text-color-secondary, 50%);
+$message-close-hover-color:$yn-text-color-secondary;
