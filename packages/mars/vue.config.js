@@ -2,28 +2,10 @@ const { defineConfig } = require('@vue/cli-service');
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
 const publicPath = process.env.NODE_ENV === 'production' ? "/mars/" : "/local/";
-module.exports = defineConfig({
-  publicPath,
-  outputDir: "docs",
-  css: {
-    extract: false
-  },
-  configureWebpack: {
-    module: {
-      rules: [
-        {
-          test: /\.(svg)(\?.*)?$/,
-          type: 'asset',
-          parser: {
-             dataUrlCondition: {
-               maxSize: 20 * 1024 // 20kb
-             }
-          },
-          use: 'svgo-loader'
-        }
-      ]
-    },
-    plugins: [
+
+const mfePlugin = () => {
+  if (["build", "build", "serve"].includes(process.env.npm_lifecycle_event)) {
+    return [
       new ModuleFederationPlugin({
             // runtime: "dullarjs-runtime",
         runtime: false,
@@ -40,6 +22,37 @@ module.exports = defineConfig({
         },
         shared: ["vue", "vue-router", "core-js"]
       })
+    ];
+  }
+  return [];
+}
+module.exports = defineConfig({
+  publicPath,
+  outputDir: "docs",
+  transpileDependencies: true,
+  css: {
+    extract: false
+  },
+  configureWebpack: {
+    optimization: {
+      splitChunks: false,
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(svg)(\?.*)?$/,
+          type: 'asset',
+          parser: {
+             dataUrlCondition: {
+               maxSize: 20 * 1024 // 20kb
+             }
+          },
+          use: 'svgo-loader'
+        }
+      ]
+    },
+    plugins: [
+      ...mfePlugin()
     ]
   },
   pages: {
