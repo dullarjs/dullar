@@ -1,13 +1,13 @@
 {
   "name": "@dullar/mars",
-  "version": "0.3.38",
+  "version": "0.3.39",
   "publishConfig": {
     "access": "public"
   },
   "main": "lib/@dullar/mars.umd.min.js",
   "files": [
-    "/lib",
-    "types"
+    "lib/*.js",
+    "types/*.d.ts"
   ],
   "typings": "types/index.d.ts",
   "scripts": {
@@ -17,7 +17,6 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@dullar/cube": "^0.3.38",
     "core-js": "^3.20.0",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.11",
@@ -68,5 +67,5 @@
     "last 2 versions",
     "not dead"
   ],
-  "gitHead": "5d95402c8adda527cf50702fee08652669c18d51"
+  "gitHead": "f638412ad2a756a5574eb6d842e84c92cf91bcbf"
 }
