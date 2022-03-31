@@ -1,6 +1,6 @@
 {
   "name": "@dullar/mars",
-  "version": "0.3.37",
+  "version": "0.3.38",
   "publishConfig": {
     "access": "public"
   },
@@ -17,7 +17,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@dullar/cube": "^0.3.37",
+    "@dullar/cube": "^0.3.38",
     "core-js": "^3.20.0",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.11",
@@ -68,5 +68,5 @@
     "last 2 versions",
     "not dead"
   ],
-  "gitHead": "304926b46ac70fa949fda1a6a7f72894409e97e2"
+  "gitHead": "5d95402c8adda527cf50702fee08652669c18d51"
 }
