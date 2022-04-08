@@ -11,12 +11,11 @@ export default defineComponent({
   name: "ScrollerBar",
   props: {
     inputNodeInfo: {
-      type: DOMRect,
       default: null,
     },
     width: {
       type: [Number, String],
-      default: ""
+      default: "",
     },
     suggestions: Array,
     scrollerBarVisible: Boolean,
@@ -104,9 +103,15 @@ export default defineComponent({
     },
   },
   render(h) {
-    const { scrollWidht, scrollTop, loading, isSelected, scrollerBarTop, width } =
-      this;
-    const _width = width === "auto" ? "100%" : (scrollWidht + "px");
+    const {
+      scrollWidht,
+      scrollTop,
+      loading,
+      isSelected,
+      scrollerBarTop,
+      width,
+    } = this;
+    const _width = width === "auto" ? "100%" : scrollWidht + "px";
     const _list = this.getContentList(isSelected, h);
     return h(
       "div",
