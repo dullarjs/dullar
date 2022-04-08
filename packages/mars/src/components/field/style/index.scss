@@ -89,6 +89,9 @@
         &:focus{
           border: 1px solid $yn-primary-6;
         }
+        &.is-noborder{
+          border: none;
+        }
       }
       .yn-field-textarea-counter {
         text-align: right;

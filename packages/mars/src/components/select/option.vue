@@ -19,8 +19,7 @@
   import Vue from "vue";
   import { Component, Mixins, Prop, Watch } from "vue-property-decorator";
   import Emitter from "@/components/mixins/emitter";
-import { AnyObject } from "@/types";
-  
+
   interface Select {
     [propName: string]: any;
   }
