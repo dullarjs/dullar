@@ -1,87 +1,87 @@
 <template>
-  <div>
-    <h2>yn-calendar</h2>
+  <div class="date-picker-page">
+    <h2>yn-date-picker</h2>
     <ul>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar1')">
+          <h2 type="text">
             单选日历默认，无指定默认日期
-          </yn-button>
+          </h2>
         </div>
-        <span>已选择时间：{{ calendar1Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar1Date }}</span>
+        <yn-date-picker
           mode="single"
           :before="10"
           :after="10"
           v-model="calendar1"
           v-on:getDate="handleOnGetDate1"
           @afterLeave="handleAfterLeave"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar2')">
+          <h2>
             多选日历默认，无指定默认日期
-          </yn-button>
+          </h2>
         </div>
-        <span>已选择时间：{{ calendar2Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar2Date }}</span>
+        <yn-date-picker
           mode="double"
           :before="10"
           :after="10"
+          :dateRefenceWidth="'100%'"
+          :roundType="'hotel'"
           v-model="calendar2"
           v-on:getDate="handleOnGetDate2"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar3')">
+          <h2>
             单选日历，指定默认选择为明天({{ defaultDate }})
-          </yn-button>
+          </h2>
         </div>
-        <span>已选择时间：{{ calendar3Date }}</span>
+        <span class="selected-time-txt">已选择时间：{{ calendar3Date }}</span>
         <span @click="changeDefaultDate">修改默认时间为后天</span>
-        <yn-calendar
+        <yn-date-picker
           mode="single"
           :before="10"
           :after="10"
           v-model="calendar3"
           :defaultDate="defaultDate"
           v-on:getDate="handleOnGetDate3"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar4')">
-            多选日历，指定默认时间，当前时间前四天后五天({{
+          <h2>
+            多选日历，指定默认时间，当前时间前四天后五天,不能选同一天({{
               defaultStartDate
             }}
             ~ {{ defaultEndDate }})
-          </yn-button>
+          </h2>
         </div>
-        <span>已选择时间：{{ calendar4Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar4Date }}</span>
+        <yn-date-picker
           mode="double"
-          :before="10"
-          :after="10"
+          :before="4"
+          :after="5"
           v-model="calendar4"
           :defaultStartDate="defaultStartDate"
           :defaultEndDate="defaultEndDate"
+          :roundType="'hotel'"
+          :doubleModeAllowSameDate="false"
           v-on:getDate="handleOnGetDate4"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar5')">
+          <h2>
             多选日历，带底部确认按钮
-          </yn-button>
+          </h2>
         </div>
-        <span>已选择时间：{{ calendar5Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar5Date }}</span>
+        <yn-date-picker
           mode="double"
           :before="10"
           :after="10"
@@ -90,48 +90,45 @@
           :showConfirmButton="true"
           :confirmText="confirmText"
           @changeDate="changeDate"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar6')">
+          <h2>
             多选日历，允许选择同一天
-          </yn-button>
+          </h2>
         </div>
-        <span>已选择时间：{{ calendar6Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar6Date }}</span>
+        <yn-date-picker
           mode="double"
           :before="10"
           :after="10"
           v-model="calendar6"
           v-on:getDate="handleOnGetDate6"
           :doubleModeAllowSameDate="true"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar7')">
+          <h2>
             多选日历，自定义title
-          </yn-button>
+          </h2>
         </div>
-        <span>已选择时间：{{ calendar7Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar7Date }}</span>
+        <yn-date-picker
           mode="double"
           :before="10"
           :after="10"
           v-model="calendar7"
           v-on:getDate="handleOnGetDate7"
           :title="['日历', '请选择入住时间', '请选择离店时间']"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar8')">
+          <h2>
             单选多选切换
-          </yn-button>
+          </h2>
         </div>
         <yn-radiobox
           v-model="single"
@@ -143,53 +140,53 @@
           @change="(e) => handleChange(e, 'double')"
         ></yn-radiobox
         ><span>多选</span>
-        <span>已选择时间：{{ calendar8Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar8Date }}</span>
+        <yn-date-picker
           :mode="getModel"
           :before="10"
           :after="10"
           v-model="calendar8"
           v-on:getDate="handleOnGetDate8"
           :title="['日历', '请选择入住时间', '请选择离店时间']"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar9')"
-            >一年前日期到一年后日期</yn-button
+          <p
+            >一年前日期到一年后日期</p
           >
         </div>
-        <span>已选择时间：{{ calendar9Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar9Date }}</span>
+        <yn-date-picker
           before="1"
           after="1"
           v-model="calendar9"
           unit="year"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
       <li>
         <div>
-          <yn-button @click="handleOpenCalendar('calendar10')">
+          <h2>
             多选日历，带底部确认按钮,头部带去程返程日期。
-          </yn-button>
+          </h2>
         </div>
-        <span>已选择时间：{{ calendar10Date }}</span>
-        <yn-calendar
+        <span class="selected-time-txt">已选择时间：{{ calendar10Date }}</span>
+        <yn-date-picker
           mode="double"
           :doubleModeAllowSameDate="false"
           :dateLocked="true"
           :lockDateParse="lockDateParse"
           :before="9"
           :after="10"
+          :fromDateMark="'出发'"
+          :toDateMark="'到达'"
           v-model="calendar10"
           v-on:getDate="handleOnGetDate5"
           :showConfirmButton="true"
           :confirmText="confirmText"
+          :dateRefenceWidth="'100%'"
           @changeDate="changeDate"
-        ></yn-calendar>
-        <hr />
+        ></yn-date-picker>
       </li>
     </ul>
 
@@ -323,7 +320,11 @@ export default {
       console.log(date);
     },
     handleOnGetDate8(date) {
-      this.calendar8Date = date.fromDate.date + " ~ " + date.toDate.date;
+      if (this.single) {
+        this.calendar8Date = date.date.date;
+      } else {
+        this.calendar8Date = date.fromDate.date + " ~ " + date.toDate.date;
+      }
       console.log(date);
     },
     handleOnGetDate9(date) {
@@ -355,10 +356,14 @@ hr {
 ul {
   padding: 0;
   margin: 0;
-  text-align: center;
+  text-align: left;
   list-style: none;
 }
 ul li {
   margin: 20px auto;
+}
+.selected-time-txt{
+  display: block;
+  margin-bottom: 15px;
 }
 </style>

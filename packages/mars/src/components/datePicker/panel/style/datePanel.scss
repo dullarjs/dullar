@@ -1,0 +1,60 @@
+@import "src/theme/variable";
+.yn-picker-panel{
+  color: $yn-heading-color;
+  border: 1px solid $datepicker-border-color;
+  box-shadow: $yn-border-shadow-1;
+  background: $white;
+  border-radius: $border-radius-base;
+  line-height: 30px;
+  margin: 5px 0;
+  padding: 0px;
+
+  .yn-picker-panel__body, .yn-picker-panel__body-wrapper {
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+
+  .yn-picker-panel__content {
+    position: relative;
+    margin: 15px;
+    width: 292px;
+  }
+  .yn-date-picker__header{
+    display: flex;
+    text-align: center;
+    padding: 0 5px;
+    border-bottom: solid 1px $border-color-lighter;
+    .yn-date-picker__header-label{
+      flex:1;
+      text-align: center;
+    }
+  }
+  .yn-picker-panel__icon-btn {
+    font-size: 12px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
+}
+.yn-date-range-picker{
+  .yn-date-picker__header{
+    margin: 0 -15px 15px;
+  }
+  .is-left .yn-date-picker__header-label{
+    margin-right: 44px;
+  }
+  .is-right .yn-date-picker__header-label{
+    margin-left: 44px;
+  }
+  .yn-picker-panel__body{
+    display:flex;
+  }
+}

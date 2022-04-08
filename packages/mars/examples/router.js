@@ -27,7 +27,7 @@ import Button from "./button";
 import Popconfirm from "./popconfirm";
 import MessageBox from "./messageBox";
 import Message from "./message";
-import Calendar from "./calendar";
+import DatePicker from "./datePicker";
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
@@ -41,9 +41,9 @@ const router = new Router({
       component: Content,
       children: [
         {
-          path: "calendar",
-          name: "calendar",
-          component: Calendar
+          path: "datePicker",
+          name: "datePicker",
+          component: DatePicker
         },
         {
           path: "message",

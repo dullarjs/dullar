@@ -4,5 +4,5 @@
  * @Last Modified by:   Just be free
  * @Last Modified time: 2020-05-15 10:10:19
  */
-import YnCalendar from "./calendar.vue";
-export default YnCalendar
+import YnDatePicker from "./datePicker.vue";
+export default YnDatePicker;
