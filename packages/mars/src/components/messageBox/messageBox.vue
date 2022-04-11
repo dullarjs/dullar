@@ -30,11 +30,11 @@
 <script lang="ts">
 import "./style/index.scss";
 import Vue from 'vue'
-import { Component, Prop, Mixins } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
 import Button from "@/components/button";
 import Popup from "../../utils/popup";
 import Icon from "@/components/icon";
-import { AnyObject, Callback } from "@/types";
+import { Callback } from "@/types";
 @Component({
   name: "MessageBox",
   components: {
@@ -52,7 +52,7 @@ export default class MessageBox extends Mixins(Vue, Popup){
   confirmButtonText = '确定';
   cancelButtonText = '取消';
   message = "";
-  title = "";  
+  title = "";
 
   handleClose() {
     this.handAction("close");

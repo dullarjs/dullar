@@ -46,13 +46,20 @@ export default class Popup extends Vue {
   })
   arrowOffset!: number;
 
+  visibleArrowData = true;
   showPopper = false;
   arrowAppended = false;
   currentPlacement = "";
-  popperJS: AnyObject | undefined = undefined;
+  popperJS: AnyObject | undefined | null = undefined;
   popperElm: HTMLElement | undefined = undefined;
   referenceElm: HTMLElement | undefined = undefined;
 
+  @Watch("visibleArrow", {
+    immediate: true
+  })
+  onVisibleArrow(n: boolean) {
+    this.visibleArrowData = n;
+  }
   @Watch("visible")
   onVisible(n: boolean) {
     this.showPopper = n;
@@ -82,7 +89,7 @@ export default class Popup extends Vue {
     }
 
     if (!popper || !reference) return;
-    if (this.visibleArrow) this.appendArrow(popper);
+    if (this.visibleArrowData) this.appendArrow(popper);
     if (this.appendToBody) document.body.appendChild(this.popperElm);
     if (this.popperJS && this.popperJS.destroy) {
       this.popperJS.destroy();
@@ -122,6 +129,12 @@ export default class Popup extends Vue {
     ele.appendChild(arrow);
     this.arrowAppended = true;
   }
+  doDestroy(forceDestroy: boolean) {
+    /* istanbul ignore if */
+    if (!this.popperJS || (this.showPopper && !forceDestroy)) return;
+    this.popperJS.destroy();
+    this.popperJS = null;
+  }
   handleResize() {
     this.updatePopper();
   }
@@ -129,6 +142,7 @@ export default class Popup extends Vue {
     on(document, "resize", this.handleResize)
   }
   beforeDestroy() {
+    this.doDestroy(true);
     off(document, "resize", this.handleResize)
     if (this.popperElm && this.popperElm.parentNode === document.body) {
       this.popperElm.removeEventListener('click', stop);

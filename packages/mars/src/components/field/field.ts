@@ -24,7 +24,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
   showEncryptInput = false;
   inputing = false;
   originalText: string | number = "";
-  
+
   @Prop({
     type: String
   })
@@ -113,7 +113,9 @@ export default class Field extends Mixins(Vue, slotsMixins){
   encrypt!: (arg: string | number) => string;
   @Prop({
     type: Array,
-    default: []
+    default: () => {
+      return [];
+    }
   })
   iconClass!: string[];
   @Prop({
@@ -126,6 +128,16 @@ export default class Field extends Mixins(Vue, slotsMixins){
     default: 0
   })
   iconRotate!: number;
+  @Prop({
+    type: Boolean,
+    default: false
+  })
+  noBorder!: boolean;
+  @Prop({
+    type: Number,
+    default: 170
+  })
+  inputWidth!: number;
 
   get valueComputed() {
     return this.encrypted && !this.inputing
@@ -193,6 +205,9 @@ export default class Field extends Mixins(Vue, slotsMixins){
   createInput(h: CreateElement) {
     const maxlength = this.maxlength ? Number(this.maxlength) : null;
     const area = [];
+    const style = {
+      width: this.inputWidth + "px"
+    };
     const attrs = {
       readonly: this.readonly,
       placeholder: this.placeholder,
@@ -221,6 +236,9 @@ export default class Field extends Mixins(Vue, slotsMixins){
     if (this.disabled) {
       className.push("disable");
     }
+    if (this.noBorder) {
+      className.push("is-noborder");
+    }
     if (VALID_TYPE.indexOf(this.type) > -1) {
       if (this.type === "textarea") {
         area.push(
@@ -236,6 +254,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
                   on: { ...events },
                   attrs: { ...attrs },
                   domProps,
+                  style
                 },
                 []
               ),
@@ -266,6 +285,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
                   class: ["input-ele", ...className],
                   attrs: { ...attrs, type: this.type },
                   domProps,
+                  style
                 },
                 []
               ),
@@ -294,7 +314,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
           [
             h(
               "iconfont",
-              { 
+              {
                 props: { name, size: this.iconSize, rotate: this.iconRotate },
                 "class": this.iconClass
               },

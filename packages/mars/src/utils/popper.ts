@@ -64,19 +64,19 @@ class Popper {
 		this._options.modifiers = this._options.modifiers.map((modifier: string) => {
 			// remove ignored modifiers
 			if (this._options.modifiersIgnored.indexOf(modifier) !== -1) return;
-	
+
 			// set the x-placement attribute before everything else because it could be used to add margins to the popper
 			// margins needs to be calculated to get the correct popper offsets
 			if (modifier === 'applyStyle') {
 				this._popper.setAttribute('x-placement', this._options.placement);
 			}
-	
+
 			// return predefined modifier identified by string or keep the custom one
 			return this.modifiers[modifier] || modifier;
 		});
 		this.state.position = this._getPosition(this._popper);
 		setStyle(this._popper, { position: this.state.position, top: 0 });
-	
+
 		// fire the first update to position the popper in the right place
 		this.update();
 		// setup event listeners, they will take care of update the position in specific situations
@@ -90,7 +90,7 @@ class Popper {
 		this._popper.style.top = '';
 		this._popper.style[getSupportedPropertyName('transform')] = '';
 		this._removeEventListeners();
-	
+
 		// remove the popper if user explicity asked for the deletion on destroy
 		if (this._options.removeOnDestroy) {
 			this._popper.remove();
@@ -99,20 +99,20 @@ class Popper {
 	}
 	update(): void {
 		let data: AnyObject = { instance: this, styles: {} };
-	
+
 		// store placement inside the data object, modifiers will be able to edit `placement` if needed
 		// and refer to _originalPlacement to know the original value
 		data.placement = this._options.placement;
 		data._originalPlacement = this._options.placement;
-	
+
 		// compute the popper and reference offsets and put them inside data.offsets
 		data.offsets = this._getOffsets(this._popper, this._reference, data.placement);
-	
+
 		// get boundaries
 		data.boundaries = this._getBoundaries(data, this._options.boundariesPadding, this._options.boundariesElement);
-	
+
 		data = this.runModifiers(data, this._options.modifiers);
-	
+
 		if (typeof this.state.updateCallback === 'function') {
 			this.state.updateCallback(data);
 		}
@@ -139,9 +139,9 @@ class Popper {
 			arrowAttributes: ['x-arrow']
 		};
 		config = Object.assign({}, defaultConfig, config);
-	
+
 		const d = root.document;
-	
+
 		const popper = d.createElement(config.tagName);
 		addClassNames(popper, config.classNames);
 		addAttributes(popper, config.attributes);
@@ -152,16 +152,16 @@ class Popper {
 		} else {
 			popper.textContent = config.content;
 		}
-	
+
 		if (config.arrowTagName) {
 			const arrow = d.createElement(config.arrowTagName);
 			addClassNames(arrow, config.arrowClassNames);
 			addAttributes(arrow, config.arrowAttributes);
 			popper.appendChild(arrow);
 		}
-	
+
 		let parent = config.parent.jquery ? config.parent[0] : config.parent;
-	
+
 		// if the given parent is a string, use it to match an element
 		// if more than one element is matched, the first one will be used as parent
 		// if no elements are matched, the script will throw an error
@@ -181,32 +181,32 @@ class Popper {
 			console.warn('WARNING: you have passed as parent a list of elements, the first one will be used');
 			parent = parent[0];
 		}
-	
+
 		// append the generated popper to its parent
 		parent.appendChild(popper);
-	
+
 		return popper;
-	
+
 		function addClassNames(element: HTMLElement, classNames: string[]) {
 			classNames.forEach(function (className) {
 				element.classList.add(className);
 			});
 		}
-	
+
 		function addAttributes(element: HTMLElement, attributes: string[]) {
 			attributes.forEach(function (attribute) {
 				element.setAttribute(attribute.split(':')[0], attribute.split(':')[1] || '');
 			});
 		}
-	
+
 	}
 	_getPosition(reference: HTMLElement): string {
 		// const container: AnyObject = getOffsetParent(reference);
-	
+
 		if (this._options.forceAbsolute) {
 			return 'absolute';
 		}
-	
+
 		// Decide if the popper will be fixed
 		// If the reference element is inside a fixed context, the popper will be fixed as well to allow them to scroll together
 		const isParentFixed = isFixed(reference);
@@ -215,24 +215,24 @@ class Popper {
 	_getOffsets(popper: HTMLElement, reference: HTMLElement, placement: string): AnyObject {
 		placement = placement.split('-')[0];
 		const popperOffsets: AnyObject = {};
-	
+
 		popperOffsets.position = this.state.position;
 		const isParentFixed = popperOffsets.position === 'fixed';
-	
+
 		//
 		// Get reference element position
 		//
 		const referenceOffsets = getOffsetRectRelativeToCustomParent(reference, getOffsetParent(popper), isParentFixed);
-	
+
 		//
 		// Get popper sizes
 		//
 		const popperRect = getOuterSizes(popper);
-	
+
 		//
 		// Compute offsets of popper
 		//
-	
+
 		// depending by the popper placement we have to compute its offsets slightly differently
 		if (['right', 'left'].indexOf(placement) !== -1) {
 			popperOffsets.top = referenceOffsets.top + referenceOffsets.height / 2 - popperRect.height / 2;
@@ -249,11 +249,11 @@ class Popper {
 				popperOffsets.top = referenceOffsets.bottom;
 			}
 		}
-	
+
 		// Add width and height to our offsets object
 		popperOffsets.width = popperRect.width;
 		popperOffsets.height = popperRect.height;
-	
+
 		return {
 			popper: popperOffsets,
 			reference: referenceOffsets
@@ -276,7 +276,6 @@ class Popper {
 	}
 	_removeEventListeners(): void {
 		// NOTE: 1 DOM access here
-		console.log("_removeEventListeners");
 		root.removeEventListener('resize', this.state.updateBound);
 		if (this._options.boundariesElement !== 'window' && this.state.scrollTarget) {
 			this.state.scrollTarget.removeEventListener('scroll', this.state.updateBound);
@@ -292,10 +291,10 @@ class Popper {
 		if (boundariesElement === 'window') {
 			const body = root.document.body,
 				html = root.document.documentElement;
-	
+
 			height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 			width = Math.max(body.scrollWidth, body.offsetWidth, html.clientWidth, html.scrollWidth, html.offsetWidth);
-	
+
 			boundaries = {
 				top: 0,
 				right: width,
@@ -306,7 +305,7 @@ class Popper {
 			const offsetParent = getOffsetParent(this._popper);
 			const scrollParent = getScrollParent(this._popper);
 			const offsetParentRect = getOffsetRect(offsetParent);
-	
+
 			// Thanks the fucking native API, `document.body.scrollTop` & `document.documentElement.scrollTop`
 			const getScrollTopValue = function (element: HTMLElement) {
 				return element == document.body ? Math.max(document.documentElement.scrollTop, document.body.scrollTop) : element.scrollTop;
@@ -314,11 +313,11 @@ class Popper {
 			const getScrollLeftValue = function (element: HTMLElement) {
 				return element == document.body ? Math.max(document.documentElement.scrollLeft, document.body.scrollLeft) : element.scrollLeft;
 			}
-	
+
 			// if the popper is fixed we don't have to substract scrolling from the boundaries
 			const scrollTop = data.offsets.popper.position === 'fixed' ? 0 : getScrollTopValue(scrollParent);
 			const scrollLeft = data.offsets.popper.position === 'fixed' ? 0 : getScrollLeftValue(scrollParent);
-	
+
 			boundaries = {
 				top: 0 - (offsetParentRect.top - scrollTop),
 				right: root.document.documentElement.clientWidth - (offsetParentRect.left - scrollLeft),
@@ -353,7 +352,7 @@ class Popper {
 				data = modifier.call(this, data);
 			}
 		});
-	
+
 		return data;
 	}
 	isModifierRequired(requesting: string, requested: string): boolean {

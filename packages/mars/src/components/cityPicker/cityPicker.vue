@@ -164,7 +164,7 @@ export default class CityPicker extends Mixins(Vue) {
       return [];
     },
   })
-  limitedData!: AnyObject[]; 
+  limitedData!: AnyObject[];
   @Prop({
     type: Boolean,
     default: false
@@ -223,7 +223,7 @@ export default class CityPicker extends Mixins(Vue) {
       };
     }
   })
-  history!: AnyObject; 
+  history!: AnyObject;
   @Prop({
     type: Object,
     default: () => {

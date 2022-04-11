@@ -26,12 +26,14 @@ import Button from "@/components/button";
 import Popconfirm from "@/components/popconfirm";
 import MessageBox from "@/components/messageBox";
 import Message from "@/components/message";
+import DatePicker from "@/components/datePicker";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  DatePicker,
   // MessageBox,
   Popconfirm,
   Button,

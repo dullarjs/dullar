@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       routes: [
+        "datePicker",
         "message",
         "messageBox",
         "popconfirm",
