@@ -31,7 +31,7 @@ const verify = (slots: VNode[] = [], validateTag: string | null): VNode[] => {
 };
 export const slotsMixins = Vue.extend({
   methods: {
-    slots(name = "default", props = {}, validateTag = null) {
+    slots(name = "default", props = {}, validateTag: null | string = null) {
       const { $slots, $scopedSlots } = this;
       const scopedSlot = $scopedSlots[name];
       if (scopedSlot) {
