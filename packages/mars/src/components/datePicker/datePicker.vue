@@ -69,6 +69,11 @@ import { formatDate, isDate, clearTime, diff } from "@/utils/date-util.js";
   components: {
     Field
   },
+  props: {
+    placement: {
+      default: "bottom-start"
+    }
+  },
   directives: { Clickoutside }
 })
 export default class YnDatePicker extends Mixins(Vue, Popper) {
