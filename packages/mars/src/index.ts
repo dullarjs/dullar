@@ -27,12 +27,16 @@ import Popconfirm from "@/components/popconfirm";
 import MessageBox from "@/components/messageBox";
 import Message from "@/components/message";
 import DatePicker from "@/components/datePicker";
+import Flex from "@/components/flex";
+import FlexItem from "@/components/flex-item";
 
 interface MarsConfigOptions {
   [propName: string]: any;
 }
 const configOptions: MarsConfigOptions = {};
 export const components: AnyObject = {
+  FlexItem,
+  Flex,
   DatePicker,
   // MessageBox,
   Popconfirm,

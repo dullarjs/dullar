@@ -14,6 +14,7 @@
       :iconSize="14"
       :iconClass="iconArrowClass"
       :iconRotate="iconRotate"
+      :inputWidth="inputWidth"
       @focus="handleFocus"
       @blur="handleBlur"
     ></field>
