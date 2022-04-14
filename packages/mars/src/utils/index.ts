@@ -90,3 +90,6 @@ export function toObject(arr: any[]) {
   }
   return res;
 }
+export const isString = (value: unknown) => {
+  return Object.prototype.toString.call(value) === "[object String]";
+};

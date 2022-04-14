@@ -28,6 +28,7 @@ import Popconfirm from "./popconfirm";
 import MessageBox from "./messageBox";
 import Message from "./message";
 import DatePicker from "./datePicker";
+import Flex from "./flex";
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
@@ -40,6 +41,11 @@ const router = new Router({
       name: "content",
       component: Content,
       children: [
+        {
+          path: "flex",
+          name: "flex",
+          component: Flex
+        },
         {
           path: "datePicker",
           name: "datePicker",
