@@ -205,9 +205,6 @@ export default class Field extends Mixins(Vue, slotsMixins){
   createInput(h: CreateElement) {
     const maxlength = this.maxlength ? Number(this.maxlength) : null;
     const area = [];
-    const style = {
-      width: this.inputWidth + "px"
-    };
     const attrs = {
       readonly: this.readonly,
       placeholder: this.placeholder,
@@ -253,8 +250,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
                   class: ["textarea-ele", ...className],
                   on: { ...events },
                   attrs: { ...attrs },
-                  domProps,
-                  style
+                  domProps
                 },
                 []
               ),
@@ -284,8 +280,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
                   on: { ...events },
                   class: ["input-ele", ...className],
                   attrs: { ...attrs, type: this.type },
-                  domProps,
-                  style
+                  domProps
                 },
                 []
               ),
@@ -348,12 +343,16 @@ export default class Field extends Mixins(Vue, slotsMixins){
       "yn-field-container",
       this.clearable || this.iconName ? "yn-field--suffix" : ""
     ];
+    const style = {
+      width: this.inputWidth + "px"
+    };
     return h("div", { class: ["yn-field-base"] }, [
       h(
         ("div"),
         {
           props: { flexDirection: this.display },
           class: ynFieldClassName,
+          style
         },
         [...label, ...this.createInput(h), ...this.createIcon(h)]
       ),
