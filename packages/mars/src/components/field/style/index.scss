@@ -1,19 +1,19 @@
 @import "src/theme/variable.scss";
 .yn-field-base {
-  line-height: 24px;
   box-sizing: border-box;
   width: 100%;
   background: $white;
   position: relative;
   .yn-field-container {
     display:flex;
+    height: 100%;
     .yn-field-label {
       box-sizing: border-box;
       user-select: none;
       width: 90px;
       text-align: left;
       font-size: 15px;
-      color: $yn-label-color;
+      color: $yn-text-color-secondary;
       margin-right: 8px;
     }
     &.yn-field--suffix{
@@ -28,8 +28,10 @@
         top:0px;
         right:8px;
         height:100%;
-        .yn-iconfont-wrap img{
-          vertical-align: middle;
+        display: flex;
+        align-items: center;
+        i.yn-iconfont-wrap{
+          line-height:1;
         }
       }
     }
@@ -38,6 +40,7 @@
       flex:1;
       color: $yn-text-color;
       > input.input-ele {
+        height: 100%;
         font-size: 14px;
         outline: none;
         text-overflow: ellipsis;
@@ -105,6 +108,18 @@
         cursor: not-allowed;
       }
     }
+  }
+  &.yn-field--large{
+    height: 36px;
+    line-height:36px;
+  }
+  &.yn-field--medium{
+    height: 32px;
+    line-height: 32px;
+  }
+  &.yn-field--small{
+    height: 26px;
+    line-height: 26px;
   }
 }
 .yn-field-solo::after {

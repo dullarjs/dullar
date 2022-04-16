@@ -60,9 +60,9 @@
     watch: {
       '$parent.inputWidth'() {
         this.minWidth = this.$parent.$el.getBoundingClientRect().width + 'px';
+
       }
     },
-
     mounted() {
       this.referenceElm = this.$parent.$refs.reference.$el;
       this.$parent.popperElm = this.popperElm = this.$el;

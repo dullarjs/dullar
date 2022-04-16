@@ -36,7 +36,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop, Watch  } from "vue-property-decorator";
+import { Component, Prop, Watch, Mixins  } from "vue-property-decorator";
 import "./style/index.scss";
 import { AnyObject } from "../../types";
 import field from "@/components/field";
@@ -44,6 +44,7 @@ import selectDropdown from "./selectDropdown.vue";
 import scrollbar from "@/components/scrollbar";
 import { valueEquals } from "@/utils";
 import Clickoutside from '@/utils/clickoutside.js';
+import Emitter from "@/components/mixins/emitter";
 @Component({
   name: "YnSelect",
   components: {
@@ -58,7 +59,7 @@ import Clickoutside from '@/utils/clickoutside.js';
   },
   directives: { Clickoutside }
 })
-export default class Select extends (Vue) {
+export default class Select extends Mixins(Vue, Emitter) {
   static componentName = "YnSelect";
 
   optionsCount = 0;
@@ -70,7 +71,7 @@ export default class Select extends (Vue) {
   currentPlaceholder = "";
   visible = false;
   softFocus = false;
-  inputWidth = 0;
+  inputWidth = "100%";
   iconRotate = 0;
 
   @Prop({
@@ -104,9 +105,17 @@ export default class Select extends (Vue) {
   onVisible(n: boolean) {
     if (n) {
       this.iconRotate = 180;
+      this.broadcast('YnSelectDropdown', 'updatePopper');
     } else {
       this.iconRotate = 0;
     }
+  }
+  @Watch("options")
+  onOptions() {
+    this.$nextTick(() => {
+      this.broadcast('YnSelectDropdown', 'updatePopper');
+    });
+    this.setSelected();
   }
 
   emitChange(val: number | string) {
@@ -183,18 +192,25 @@ export default class Select extends (Vue) {
   handleClose() {
     this.visible = false;
   }
+  handleResize() {
+    const reference: Vue = this.$refs.reference as Vue;
+    if (reference && reference.$el) {
+        this.inputWidth = reference.$el.getBoundingClientRect().width + "px";
+      }
+  }
   created() {
     this.$on('handleOptionClick', this.handleOptionSelect);
     this.$on('setSelected', this.setSelected);
   }
   mounted() {
-    const reference: Vue = this.$refs.reference as Vue;
     this.$nextTick(() => {
-      if (reference && reference.$el) {
-        this.inputWidth = reference.$el.getBoundingClientRect().width;
-      }
+      this.handleResize()
     });
     this.setSelected();
+    window.addEventListener("resize", this.handleResize);
+  }
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
   }
 }
 </script>

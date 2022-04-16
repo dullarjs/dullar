@@ -30,6 +30,7 @@
             label="用户密码"
             type="password"
             placeholder="password"
+            size="large"
           ></yn-field>
         </li>
         <li>
@@ -38,6 +39,7 @@
             v-model="readonly"
             label="证件信息"
             type="text"
+            size="small"
             readonly
           ></yn-field>
         </li>
@@ -66,16 +68,27 @@
             label="自定义icon"
             iconName="renew"
             type="text"
+            size="large"
           ></yn-field>
         </li>
         <li>
-          <span class="label">自定义labelWidth</span>
+          <span class="label">自定义icon</span>
+          <yn-field
+            v-model="customIcon"
+            label="自定义icon"
+            iconName="renew"
+            type="text"
+          ></yn-field>
+        </li>
+        <li>
+          <span class="label">自定义icon</span>
           <yn-field
             v-model="customIcon"
             label="自定义labelWidth"
             :labelWidth="'130px'"
             iconName="renew"
             type="text"
+            size="small"
           ></yn-field>
         </li>
         <li>
