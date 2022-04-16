@@ -45,6 +45,7 @@ export default {
         "tag",
         "scrollbar",
         "select",
+        "dropdown",
         "field",
         "checkbox",
         "radiobox",

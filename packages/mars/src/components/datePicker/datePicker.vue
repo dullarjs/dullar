@@ -12,7 +12,7 @@
         :disabled="disabled"
         :readonly="readonly"
         :noBorder="true"
-        :inputWidth="100"
+        :inputWidth="'100px'"
       ></field>
       <span class="yn-date-picker--WeekDes">{{ weekDesParse(displayValue) }}</span>
     </template>
@@ -27,7 +27,7 @@
           :disabled="disabled"
           :readonly="readonly"
           :noBorder="true"
-          :inputWidth="100"
+          :inputWidth="'100px'"
         ></field>
       <span class="yn-date-picker--fromWeekDes">{{ weekDesParse(displayValue[0]) }}</span>
       </div>
@@ -45,7 +45,7 @@
           :disabled="disabled"
           :readonly="readonly"
           :noBorder="true"
-          :inputWidth="100"
+          :inputWidth="'100px'"
         ></field>
         <span class="yn-date-picker--toWeekDes">{{ weekDesParse(displayValue[1]) }}</span>
       </div>

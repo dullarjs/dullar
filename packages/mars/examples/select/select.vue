@@ -9,17 +9,28 @@
         :value="item.value">
       </yn-option>
     </yn-select>
+    <h3>基本用法测试</h3>
+    <yn-select v-model="value" @input="handleInput">
+      <yn-option
+        v-for="item in options1"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </yn-option>
+    </yn-select>
   </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
 import "./style/index.scss";
 import { Component } from "vue-property-decorator";
+import { AnyObject } from "@/types";
 @Component({
   name: "selectPage"
 })
 export default class SelectPage extends Vue {
   value = "选项4";
+  options1: AnyObject[] = [];
   options = [{
     value: '选项1',
     label: '黄金糕'
@@ -50,6 +61,13 @@ export default class SelectPage extends Vue {
   }];
   handleInput(e: number | string) {
     console.log("e:", e);
+  }
+  mounted() {
+    setTimeout(() => {
+      this.options.forEach(item => {
+        this.options1.push(item);
+      });
+    }, 2000);
   }
 }
 </script>

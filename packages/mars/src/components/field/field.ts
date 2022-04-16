@@ -26,6 +26,11 @@ export default class Field extends Mixins(Vue, slotsMixins){
   originalText: string | number = "";
 
   @Prop({
+    type: String,
+    default: "medium"
+  })
+  size!: string;
+  @Prop({
     type: String
   })
   labelWidth!: string;
@@ -134,10 +139,10 @@ export default class Field extends Mixins(Vue, slotsMixins){
   })
   noBorder!: boolean;
   @Prop({
-    type: Number,
-    default: 170
+    type: String,
+    default: "100%"
   })
-  inputWidth!: number;
+  inputWidth!: string;
 
   get valueComputed() {
     return this.encrypted && !this.inputing
@@ -346,7 +351,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
     const style = {
       width: this.inputWidth + "px"
     };
-    return h("div", { class: ["yn-field-base"] }, [
+    return h("div", { class: ["yn-field-base", `yn-field--${this.size}`] }, [
       h(
         ("div"),
         {
