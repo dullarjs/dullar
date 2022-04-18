@@ -14,7 +14,7 @@ import "@/theme/global.scss";
 import svgs from "./iconfont/svgs";
 
 import Mars from "../src/index";
-Mars.config({ YnIconfont: svgs });
+Mars.config({ YnIconfont: { svgs, svgPrefix: "icon" } });
 Vue.use(Mars);
 
 new Vue({

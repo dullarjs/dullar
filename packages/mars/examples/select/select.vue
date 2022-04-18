@@ -18,6 +18,20 @@
         :value="item.value">
       </yn-option>
     </yn-select>
+    <h3>placeholder</h3>
+    <yn-select
+      v-model="value3"
+      :placeholder="placeholder"
+      size="small"
+      @input="handleInput"
+    >
+      <yn-option
+        v-for="item in options1"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </yn-option>
+    </yn-select>
   </div>
 </template>
 <script lang="ts">
@@ -30,6 +44,8 @@ import { AnyObject } from "@/types";
 })
 export default class SelectPage extends Vue {
   value = "选项4";
+  value3 = "";
+  placeholder="请选择";
   options1: AnyObject[] = [];
   options = [{
     value: '选项1',

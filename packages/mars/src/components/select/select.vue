@@ -7,7 +7,7 @@
       ref="reference"
       v-model="selectedLabel"
       type="text"
-      :placeholder="currentPlaceholder"
+      :placeholder="placeholder"
       :disabled="disabled"
       :readonly="readonly"
       :iconName="'down-arrow-cdcdcd'"
@@ -15,6 +15,7 @@
       :iconClass="iconArrowClass"
       :iconRotate="iconRotate"
       :inputWidth="inputWidth"
+      :size="size"
       @focus="handleFocus"
       @blur="handleBlur"
     ></field>
@@ -68,7 +69,6 @@ export default class Select extends Mixins(Vue, Emitter) {
   options: AnyObject[] = [];
   cachedOptions: AnyObject[] = [];
   selectedLabel = "";
-  currentPlaceholder = "";
   visible = false;
   softFocus = false;
   inputWidth = "100%";
@@ -90,6 +90,11 @@ export default class Select extends Mixins(Vue, Emitter) {
     default: false
   })
   disabled!: boolean;
+  @Prop({
+    type: String,
+    default: "medium"
+  })
+  size!: string;
 
   get iconArrowClass (){
     return ["yn-select__caret"];
