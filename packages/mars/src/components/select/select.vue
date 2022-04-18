@@ -7,7 +7,7 @@
       ref="reference"
       v-model="selectedLabel"
       type="text"
-      :placeholder="currentPlaceholder"
+      :placeholder="placeholder"
       :disabled="disabled"
       :readonly="readonly"
       :iconName="'down-arrow-cdcdcd'"
@@ -68,7 +68,6 @@ export default class Select extends Mixins(Vue, Emitter) {
   options: AnyObject[] = [];
   cachedOptions: AnyObject[] = [];
   selectedLabel = "";
-  currentPlaceholder = "";
   visible = false;
   softFocus = false;
   inputWidth = "100%";
