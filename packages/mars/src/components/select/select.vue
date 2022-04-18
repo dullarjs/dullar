@@ -15,6 +15,7 @@
       :iconClass="iconArrowClass"
       :iconRotate="iconRotate"
       :inputWidth="inputWidth"
+      :size="size"
       @focus="handleFocus"
       @blur="handleBlur"
     ></field>
@@ -89,6 +90,11 @@ export default class Select extends Mixins(Vue, Emitter) {
     default: false
   })
   disabled!: boolean;
+  @Prop({
+    type: String,
+    default: "medium"
+  })
+  size!: string;
 
   get iconArrowClass (){
     return ["yn-select__caret"];

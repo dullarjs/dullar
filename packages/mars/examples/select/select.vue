@@ -22,6 +22,7 @@
     <yn-select
       v-model="value3"
       :placeholder="placeholder"
+      size="small"
       @input="handleInput"
     >
       <yn-option
