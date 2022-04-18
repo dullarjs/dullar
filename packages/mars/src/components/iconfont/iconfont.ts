@@ -15,10 +15,12 @@ import "./style/index.scss";
 })
 export default class Iconfont extends Vue {
   static componentName = "YnIconfont";
-  svgPrefix = "";
+  static svgPrefix = "";
   static svgs: AnyObject = svgs;
-  static extendData(options: typeof svgs) {
-    Iconfont.svgs = { ...Iconfont.svgs, ...options };
+  static extendData(options: AnyObject) {
+    const { svgs, svgPrefix = "" } = options;
+    Iconfont.svgs = { ...Iconfont.svgs, ...svgs };
+    Iconfont.svgPrefix = svgPrefix;
   }
   @Prop({
     type: String
@@ -41,10 +43,10 @@ export default class Iconfont extends Vue {
   }
   getSvg() {
     const { name } = this.$props;
-    const reg = new RegExp(`^${this.svgPrefix}`);
+    const reg = new RegExp(`^${Iconfont.svgPrefix}`);
     const iconName = name.replace(reg, "");
     if (Iconfont.svgs) {
-      if (name.startsWith(this.svgPrefix) && Iconfont.svgs[iconName]) {
+      if (name.startsWith(Iconfont.svgPrefix) && Iconfont.svgs[iconName]) {
         return Iconfont.svgs[iconName];
       }
       if (Iconfont.svgs[name]) {

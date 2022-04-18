@@ -90,9 +90,14 @@
       <li>
         <Yn-iconfont name="search"></Yn-iconfont>
         <span>search</span>
-      </li><li>
+      </li>
+      <li>
         <Yn-iconfont name="up-arrow"></Yn-iconfont>
         <span>up-arrow</span>
+      </li>
+      <li>
+        <Yn-iconfont name="iconpay-success"></Yn-iconfont>
+        <span>pay-success</span>
       </li>
     </ul>
   </div>
