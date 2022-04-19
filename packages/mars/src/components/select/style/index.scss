@@ -22,7 +22,7 @@
   cursor: pointer
 }
 .yn-select-dropdown__item.hover, .yn-select-dropdown__item:hover {
-  background-color: #f5f7fa;
+  background-color: $yn-primary-1;
 }
 .yn-select-dropdown__wrap {
   max-height: 274px;
