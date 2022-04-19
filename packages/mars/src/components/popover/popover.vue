@@ -14,7 +14,7 @@
         ref="popper"
         v-show="visible"
         :style="style"
-        :class="[popperClass]"
+        :class="popperClass"
       >
         <div class="yn-popover__title" v-if="title">
           {{ title }}
@@ -67,10 +67,12 @@ export default class Popover extends Mixins(
   })
   title!: string;
   @Prop({
-    type: String,
-    default: ""
+    type: Array,
+    default: () => {
+      return [];
+    }
   })
-  popperClass!: string;
+  popperClass!: string[];
   get style() {
     const style: AnyObject = {};
     if (this.width) style.width = this.width + "px";
