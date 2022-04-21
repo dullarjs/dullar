@@ -32,8 +32,7 @@ import {
   getDayCountOfMonth,
   clearTime,
   nextDate,
-  prevDate,
-  formatDate,
+  prevDate
 } from "@/utils/date-util.js";
 const WEEKTEXTs = ["日", "一", "二", "三", "四", "五", "六"];
 const WEEKS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
@@ -272,7 +271,6 @@ export default {
       // can not select disabled date
       // only update rangeState when mouse moves to a new cell
       // this avoids frequent Date object creation and improves performance
-      console.log("changerange");
       this.$emit('changerange', {
         minDate: this.minDate,
         maxDate: this.maxDate,

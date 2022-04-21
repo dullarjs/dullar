@@ -33,7 +33,7 @@
       <span class="yn-date-picker--fromWeekDes">{{ weekDesParse(displayValue[0]) }}</span>
       </div>
       <div class="yn-date-picker__rangMid">
-        <span class="yn-date-picker__roundhotel">
+        <span class="yn-date-picker__roundhotel" v-if="roundType === 'hotel'">
           {{ diffNightNumber + diffUnit }}
         </span>
       </div>
@@ -190,6 +190,11 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
     default: "medium"
   })
   size!: string;
+  @Prop({
+    type: String,
+    default: ""
+  })
+  roundType!: string;
 
   mouseMoveDate: string | Date = ""; // 鼠标在可行日期上移动得到的日期
   isMouseMoving = false; // 鼠标是否在 可行日期上移动
@@ -290,7 +295,7 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
   onDefaultDate(val: string) {
     this.dateValue = val;
     if (this.picker) {
-      this.picker.defaultValue = val;
+      this.picker.defaultValue = new Date(val);
     }
   }
   @Watch("defaulStartDate", {
@@ -298,9 +303,9 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
   })
   onDefaultStartDate(val: string) {
     if (this.mode === "single") return;
-    this.dateValue = [val, this.defaultEndDate];
+    this.dateValue = [new Date(val), new Date(this.defaultEndDate)];
     if (this.picker) {
-      this.picker.defaultValue = [val, this.defaultEndDate];
+      this.picker.defaultValue = [new Date(val), new Date(this.defaultEndDate)];
     }
   }
   @Watch("defaultEndDate", {
@@ -308,9 +313,9 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
   })
   onDefaultEndDate(val: string) {
     if (this.mode === "single") return;
-    this.dateValue = [this.defaultStartDate, val];
+    this.dateValue = [new Date(this.defaultStartDate), new Date(val)];
     if (this.picker) {
-      this.picker.defaultValue = [this.defaultStartDate, val];
+      this.picker.defaultValue = [new Date(this.defaultStartDate), new Date(val)];
     }
   }
 
@@ -352,7 +357,11 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
 
   mountPicker() {
     this.picker = new Vue(this.panel).$mount();
-    this.picker.defaultValue = this.defaultDate;
+    if (this.mode === "single") {
+      this.picker.defaultValue = new Date(this.defaultDate);
+    } else {
+      this.picker.defaultValue = [new Date(this.defaultStartDate), new Date(this.defaultEndDate)];
+    }
     this.popperElm = this.picker.$el;
     this.picker.width = (this.reference as HTMLElement).getBoundingClientRect().width;
     this.picker.arrowControl = this.arrowControl || this.timeArrowControl || false;
@@ -396,7 +405,6 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
       } else {
         Array.isArray(this.dateValue) && this.dateValue.splice(1, 1, maxDate);
       }
-      console.log("selecting:", selecting);
       this.selecting = selecting;
       const dateWrap: AnyObject = {
         date: {},
