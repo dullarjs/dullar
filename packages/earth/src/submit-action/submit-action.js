@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-24 12:04:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-23 14:05:48
+ * @Last Modified time: 2022-04-21 14:25:01
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -170,11 +170,11 @@ export default defineComponent({
     },
     genIcon(h) {
       if (this.showIcon) {
-        const rotate = this.showPopup ? 0 : 180;
+        const rotate = this.showPopup ? 180 : 0;
         return h("span", { class: ["yn-submit-action-icon"] }, [
           h(
             genComponentName("iconfont"),
-            { props: { name: "cpllapsed-expand-default", size: 10, rotate } },
+            { props: { name: "arrow-up", size: 18, rotate } },
             []
           ),
         ]);
@@ -225,21 +225,24 @@ export default defineComponent({
             this.label !== "" &&
               h(
                 genComponentName("flex-item"),
-                { props: { flex: this.leftFlex }, on: { click: this.toggle } },
+                {
+                  class: ["inherit-height"],
+                  props: { flex: this.leftFlex }, on: { click: this.toggle }
+                },
                 [
                   h(
                     genComponentName("flex"),
-                    { props: { alignItems: "center" } },
+                    { class: ["inherit-height"], props: { alignItems: "center" } },
                     [
-                      h(genComponentName("flex-item"), {}, [
+                      h(genComponentName("flex-item"), { class: ["inherit-height"] }, [
                         h("span", { class: ["yn-submit-action-total-text"] }, [
                           this.label,
                         ]),
                       ]),
-                      h(genComponentName("flex-item"), {}, [
+                      h(genComponentName("flex-item"), { class: ["inherit-height"] }, [
                         this.genValue(h, slots),
                       ]),
-                      h(genComponentName("flex-item"), {}, [
+                      h(genComponentName("flex-item"), { class: ["inherit-height"] }, [
                         hasPopup && !hasDescription && this.genIcon(h),
                       ]),
                     ]
@@ -249,12 +252,15 @@ export default defineComponent({
             this.label === "" &&
               h(
                 genComponentName("flex-item"),
-                { props: { flex: this.leftFlex }, on: { click: this.toggle } },
+                {
+                  class: ["inherit-height"],
+                  props: { flex: this.leftFlex }, on: { click: this.toggle }
+                },
                 [this.getValideContent("text", slots)]
               ),
             h(
               genComponentName("flex-item"),
-              { props: { flex: this.rightFlex } },
+              { class: ["inherit-height"], props: { flex: this.rightFlex } },
               [
                 h(
                   genComponentName("button"),

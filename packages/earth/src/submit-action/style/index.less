@@ -1,25 +1,31 @@
 @import "../../theme/variable.less";
 .yn-submit-action {
   user-select: none;
-  height: 48px;
+  height: 54px;
   width: 100%;
   background: @white;
-  border-top: 1px solid @yn-border-color-base;
-  border-bottom: 1px solid @yn-border-color-base;
-  line-height: 48px;
+  box-shadow: inset 0px 0.5px 0px 0px #E1E5EB;
+  // border-top: 1px solid @yn-border-color-base;
+  // border-bottom: 1px solid @yn-border-color-base;
+  line-height: 54px;
   &.fixed {
     position: fixed;
     bottom: 0;
     border-bottom: none;
   }
   .yn-submit-action-flex {
+    height: 100%;
     width: calc(100% - 20px);
     margin: 0 auto;
     .custom-value {
       text-align: left;
     }
+    .inherit-height {
+      height: 100%;
+    }
   }
   .yn-submit-action-total-text {
+    // height: 100%;
     font-size: 14px;
     color: @yn-text-color-secondary;
     cursor: pointer;
@@ -49,12 +55,13 @@
     // margin-bottom: 2px;
   }
   .yn-submit-action-icon {
-    vertical-align: top;
+    vertical-align: middle;
     cursor: pointer;
     margin-left: 5px;
   }
   .yn-submit-action-button {
-    margin: 4px auto;
+    margin: 6px auto;
+    height: 42px;
   }
   .yn-submit-action-popup {
     position: fixed;
