@@ -349,7 +349,7 @@ export default class Field extends Mixins(Vue, slotsMixins){
       this.clearable || this.iconName ? "yn-field--suffix" : ""
     ];
     const style = {
-      width: this.inputWidth + "px"
+      width: this.inputWidth
     };
     return h("div", { class: ["yn-field-base", `yn-field--${this.size}`] }, [
       h(

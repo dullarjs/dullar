@@ -21,6 +21,7 @@ $yn-warning-color: #E58621;
 $yn-warning-bg-color: #FEF1E9;
 // 背景色
 $yn-background-color: #F5F7FA;
+$yn-background-color-1: #E4ECF8;
 // 选中色
 $yn-background-color-light: #E5EDF9;
 // 白色
@@ -41,7 +42,7 @@ $yn-auxiliary-color: #D0D3DB;
 // 不可选颜色，未激活颜色
 $yn-disabled-color: #BCC1CC;
 
-$yn-disabled-bg-color: #F5F5F7;
+$yn-disabled-bg-color: #F2F3F5;
 // 货币颜色
 $yn-money-color: #0052CC;
 
@@ -52,11 +53,14 @@ $border-radius-base: 4px;
 // 信息容器默认态投影
 $yn-border-shadow-1: 0 1px 5px 0 rgb(78 93 120 / 10%);
 // 信息容器激活态投影
-$yn-border-shadow-1: 0 6px 18px 0 rgb(78 93 120 / 10%);
+$yn-border-shadow-2: 0 6px 18px 0 rgb(78 93 120 / 10%);
 // 信息提示
-$yn-border-shadow-1: 0 10px 32px 0 rgb(78 93 120 / 10%);
+$yn-border-shadow-3: 0 10px 32px 0 rgb(78 93 120 / 10%);
 // 模态弹窗的投影
-$yn-border-shadow-1: 0 12px 42px 0 rgb(78 93 120 / 10%);
+$yn-border-shadow-4: 0 12px 42px 0 rgb(78 93 120 / 10%);
+// select
+// 模态弹窗的投影
+$yn-border-shadow-5: 0 3px 20px 0 rgb(22 24 35 / 20%);
 
 
 /* Popup
@@ -97,8 +101,8 @@ $message-close-hover-color:$yn-text-color-secondary;
 /** calendar  */
 $datepicker-off-font-color: $yn-auxiliary-color;
 $datepicker-hover-font-color: $theme-color;
-$datepicker-inrange-background-color: $border-color-extra-light;
-$datepicker-inrange-hover-background-color: $border-color-extra-light;
+$datepicker-inrange-background-color: $yn-background-color-light;
+$datepicker-inrange-hover-background-color: $yn-background-color-light;
 $datepicker-active-color: $theme-color;
 $datepicker-header-font-color: $yn-heading-color;
 $datepicker-border-color: $yn-border-color-base;

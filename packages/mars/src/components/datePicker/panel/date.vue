@@ -15,9 +15,8 @@
             @mouseleave="prevYearHover = false"
           >
             <Iconfont
-              :name="`checkRight-${prevYearHover ? '0052cc' : '303133'}`"
-              :rotate="180"
-              :size="12"
+              :name="`left-arrow-yan-double-${prevYearHover ? '0052cc' : 'bcc1cc'}`"
+              :size="22"
             ></Iconfont>
           </button>
           <button
@@ -28,9 +27,8 @@
             @mouseleave="prevMonthHover = false"
           >
             <Iconfont
-              :name="`arrowRight-${prevMonthHover ? '0052cc' : '303133'}`"
-              :rotate="180"
-              :size="12"
+              :name="`left-arrow-yan-${prevMonthHover ? '0052cc' : 'bcc1cc'}`"
+              :size="22"
             ></Iconfont>
           </button>
           <span class="yn-date-picker__header-label">
@@ -44,8 +42,9 @@
             @mouseleave="nextMonthHover = false"
           >
             <Iconfont
-              :name="`arrowRight-${nextMonthHover ? '0052cc' : '303133'}`"
-              :size="12"
+              :name="`left-arrow-yan-${nextMonthHover ? '0052cc' : 'bcc1cc'}`"
+              :size="22"
+              :rotate="180"
             ></Iconfont>
           </button>
           <button
@@ -56,8 +55,9 @@
             @mouseleave="nextYearHover = false"
           >
             <Iconfont
-              :name="`checkRight-${nextYearHover ? '0052cc' : '303133'}`"
-              :size="12"
+              :name="`left-arrow-yan-double-${nextYearHover ? '0052cc' : 'bcc1cc'}`"
+              :size="22"
+              :rotate="180"
             ></Iconfont>
           </button>
         </div>
@@ -70,6 +70,8 @@
               :before="before"
               :after="after"
               @pick="handleDatePick"
+              @mouseMovEnd="mouseMovEnd"
+              @mouseMoving="mouseMoving"
             ></DataTable>
           </div>
         </div>
@@ -140,6 +142,12 @@ export default {
 
     nextYear() {
       this.date = nextYear(this.date);
+    },
+    mouseMoving(option) {
+      this.$emit("mouseMoving", option);
+    },
+    mouseMovEnd() {
+      this.$emit("mouseMovEnd");
     },
     handleDatePick(value) {
       if (this.selectionMode === 'day') {
