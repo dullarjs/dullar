@@ -1,6 +1,6 @@
 {
   "name": "@dullar/cli",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "publishConfig": {
     "access": "public"
   },
@@ -46,5 +46,5 @@
     "qrcode-terminal": "^0.12.0",
     "request": "^2.88.2"
   },
-  "gitHead": "711efd7891238e849868d816a77fa70879198bb6"
+  "gitHead": "5940876fbec9362d837d45e70eb218b00fd4c9d8"
 }
