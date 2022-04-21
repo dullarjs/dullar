@@ -4,7 +4,9 @@
     <div class="box">
       <yn-tabs v-model="active" @change="change">
         <yn-tab-item :key="index" :title="'Tab' + index" v-for="index in 4">
-          content of tab {{ index }}
+          <div class="tab-content">
+            content of tab {{ index }}
+          </div>
         </yn-tab-item>
       </yn-tabs>
     </div>
@@ -16,14 +18,18 @@
           v-for="index in 8"
           :disabled="index === 4"
         >
-          content of tab {{ index }}
+          <div class="tab-content">
+            content of tab {{ index }}
+          </div>
         </yn-tab-item>
       </yn-tabs>
     </div>
     <div class="box">
       <yn-tabs v-model="active2">
         <yn-tab-item :key="index" :title="'Tab' + index" v-for="index in 2">
-          content of tab {{ index }}
+          <div class="tab-content">
+            content of tab {{ index }}
+          </div>
         </yn-tab-item>
       </yn-tabs>
     </div>
@@ -66,5 +72,8 @@ export default {
 <style type="text/css" scoped="scoped">
 .box {
   margin: 30px auto;
+}
+.tab-content {
+  height: 150px;
 }
 </style>
