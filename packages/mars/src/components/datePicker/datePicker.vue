@@ -2,51 +2,53 @@
   <div class="yn-date-picker" ref="reference"
     v-clickoutside="hidePicker"
     @click="handleClick"
-    :class="{'is-focus': value, 'is-single': mode === 'single', 'is-double': mode !== 'single'}"
+    :class="datePickerClassname"
     :style="style"
   >
     <template v-if="mode === 'single'">
-      <field
+      <input
+        class="yn-date-picker__input"
         :value="displayValue"
         type="text"
         :disabled="disabled"
         :readonly="readonly"
-        :noBorder="true"
-        :inputWidth="'100px'"
-      ></field>
+      />
       <span class="yn-date-picker--WeekDes">{{ weekDesParse(displayValue) }}</span>
     </template>
     <template v-else>
-      <div class="yn-date-picker__startDate" :class="{'is-selected': startDateSelecting}"
+      <div class="yn-date-picker__startDate"
+        :class="{
+          'is-selected': startDateSelecting
+        }"
         @click="handleDateSelecting"
       >
         <span class="yn-date-picker--fromDateMark">{{ fromDateMark }}</span>
-        <field
+        <input
+          class="yn-date-picker__input"
           :value="displayValue && displayValue[0]"
           type="text"
           :disabled="disabled"
           :readonly="readonly"
-          :noBorder="true"
-          :inputWidth="'100px'"
-        ></field>
+        />
       <span class="yn-date-picker--fromWeekDes">{{ weekDesParse(displayValue[0]) }}</span>
       </div>
       <div class="yn-date-picker__rangMid">
-        <span v-if="roundType === 'hotel'" class="yn-date-picker__roundhotel">
+        <span class="yn-date-picker__roundhotel">
           {{ diffNightNumber + diffUnit }}
         </span>
-        <slot name="roundMid"></slot>
       </div>
-      <div class="yn-date-picker__endDate" :class="{'is-selected': endDateSelecting}">
+      <div class="yn-date-picker__endDate"
+        :class="{
+          'is-selected': endDateSelecting
+        }">
         <span class="yn-date-picker--toDateMark">{{ toDateMark }}</span>
-        <field
+        <input
+          class="yn-date-picker__input"
           :value="displayValue && displayValue[1]"
           type="text"
           :disabled="disabled"
           :readonly="readonly"
-          :noBorder="true"
-          :inputWidth="'100px'"
-        ></field>
+        />
         <span class="yn-date-picker--toWeekDes">{{ weekDesParse(displayValue[1]) }}</span>
       </div>
     </template>
@@ -180,15 +182,17 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
   diffUnit!: string
   @Prop({
     type: String,
-    default: ""
-  })
-  roundType!: string
-  @Prop({
-    type: String,
-    default: ""
+    default: "100%"
   })
   dateRefenceWidth!: string;
+  @Prop({
+    type: String,
+    default: "medium"
+  })
+  size!: string;
 
+  mouseMoveDate: string | Date = ""; // 鼠标在可行日期上移动得到的日期
+  isMouseMoving = false; // 鼠标是否在 可行日期上移动
   selecting = false; // 是否日期选择中，默认一进来为 false
   visibleArrowData = false;
   panel!: AnyObject;
@@ -197,6 +201,20 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
   placeholder = "";
   dateValue: string | string[] | Date | Date[] = new Date();
 
+  get datePickerClassname() {
+    const classnames = [];
+    if (this.value) classnames.push('is-focus');
+    if (this.mode === 'single') {
+      classnames.push('is-single');
+    } else {
+      classnames.push('is-double');
+    }
+    classnames.push(`yn-date-picker--${this.size}`);
+    if (this.isMouseMoving) {
+      classnames.push('is-mouse-moving');
+    }
+    return classnames;
+  }
   get startDateSelecting() {
     return this.value && !this.selecting;
   }
@@ -227,10 +245,22 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
     return  this.$refs.reference;
   }
   get displayValue() {
-    if (Array.isArray(this.dateValue) && this.mode === "double") {
-      return [formatDate(new Date(this.dateValue[0])), formatDate(new Date(this.dateValue[1]))]
+    if (this.isMouseMoving) {
+      if (Array.isArray(this.dateValue) && this.mode === "double") {
+        if (!this.selecting) {
+          return [formatDate(new Date(this.mouseMoveDate)), formatDate(new Date(this.dateValue[1]))]
+        } else {
+          return [formatDate(new Date(this.dateValue[0])), formatDate(new Date(this.mouseMoveDate))]
+        }
+      } else {
+        return formatDate(new Date(this.mouseMoveDate as string));
+      }
     } else {
-      return formatDate(new Date(this.dateValue as string));
+      if (Array.isArray(this.dateValue) && this.mode === "double") {
+        return [formatDate(new Date(this.dateValue[0])), formatDate(new Date(this.dateValue[1]))]
+      } else {
+        return formatDate(new Date(this.dateValue as string));
+      }
     }
   }
   @Watch("mode")
@@ -376,6 +406,14 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
       dateWrap.fromDate.date = isDate(date[0]) ? formatDate(date[0]) : "";
       dateWrap.toDate.date = isDate(date[1]) ? formatDate(date[1]) : "";
       this.$emit("selecting", dateWrap);
+    });
+    this.picker.$on("mouseMoving", (option: AnyObject) => {
+      const { date } = option;
+      this.isMouseMoving = true;
+      this.mouseMoveDate = date;
+    });
+    this.picker.$on("mouseMovEnd", () => {
+      this.isMouseMoving = false;
     });
   }
   unmountPicker() {

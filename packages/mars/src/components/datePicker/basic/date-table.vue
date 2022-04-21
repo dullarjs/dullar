@@ -241,13 +241,48 @@ export default {
   },
   data() {
     return {
+      isMouseMoving: false,
+      lastRow: -1,
+      lastColumn: -1,
       tableRows: [[], [], [], [], [], []],
     };
   },
   methods: {
-    handleMouseMove(event) {
+    mouseMovEnd() {
+      // 鼠标 划出日期元素 或者 划到 disable 日期 算滑动结束
+      if (this.isMouseMoving) {
+        this.$emit("mouseMovEnd");
+        this.isMouseMoving = false;
+      }
+    },
+    mouseMoving(row, column) {
+      // 当 鼠标在 可选日期范围内移动，实时改变 input内日期
+      // if (this.rows[row][column].disabled) {
+      //   this.mouseMovEnd();
+      //   return;
+      // }
+      this.isMouseMoving = true;
+      this.$emit('mouseMoving', {
+        date: this.getDateOfCell(row, column),
+        selecting: this.rangeState.selecting
+      });
+    },
+    moveChangeRange(row, column) {
       if (!this.rangeState.selecting) return;
-
+      // can not select disabled date
+      // only update rangeState when mouse moves to a new cell
+      // this avoids frequent Date object creation and improves performance
+      console.log("changerange");
+      this.$emit('changerange', {
+        minDate: this.minDate,
+        maxDate: this.maxDate,
+        rangeState: {
+          selecting: true,
+          endDate: this.getDateOfCell(row, column)
+        }
+      });
+    },
+    handleMouseMove(event) {
       let target = event.target;
       if (target.tagName === 'SPAN') {
         target = target.parentNode.parentNode;
@@ -255,28 +290,22 @@ export default {
       if (target.tagName === 'DIV') {
         target = target.parentNode;
       }
-      if (target.tagName !== 'TD') return;
+      if (target.tagName !== 'TD') {
+        this.mouseMovEnd();
+        return
+      }
 
       const row = target.parentNode.rowIndex - 1;
       const column = target.cellIndex;
-
-      // can not select disabled date
-      if (this.rows[row][column].disabled) return;
-
-      // only update rangeState when mouse moves to a new cell
-      // this avoids frequent Date object creation and improves performance
-      if (row !== this.lastRow || column !== this.lastColumn) {
-        this.lastRow = row;
-        this.lastColumn = column;
-        this.$emit('changerange', {
-          minDate: this.minDate,
-          maxDate: this.maxDate,
-          rangeState: {
-            selecting: true,
-            endDate: this.getDateOfCell(row, column)
-          }
-        });
+      if (this.rows[row][column].disabled) {
+        this.mouseMovEnd();
+        return
       }
+      if (row === this.lastRow && column === this.lastColumn) return;
+      this.lastRow = row;
+      this.lastColumn = column;
+      this.mouseMoving(row, column);
+      this.moveChangeRange(row, column);
     },
     handleClick(event) {
       let target = event.target;
@@ -312,6 +341,7 @@ export default {
       } else if (this.selectionMode === 'day') {
         this.$emit('pick', newDate);
       }
+      this.mouseMovEnd();
     },
     getDateOfCell(row, column) {
       const offsetFromStart = row * 7 + column - this.offsetDay;

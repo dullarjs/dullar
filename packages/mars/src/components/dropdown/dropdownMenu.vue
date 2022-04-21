@@ -6,8 +6,8 @@
     >
     <scrollbar
         tag="ul"
-        wrapClass="yn-select-dropdown__wrap"
-        viewClass="yn-select-dropdown__list"
+        wrapClass="yn-dropdown-menu__wrap"
+        viewClass="yn-dropdown-menu__list"
         ref="scrollbar"
       >
         <slot></slot>

@@ -6,7 +6,7 @@
       :width="pickerWidth"
       :placement="'bottom'"
       :visibleArrow="false"
-      :popperClass="'popper-city-picker'"
+      :popperClass="['popper-city-picker', 'is-noarrow']"
       @beforeEnter="beforeEnter"
     >
       <div class="search-picker-block" v-show="isSearching">

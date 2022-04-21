@@ -4,7 +4,7 @@ import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import PopperJS from "@/utils/popper";
 import { AnyObject } from "@/types";
-import { on, off } from "@/utils/dom";
+import { on, off, addClass } from "@/utils/dom";
 const stop = (e: Event) => e.stopPropagation();
 @Component({
   name: "Popup"
@@ -89,6 +89,9 @@ export default class Popup extends Vue {
     }
 
     if (!popper || !reference) return;
+    if (!this.visibleArrowData) {
+      addClass(popper, "is-noarrow");
+    }
     if (this.visibleArrowData) this.appendArrow(popper);
     if (this.appendToBody) document.body.appendChild(this.popperElm);
     if (this.popperJS && this.popperJS.destroy) {

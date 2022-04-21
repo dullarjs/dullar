@@ -16,10 +16,9 @@
                 @mouseenter="leftPrevYearHover = true"
                 @mouseleave="leftPrevYearHover = false"
               >
-                <Iconfont
-                  :name="`checkRight-${leftPrevYearHover ? '0052cc' : '303133'}`"
-                  :rotate="180"
-                  :size="12"
+                 <Iconfont
+                  :name="`left-arrow-yan-double-${leftPrevYearHover ? '0052cc' : 'bcc1cc'}`"
+                  :size="22"
                 ></Iconfont>
               </button>
               <button
@@ -30,9 +29,8 @@
                 @mouseleave="leftPrevMonthHover = false"
               >
                 <Iconfont
-                  :name="`arrowRight-${leftPrevMonthHover ? '0052cc' : '303133'}`"
-                  :rotate="180"
-                  :size="12"
+                  :name="`left-arrow-yan-${leftPrevMonthHover ? '0052cc' : 'bcc1cc'}`"
+                  :size="22"
                 ></Iconfont>
               </button>
               <span class="yn-date-picker__header-label">
@@ -51,6 +49,8 @@
               :doubleModeAllowSameDate="doubleModeAllowSameDate"
               @pick="handleRangePick"
               @changerange="handleChangeRange"
+              @mouseMovEnd="mouseMovEnd"
+              @mouseMoving="mouseMoving"
             ></DataTable>
           </div>
           <div class="yn-picker-panel__content is-right">
@@ -66,8 +66,9 @@
                 @mouseleave="rightNextMonthHover = false"
               >
                 <Iconfont
-                  :name="`arrowRight-${rightNextMonthHover ? '0052cc' : '303133'}`"
-                  :size="12"
+                  :name="`left-arrow-yan-${rightNextMonthHover ? '0052cc' : 'bcc1cc'}`"
+                  :size="22"
+                  :rotate="180"
                 ></Iconfont>
               </button>
               <button
@@ -78,8 +79,9 @@
                 @mouseleave="rightNextYearHover = false"
               >
                 <Iconfont
-                  :name="`checkRight-${rightNextYearHover ? '0052cc' : '303133'}`"
-                  :size="12"
+                  :name="`left-arrow-yan-double-${rightNextYearHover ? '0052cc' : 'bcc1cc'}`"
+                  :size="22"
+                  :rotate="180"
                 ></Iconfont>
               </button>
             </div>
@@ -95,6 +97,8 @@
               :doubleModeAllowSameDate="doubleModeAllowSameDate"
               @pick="handleRangePick"
               @changerange="handleChangeRange"
+              @mouseMovEnd="mouseMovEnd"
+              @mouseMoving="mouseMoving"
             ></DataTable>
           </div>
         </div>
@@ -219,7 +223,14 @@ export default {
       this.leftDate = nextYear(this.leftDate)
       this.rightDate = nextMonth(this.leftDate);
     },
+    mouseMoving(option) {
+      this.$emit("mouseMoving", option);
+    },
+    mouseMovEnd() {
+      this.$emit("mouseMovEnd");
+    },
     handleChangeRange(val) {
+      console.log("val:", val);
       this.minDate = val.minDate;
       this.maxDate = val.maxDate;
       this.rangeState = val.rangeState;

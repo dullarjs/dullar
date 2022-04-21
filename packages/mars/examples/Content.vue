@@ -55,8 +55,6 @@ export default {
         "dialog",
         "popover",
         "cityPicker",
-        "calendar",
-        "datePicker",
         "notification"
       ]
     };

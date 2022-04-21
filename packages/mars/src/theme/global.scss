@@ -9,6 +9,9 @@ html,body,ul{
 ul,li{
   list-style-type: none;
 }
+button{
+  padding: 0px;
+}
 input,
 textarea {
   color: $yn-text-color;
