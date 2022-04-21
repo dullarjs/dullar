@@ -33,7 +33,7 @@
       <span class="yn-date-picker--fromWeekDes">{{ weekDesParse(displayValue[0]) }}</span>
       </div>
       <div class="yn-date-picker__rangMid">
-        <span class="yn-date-picker__roundhotel">
+        <span class="yn-date-picker__roundhotel" v-if="roundType === 'hotel'">
           {{ diffNightNumber + diffUnit }}
         </span>
       </div>
@@ -190,6 +190,11 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
     default: "medium"
   })
   size!: string;
+  @Prop({
+    type: String,
+    default: ""
+  })
+  roundType!: string;
 
   mouseMoveDate: string | Date = ""; // 鼠标在可行日期上移动得到的日期
   isMouseMoving = false; // 鼠标是否在 可行日期上移动
