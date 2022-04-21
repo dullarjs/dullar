@@ -39,7 +39,7 @@
             </div>
             <DataTable
               :date="leftDate"
-              :defaultValue="defaultValue ? new Date(defaultValue) : null"
+              :defaultValue="defaultValue ? defaultValue : null"
               :minDate="minDate"
               :maxDate="maxDate"
               :rangeState="rangeState"
@@ -87,7 +87,7 @@
             </div>
             <DataTable
               :date="rightDate"
-              :defaultValue="defaultValue ? new Date(defaultValue) : null"
+              :defaultValue="defaultValue ? defaultValue : null"
               :minDate="minDate"
               :maxDate="maxDate"
               :rangeState="rangeState"
@@ -230,7 +230,6 @@ export default {
       this.$emit("mouseMovEnd");
     },
     handleChangeRange(val) {
-      console.log("val:", val);
       this.minDate = val.minDate;
       this.maxDate = val.maxDate;
       this.rangeState = val.rangeState;

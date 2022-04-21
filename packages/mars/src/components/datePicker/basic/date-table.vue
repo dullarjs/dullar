@@ -272,7 +272,6 @@ export default {
       // can not select disabled date
       // only update rangeState when mouse moves to a new cell
       // this avoids frequent Date object creation and improves performance
-      console.log("changerange");
       this.$emit('changerange', {
         minDate: this.minDate,
         maxDate: this.maxDate,
