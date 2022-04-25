@@ -1,6 +1,6 @@
 {
   "name": "@dullar/bem",
-  "version": "0.4.15",
+  "version": "0.4.16",
   "description": "BEM technology implemented by SCSS & TypeScript",
   "publishConfig": {
     "access": "public"
@@ -32,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/dullarjs/dullar/issues"
   },
-  "gitHead": "d10fa046d9aa3525b2f705276107b90d0e111324",
+  "gitHead": "e00a9d13a103c9413283a1d00910e74b02c5bc38",
   "devDependencies": {
     "typescript": "^4.3.2"
   }
