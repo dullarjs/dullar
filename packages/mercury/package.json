@@ -1,6 +1,6 @@
 {
   "name": "@dullar/mercury",
-  "version": "0.4.17",
+  "version": "0.4.18",
   "description": "Advanced and highly reusable Mobile UI Components built on Vue2 & You can define your own UI library by yourself.",
   "publishConfig": {
     "access": "public"
@@ -95,5 +95,5 @@
   "bugs": {
     "url": "https://github.com/dullarjs/dullar/issues"
   },
-  "gitHead": "e00a9d13a103c9413283a1d00910e74b02c5bc38"
+  "gitHead": "a653b94ed20cea054811136b858947033270f847"
 }
