@@ -43,10 +43,10 @@
         <span>close</span>
       </li>
       <li>
-        <yn-iconfont name="minus-disabled"></yn-iconfont>
+        <yn-iconfont name="minus-disabled" autoHeight></yn-iconfont>
         <span>minus-disabled</span>
       </li><li>
-        <yn-iconfont name="minus"></yn-iconfont>
+        <yn-iconfont name="minus" autoHeight></yn-iconfont>
         <span>minus</span>
       </li>
       <li>
