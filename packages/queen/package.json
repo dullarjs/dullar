@@ -1,6 +1,6 @@
 {
   "name": "@dullar/queen",
-  "version": "0.4.20",
+  "version": "0.4.21",
   "publishConfig": {
     "access": "public"
   },
@@ -13,7 +13,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@dullar/cube": "^0.4.20",
+    "@dullar/cube": "^0.4.21",
     "core-js": "^3.6.5",
     "vue": "^3.0.11",
     "vue-class-component": "^8.0.0-rc.1",
@@ -69,5 +69,5 @@
   "bugs": {
     "url": "https://github.com/dullarjs/dullar/issues"
   },
-  "gitHead": "b4fa17fd6b0f7927dbfae68d7b40172a93abde0f"
+  "gitHead": "e66d8a5842afe6f8957554b116726f4e9a524f6b"
 }
