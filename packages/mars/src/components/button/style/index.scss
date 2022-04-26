@@ -113,7 +113,7 @@
   text-align: center;
   cursor: pointer;
   & + & {
-    margin-left: 10px;
+    margin-left: 8px;
   }
   & [class*="el-icon-"] {
     & + span {
