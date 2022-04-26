@@ -19,9 +19,9 @@
   }
 
   &.yn-tag--info {
-    background-color: mix($tag-info-color, $white, $backgroundColorWeight);
-    border-color: mix($tag-info-color, $white, $borderColorWeight);
-    color: mix($tag-info-color, $white, $fontColorWeight);
+    background-color: $yn-primary-1;
+    border-color: $yn-primary-1;
+    color: $tag-info-color;
 
     @include when(hit) {
       border-color: $tag-info-color;
@@ -94,9 +94,6 @@
   @include genTheme(10%, 20%, 100%, 100%);
   background-color: #ecf5ff;
   display: inline-block;
-  height: 32px;
-  padding: 0 10px;
-  line-height: 30px;
   font-size: 12px;
   color: $theme-color;
   border: 1px solid #d9ecff;
@@ -122,7 +119,7 @@
   }
 }
 .yn-tag+.yn-tag{
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .yn-tag--dark {
@@ -133,6 +130,11 @@
   @include genTheme(0, 40%, 100%, 100%);
 }
 
+.yn-tag--large {
+  height: 32px;
+  line-height: 30px;
+  padding: 0 10px;
+}
 .yn-tag--medium {
   height: 28px;
   line-height: 26px;
@@ -142,17 +144,17 @@
   }
 }
 
-.yn-tag--small {
-  height: 24px;
+.yn-tag--medium {
+  height: 26px;
   padding: 0 8px;
-  line-height: 22px;
+  line-height: 24px;
 
   .el-icon-close {
     transform: scale(.8);
   }
 }
 
-.yn-tag--mini {
+.yn-tag--small {
   height: 20px;
   padding: 0 5px;
   line-height: 19px;

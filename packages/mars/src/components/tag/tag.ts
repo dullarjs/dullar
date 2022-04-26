@@ -8,11 +8,12 @@ import "./style/index.scss";
 })
 export default class Tag extends Vue{
   static componentName = "YnTag";
-  
+
   @Prop({
-    type: String
+    type: String,
+    default: "medium"
   })
-  size!: string; // medium / small / mini
+  size!: string; // large / medium / small
   @Prop({
     type: String
   })
