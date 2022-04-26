@@ -96,7 +96,8 @@
   }
 }
 .yn-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items:center;
   padding: 12px 23px;
   font-size: 14px;
   // line-height: 1;
@@ -213,7 +214,6 @@
 .yn-button__loading-icon,
 .yn-button__text {
   display: inline-block;
-  vertical-align: middle;
   line-height:1;
 }
 .yn-button--medium {
