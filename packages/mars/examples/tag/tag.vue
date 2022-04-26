@@ -23,10 +23,9 @@
       {{ tag.name }}
     </yn-tag>
     <h2>不同尺寸</h2>
-    <yn-tag closable>默认标签</yn-tag>
+    <yn-tag size="large" closable>大型标签</yn-tag>
     <yn-tag size="medium" closable>中等标签</yn-tag>
     <yn-tag size="small" closable>小型标签</yn-tag>
-    <yn-tag size="mini" closable>超小标签</yn-tag>
     <h2>不同主题色</h2>
     <div class="tag-group">
       <span class="tag-group__title">Dark</span>
