@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="14px" height="2px" viewBox="0 0 14 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>减 2</title>
-    <g id="----2.2数字输入框-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="数字输入框" transform="translate(-638.000000, -356.000000)" fill="#1A253B" fill-rule="nonzero">
-            <g id="编组-3" transform="translate(631.000000, 324.000000)">
-                <g id="步进器-/-基础样式-/-编辑中状态" transform="translate(0.000000, 19.000000)">
-                    <g id="减-2" transform="translate(7.777778, 13.555556)">
-                        <rect id="减" x="0" y="0" width="12.4444444" height="1" rx="0.5"></rect>
-                    </g>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>add</title>
+    <g id="---1.4图标(后期统一制作)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="元年-图标" transform="translate(-265.000000, -369.000000)">
+            <g id="add" transform="translate(265.000000, 369.000000)">
+                <rect id="矩形" fill-rule="nonzero" x="0" y="0" width="24" height="24"></rect>
+                <g id="编组" transform="translate(2.000000, 11.000000)" fill="#4E5D78">
+                    <rect id="矩形" x="0" y="0" width="20" height="2" rx="1"></rect>
+                </g>
+                <g id="编组" transform="translate(2.000000, 11.000000)" fill="#4E5D78">
+                    <rect id="矩形" x="0" y="0" width="20" height="2" rx="1"></rect>
                 </g>
             </g>
         </g>
