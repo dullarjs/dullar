@@ -1,3 +1,16 @@
 .dialog-page {
   padding: 20px;
 }
+.dialog-content{
+  height: 90vh;
+}
+.content{
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  .user-list{
+    flex:1;
+    overflow-y: auto;
+  }
+}
