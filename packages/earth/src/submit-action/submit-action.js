@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-24 12:04:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-04-21 14:25:01
+ * @Last Modified time: 2022-04-28 15:55:00
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -226,23 +226,22 @@ export default defineComponent({
               h(
                 genComponentName("flex-item"),
                 {
-                  class: ["inherit-height"],
                   props: { flex: this.leftFlex }, on: { click: this.toggle }
                 },
                 [
                   h(
                     genComponentName("flex"),
-                    { class: ["inherit-height"], props: { alignItems: "center" } },
+                    { props: { alignItems: "center" } },
                     [
-                      h(genComponentName("flex-item"), { class: ["inherit-height"] }, [
+                      h(genComponentName("flex-item"), {}, [
                         h("span", { class: ["yn-submit-action-total-text"] }, [
                           this.label,
                         ]),
                       ]),
-                      h(genComponentName("flex-item"), { class: ["inherit-height"] }, [
+                      h(genComponentName("flex-item"), {}, [
                         this.genValue(h, slots),
                       ]),
-                      h(genComponentName("flex-item"), { class: ["inherit-height"] }, [
+                      h(genComponentName("flex-item"), {}, [
                         hasPopup && !hasDescription && this.genIcon(h),
                       ]),
                     ]
@@ -253,14 +252,13 @@ export default defineComponent({
               h(
                 genComponentName("flex-item"),
                 {
-                  class: ["inherit-height"],
                   props: { flex: this.leftFlex }, on: { click: this.toggle }
                 },
                 [this.getValideContent("text", slots)]
               ),
             h(
               genComponentName("flex-item"),
-              { class: ["inherit-height"], props: { flex: this.rightFlex } },
+              { props: { flex: this.rightFlex } },
               [
                 h(
                   genComponentName("button"),
