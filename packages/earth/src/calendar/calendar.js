@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-23 17:06:56
+ * @Last Modified time: 2022-05-07 16:43:24
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -13,7 +13,8 @@ import Iconfont from "../iconfont";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 import { renderedMixins } from "../mixins/rendered";
-import { getOffset } from "../modules/dom";
+import { getOffset, getScrollTop } from "../modules/dom";
+import { on, off, preventDefault } from "../modules/event";
 export default defineComponent({
   name: "Calendar",
   mixins: [renderedMixins],
@@ -139,12 +140,87 @@ export default defineComponent({
       beginDate: null,
       endDate: null,
       confirmButtonClassName: "active",
+      monthTitleDoms: [],
+      weekBarOffsetTop: 0,
+      calendarBlockHeight: 0,
+      monthTitleBarDom: null
     };
   },
   watch: {
     value: "highLightDefault",
   },
+  mounted() {
+    this.bindEvent();
+  },
+  activated() {
+    this.bindEvent();
+  },
+  deactivated() {
+    this.destory();
+  },
+  beforeDestroy() {
+    this.destory();
+  },
   methods: {
+    bindEvent() {
+      const ele = this.$refs.scroller.$el;
+      if (!ele) {
+        return false;
+      }
+      on(ele, "scroll", this.handleBodyScroll);
+    },
+    destory() {
+      const ele = this.$refs.scroller.$el;
+      if (!ele) {
+        return false;
+      }
+      off(ele, "scroll", this.handleBodyScroll);
+    },
+    caculateMonthTitleOffsetTop({ scrollTop }) {
+      let tops = [];
+      this.monthTitleDoms.forEach(dom => {
+        tops.push(getOffset(dom).top - scrollTop - this.weekBarOffsetTop);
+      });
+      const index = tops.findIndex((i) => {
+        return i <= 0 && Math.abs(i) <= this.calendarBlockHeight - 44;
+      });
+      if (this.monthTitleBarDom && this.monthTitleDoms[index]) {
+        this.monthTitleBarDom.innerHTML = this.monthTitleDoms[index].innerHTML;
+      }
+    },
+    handleBodyScroll(e) {
+      preventDefault(e);
+      const scrollTop = getScrollTop(e.target);
+      const clientHeight = e.target.clientHeight;
+      const diff =
+        scrollTop + clientHeight - (this.scrollTop + this.clientHeight);
+      const bottom =
+        e.target.scrollHeight -
+        e.target.offsetHeight -
+        (Number(this.bottomDistance) || 0);
+      const top = Number(this.topDistance) || 0;
+      // diff>0 往下滑动；diff<0往上滑动
+      this.caculateMonthTitleOffsetTop({ scrollTop });
+      this.$emit("scroll", { e, scrollTop, diff, bottom: bottom - scrollTop });
+      if (diff < 0 && !this.topTriggered && scrollTop <= top) {
+        this.topTriggered = true;
+        // 到达顶部
+        this.$emit("reachTop", { e, scrollTop });
+      } else if (diff > 0 && scrollTop > top) {
+        this.topTriggered = false;
+      }
+      if (diff > 0 && !this.bottomTriggered && scrollTop >= bottom) {
+        this.bottomTriggered = true;
+        this.$emit("reachBottom", { e, scrollTop });
+        // 到达底部
+      } else if (diff < 0 && scrollTop >= bottom) {
+        this.bottomTriggered = false;
+      } else if (diff > 0 && scrollTop < bottom) {
+        this.bottomTriggered = false;
+      }
+      this.scrollTop = scrollTop;
+      this.clientHeight = clientHeight;
+    },
     handleClick(date) {
       if (date.className.indexOf("clickable") < 0) {
         return false;
@@ -425,6 +501,18 @@ export default defineComponent({
       this.$emit("beforeEnter");
     },
     handleAfterEnter() {
+      const weekBar = this.$refs.weekBar;
+      this.weekBarOffsetHeight = weekBar ? weekBar.offsetHeight : 0;
+      this.weekBarOffsetTop = weekBar ? parseInt(getOffset(weekBar).top + weekBar.offsetHeight) : 0;
+      const doms = this.$el.querySelectorAll(".yn-calendar-month-title");
+      this.monthTitleDoms = doms;
+      if (this.$el) {
+        const monthBlockDom = this.$el.querySelector(".yn-calendar-month");
+        this.calendarBlockHeight = monthBlockDom.offsetHeight;
+      }
+      if (this.$refs) {
+        this.monthTitleBarDom = this.$refs.monthTitleBar;
+      }
       this.$emit("afterEnter");
       this.setPosition();
     },
@@ -654,11 +742,15 @@ export default defineComponent({
         ]
       );
     },
+    createMonthTitleBar(h) {
+      return h("div", { ref: "monthTitleBar", class: ["yn-month-bar"] }, []);
+    },
     createHeaderArea(h) {
       return h("div", {}, [
         this.createCloseIcon(h),
         this.createTitle(h),
         this.createNoticeBar(h),
+        this.createMonthTitleBar(h),
         this.createWeekBar(h),
       ]);
     },
@@ -741,7 +833,7 @@ export default defineComponent({
           ])
         );
       }
-      return h("div", { class: ["yn-calendar-week-bar"] }, [
+      return h("div", { ref: "weekBar", class: ["yn-calendar-week-bar"] }, [
         h(
           genComponentName("flex"),
           { key: "yn_flex_week_bar", props: { justifyContent: "spaceAround" } },

@@ -29,6 +29,13 @@
           padding: 5px;
         }
       }
+      .yn-month-bar {
+        height: 44px;
+        line-height: 44px;
+        text-align: center;
+        color: @yn-text-color;
+        font-weight: 500;
+      }
       .yn-calendar-week-bar {
         height: 44px;
         line-height: 44px;
@@ -40,7 +47,7 @@
       overflow: auto; /* winphone8和android4+ */
       -webkit-overflow-scrolling: touch; /* ios5+ */
       .yn-calendar-month {
-        border-bottom: 1px solid @yn-border-color-base;
+        // border-bottom: 1px solid @yn-border-color-base;
         padding-bottom: 14px;
         box-sizing: border-box;
         &:last-of-type {
@@ -52,6 +59,7 @@
           line-height: 44px;
           color: @yn-text-color;
           margin: 0 5px;
+          font-weight: 500;
         }
         .yn-calendar-date {
           width: calc(100% / 7);
