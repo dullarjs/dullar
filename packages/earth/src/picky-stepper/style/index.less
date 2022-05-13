@@ -79,15 +79,9 @@
           .input,
           .textarea {
             border-radius: 5px;
-            border: 0.5px solid @yn-border-color-base;
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            border-bottom: none;
             outline: none;
             font-size: 14px;
             height: 30px;
-            // background: rgba(238, 238, 238, 1);
             background: @white;
             // box-shadow: none;
             text-shadow: none;
@@ -99,11 +93,13 @@
             }
           }
           .input {
+            border: none;
             padding: 0 8px;
             margin-left: 8px;
             width: calc(100% - 18px - 8px);
           }
           .textarea {
+            border: 0.5px solid @yn-border-color-base;
             margin: 0;
             padding: 8px;
             width: calc(100% - 18px);
