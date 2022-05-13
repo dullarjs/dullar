@@ -60,7 +60,7 @@
           }
           .text {
             margin-left: 5px;
-            font-size: 15px;
+            font-size: 14px;
             color: @yn-text-color;
           }
           .textarea-wapper {
@@ -80,10 +80,15 @@
           .textarea {
             border-radius: 5px;
             border: 0.5px solid @yn-border-color-base;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
             outline: none;
-            font-size: 15px;
+            font-size: 14px;
             height: 30px;
-            background: rgba(238, 238, 238, 1);
+            // background: rgba(238, 238, 238, 1);
+            background: @white;
             // box-shadow: none;
             text-shadow: none;
             -webkit-appearance: none;
@@ -109,6 +114,10 @@
           .textarea:focus {
             color: @yn-text-color;
             background: @yn-background-color;
+          }
+          .textarea::-webkit-input-placeholder,
+          .input::-webkit-input-placeholder {
+            color: @yn-disabled-color;
           }
         }
       }
