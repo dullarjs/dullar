@@ -5,8 +5,8 @@
         <g id="单选" transform="translate(-681.000000, -1408.000000)">
             <g id="编组-2" transform="translate(657.000000, 1334.000000)">
                 <g id="已选" transform="translate(24.000000, 74.000000)">
-                    <circle id="Mask" stroke="#004FD4" fill="#FFFFFF" cx="8" cy="8" r="7.5"></circle>
-                    <circle id="Mask" fill="#004FD4" cx="8" cy="8" r="4"></circle>
+                    <circle id="Mask" stroke="#007aff" fill="#FFFFFF" cx="8" cy="8" r="7.5"></circle>
+                    <circle id="Mask" fill="#007aff" cx="8" cy="8" r="4"></circle>
                 </g>
             </g>
         </g>
