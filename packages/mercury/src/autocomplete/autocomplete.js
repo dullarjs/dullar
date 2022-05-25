@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-20 14:48:36
  * @Last Modified by: yegl
- * @Last Modified time: 2022-02-15 15:28:39
+ * @Last Modified time: 2022-05-25 16:52:13
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -20,10 +20,13 @@ export default defineComponent({
       inputNodeInfo: null,
       searchList: [],
       loading: false,
+      suggestions: [],
     };
   },
   watch: {
-    scrollerBarVisible: "getSuggestions",
+    scrollerBarVisible(newValue) {
+      return this.getSuggestions(newValue, this.value);
+    },
   },
   methods: {
     suggestionVisible(value) {
@@ -55,9 +58,7 @@ export default defineComponent({
       this.$emit("input", e);
       this.getSuggestions(true, e);
     },
-    getSuggestions(state = false, value) {
-      let { value: inputValue } = this;
-      inputValue = value || inputValue;
+    getSuggestions(state = false, inputValue) {
       if (state === true) {
         if (this.showLoading) this.loading = true;
         this.haddleSearch(inputValue, (suggestions) => {
@@ -108,7 +109,8 @@ export default defineComponent({
         genComponentName("scroller-bar"),
         {
           style: {
-            display: scrollerBarVisible ? "block" : "none",
+            display:
+              scrollerBarVisible && suggestions.length > 0 ? "block" : "none",
           },
           on: {
             handleSelect: this.handleSelect,
