@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-23 11:35:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-23 17:10:57
+ * @Last Modified time: 2022-05-27 11:22:47
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -47,7 +47,7 @@ export default defineComponent({
     confirmLoadingText: String,
     loadingColor: {
       type: String,
-      default: "#0052CC",
+      default: "#007aff",
     },
     closeModelOnClick: {
       type: Boolean,

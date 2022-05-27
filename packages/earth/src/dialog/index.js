@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-23 11:34:48
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-23 17:11:06
+ * @Last Modified time: 2022-05-27 11:22:52
  * @E-mail: justbefree@126.com
  */
 import { install } from "../modules/component";
@@ -24,7 +24,7 @@ const props = {
   cancelLoadingText: "取消",
   confirmButtonText: "确定",
   confirmLoadingText: "确定",
-  loadingColor: "#0052CC",
+  loadingColor: "#007aff",
   closeModelOnClick: false,
   zIndex: 2,
   className: "",

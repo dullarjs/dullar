@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:15:58
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-25 15:17:19
+ * @Last Modified time: 2022-05-27 11:22:42
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Spin from "../spin";
@@ -48,7 +48,7 @@ export default defineComponent({
     },
     loadingColor: {
       type: String,
-      default: "#0052CC",
+      default: "#007aff",
     },
     iconName: String,
     iconSize: {
