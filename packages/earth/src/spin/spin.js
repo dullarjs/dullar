@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-14 16:38:25
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-23 17:13:09
+ * @Last Modified time: 2022-05-27 11:18:12
  */
 import { defineComponent } from "../modules/component";
 import { camelize, hyphenate } from "../modules/utils";
@@ -20,7 +20,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: "#0052CC",
+      default: "#007aff", // 这块要跟theme/variable.less内的主题色保持一致
     },
     borderWidth: [String, Number],
   },
