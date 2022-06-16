@@ -17,6 +17,7 @@ import Counter from "./counter";
 import DatePicker from "./date-picker";
 import Dialog from "./dialog";
 import Dragable from "./dragable";
+import Drawer from "./drawer";
 import Dropdown from "./dropdown";
 import DropdownMenu from "./dropdown-menu";
 import DropdownMenuItem from "./dropdown-menu-item";
@@ -48,7 +49,7 @@ import Tabs from "./tabs";
 import Textarea from "./textarea";
 import Toast from "./toast";
 
-const components = [ActionSheet, AnimationList, AnimationListItem, Button, Calendar, Checkbox, CityPicker, Counter, DatePicker, Dialog, Dragable, Dropdown, DropdownMenu, DropdownMenuItem, Field, FieldGroup, Flex, FlexItem, Iconfont, Indicator, Layout, MagicLayer, Picker, PickyStepper, Popup, PullRefresh, Radiobox, Skeleton, Slider, Spin, Sticky, SubmitAction, SubmitActionPopupContent, SubmitActionText, SubmitActionValue, Swipe, SwipeItem, TabItem, Tabs, Textarea, Toast];
+const components = [ActionSheet, AnimationList, AnimationListItem, Button, Calendar, Checkbox, CityPicker, Counter, DatePicker, Dialog, Dragable, Drawer, Dropdown, DropdownMenu, DropdownMenuItem, Field, FieldGroup, Flex, FlexItem, Iconfont, Indicator, Layout, MagicLayer, Picker, PickyStepper, Popup, PullRefresh, Radiobox, Skeleton, Slider, Spin, Sticky, SubmitAction, SubmitActionPopupContent, SubmitActionText, SubmitActionValue, Swipe, SwipeItem, TabItem, Tabs, Textarea, Toast];
 const install = (Vue) => {
   if (install.installed) return;
   components.map(component => {
@@ -101,6 +102,7 @@ export { Counter as YnCounter };
 export { DatePicker as YnDatePicker };
 export { Dialog as YnDialog };
 export { Dragable as YnDragable };
+export { Drawer as YnDrawer };
 export { Dropdown as YnDropdown };
 export { DropdownMenu as YnDropdownMenu };
 export { DropdownMenuItem as YnDropdownMenuItem };
