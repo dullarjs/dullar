@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2022-06-16 09:55:15
 * @Last Modified by:   Just be free
-* @Last Modified time: 2022-06-16 14:18:10
+* @Last Modified time: 2022-06-16 14:37:55
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -11,6 +11,7 @@ import { slotsMixins } from "../mixins/slots";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 import Button from "../button";
+import Popup from "../popup";
 export default defineComponent({
   name: "Drawer",
   mixins: [slotsMixins],
@@ -18,7 +19,8 @@ export default defineComponent({
     Iconfont,
     FlexItem,
     Flex,
-    Button
+    Button,
+    Popup
   },
   model: {
     prop: "visible",
