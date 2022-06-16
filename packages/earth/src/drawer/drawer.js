@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2022-06-16 09:55:15
 * @Last Modified by:   Just be free
-* @Last Modified time: 2022-06-16 14:37:55
+* @Last Modified time: 2022-06-16 14:47:59
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -43,23 +43,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    borderRadius: {
-      type: Number,
-      default: 10,
-    },
-    lockScreen: {
-      type: Boolean,
-      default: true,
-    },
     closable: {
       type: Boolean,
       default: false,
     },
-    singleton: {
-      type: Boolean,
-      default: false,
-    },
-    fixed: Boolean,
     title: {
       type: String,
       default: "标题"
