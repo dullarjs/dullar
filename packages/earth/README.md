@@ -2,7 +2,7 @@
 
 (Vueggy) - [https://github.com/justbefree/vueggy]
 
-(Examples) - [https://vueggy.com]
+(Examples) - [https://vueggy.dullar.xyz]
 
 # @dullar/earth [![npm version](https://badge.fury.io/js/@dullar%2Fearth.svg)](https://badge.fury.io/js/@dullar%2Fearth)
 ### Usage
