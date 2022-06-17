@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-26 17:54:38
  * @Last Modified by: yegl
- * @Last Modified time: 2022-06-17 14:02:51
+ * @Last Modified time: 2022-06-17 17:44:18
  * @E-mail: yglgzyx@126.com
  */
 
@@ -16,7 +16,7 @@ export default defineComponent({
     label: [Number, String],
     value: {
       type: [Number, String],
-      require: true,
+      required: true,
     },
     disabled: {
       type: Boolean,
