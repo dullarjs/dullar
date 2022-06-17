@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-26 17:54:38
  * @Last Modified by: yegl
- * @Last Modified time: 2022-02-25 13:57:02
+ * @Last Modified time: 2022-06-17 14:02:51
  * @E-mail: yglgzyx@126.com
  */
 
@@ -15,6 +15,7 @@ export default defineComponent({
   props: {
     label: [Number, String],
     value: {
+      type: [Number, String],
       require: true,
     },
     disabled: {
@@ -52,7 +53,7 @@ export default defineComponent({
     const { disabled, selectNode, value } = this;
     let _selected = false,
       selectValueList = selectNode.value;
-    if (typeof selectNode.value === "string") {
+    if (!Array.isArray(selectValueList)) {
       _selected = selectNode.value === value;
     } else {
       _selected = selectValueList && selectValueList.indexOf(value) > -1;
