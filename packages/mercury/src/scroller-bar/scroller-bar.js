@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-20 16:25:59
  * @Last Modified by: yegl
- * @Last Modified time: 2022-03-04 18:14:28
+ * @Last Modified time: 2022-06-17 19:30:12
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -65,7 +65,9 @@ export default defineComponent({
           if (toScreenBottom < _el.clientHeight && top > _el.clientHeight) {
             this.scrollTop = -_el.clientHeight - 12;
           } else {
-            this.scrollTop = inputNodeInfo.height + 12;
+            this.scrollTop = this.scrollerBarTop
+              ? this.scrollerBarTop
+              : inputNodeInfo.height + 12;
           }
         });
       }
@@ -103,14 +105,7 @@ export default defineComponent({
     },
   },
   render(h) {
-    const {
-      scrollWidht,
-      scrollTop,
-      loading,
-      isSelected,
-      scrollerBarTop,
-      width,
-    } = this;
+    const { scrollWidht, scrollTop, loading, isSelected, width } = this;
     const _width = width === "auto" ? "100%" : scrollWidht + "px";
     const _list = this.getContentList(isSelected, h);
     return h(
@@ -119,7 +114,7 @@ export default defineComponent({
         class: "yn-scroller-bar",
         style: {
           width: _width,
-          top: (scrollerBarTop || scrollTop) + "px",
+          top: scrollTop + "px",
         },
       },
       [
