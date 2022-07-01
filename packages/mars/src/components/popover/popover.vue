@@ -51,6 +51,8 @@ export default class Popover extends Mixins(
   Popper
 ) {
   static componentName = "YnPopover";
+  _timer = 0;
+
   @Prop({
     type: String,
     default: "click"
@@ -73,6 +75,12 @@ export default class Popover extends Mixins(
     }
   })
   popperClass!: string[];
+  @Prop({
+    type: Number,
+    default: 200
+  })
+  closeDelay!: number;
+
   get style() {
     const style: AnyObject = {};
     if (this.width) style.width = this.width + "px";
@@ -81,7 +89,6 @@ export default class Popover extends Mixins(
 
   toggle() {
     this.$emit("update:visible", !this.visible);
-    console.log("toggle");
   }
   handleDocumentClick(e: Event) {
     const domPop = this.$refs.popper as HTMLElement;
@@ -97,10 +104,19 @@ export default class Popover extends Mixins(
     }
   }
   handleMouseEnter() {
+    console.log("handleMouseEnter");
+    clearTimeout(this._timer);
     this.$emit("update:visible", true);
   }
   handleMouseLeave() {
-    this.$emit("update:visible", false);
+    clearTimeout(this._timer);
+    if(this.closeDelay) {
+      this._timer = setTimeout(() => {
+        this.$emit("update:visible", false);
+      }, this.closeDelay);
+    } else {
+      this.$emit("update:visible", false);
+    }
   }
   beforeEnter() {
     this.$emit("beforeEnter");
@@ -130,9 +146,9 @@ export default class Popover extends Mixins(
       }
       case "hover": {
         on(reference, "mouseenter", this.handleMouseEnter);
-        on(poper, "mounseenter", this.handleMouseEnter);
+        on(poper, "mouseenter", this.handleMouseEnter);
         on(reference, "mouseleave", this.handleMouseLeave);
-        on(poper, "mounseleave", this.handleMouseLeave);
+        on(poper, "mouseleave", this.handleMouseLeave);
         break;
       }
     }
