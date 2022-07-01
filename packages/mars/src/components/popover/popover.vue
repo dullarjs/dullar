@@ -104,7 +104,6 @@ export default class Popover extends Mixins(
     }
   }
   handleMouseEnter() {
-    console.log("handleMouseEnter");
     clearTimeout(this._timer);
     this.$emit("update:visible", true);
   }
