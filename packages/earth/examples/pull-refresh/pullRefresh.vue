@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>yn-pull-refresh</h2>
-    <yn-pull-refresh :cancelBubbles="cancelBubbles" @pullRefresh="handlePullRefresh" :loading="isLoading">
+    <yn-pull-refresh loadingText="加载中的文案" draggingTip="下拉提示文案" triggerLoadingText="松手提示文案" loadingSuccessText="加载完成文案" :cancelBubbles="cancelBubbles" @pullRefresh="handlePullRefresh" :loading="isLoading">
       <div class="cancel-bubble-event" v-if="show">我是一块比较特殊的区域，拖拽我的话将不生效。不信你试试</div>
       <button @click="refresh">refresh</button>
       <ul>
