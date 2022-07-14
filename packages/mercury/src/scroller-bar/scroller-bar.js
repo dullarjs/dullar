@@ -2,7 +2,7 @@
  * @Author: yegl
  * @Date: 2022-01-20 16:25:59
  * @Last Modified by: yegl
- * @Last Modified time: 2022-06-17 19:30:12
+ * @Last Modified time: 2022-07-14 18:24:48
  * @E-mail: yglgzyx@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -58,16 +58,18 @@ export default defineComponent({
       this.top = top;
     },
     onVisibleChange() {
-      const { toScreenBottom, top, scrollerBarVisible, inputNodeInfo } = this;
+      const { scrollerBarVisible } = this;
       if (scrollerBarVisible === true) {
         this.$nextTick(() => {
+          const { bottom = 0, height = 0 } = this.inputNodeInfo;
+          const toScreenBottom = window.innerHeight - bottom;
           const { $el: _el } = this;
-          if (toScreenBottom < _el.clientHeight && top > _el.clientHeight) {
+          if (toScreenBottom < _el.clientHeight + height + 16) {
             this.scrollTop = -_el.clientHeight - 12;
           } else {
             this.scrollTop = this.scrollerBarTop
               ? this.scrollerBarTop
-              : inputNodeInfo.height + 12;
+              : height + 12;
           }
         });
       }
