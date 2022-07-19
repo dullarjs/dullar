@@ -72,9 +72,11 @@ export default defineComponent({
   },
   data() {
     return {
+      moving: false,
       inertialMoving: false,
       duration: 0,
       offset: 0,
+      endIndex: 0,
     };
   },
   computed: {
@@ -124,11 +126,12 @@ export default defineComponent({
           dist = this.offset + this.itemHeight;
         }
         const index = this.getIndexByOffset(dist);
-        this.setIndex(index, true);
+        this.setIndex(index, false);
         if (this.currentIndex !== endIndex) {
           window.requestAnimationFrame(step);
         } else {
           this.inertialMoving = false;
+          this.stopMomentum();
         }
       };
       step();
@@ -144,36 +147,19 @@ export default defineComponent({
         if (!isOptionDisabled(this.options[i])) return i;
       }
     },
-    setIndex(index, emitChange) {
+    setIndex(index) {
       index = this.adjustIndex(index) || 0;
-      const offset = -index * this.itemHeight;
-      const trigger = () => {
-        if (index !== this.currentIndex) {
-          this.currentIndex = index;
-          if (emitChange) {
-            this.$emit("change", this.options[index], index);
-          }
-        }
-      };
-      // trigger the change event after transitionend when moving
-      if (this.moving && offset !== this.offset) {
-        // this.transitionEndTrigger = trigger;
-        trigger();
-      } else if (this.inertialMoving && offset !== this.offset) {
-        // this.transitionEndTrigger = trigger;
-        trigger();
-      } else {
-        trigger();
-      }
-      this.offset = offset;
+      this.currentIndex = index;
+    },
+    setChooseValue() {
+      this.$emit("change", this.options[this.currentIndex], this.currentIndex);
     },
     stopMomentum() {
-      // this.moving = false;
+      this.moving = false;
       // this.duration = 0;
-      if (this.transitionEndTrigger) {
-        // this.transitionEndTrigger();
-        // this.transitionEndTrigger = null;
-      }
+      this.inertialMoving = false;
+      this.adjustOffset();
+      this.setChooseValue();
     },
     drag() {
       const el = this.$refs.pickerColumn;
@@ -207,14 +193,14 @@ export default defineComponent({
             -(that.count * that.itemHeight),
             that.itemHeight
           );
-
           const now = Date.now();
           if (now - that.touchStartTime > MOMENTUM_LIMIT_TIME) {
             that.touchStartTime = now;
             that.momentumOffset = that.offset;
           }
+          that.duration = DEFAULT_DURATION;
           const index = that.getIndexByOffset(that.offset);
-          that.setIndex(index, true);
+          that.setIndex(index, false);
         },
         stop() {
           const distance = that.offset - that.momentumOffset;
@@ -225,12 +211,12 @@ export default defineComponent({
           if (allowMomentum) {
             that.momentum(distance, duration);
             return;
+          } else {
+            const index = that.getIndexByOffset(that.offset);
+            that.duration = DEFAULT_DURATION;
+            that.setIndex(index, false);
+            that.adjustOffset();
           }
-
-          // const index = that.getIndexByOffset(that.offset);
-          // that.duration = DEFAULT_DURATION;
-          // that.setIndex(index, true);
-
           // compatible with desktop scenario
           // use setTimeout to skip the click event triggered after touchstart
           setTimeout(() => {
@@ -239,8 +225,13 @@ export default defineComponent({
         },
       });
     },
+    adjustOffset() {
+      this.offset = -this.currentIndex * this.itemHeight;
+    },
     onTransitionEnd() {
-      this.stopMomentum();
+      if (this.inertialMoving) {
+        this.stopMomentum();
+      }
     },
     handleItemClick(index) {
       if (this.moving || this.inertialMoving) {
@@ -269,6 +260,8 @@ export default defineComponent({
               style: {
                 color: `rgba(42, 42, 42, ${colorPowTimes})`,
                 transform: `scale(${scalePowTimes})`,
+                transitionDuration: "200ms",
+                transitionProperty: "transform",
               },
               class: ["col-text"],
             },
