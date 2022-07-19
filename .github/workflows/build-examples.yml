@@ -34,6 +34,22 @@ jobs:
     - name: Install yarn
       run: npm install -g yarn
 
+    # - name: Build queen
+    #   run: |
+    #     cd packages/queen
+    #     npm install
+    #     npm install @vue/cli-service@4.5.0 --save-dev
+    #     npm install eslint@6.8.0 --save-dev
+    #     npm install eslint-plugin-vue@7.10.0 --save-dev
+    #     npm install --save @dullar/cube
+    #     npm run build
+
+    # - name: Move queen to root docs
+    #   run: |
+    #     mkdir docs
+    #     mkdir docs/queen
+    #     mv packages/queen/docs/* docs/queen
+
     - name: Build venus
       run: |
         cd packages/venus
@@ -46,6 +62,7 @@ jobs:
 
     - name: Move venus to root docs
       run: |
+        mkdir docs
         mkdir docs/venus
         mv packages/venus/docs/* docs/venus
 
