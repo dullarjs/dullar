@@ -38,6 +38,7 @@ jobs:
       run: |
         cd packages/venus
         yarn install
+        yarn add @dullar/cube
         yarn build
 
     - name: Move venus to root docs
