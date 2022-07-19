@@ -2,12 +2,12 @@
 * @Author: Just be free
 * @Date:   2020-10-22 14:42:19
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 18:19:23
+* @Last Modified time: 2022-07-19 17:10:56
 * @E-mail: justbefree@126.com
 */
 
 import { h, withDirectives, vShow, VNode, nextTick } from "vue";
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { isChineseCharacters, isPromise, throttle } from "@dullar/cube";
 import { getPropertyValue } from "../utils/dom/style";
 import { EventBus } from "../utils/event/bus";
@@ -138,7 +138,7 @@ class Props {
     }
   }
 })
-export default class VCitypicker extends mixins(Queen).with(Props) {
+export default class VCitypicker extends mixins(Venus).with(Props) {
   public static componentName = "VCitypicker";
   public isCompose = false;
   public caculatedTabs = [] as Array<Tab>;

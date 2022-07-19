@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-10-28 12:10:05
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 18:23:25
+* @Last Modified time: 2022-07-19 17:24:20
 * @E-mail: justbefree@126.com
 */
 import { h, withDirectives, vShow, VNode } from "vue";
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import VPopup from "../popup";
 import VSpin from "../spin";
 class Props {
@@ -25,7 +25,7 @@ class Props {
   name: "VActionSheet",
   emits: ["update:modelValue", "getselected", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave"]
 })
-export default class VActionSheet extends mixins(Queen).with(Props) {
+export default class VActionSheet extends mixins(Venus).with(Props) {
   public static componentName = "VActionSheet";
   handleChange(e: boolean): void {
     this.$emit("update:modelValue", e);

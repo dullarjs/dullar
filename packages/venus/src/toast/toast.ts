@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-23 16:16:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-23 16:28:35
+* @Last Modified time: 2022-07-19 16:45:03
 * @E-mail: justbefree@126.com
 */
-import Queen, { Options, mixins, prop } from "../component/Queen";
+import Venus, { Options, mixins, prop } from "../component/Venus";
 import { Transition, h, withDirectives, vShow } from "vue";
 import VIcon from "../icon";
 class Props {
@@ -21,7 +21,7 @@ class Props {
 @Options({
   name: "VToast"
 })
-export default class VToast extends mixins(Queen).with(Props) {
+export default class VToast extends mixins(Venus).with(Props) {
   public static componentName = "VToast";
   public visible = false;
   public closed = false;

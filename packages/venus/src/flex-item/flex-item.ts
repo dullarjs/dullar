@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-22 16:00:52
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 16:59:05
+* @Last Modified time: 2022-07-19 16:46:15
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { hyphenate, camelize } from "@dullar/cube";
 import { h } from "vue";
 class Props {
@@ -16,7 +16,7 @@ class Props {
 @Options({
   name: "VFlexItem"
 })
-export default class VFlexItem extends mixins(Queen).with(Props) {
+export default class VFlexItem extends mixins(Venus).with(Props) {
   public static componentName = "VFlexItem";
   isValidAlignSelfValue(): boolean {
     const VALIDE_ALIGN_SELF_VALUE = [

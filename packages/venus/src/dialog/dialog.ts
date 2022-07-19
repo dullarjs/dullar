@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-23 16:16:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 17:10:49
+* @Last Modified time: 2022-07-19 16:45:53
 * @E-mail: justbefree@126.com
 */
-import Queen, { Options, mixins, prop } from "../component/Queen";
+import Venus, { Options, mixins, prop } from "../component/Venus";
 import { Transition, h, withDirectives, vShow, VNode } from "vue";
 import { addClass } from "../utils/dom";
 import { isPromise } from "@dullar/cube";
@@ -31,7 +31,7 @@ class Props {
   emits: ["update:modelValue", "modal-click", "before-enter", "after-enter", "before-leave", "after-leave", "button-click"],
   name: "VDialog"
 })
-export default class VDialog extends mixins(Queen).with(Props) {
+export default class VDialog extends mixins(Venus).with(Props) {
   public static componentName = "VDialog";
   public bodyOverflow = "";
   public events = {} as any;

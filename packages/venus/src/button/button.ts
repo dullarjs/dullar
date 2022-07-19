@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-10-12 15:56:53
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-23 14:04:23
+* @Last Modified time: 2022-07-19 16:45:14
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import VIcon from "../icon";
 import { h } from "vue";
 class Props {
@@ -18,7 +18,7 @@ class Props {
 @Options({
   name: "VButton"
 })
-export default class VButton extends mixins(Queen).with(Props) {
+export default class VButton extends mixins(Venus).with(Props) {
   public static componentName = "VButton";
   validType(type: string): boolean {
     return ["default", "primary"].includes(type);

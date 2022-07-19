@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-11-05 13:22:24
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 17:46:17
+* @Last Modified time: 2022-07-19 17:11:31
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { h, vShow, withDirectives, VNode } from "vue";
 import { deepClone } from "../utils/deep-clone";
 import VPickerColumn from "./picker-column";
@@ -35,7 +35,7 @@ class Props {
   name: "VPicker",
   emits: ["close", "update:modelValue", "confirm", "change"]
 })
-export default class VPicker extends mixins(Queen).with(Props) {
+export default class VPicker extends mixins(Venus).with(Props) {
   public static componentName = "VPicker";
   public computedColumn: ColumnObject[] = [];
   public pickColumns = {} as any;

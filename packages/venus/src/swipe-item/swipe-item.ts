@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-11-25 14:12:12
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 18:34:33
+* @Last Modified time: 2022-07-19 16:47:42
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { loadImageAsync } from "../utils/lazyload";
 import { h } from "vue";
 class Props {}
@@ -13,7 +13,7 @@ class Props {}
   name: "VSwipeItem",
   inject: ["swipeParent"]
 })
-export default class VSwipeItem extends mixins(Queen).with(Props) {
+export default class VSwipeItem extends mixins(Venus).with(Props) {
   public static componentName = "VSwipeItem";
   public loaded = false;
   mounted() {

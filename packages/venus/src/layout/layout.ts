@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-10-21 15:19:17
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 17:14:34
+* @Last Modified time: 2022-07-19 16:46:36
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { h, VNode, Transition, withDirectives, vShow } from "vue";
 import VFlex from "../flex";
 import VFlexItem from "../flex-item";
@@ -27,7 +27,7 @@ class Props {
   name: "VLayout",
   emits: ["reachtop", "reachbottom", "scroll"]
 })
-export default class QLayout extends mixins(Queen).with(Props) {
+export default class QLayout extends mixins(Venus).with(Props) {
   public static componentName = "VLayout";
   public scrollTop = 0;
   public clientHeight = 0;

@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-11-25 14:11:49
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 18:31:25
+* @Last Modified time: 2022-07-19 16:47:36
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options, VisibilityChangeStatus } from "../component/Queen";
+import Venus, { mixins, prop, Options, VisibilityChangeStatus } from "../component/Venus";
 import { h, VNode } from "vue";
 import { Remainder } from "../utils/number/remainder";
 import { move } from "../utils/dom/animate";
@@ -41,7 +41,7 @@ class Props {
     }
   }
 })
-export default class VSwipe extends mixins(Queen, EventEmulator).with(Props) {
+export default class VSwipe extends mixins(Venus, EventEmulator).with(Props) {
   public static componentName = "VSwipe";
   public rect = {} as DOMRect;
   public width = 0;

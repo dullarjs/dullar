@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-23 16:16:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-23 14:24:05
+* @Last Modified time: 2022-07-19 16:46:23
 * @E-mail: justbefree@126.com
 */
-import Queen, { Options, mixins, prop } from "../component/Queen";
+import Venus, { Options, mixins, prop } from "../component/Venus";
 import Base642Svg from "../utils/dom/base642svg";
 import { getPropertyValue } from "../utils/dom/style";
 import { h } from "vue";
@@ -19,7 +19,7 @@ class Props {
 @Options({
   name: "VIcon"
 })
-export default class VIcon extends mixins(Queen).with(Props) {
+export default class VIcon extends mixins(Venus).with(Props) {
   public static componentName = "VIcon";
   public static svgs = svgs;
   public svgbase64 = VIcon.svgs[this.name as string];

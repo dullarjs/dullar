@@ -2,11 +2,11 @@
 * @Author: Just be free
 * @Date:   2020-10-23 11:32:56
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 17:39:35
+* @Last Modified time: 2022-07-19 16:46:30
 * @E-mail: justbefree@126.com
 */
 import { h, withDirectives, vShow, VNode, nextTick, Transition } from "vue";
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import VSpin from "../spin";
 class Props {
   text?: string
@@ -20,7 +20,7 @@ class Props {
 @Options({
   name: "VIndicator"
 })
-export default class VIndicator extends mixins(Queen).with(Props) {
+export default class VIndicator extends mixins(Venus).with(Props) {
   public static componentName = "VIndicator";
   public visible = false;
   setVisible(status: boolean): void {

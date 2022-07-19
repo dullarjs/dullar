@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2020-11-05 13:44:32
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 17:53:04
+* @Last Modified time: 2022-07-19 16:46:47
 * @E-mail: justbefree@126.com
 */
 export interface ColumnObject {
@@ -11,7 +11,7 @@ export interface ColumnObject {
   disabled?: boolean;
   [propName: string]: any;
 }
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { EventEmulator, EventCallbackOptions } from "../component/EventEmulator";
 import { deepClone } from "../utils/deep-clone";
 import { getElementsTranslate } from "../utils/dom";
@@ -61,7 +61,7 @@ class Props {
     }
   }
 })
-export default class VPickerColumn extends mixins(Queen, EventEmulator).with(Props) {
+export default class VPickerColumn extends mixins(Venus, EventEmulator).with(Props) {
   public static componentName = "VPickerColumn";
   public options = deepClone(this.columns);
   public currentIndex = this.defaultIndex;

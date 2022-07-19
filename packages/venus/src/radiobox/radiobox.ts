@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-22 15:24:40
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 16:02:44
+* @Last Modified time: 2022-07-19 16:47:05
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import VIcon from "../icon";
 import { h, computed, ref } from "vue";
 
@@ -18,7 +18,7 @@ class Props {
   emits: ["update:modelValue"],
   name: "VRadiobox"
 })
-export default class VRadiobox extends mixins(Queen).with(Props) {
+export default class VRadiobox extends mixins(Venus).with(Props) {
   public static componentName = "VRadiobox";
   public status = ref(this.modelValue).value;
   toggle(): void {

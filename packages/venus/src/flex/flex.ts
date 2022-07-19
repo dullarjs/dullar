@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-22 15:24:40
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 16:59:19
+* @Last Modified time: 2022-07-19 16:46:08
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { hyphenate, camelize } from "@dullar/cube";
 import { ValidFlexAttribute } from "./types";
 import { h } from "vue";
@@ -24,7 +24,7 @@ class Props {
 @Options({
   name: "VFlex"
 })
-export default class VFlex extends mixins(Queen).with(Props) {
+export default class VFlex extends mixins(Venus).with(Props) {
   public static componentName = "VFlex";
   isValidColumnsAttribute(key: ValidFlexAttribute): boolean {
     const validates = ["xs", "sm", "md", "lg"];

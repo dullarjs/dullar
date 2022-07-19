@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-28 11:18:21
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-10 14:50:01
+* @Last Modified time: 2022-07-19 16:47:22
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { hyphenate } from "@dullar/cube";
 import { h, VNode } from "vue";
 // export type SpinType = "snake" | "rotate" | "triple-bounce";
@@ -18,7 +18,7 @@ class Props {
 @Options({
   name: "QSpin"
 })
-export default class QSpin extends mixins(Queen).with(Props) {
+export default class QSpin extends mixins(Venus).with(Props) {
   public static componentName = "QSpin";
   createSpinner(): VNode {
     const capitalizeName = hyphenate(this.type);

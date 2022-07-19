@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-10-12 15:56:53
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 18:14:07
+* @Last Modified time: 2022-07-19 16:45:21
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import VIcon from "../icon";
 import VPopup from "../popup";
 import VFlex from "../flex";
@@ -63,7 +63,7 @@ class Props {
     mode: "highLightDefault"
   }
 })
-export default class VCalendar extends mixins(Queen).with(Props) {
+export default class VCalendar extends mixins(Venus).with(Props) {
   public static componentName = "VCalendar";
   public changedNode = {} as { [propName: string]: any };
   public fromDate: null|CalendarDateNode = null;

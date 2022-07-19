@@ -2,14 +2,14 @@
 * @Author: Just be free
 * @Date:   2020-09-28 14:57:46
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-23 14:35:12
+* @Last Modified time: 2022-07-19 16:46:58
 * @E-mail: justbefree@126.com
 */
 /**
 references
 https://v3.vuejs.org/guide/migration/v-model.html
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { h, Transition, withDirectives, vShow, VNode } from "vue";
 import VIcon from "../icon";
 const VALIDATE_POSITION_VALUE = ["left", "right", "top", "bottom", "middle"];
@@ -31,7 +31,7 @@ class Props {
   emits: ["update:modelValue", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave", "input"],
   name: "VPopup"
 })
-export default class VPopup extends mixins(Queen).with(Props) {
+export default class VPopup extends mixins(Venus).with(Props) {
   public static componentName = "VPopup";
   public bodyOverflow = "";
   public time = 0;

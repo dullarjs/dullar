@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-11-09 17:02:32
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 17:50:45
+* @Last Modified time: 2022-07-19 16:45:45
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { h } from "vue";
 import { QDateInstance, validateFormatedDate } from "../utils/q-date";
 import { ColumnObject } from "../picker/picker-column";
@@ -34,7 +34,7 @@ class Props {
   name: "VDatePicker",
   emits: ["update:modelValue", "confirm", "beforeenter", "enter", "afterenter", "beforeleave", "leave", "afterleave"]
 })
-export default class VDatePicker extends mixins(Queen).with(Props) {
+export default class VDatePicker extends mixins(Venus).with(Props) {
   public static componentName = "VDatePicker";
   public year: string|number = "";
   public month: string|number = "";

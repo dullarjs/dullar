@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-11-04 15:11:21
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-28 14:00:14
+* @Last Modified time: 2022-07-19 16:47:12
 * @E-mail: justbefree@126.com
 */
-import Queen, { Options, mixins, prop } from "../component/Queen";
+import Venus, { Options, mixins, prop } from "../component/Venus";
 import { h } from "vue";
 
 class Props {
@@ -25,7 +25,7 @@ const avatarSize = 80;
   name: "VSkeleton",
   mixins: []
 })
-export default class VSkeleton extends mixins(Queen).with(Props) {
+export default class VSkeleton extends mixins(Venus).with(Props) {
   public static componentName = "VSkeleton";
   render() {
     const avatarClass = this.avatar ? "avatar" : "";

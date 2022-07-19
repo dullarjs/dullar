@@ -2,16 +2,16 @@
 * @Author: Just be free
 * @Date:   2020-09-28 11:35:23
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-07 16:42:31
+* @Last Modified time: 2022-07-19 16:49:00
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop } from "../../../component/Queen";
+import Venus, { mixins, prop } from "../../../component/Venus";
 import { h, computed, ref } from "vue";
 class Props {
   color!: string
   size!: number
 }
-export default class Snake extends mixins(Queen).with(Props) {
+export default class Snake extends mixins(Venus).with(Props) {
   render() {
     const color = ref(this.color);
     const spinColor = computed(() => color.value);

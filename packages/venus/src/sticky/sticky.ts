@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-09-28 11:18:21
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-24 17:59:08
+* @Last Modified time: 2022-07-19 16:47:28
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { hyphenate } from "@dullar/cube";
 import { getScroller } from "../utils/dom/scroller";
 import { getOffset, getScrollTop } from "../utils/dom";
@@ -22,7 +22,7 @@ class Props {
   name: "VSticky",
   emits: ["scroll"]
 })
-export default class VSticky extends mixins(Queen).with(Props) {
+export default class VSticky extends mixins(Venus).with(Props) {
   public static componentName = "VSticky";
   public fixed = false;
   public top = 0;

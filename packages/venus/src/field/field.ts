@@ -2,10 +2,10 @@
 * @Author: Just be free
 * @Date:   2020-12-07 14:36:07
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-06-28 13:55:17
+* @Last Modified time: 2022-07-19 16:46:01
 * @E-mail: justbefree@126.com
 */
-import Queen, { mixins, prop, Options } from "../component/Queen";
+import Venus, { mixins, prop, Options } from "../component/Venus";
 import { h, VNode, vShow, withDirectives } from "vue";
 import { encrypt } from "../utils/string";
 import VFlex from "../flex";
@@ -45,7 +45,7 @@ class Props {
     }
   }
 })
-export default class VField extends mixins(Queen).with(Props) {
+export default class VField extends mixins(Venus).with(Props) {
   public static componentName = "VField";
   public target: null|HTMLInputElement = null;
   public showIcon = false;
