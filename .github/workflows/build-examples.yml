@@ -37,8 +37,12 @@ jobs:
     - name: Build venus
       run: |
         cd packages/venus
-        yarn install
-        yarn build
+        npm install
+        npm install @vue/cli-service@4.5.0 --save-dev
+        npm install eslint@6.8.0 --save-dev
+        npm install eslint-plugin-vue@7.10.0 --save-dev
+        npm install --save @dullar/cube
+        npm run build
 
     - name: Move venus to root docs
       run: |
@@ -50,6 +54,7 @@ jobs:
       run: |
         cd packages/mercury
         yarn install
+        yarn build:components
         yarn build
 
     - name: Move mercury to root docs
@@ -61,6 +66,7 @@ jobs:
       run: |
         cd packages/earth
         yarn install
+        yarn build:components
         yarn build
 
     - name: Move earth to root docs
@@ -72,6 +78,7 @@ jobs:
       run: |
         cd packages/mars
         yarn install
+        yarn build:components
         yarn run build
 
     - name: Move mars to root docs
