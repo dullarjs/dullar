@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2021-05-13 09:50:08
 * @Last Modified by:   Just be free
-* @Last Modified time: 2021-05-13 13:22:05
+* @Last Modified time: 2022-07-18 18:49:11
 * @E-mail: justbefree@126.com
 */
 
@@ -22,12 +22,12 @@ module.exports = () => {
     if (err) {
       console.log(chalk.red(`error ${JSON.stringify(err)}`));
       console.log(chalk.red(err));
-      console.log(chalk.yellow('Select a template:'));
-      console.log(chalk.green(`
-        https://github.com/justbefree-org/vue2-js,
-        https://github.com/justbefree-org/vue2-ts
-        https://github.com/justbefree-org/vue3-ts(most recommended)
-      `));
+      // console.log(chalk.yellow('Select a template:'));
+      // console.log(chalk.green(`
+      //   https://github.com/justbefree-org/vue2-js,
+      //   https://github.com/justbefree-org/vue2-ts
+      //   https://github.com/justbefree-org/vue3-ts(most recommended)
+      // `));
       process.exit();
     }
     const requestBody = JSON.parse(body);
@@ -36,10 +36,12 @@ module.exports = () => {
       console.log(chalk.green('Available templates:'));
       console.log();
       requestBody.forEach(repo => {
-        console.log(
-        '  ' + chalk.yellow('★') +
-        '  ' + chalk.white(repo.name) +
-        ' - ' + repo.description)
+        if (!repo.archived) {
+          console.log(
+          '  ' + chalk.yellow('★') +
+          '  ' + chalk.white(repo.name) +
+          ' - ' + repo.description)
+        }
       });
     } else {
       console.error(requestBody.message);

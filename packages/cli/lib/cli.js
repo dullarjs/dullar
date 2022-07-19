@@ -24,7 +24,9 @@ module.exports = () => {
     if (Array.isArray(requestBody)) {
       let tplNames = [];
       requestBody.forEach(repo => {
-        tplNames.push(repo.name);
+        if (!repo.archived) {
+          tplNames.push(repo.name);
+        }
       })
 
       let promptList = [
