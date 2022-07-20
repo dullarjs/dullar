@@ -1,0 +1,166 @@
+@import "src/theme/variable";
+@import "src/theme/mixins/mixins";
+
+@mixin genTheme($backgroundColorWeight, $borderColorWeight, $fontColorWeight, $hoverColorWeight) {
+  background-color: mix($tag-primary-color, $white, $backgroundColorWeight);
+  border-color: mix($tag-primary-color, $white, $borderColorWeight);
+  color: mix($tag-primary-color, $white, $fontColorWeight);
+
+  @include when(hit) {
+    border-color: $tag-primary-color;
+  }
+
+  .yn-tag__close {
+    color: mix($tag-primary-color, $white, $fontColorWeight);
+    &:hover {
+      color: $white;
+      background-color: mix($tag-primary-color, $white, $hoverColorWeight);
+    }
+  }
+
+  &.yn-tag--info {
+    background-color: $yn-primary-1;
+    border-color: $yn-primary-1;
+    color: $tag-info-color;
+
+    @include when(hit) {
+      border-color: $tag-info-color;
+    }
+
+    .yn-tag__close {
+      color: mix($tag-info-color, $white, $fontColorWeight);
+      &:hover {
+        color: $white;
+        background-color: mix($tag-info-color, $white, $hoverColorWeight);
+      }
+    }
+  }
+
+  &.yn-tag--success {
+    background-color: mix($tag-success-color, $white, $backgroundColorWeight);
+    border-color: mix($tag-success-color, $white, $borderColorWeight);
+    color: mix($tag-success-color, $white, $fontColorWeight);
+
+    @include when(hit) {
+      border-color: $tag-success-color;
+    }
+
+    .yn-tag__close {
+      color: mix($tag-success-color, $white, $fontColorWeight);
+      &:hover {
+        color: $white;
+        background-color: mix($tag-success-color, $white, $hoverColorWeight);
+      }
+    }
+  }
+
+  &.yn-tag--warning {
+    background-color: mix($tag-warning-color, $white, $backgroundColorWeight);
+    border-color: mix($tag-warning-color, $white, $borderColorWeight);
+    color: mix($tag-warning-color, $white, $fontColorWeight);
+
+    @include when(hit) {
+      border-color: $tag-warning-color;
+    }
+
+    .yn-tag__close {
+      color: mix($tag-warning-color, $white, $fontColorWeight);
+      &:hover {
+        color: $white;
+        background-color: mix($tag-warning-color, $white, $hoverColorWeight);
+      }
+    }
+  }
+
+  &.yn-tag--danger {
+    background-color: mix($tag-danger-color, $white, $backgroundColorWeight);
+    border-color: mix($tag-danger-color, $white, $borderColorWeight);
+    color: mix($tag-danger-color, $white, $fontColorWeight);
+
+    @include when(hit) {
+      border-color: $tag-danger-color;
+    }
+
+    .yn-tag__close {
+      color: mix($tag-danger-color, $white, $fontColorWeight);
+      &:hover {
+        color: $white;
+        background-color: mix($tag-danger-color, $white, $hoverColorWeight);
+      }
+    }
+  }
+}
+.yn-tag {
+  @include genTheme(10%, 20%, 100%, 100%);
+  background-color: #ecf5ff;
+  display: inline-block;
+  font-size: 12px;
+  color: $theme-color;
+  border: 1px solid #d9ecff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  .yn-icon-close {
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    top: -1px;
+    right: -5px;
+  
+    &::before {
+      display: block;
+    }
+  }
+}
+.yn-tag+.yn-tag{
+  margin-left: 8px;
+}
+
+.yn-tag--dark {
+  @include genTheme(100%, 100%, 0, 80%);
+}
+
+.yn-tag--plain {
+  @include genTheme(0, 40%, 100%, 100%);
+}
+
+.yn-tag--large {
+  height: 32px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+.yn-tag--medium {
+  height: 28px;
+  line-height: 26px;
+
+  .el-icon-close {
+    transform: scale(.8);
+  }
+}
+
+.yn-tag--medium {
+  height: 26px;
+  padding: 0 8px;
+  line-height: 24px;
+
+  .el-icon-close {
+    transform: scale(.8);
+  }
+}
+
+.yn-tag--small {
+  height: 20px;
+  padding: 0 5px;
+  line-height: 19px;
+
+  .el-icon-close {
+    margin-left: -3px;
+    transform: scale(.7);
+  }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/Checkbox-Selected</title>
+    <g id="----2.5多选-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="多选" transform="translate(-774.000000, -428.000000)">
+            <g id="编组-5" transform="translate(666.000000, 423.000000)">
+                <g id="Icon/Checkbox-Selected" transform="translate(108.000000, 5.000000)">
+                    <g id="save"></g>
+                    <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                    <rect id="Rectangle-271" fill="#0052CC" x="0" y="0" width="16" height="16" rx="2"></rect>
+                    <path d="M3.86705384,8.67451169 C3.76017605,8.56162807 3.7,8.40751922 3.7,8.24669241 C3.7,8.0858656 3.76017605,7.93175675 3.86705384,7.81887313 C4.09376916,7.5815928 4.45758059,7.5815928 4.68002834,7.81887313 L6.57190109,9.80745376 L11.3199896,4.87796024 C11.5424374,4.64067992 11.9062488,4.64067992 12.1329641,4.87796024 C12.3556786,5.11524057 12.3556786,5.49603261 12.1329641,5.73331293 L6.97838834,11.0930557 C6.867246,11.2017955 6.72238348,11.2624147 6.57190109,11.2631579 C6.42030598,11.2637084 6.27444763,11.2010724 6.16514711,11.0884816 L3.86705384,8.67451169 Z" id="Shape-Copy" fill="#FFFFFF" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

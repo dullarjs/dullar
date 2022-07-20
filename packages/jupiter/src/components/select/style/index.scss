@@ -1,0 +1,43 @@
+@import "src/theme/variable.scss";
+.yn-select{
+  width: 100%;
+  .yn-select__caret{
+    .yn-iconfont{
+      transition: transform .3s;
+      cursor: pointer;
+    }
+  }
+}
+.yn-select-dropdown__item{
+  font-size: 14px;
+  padding: 0 16px;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $yn-heading-color;
+  height: 32px;
+  line-height: 32px;
+  box-sizing: border-box;
+  cursor: pointer
+}
+.yn-select-dropdown__item.hover, .yn-select-dropdown__item:hover {
+  background-color: $yn-primary-1;
+}
+.yn-select-dropdown__wrap {
+  max-height: 274px;
+}
+.yn-select-dropdown__list {
+  box-sizing: border-box;
+  list-style: none;
+  padding: 4px 0px;
+  margin: 0px;
+}
+.yn-select-dropdown{
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: $yn-border-shadow-5;
+  box-sizing: border-box;
+  margin: 2px 0;
+  padding:0;
+}

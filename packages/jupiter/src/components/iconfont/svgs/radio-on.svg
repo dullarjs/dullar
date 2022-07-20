@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>已选</title>
+    <g id="----2.4单选-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="单选" transform="translate(-681.000000, -1408.000000)">
+            <g id="编组-2" transform="translate(657.000000, 1334.000000)">
+                <g id="已选" transform="translate(24.000000, 74.000000)">
+                    <circle id="Mask" stroke="#004FD4" fill="#FFFFFF" cx="8" cy="8" r="7.5"></circle>
+                    <circle id="Mask" fill="#004FD4" cx="8" cy="8" r="4"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
