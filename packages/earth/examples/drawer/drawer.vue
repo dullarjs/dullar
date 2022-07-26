@@ -19,10 +19,10 @@
         <yn-button @click="handleClick(6)">钩子函数</yn-button>
       </li>
     </ul>
-    <yn-drawer :closable="closable" title="看到我的标题了吗" v-model="popup1" position="bottom">
+    <yn-drawer :popupStyle="popupStyle" :closable="closable" title="看到我的标题了吗" v-model="popup1" position="bottom">
       <div class="popup-content">
         底部出现遮罩
-        <template v-for="item in 10">
+        <template v-for="item in 100">
           <h3 :key="item">我是{{ item }}</h3>
         </template>
       </div>
@@ -62,7 +62,10 @@ export default {
       popup3: false,
       popup4: false,
       popup5: false,
-      popup6: false
+      popup6: false,
+      popupStyle: {
+        height: "80%"
+      }
     };
   },
   methods: {
