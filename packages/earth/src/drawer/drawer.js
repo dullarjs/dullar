@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2022-06-16 09:55:15
 * @Last Modified by:   Just be free
-* @Last Modified time: 2022-06-16 14:47:59
+* @Last Modified time: 2022-07-26 18:06:19
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -70,6 +70,12 @@ export default defineComponent({
     showFooter: {
       type: Boolean,
       default: false
+    },
+    popupStyle: {
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
   },
   data() {
@@ -155,6 +161,9 @@ export default defineComponent({
         props: {
           position: this.placement,
           closeOnClickModal: this.maskClosable
+        },
+        style: {
+          ...this.popupStyle
         },
         on: {
           input: this.handleInput,
