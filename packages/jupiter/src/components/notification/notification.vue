@@ -14,16 +14,28 @@
 </template>
 <script lang="ts">
 import "./style.scss"
-import Vue from "vue"
 import successIcon from "./images/success.svg";
 import errorIcon from "./images/error.svg";
 import infoIcon from "./images/info.svg";
 import warningIcon from "./images/warning.svg";
-import { Vue, Options, Prop, Watch } from 'vue-class-component'
+import { Vue, Options, prop, mixins } from 'vue-class-component'
+class Props {
+  message = prop<string>({ default: "" })
+  type = prop<string>({ default: "info" })
+  center = prop<boolean>({ default: false })
+  duration = prop<number>({ default: 3000 })
+}
 @Options({
-  name: "Notification"
+  name: "Notification",
+  watch: {
+    visable(newValue: boolean) {
+      if (!newValue) {
+        this.closeNotice();
+      }
+    }
+  }
 })
-export default class Notification extends Vue {
+export default class Notification extends mixins(Vue).with(Props) {
   static componentName = "YnNotification";
   visable = false;
   top = 20;
@@ -33,44 +45,13 @@ export default class Notification extends Vue {
   errorIcon = errorIcon;
   infoIcon = infoIcon;
   warningIcon = warningIcon;
-  @Prop({
-    type: String,
-    default: ""
-  })
-  message!: string
 
-  // 类型
-  @Prop({
-    type: String,
-    default: "info"
-  })
-  type!: string
-
-  // 是否居中
-   @Prop({
-    type: Boolean,
-    default: false
-  })
-  center!: boolean
-
-  // 延时时间
-  @Prop({
-    type: Number,
-    default: 3000
-  })
-  duration!: number
-  @Watch("visable")
-  getVisable(newValue: boolean) {
-    if (!newValue) {
-      this.closeNotice();
-    }
-  }
   get typeIcon() {
+    console.log("notification typeIcon this:", this);
     return (this as any)[`${this.type}Icon`]
   }
   //  离开之前
   destoryNotice(): void {
-    this.$destroy();
     // 移除dom元素
     (this as any).$el.parentNode.removeChild(this.$el);
   }

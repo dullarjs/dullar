@@ -4,15 +4,15 @@
  * @Last Modified by:   Just be free
  * @Last Modified time: 2020-02-17 16:41:59
  */
-import Vue, { CreateElement } from "vue";
+import { h } from "vue";
 import "./style.scss";
 import common from "../common";
-import { Mixins, Component } from "vue-class-component";
+import { Vue, mixins, Options } from "vue-class-component";
 import { AnyObject } from "@/types";
 @Options({
   name: "TripleBounce"
 })
-export default class TripleBounce extends Mixins(Vue, common) {
+export default class TripleBounce extends mixins(Vue, common) {
   get spinSize() {
     return (this.size || (this as AnyObject).$parent.size || 28) / 3 + "px";
   }
@@ -23,7 +23,7 @@ export default class TripleBounce extends Mixins(Vue, common) {
       backgroundColor: this.spinColor,
     };
   }
-  render(h: CreateElement) {
+  render() {
     return h("div", { class: ["yn-spin-triple-bounce"] }, [
       h("div", { class: "triple-bounce1", style: this.bounceStyle }, []),
       h("div", { class: "triple-bounce2", style: this.bounceStyle }, []),

@@ -4,17 +4,17 @@
  * @Last Modified by:   Just be free
  * @Last Modified time: 2021-11-30 15:25:47
  */
-import Vue, { CreateElement } from "vue";
-import { Mixins, Component } from "vue-class-component";
+import { h } from "vue";
+import { Vue, mixins, Options } from "vue-class-component";
 import common from "../common";
 import "./style.scss";
 @Options({
   name: "FadingCircle"
 })
-export default class FadingCircle extends Mixins(Vue, common) {
+export default class FadingCircle extends mixins(Vue, common) {
   styleNode!: HTMLStyleElement;
   _uid!: string;
-  createLeafNodes(h: CreateElement) {
+  createLeafNodes() {
     const nodes = [];
     for (let n = 0; n < 12; n++) {
       nodes.push(
@@ -46,14 +46,14 @@ export default class FadingCircle extends Mixins(Vue, common) {
   beforeDestroy() {
     this.destory();
   }
-  render(h: CreateElement) {
+  render() {
     return h(
       "div",
       {
         class: ["yn-spin-fading-circle", `circle-color-${this._uid}`],
         style: { height: this.spinSize, width: this.spinSize },
       },
-      [this.createLeafNodes(h)]
+      [this.createLeafNodes()]
     );
   }
 }

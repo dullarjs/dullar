@@ -35,50 +35,28 @@
   </span>
 </template>
 <script lang="ts">
-import { Vue, Options, Mixins, Prop } from "vue-class-component";
+import { Vue, Options, mixins, prop } from "vue-class-component";
 import "./style/index.scss";
 import "@/theme/transition.scss";
 import { AnyObject } from "../../types";
 import { on, off, addClass } from "../../utils/dom";
 import Popper from "../../utils/vue-popper";
-
+class Props {
+  trigger = prop<string>({ default: "click" })
+  transition = prop<string>({ default: "fade-in-linear" })
+  title = prop<string>({ default: "" })
+  popperClass = prop<string[]>({ default: () => { return []; } })
+  closeDelay = prop<number>({ default: 200 })
+}
 @Options({
   name: "Popover"
 })
-export default class Popover extends Mixins(
+export default class Popover extends mixins(
   Vue,
   Popper
-) {
+).with(Props) {
   static componentName = "YnPopover";
   _timer = 0;
-
-  @Prop({
-    type: String,
-    default: "click"
-  })
-  trigger!: string
-  @Prop({
-    type: String,
-    default: "fade-in-linear"
-  })
-  transition!: string;
-  @Prop({
-    type: String,
-    default: ""
-  })
-  title!: string;
-  @Prop({
-    type: Array,
-    default: () => {
-      return [];
-    }
-  })
-  popperClass!: string[];
-  @Prop({
-    type: Number,
-    default: 200
-  })
-  closeDelay!: number;
 
   get style() {
     const style: AnyObject = {};

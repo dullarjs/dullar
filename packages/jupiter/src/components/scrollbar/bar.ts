@@ -1,7 +1,7 @@
 import { on, off } from '@/utils/dom';
 import { renderThumbStyle, BAR_MAP } from './util';
 import { h } from "vue";
-import { Vue, Options, prop, mixins } from 'vue-class-component';
+import { Vue, Options, mixins } from 'vue-class-component';
 import Scrollbar from "./scrollbar";
 type barScroll = "scrollTop" | "scrollLeft";
 type barScrollSize = "scrollHeight" | "scrollWidth";
@@ -75,7 +75,7 @@ export default class Bar extends mixins(Vue).with(Props) {
     document.onselectstart = null;
   }
 
-  render(h: CreateElement) {
+  render() {
     const { size, move, bar } = this;
 
     return h(

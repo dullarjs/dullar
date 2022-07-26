@@ -1,9 +1,9 @@
-import Vue from "vue"
 import myNotice from "./notification.vue"
+import { ComponentPublicInstance, createVNode, render } from "vue";
 const instances:any[] = [];
 let seed = 0;
 // 继承
-const noticeConstructor = Vue.extend(myNotice);
+// const noticeConstructor = Vue.extend(myNotice);
 const oncloseNotice = function(args: string) {
   let removedHeight = 0;
   let index = -1;
@@ -23,16 +23,15 @@ const oncloseNotice = function(args: string) {
 const Notification = function(options: any) {
 //   const { message, type, center } = options;
   // 实例化
-  const instance = new noticeConstructor({
-    el: document.createElement("div"),
-    propsData: options
-  });
+  const container = document.createElement('div')
+  const instance = createVNode(myNotice, options, []);
+  render(instance, container)
   const id = "notice-" + seed++;
   (instance as any).onClose = function () {
     oncloseNotice(id);
   }
   // 实例展示到页面
-  document.body.appendChild(instance.$el);
+  document.body.appendChild(container.firstElementChild!);
 //   // center：布尔类型 是否居中 （非必传 默认不居中）
 //   (instance as any).center = center;
 //   // type：字符串 提示类型（非必传 默认消息提示）
@@ -46,10 +45,10 @@ const Notification = function(options: any) {
       }
     })   
   }
-  (instance as any).id = id;
-  (instance as any).top = noticeTop;
+  (instance.component!.proxy as ComponentPublicInstance<{ id: string }>).id = id;
+  (instance.component!.proxy as ComponentPublicInstance<{ top: number }>).top = noticeTop;
   // 每一次的实例保存起来 （渲染页面不重叠）
-  (instance as any).visable = true;
+  (instance.component!.proxy as ComponentPublicInstance<{ visable: boolean }>).visable = true;
   instances.push(instance);
   return instance;
 }

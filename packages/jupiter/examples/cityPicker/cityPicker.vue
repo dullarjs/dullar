@@ -49,7 +49,7 @@
           :searchable="false"
           @pick="handlePick"
           v-model="picker4"
-          :limitedData="data.cnCitiesList"
+          :limitedData="hotCityData.cnCitiesList"
           limited
         ></Yn-city-picker>
       </li>
@@ -59,7 +59,7 @@
           :defalutCityName="defalutCityName9"
           @pick="handlePick"
           v-model="picker9"
-          :limitedData="data.cnCitiesList"
+          :limitedData="hotCityData.cnCitiesList"
           :search="getSearch()"
           limited
         ></Yn-city-picker>
@@ -137,7 +137,7 @@
 import "./style/index.scss";
 import { Vue, Options } from "vue-class-component";
 import { AnyObject } from "../../src/types";
-const data = require("./ykb_hot_city.json").result;
+const hotCityData = require("./ykb_hot_city.json").result;
 const alphaBetData = require("./ykb_alphabat_city.json").result;
 @Options({
   name: "cityPickerPage"
@@ -146,7 +146,7 @@ export default class CityPickerPage extends Vue {
   currentNum = 1;
   keywords = "天津";
   alphaBetData: AnyObject = alphaBetData;
-  data: AnyObject = data;
+  hotCityData: AnyObject = hotCityData;
   defalutCityName1 = "";
   defalutCityName2 = "";
   defalutCityName3 = "";
@@ -213,7 +213,7 @@ export default class CityPickerPage extends Vue {
       //   reject("失败信息");
       // }, 1000);
       setTimeout(() => {
-        resolve(data);
+        resolve(hotCityData);
       }, 1000);
     }).catch(err => {
       // this.Toast(err);
@@ -263,7 +263,7 @@ export default class CityPickerPage extends Vue {
       // }, 1000);
       console.log(reject);
       setTimeout(() => {
-        resolve(data);
+        resolve(hotCityData);
       }, 1000);
     }).catch(err => {
       // this.Toast(err);
@@ -280,7 +280,7 @@ export default class CityPickerPage extends Vue {
       //   reject("失败信息");
       // }, 1000);
       setTimeout(() => {
-        resolve(data);
+        resolve(hotCityData);
       }, 1000);
     }).catch(err => {
       // this.Toast(err);

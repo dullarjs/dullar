@@ -5,7 +5,7 @@
       <span class="yn-dropdown-link">
         下拉菜单<i class="yn-icon-arrow-down yn-icon--right"></i>
       </span>
-      <yn-dropdown-menu slot="dropdown">
+      <yn-dropdown-menu #dropdown>
         <yn-dropdown-item v-for="(item, index) in options" :key="index"
           :value="item.value"
           :label="item.label"
@@ -18,7 +18,7 @@
       <span class="yn-dropdown-link">
         航空公司<i class="yn-icon-arrow-down yn-icon--right"></i>
       </span>
-      <yn-dropdown-menu slot="dropdown">
+      <yn-dropdown-menu #dropdown>
         <yn-dropdown-item v-for="(item, index) in flightComps" :key="index"
           :value="item.value"
           :label="item.label"

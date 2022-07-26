@@ -2,20 +2,22 @@
   <div class="dialog-page">
     <h3>基本用法</h3>
     <yn-button type="text" @click="dialogVisible1 = true">点击打开 Dialog</yn-button>
-    <Yn-dialog :visible.sync="dialogVisible1" confirmBtnName="提交行程">
+    <Yn-dialog v-model:visible="dialogVisible1" confirmBtnName="提交行程">
     </Yn-dialog>
     <h3>自定义底部按钮</h3>
     <yn-button type="text" @click="dialogVisible2 = true">点击打开 Dialog</yn-button>
-    <Yn-dialog :visible.sync="dialogVisible2" title="自定义">
+    <Yn-dialog v-model:visible="dialogVisible2" title="自定义">
       <div class="dialog-content"></div>
-      <span slot="footer">
-        <yn-button size="small" @click="dialogVisible2 = false">关闭</yn-button>
-        <yn-button size="small" type="primary" @click="dialogVisible2 = false">确定</yn-button>
-      </span>
+      <template #footer>
+        <span >
+          <yn-button size="small" @click="dialogVisible2 = false">关闭</yn-button>
+          <yn-button size="small" type="primary" @click="dialogVisible2 = false">确定</yn-button>
+        </span>
+      </template>
     </Yn-dialog>
     <h3>body不滑动，内部元素滑动</h3>
     <yn-button type="text" @click="dialogVisible3 = true">点击打开 Dialog</yn-button>
-    <Yn-dialog :visible.sync="dialogVisible3" :bodyOverflowY="false">
+    <Yn-dialog v-model:visible="dialogVisible3" :bodyOverflowY="false">
       <div class="content">
         <p>人员列表</p>
         <div class="user-list">
@@ -27,13 +29,15 @@
     </Yn-dialog>
     <h3>嵌套的Dialog</h3>
     <yn-button size="small" type="text" @click="outerVisible = true">点击打开外层Dialog</yn-button>
-    <Yn-dialog :visible.sync="outerVisible" title="外层Dialog">
-      <Yn-dialog :visible.sync="innerVisible" title="内层Dialog">
+    <Yn-dialog v-model:visible="outerVisible" title="外层Dialog">
+      <Yn-dialog v-model:visible="innerVisible" title="内层Dialog">
       </Yn-dialog>
-      <span slot="footer">
-        <yn-button size="small" @click="outerVisible = false">取消</yn-button>
-        <yn-button size="small" type="primary" @click="innerVisible = true">打开内侧Dialog</yn-button>
-      </span>
+      <template #footer>
+        <span>
+          <yn-button size="small" @click="outerVisible = false">取消</yn-button>
+          <yn-button size="small" type="primary" @click="innerVisible = true">打开内侧Dialog</yn-button>
+        </span>
+      </template>
     </Yn-dialog>
   </div>
 </template>

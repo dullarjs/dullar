@@ -4,15 +4,15 @@
  * @Last Modified by:   Just be free
  * @Last Modified time: 2020-12-25 17:10:52
  */
-import Vue, { CreateElement } from "vue";
+import { h } from "vue";
 import "./style.scss";
 import common from "../common";
-import { Mixins, Component } from "vue-class-component";
+import { Vue, mixins, Options } from "vue-class-component";
 @Options({
   name: "Snake"
 })
-export default class Sname extends Mixins(Vue, common) {
-  render(h: CreateElement) {
+export default class Sname extends mixins(Vue, common) {
+  render() {
     return h(
       "div",
       {

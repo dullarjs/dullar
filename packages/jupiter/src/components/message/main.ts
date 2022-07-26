@@ -1,5 +1,6 @@
 import { AnyObject, Callback } from "@/types";
 import MsgVue from "./message.vue";
+import { createApp, ComponentPublicInstance } from "vue";
 
 const msgQueue: AnyObject[] = [];
 let seed = 1;
@@ -32,21 +33,23 @@ const message = function(option: AnyObject) {
   option.onClose = function() {
     close(id, userOnClose);
   };
-  const instance = new MsgVue({
-    el: document.createElement("div")
-  });
-  instance.id = id;
+  const div = document.createElement("div");
+  // const instance = new MsgVue({
+  //   el: document.createElement("div")
+  // });
+  const instance = createApp(MsgVue).mount(div);
+  (instance as ComponentPublicInstance<{ id: string }>).id = id;
   Object.keys(option).forEach(prop => {
-    instance[prop] = option[prop];
+    (instance as ComponentPublicInstance<{ [key: string]: any }>)[prop] = option[prop];
   });
   
-  let verticalHeight = instance.offset;
+  let verticalHeight = (instance as ComponentPublicInstance<{ offset: number }>).offset;
   msgQueue.forEach(ins => {
     verticalHeight += ins.$el.getBoundingClientRect().height + 15;
   });
-  instance.offset = verticalHeight;
+  (instance as ComponentPublicInstance<{ offset: number }>).offset = verticalHeight;
   document.body.appendChild(instance.$el);
-  instance.visible = true;
+  (instance as ComponentPublicInstance<{ visible: boolean }>).visible = true;
   msgQueue.push(instance);
 
 }

@@ -7,22 +7,13 @@
  */
 
 import YnIndicator from "./indicator";
-import { extend } from "../mixins/rendered";
+import { ComponentPublicInstance, createVNode, render, VNode } from "vue";
 import { AnyObject } from "@/types/index.js";
-const IndicatorConstructor = extend(YnIndicator);
-let instance!: AnyObject;
+let instance!: VNode;
 export default {
   bodyOverflow: "",
   lockScreen: false,
   open(options: AnyObject = {}) {
-    if (!instance) {
-      instance = new IndicatorConstructor({
-        el: document.createElement("div"),
-      });
-    }
-    if (instance.visible) {
-      return false;
-    }
     const {
       lockScreen,
       transparent = true,
@@ -31,28 +22,35 @@ export default {
       background,
       size = 40,
     } = options;
+    const props = {
+      background,
+      size,
+      transparent,
+      spinType,
+      spinColor,
+      text: typeof options === "string" ? options : options.text || ""
+    };
+    const container = document.createElement('div')
+    instance = createVNode(YnIndicator, props, []);
+    render(instance, container)
+    if ((instance.component!.proxy as ComponentPublicInstance<{ visible: boolean }>).visible) {
+      return false;
+    }
+    
     this.lockScreen = lockScreen;
-    instance.text = typeof options === "string" ? options : options.text || "";
-    instance.spinType = spinType;
-    instance.spinColor = spinColor;
-    instance.background = background;
-    instance.size = size;
-    instance.transparent = transparent;
     if (lockScreen) {
       this.bodyOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
     }
-    document.body.appendChild(instance.$el);
-    instance.rendered(() => {
-      instance.visible = true;
-    });
+    document.body.appendChild(container.firstElementChild!);
+    (instance.component!.proxy as ComponentPublicInstance<{ visible: boolean }>).visible = true;
   },
   close() {
     if (instance) {
       if (this.lockScreen) {
         document.body.style.overflow = this.bodyOverflow;
       }
-      instance.visible = false;
+      (instance.component!.proxy as ComponentPublicInstance<{ visible: boolean }>).visible = false;
     }
   }
 }

@@ -1,4 +1,5 @@
 import Vue, { VNode } from 'vue'
+import { AnyObject } from './types';
 
 declare global {
   namespace JSX {
@@ -11,8 +12,11 @@ declare global {
     }
   }
 }
-declare module 'vue/types/vue'{
-  interface Vue{
-    [propName: string]: any;
+declare module "@vue/runtime-core" { 
+  interface ComponentCustomProperties { 
+    Message: (args: AnyObject) => void,
+    Msgbox: (args: AnyObject) => Promise,
+    Notification: (args: AnyObject) => void,
+    Indicator: (args: AnyObject) => void
   }
 }

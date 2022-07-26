@@ -31,7 +31,7 @@
 </template>
 <script type="text/javascript">
 export default {
-  name: "Content",
+  name: "expContent",
   data() {
     return {
       routes: [

@@ -13,10 +13,10 @@ import "normalize.css";
 import "@/theme/global.scss";
 import svgs from "./iconfont/svgs";
 
-import Mars from "../src/index";
-Mars.config({ YnIconfont: { svgs, svgPrefix: "icon" } });
+import Jupiter from "@";
+Jupiter.config({ YnIconfont: { svgs, svgPrefix: "icon" } });
 
 const app = createApp(App);
 app.use(router);
-app.use(Mars);
+app.use(Jupiter);
 app.mount("#example");

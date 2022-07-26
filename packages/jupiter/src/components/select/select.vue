@@ -36,7 +36,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Options, Prop, Watch, Mixins  } from "vue-class-component";
+import { Vue, Options, prop, mixins  } from "vue-class-component";
 import "./style/index.scss";
 import { AnyObject } from "../../types";
 import field from "@/components/field";
@@ -44,7 +44,12 @@ import selectDropdown from "./selectDropdown.vue";
 import scrollbar from "@/components/scrollbar";
 import { valueEquals } from "@/utils";
 import Clickoutside from '@/utils/clickoutside.js';
-import Emitter from "@/components/mixins/emitter";
+class Props {
+  value = prop<number | string>({ default: "" })
+  placeholder = prop<string>({ default: "" })
+  disabled = prop<boolean>({ default: false })
+  size = prop<string>({ default: "medium" })
+}
 @Options({
   name: "YnSelect",
   components: {
@@ -57,9 +62,32 @@ import Emitter from "@/components/mixins/emitter";
       "select": this
     }
   },
-  directives: { Clickoutside }
+  directives: { Clickoutside },
+  watch: {
+    value() {
+      this.setSelected();
+    }
+    visible(n: boolean) {
+      if (n) {
+        this.iconRotate = 180;
+        // this.broadcast('YnSelectDropdown', 'updatePopper');
+        this.$refs.popper.updatePopper();
+      } else {
+        this.iconRotate = 0;
+      }
+    }
+    options() {
+      this.$nextTick(() => {
+        // this.broadcast('YnSelectDropdown', 'updatePopper');
+        if (this.visible) {
+          this.$refs.popper.updatePopper();
+        }
+      });
+      this.setSelected();
+    }
+  }
 })
-export default class Select extends Mixins(Vue, Emitter) {
+export default class Select extends mixins(Vue).with(Props) {
   static componentName = "YnSelect";
 
   optionsCount = 0;
@@ -73,53 +101,11 @@ export default class Select extends Mixins(Vue, Emitter) {
   inputWidth = "100%";
   iconRotate = 0;
 
-  @Prop({
-    type: [Number, String],
-    default: "",
-    required: true
-  })
-  value!: number | string;
-  @Prop({
-    type: String,
-    default: ""
-  })
-  placeholder!: string;
-  @Prop({
-    type: Boolean,
-    default: false
-  })
-  disabled!: boolean;
-  @Prop({
-    type: String,
-    default: "medium"
-  })
-  size!: string;
-
   get iconArrowClass (){
     return ["yn-select__caret"];
   }
   get readonly() {
     return true;
-  }
-  @Watch("value")
-  onValue() {
-    this.setSelected();
-  }
-  @Watch("visible")
-  onVisible(n: boolean) {
-    if (n) {
-      this.iconRotate = 180;
-      this.broadcast('YnSelectDropdown', 'updatePopper');
-    } else {
-      this.iconRotate = 0;
-    }
-  }
-  @Watch("options")
-  onOptions() {
-    this.$nextTick(() => {
-      this.broadcast('YnSelectDropdown', 'updatePopper');
-    });
-    this.setSelected();
   }
 
   emitChange(val: number | string) {
@@ -203,8 +189,8 @@ export default class Select extends Mixins(Vue, Emitter) {
       }
   }
   created() {
-    this.$on('handleOptionClick', this.handleOptionSelect);
-    this.$on('setSelected', this.setSelected);
+    // this.$on('handleOptionClick', this.handleOptionSelect);
+    // this.$on('setSelected', this.setSelected);
   }
   mounted() {
     this.$nextTick(() => {

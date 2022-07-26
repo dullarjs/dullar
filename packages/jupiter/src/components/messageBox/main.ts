@@ -1,7 +1,8 @@
 import msgboxVue from "./messageBox.vue";
 import { AnyObject } from "@/types";
+import { nextTick  } from "vue";
 
-let instance: msgboxVue, currentMsg: AnyObject;
+let instance: AnyObject, currentMsg: AnyObject;
 const defaultCallback = (action: string) => {
   const { option, resolve, reject } = currentMsg;
   const { callback } = option;
@@ -40,7 +41,7 @@ const showNextMsg = () => {
   // };
 
   document.body.appendChild(instance.$el);
-  Vue.nextTick(() => {
+  nextTick(() => {
     instance.visible = true;
   });
 }

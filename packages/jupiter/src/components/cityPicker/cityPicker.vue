@@ -116,84 +116,28 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Options, Mixins, Prop, Watch } from "vue-class-component";
+import { Vue, Options, mixins, prop } from "vue-class-component";
 import "./style/index.scss";
 import { AnyObject } from "@/types";
 import { isPromise, throttle } from "@/utils";
 import { EventBus } from "@/utils/eventBus";
 import Spin from "../spin";
 import Popover from "../popover";
-@Options({
-  name: "CityPicker",
-  components: {
-    Popover,
-    Spin
-  }
-})
-export default class CityPicker extends Mixins(Vue) {
-  static componentName = "YnCityPicker";
-  throttleSearch!: (args: InputEvent) => void;
-  currentTab = "";
-  selecteDalphabetTab = "";
-  popoverVisible = false;
-  pickerWidth = 200;
-  cachedAlphaBeta: AnyObject = {};
-  alphaBetaCities: AnyObject = {};
-  hotCityList: AnyObject[] = [];
-  historyList: AnyObject[] = [];
-  searchList: AnyObject[] = [];
-  historyLoading = false;
-  alphaBetaLoading = false;
-  hotCityLoading = false;
-  isSearching = false;
-  keywords = "";
-  @Prop({
-    type: String,
-    default: ""
-  })
-  defalutCityName!: string;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  searchable!: boolean;
-  @Prop({
-    type: Array,
-    default: () => {
-      return [];
-    },
-  })
-  limitedData!: AnyObject[];
-  @Prop({
-    type: Boolean,
-    default: false
-  })
-  limited!: boolean;
-  @Prop({
-    type: Boolean,
-    default: false
-  })
-  showHistory!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  showHotCity!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  showAlphaBeta!: boolean;
-  @Prop({
-    type: Function,
-    default: (city: AnyObject, nameSpace: string) => {
-      if (!nameSpace) nameSpace = "";
+class Props {
+  defalutCityName = prop<string>({ default: "" })
+  searchable = prop<boolean>({ default: true })
+  limitedData = prop<Array<AnyObject>>({ default: [] })
+  limited = prop<boolean>({ default: false })
+  showHistory = prop<boolean>({ default: false })
+  showHotCity = prop<boolean>({ default: true })
+  showAlphaBeta = prop<boolean>({ default: true })
+  parse = prop<(city: AnyObject, nameSpace: string) => string>({
+    default: (city: AnyObject, nameSpace?: string) => {
+      // if (!nameSpace) nameSpace = "";
       return `<span>${city.CityName}</span>`;
-    },
+    }
   })
-  parse!: (city: AnyObject, nameSpace: string) => string;
-  @Prop({
-    type: Object,
+  search = prop<AnyObject>({
     default: () => {
       return {
         params: {},
@@ -206,9 +150,7 @@ export default class CityPicker extends Mixins(Vue) {
       };
     }
   })
-  search!: AnyObject;
-  @Prop({
-    type: Object,
+  history = prop<AnyObject>({
     default: () => {
       return {
         params: {},
@@ -222,9 +164,7 @@ export default class CityPicker extends Mixins(Vue) {
       };
     }
   })
-  history!: AnyObject;
-  @Prop({
-    type: Object,
+  hotCity = prop<AnyObject>({
     default: () => {
       return {
         params: {},
@@ -238,9 +178,7 @@ export default class CityPicker extends Mixins(Vue) {
       };
     }
   })
-  hotCity!: AnyObject;
-  @Prop({
-    type: Object,
+  alphaBeta = prop<AnyObject>({
     default: () => {
       return {
         params: {},
@@ -254,19 +192,15 @@ export default class CityPicker extends Mixins(Vue) {
       };
     }
   })
-  alphaBeta!: AnyObject;
-  @Prop({
-    type: Array,
+  tabs = prop<AnyObject[]>({
     default: () => {
       return [
         { label: "国内城市", key: "mainland-china" },
         { label: "国际/港澳台", key: "overseas" },
       ];
-    },
+    }
   })
-  tabs!: AnyObject[];
-  @Prop({
-    type: Array,
+  alphabetTabs = prop<AnyObject[]>({
     default() {
       return [
         {
@@ -292,18 +226,43 @@ export default class CityPicker extends Mixins(Vue) {
       ];
     }
   })
-  alphabetTabs!: AnyObject[];
-
-  @Watch("tabs", {
-    immediate: true
-  })
-  onTabs() {
-    this.tabs.forEach((tab, index) => {
-      if (index === 0) {
-        this.currentTab = tab.key;
+}
+@Options({
+  name: "CityPicker",
+  components: {
+    Popover,
+    Spin
+  },
+  watch: {
+    tabs: {
+      immediate: true,
+      handler() {
+        this.tabs.forEach((tab: AnyObject, index: number) => {
+          if (index === 0) {
+            this.currentTab = tab.key;
+          }
+        });
       }
-    });
+    }
   }
+})
+export default class CityPicker extends mixins(Vue).with(Props) {
+  static componentName = "YnCityPicker";
+  throttleSearch!: (args: InputEvent) => void;
+  currentTab = "";
+  selecteDalphabetTab = "";
+  popoverVisible = false;
+  pickerWidth = 200;
+  cachedAlphaBeta: AnyObject = {};
+  alphaBetaCities: AnyObject = {};
+  hotCityList: AnyObject[] = [];
+  historyList: AnyObject[] = [];
+  searchList: AnyObject[] = [];
+  historyLoading = false;
+  alphaBetaLoading = false;
+  hotCityLoading = false;
+  isSearching = false;
+  keywords = "";
 
   get inputValue() {
     if (this.isSearching) {
@@ -520,7 +479,7 @@ export default class CityPicker extends Mixins(Vue) {
     }
   }
   resize() {
-    EventBus.$on("window:resize", () => {
+    EventBus.on("window:resize", () => {
       this.resizeEventHandler();
     });
   }

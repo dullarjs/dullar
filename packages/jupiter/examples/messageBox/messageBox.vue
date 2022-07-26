@@ -17,14 +17,15 @@ import { AnyObject } from "@/types";
 export default class MessageBoxPage extends Vue {
   open() {
     // this.dialogVisible = true;
-    this.$msgbox({
+    console.log("messageBoxPage open this:", this);
+    this.Msgbox({
       title: "消息",
       message: "我是msgbox"
     })
   }
   open1() {
     // this.dialogVisible = true;
-    this.$msgbox({
+    this.Msgbox({
       title: "消息",
       message: "我是msgbox",
       beforeClose: (action: string, ins: AnyObject, done: () => void) => {

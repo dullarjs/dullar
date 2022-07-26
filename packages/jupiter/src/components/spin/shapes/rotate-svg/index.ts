@@ -5,16 +5,16 @@
  * @Last Modified time: 2020-08-10 11:34:41
  * @E-mail: justbefree@126.com
  */
-import Vue, { CreateElement } from "vue";
+import { h } from "vue";
 import "./style.scss";
 import common from "../common";
-import { Mixins, Component } from "vue-class-component";
+import { Vue, mixins, Options } from "vue-class-component";
 const svgIcon = require("./images/loading.svg");
 @Options({
   name: "rotateSvg"
 })
-export default class rotateSvg extends Mixins(Vue, common) {
-  render(h: CreateElement) {
+export default class rotateSvg extends mixins(Vue, common) {
+  render() {
     return h(
       "div",
       {

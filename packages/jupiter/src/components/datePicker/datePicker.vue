@@ -52,11 +52,20 @@
         <span class="yn-date-picker--toWeekDes">{{ weekDesParse(displayValue[1]) }}</span>
       </div>
     </template>
+    <component
+      :is="getPanel"
+      ref="pickerPanel"
+      @dodestroy="doDestroy"
+      @pick="pickHanler"
+      @selecting="selectingHandler"
+      @mouseMoving="mouseMovingHandler"
+      @mouseMoveEnd="mouseMoveEndHandler"
+    ></component>
   </div>
 </template>
 <script lang="ts">
 import "./style/index.scss";
-import { Vue, Options } from "vue-class-component";
+import { Vue, Options, prop, mixins } from "vue-class-component";
 import { YnDate } from "@/components/modules/date";
 import DatePanel from './panel/date.vue';
 import DateRangePanel from './panel/date-range.vue';
@@ -65,6 +74,31 @@ import Popper from '@/utils/vue-popper';
 import Field from "@/components/field";
 import Clickoutside from '@/utils/clickoutside.js';
 import { formatDate, isDate, clearTime, diff } from "@/utils/date-util.js";
+import { ComponentPublicInstance } from "vue";
+class Props {
+  value = prop<boolean>({ default: false })
+  mode = prop<string>({ default: "single" })
+  doubleModeAllowSameDate = prop<boolean>({ default: true })
+  crossed = prop<boolean>({ default: true })
+  before = prop<number | string>({ default: 1 })
+  after = prop<number | string>({ default: 1 })
+  unit = prop<string>({ default: "days" })
+  weekText = prop<Array<string>>({
+    default: () => {
+      return ["日", "一", "二", "三", "四", "五", "六"];
+    }
+  })
+  defaultDate = prop<string>({ default: YnDate().format() })
+  defaultStartDate = prop<string>({ default: YnDate().format() })
+  defaultEndDate = prop<string>({ default: YnDate().add(1, "day").format() })
+  fromDateMark = prop<string>({ default: "入住" })
+  toDateMark = prop<string>({ default: "离店" })
+  todayMark = prop<string>({ default: "今天" })
+  diffUnit = prop<string>({ default: "晚" })
+  dateRefenceWidth = prop<string>({ default: "100%" })
+  size = prop<string>({ default: "medium" })
+  roundType = prop<string>({ default: "" })
+}
 @Options({
   name: "DatePicker",
   components: {
@@ -73,128 +107,86 @@ import { formatDate, isDate, clearTime, diff } from "@/utils/date-util.js";
   props: {
     placement: {
       default: "bottom-start"
-    }
-  },
-  directives: { Clickoutside }
-})
-export default class YnDatePicker extends Mixins(Vue, Popper) {
-  static componentName = "YnDatePicker";
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  value!: boolean;
-  @Prop({
-    type: String,
-    default: "single",
-  })
-  mode!: string;
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  doubleModeAllowSameDate!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  crossed!: boolean;
-  @Prop({
-    type: [Number, String],
-    default: 1,
-  })
-  before!: number | string;
-  @Prop({
-    type: [Number, String],
-    default: 1,
-  })
-  after!: number | string;
-  @Prop({
-    type: String,
-    default: "days",
-  })
-  unit!: string;
-  @Prop({
-    type: Array,
-    default: () => {
-      return ["日", "一", "二", "三", "四", "五", "六"];
     },
-  })
-  weekText!: string[];
-  @Prop({
-    type: String,
-    default: YnDate().format(),
-  })
-  defaultDate!: string;
-  @Prop({
-    type: String,
-    default: YnDate().format(),
-  })
-  defaultStartDate!: string;
-  @Prop({
-    type: String,
-    default: YnDate().add(1, "day").format(),
-  })
-  defaultEndDate!: string;
-  @Prop({
-    type: String,
-    default: "入住",
-  })
-  fromDateMark!: string;
-  @Prop({
-    type: String,
-    default: "离店",
-  })
-  toDateMark!: string;
-  @Prop({
-    type: String,
-    default: "今天",
-  })
-  todayMark!: string;
-  @Prop({
-    type: Function,
-    default: (date: string) => {
-      if (!date) {
-        return "";
-      } else {
-        const now = clearTime(new Date());
-        const dateObj = new Date(date);
-        const week = dateObj.getDay();
-        const weekText = [
-          "周日",
-          "周一",
-          "周二",
-          "周三",
-          "周四",
-          "周五",
-          "周六",
-        ];
-        return now.getTime() === clearTime(dateObj).getTime() ? "今天" : weekText[week];
+    weekDesParse: {
+      default(date: string) {
+        if (!date) {
+          return "";
+        } else {
+          const now = clearTime(new Date());
+          const dateObj = new Date(date);
+          const week = dateObj.getDay();
+          const weekText = [
+            "周日",
+            "周一",
+            "周二",
+            "周三",
+            "周四",
+            "周五",
+            "周六",
+          ];
+          return now.getTime() === clearTime(dateObj).getTime() ? "今天" : weekText[week];
+        }
       }
     }
-  })
-  weekDesParse!: Callback;
-  @Prop({
-    type: String,
-    default: "晚"
-  })
-  diffUnit!: string
-  @Prop({
-    type: String,
-    default: "100%"
-  })
-  dateRefenceWidth!: string;
-  @Prop({
-    type: String,
-    default: "medium"
-  })
-  size!: string;
-  @Prop({
-    type: String,
-    default: ""
-  })
-  roundType!: string;
+  },
+  directives: { Clickoutside },
+  watch: {
+    mode() {
+      if (this.mode === "single") {
+        this.dateValue = this.defaultDate;
+      } else {
+        this.dateValue = [this.defaultStartDate, this.defaultEndDate];
+      }
+      if (this.picker) {
+        this.unmountPicker();
+        this.panel = this.getPanel(this.mode);
+        this.mountPicker();
+      } else {
+        this.panel = this.getPanel(this.mode);
+      }
+    }
+    value(n) {
+      if (n) {
+        this.showPicker()
+      }
+    }
+    defaultDate: {
+      immediate: true,
+      handler(val: string) {
+        this.dateValue = val;
+        if (this.picker) {
+          this.picker.defaultValue = new Date(val);
+        }
+      }
+    }
+    defaulStartDate: {
+      immediate: true,
+      handler(val: string) {
+        if (this.mode === "single") return;
+        this.dateValue = [new Date(val), new Date(this.defaultEndDate)];
+        if (this.picker) {
+          this.picker.defaultValue = [new Date(val), new Date(this.defaultEndDate)];
+        }
+      }
+    }
+    defaultEndDate: {
+      immediate: true,
+      handler(val: string) {
+        if (this.mode === "single") return;
+        this.dateValue = [new Date(this.defaultStartDate), new Date(val)];
+        if (this.picker) {
+          this.picker.defaultValue = [new Date(this.defaultStartDate), new Date(val)];
+        }
+      }
+    }
+  }
+})
+export default class YnDatePicker extends mixins(Vue, Popper).with(Props) {
+  static componentName = "YnDatePicker";
 
+  arrowControl = false;
+  picker!: ComponentPublicInstance;
   mouseMoveDate: string | Date = ""; // 鼠标在可行日期上移动得到的日期
   isMouseMoving = false; // 鼠标是否在 可行日期上移动
   selecting = false; // 是否日期选择中，默认一进来为 false
@@ -267,61 +259,11 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
       }
     }
   }
-  @Watch("mode")
-  onMode() {
-    if (this.mode === "single") {
-      this.dateValue = this.defaultDate;
-    } else {
-      this.dateValue = [this.defaultStartDate, this.defaultEndDate];
-    }
-    if (this.picker) {
-      this.unmountPicker();
-      this.panel = this.getPanel(this.mode);
-      this.mountPicker();
-    } else {
-      this.panel = this.getPanel(this.mode);
-    }
-  }
-  @Watch("value")
-  onValue(n: boolean) {
-    if (n) {
-      this.showPicker()
-    }
-  }
-  @Watch("defaultDate", {
-    immediate: true
-  })
-  onDefaultDate(val: string) {
-    this.dateValue = val;
-    if (this.picker) {
-      this.picker.defaultValue = new Date(val);
-    }
-  }
-  @Watch("defaulStartDate", {
-    immediate: true
-  })
-  onDefaultStartDate(val: string) {
-    if (this.mode === "single") return;
-    this.dateValue = [new Date(val), new Date(this.defaultEndDate)];
-    if (this.picker) {
-      this.picker.defaultValue = [new Date(val), new Date(this.defaultEndDate)];
-    }
-  }
-  @Watch("defaultEndDate", {
-    immediate: true
-  })
-  onDefaultEndDate(val: string) {
-    if (this.mode === "single") return;
-    this.dateValue = [new Date(this.defaultStartDate), new Date(val)];
-    if (this.picker) {
-      this.picker.defaultValue = [new Date(this.defaultStartDate), new Date(val)];
-    }
-  }
 
   handleDateSelecting() {
     this.selecting = false;
     if (this.picker) {
-      this.picker.rangeState.selecting = this.selecting;
+      (this.picker as ComponentPublicInstance<{ rangeState: AnyObject }>).rangeState.selecting = this.selecting;
     }
   }
   handleClick() {
@@ -340,7 +282,7 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
   hidePicker() {
     if (this.picker) {
       this.$emit("input", false);
-      this.picker.visible = false;
+      (this.picker as ComponentPublicInstance<{ visible: boolean }>).visible = false;
       // this.destroyPopper();
     }
   }
@@ -349,84 +291,81 @@ export default class YnDatePicker extends Mixins(Vue, Popper) {
       this.mountPicker();
     }
     this.visibleArrowData = false;
-    this.picker.visible = true;
+    (this.picker as ComponentPublicInstance<{ visible: boolean }>).visible = true;
     this.updatePopper();
-    this.picker.value = this.dateValue;
+    (this.picker as ComponentPublicInstance<{ value: string | string[] | Date | Date[] }>).value = this.dateValue;
   }
 
   mountPicker() {
-    this.picker = new Vue(this.panel).$mount();
+    // this.picker = new Vue(this.panel).$mount();
+    this.picker = this.$refs.pickPanel as ComponentPublicInstance;
     if (this.mode === "single") {
-      this.picker.defaultValue = new Date(this.defaultDate);
+      (this.picker as ComponentPublicInstance<{ defaultValue: Date }>).defaultValue = new Date(this.defaultDate);
     } else {
-      this.picker.defaultValue = [new Date(this.defaultStartDate), new Date(this.defaultEndDate)];
+      (this.picker as ComponentPublicInstance<{ defaultValue: Date[] }>).defaultValue = [new Date(this.defaultStartDate), new Date(this.defaultEndDate)];
     }
     this.popperElm = this.picker.$el;
-    this.picker.width = (this.reference as HTMLElement).getBoundingClientRect().width;
-    this.picker.arrowControl = this.arrowControl || this.timeArrowControl || false;
-    this.picker.selectionMode = this.mode === "single" ? "day" : "range";
-    this.picker.before = this.before;
-    this.picker.after = this.after;
-    this.picker.doubleModeAllowSameDate = this.doubleModeAllowSameDate;
+    (this.picker as ComponentPublicInstance<{ width: number }>).width = (this.reference as HTMLElement).getBoundingClientRect().width;
+    (this.picker as ComponentPublicInstance<{ arrowControl: boolean }>).arrowControl = this.arrowControl || false;
+    (this.picker as ComponentPublicInstance<{ selectionMode: string }>).selectionMode = this.mode === "single" ? "day" : "range";
+    (this.picker as ComponentPublicInstance<{ before: number | string }>).before = this.before;
+    (this.picker as ComponentPublicInstance<{ after: number | string }>).after = this.after;
+    (this.picker as ComponentPublicInstance<{ doubleModeAllowSameDate: boolean }>).doubleModeAllowSameDate = this.doubleModeAllowSameDate;
 
     // this.$el.appendChild(this.picker.$el);
-    this.picker.resetView && this.picker.resetView();
-
-    this.picker.$on('dodestroy', this.doDestroy);
-    this.picker.$on('pick', (date = '', visible = false) => {
-      this.dateValue = date;
-      this.picker.visible = visible;
-      this.$emit("input", visible);
-      const dateWrap: AnyObject = {
-        date: {},
-        fromDate: {},
-        toDate: {}
-      };
-      if (this.mode === "single") {
-        dateWrap.date.date = formatDate(date);
+    // this.picker.resetView && this.picker.resetView();
+  }
+  mouseMoveEndHandler() {
+    this.isMouseMoving = false;
+  }
+  mouseMovingHandler(option: AnyObject) {
+    const { date } = option;
+    this.isMouseMoving = true;
+    this.mouseMoveDate = date;
+  }
+  selectingHandler(date = [], selecting: true) {
+    const [minDate, maxDate] = date;
+    if (!this.selecting) {
+      // 选择的是 开始日期
+      if (Array.isArray(this.dateValue)) {
+        this.dateValue.splice(0, 1, minDate);
       } else {
-        dateWrap.fromDate.date = isDate(date[0]) ? formatDate(date[0]) : "";
-        dateWrap.toDate.date = isDate(date[1]) ? formatDate(date[1]) : "";
+        this.dateValue = [minDate, new Date()];
       }
-      console.log("this.dateWrap:", dateWrap);
-      // this.picker.resetView && this.picker.resetView();
-      this.$emit("getDate", dateWrap);
-    });
-    this.picker.$on("selecting", (date = [], selecting: true) => {
-      const [minDate, maxDate] = date;
-      if (!this.selecting) {
-        // 选择的是 开始日期
-        if (Array.isArray(this.dateValue)) {
-          this.dateValue.splice(0, 1, minDate);
-        } else {
-          this.dateValue = [minDate, new Date()];
-        }
-      } else {
-        Array.isArray(this.dateValue) && this.dateValue.splice(1, 1, maxDate);
-      }
-      this.selecting = selecting;
-      const dateWrap: AnyObject = {
-        date: {},
-        fromDate: {},
-        toDate: {}
-      };
+    } else {
+      Array.isArray(this.dateValue) && this.dateValue.splice(1, 1, maxDate);
+    }
+    this.selecting = selecting;
+    const dateWrap: AnyObject = {
+      date: {},
+      fromDate: {},
+      toDate: {}
+    };
+    dateWrap.fromDate.date = isDate(date[0]) ? formatDate(date[0]) : "";
+    dateWrap.toDate.date = isDate(date[1]) ? formatDate(date[1]) : "";
+    this.$emit("selecting", dateWrap);
+  }
+  pickHanler(date = '', visible = false) {
+    this.dateValue = date;
+    (this.picker as ComponentPublicInstance<{ visible: boolean }>).visible = visible;
+    this.$emit("input", visible);
+    const dateWrap: AnyObject = {
+      date: {},
+      fromDate: {},
+      toDate: {}
+    };
+    if (this.mode === "single") {
+      dateWrap.date.date = formatDate(date);
+    } else {
       dateWrap.fromDate.date = isDate(date[0]) ? formatDate(date[0]) : "";
       dateWrap.toDate.date = isDate(date[1]) ? formatDate(date[1]) : "";
-      this.$emit("selecting", dateWrap);
-    });
-    this.picker.$on("mouseMoving", (option: AnyObject) => {
-      const { date } = option;
-      this.isMouseMoving = true;
-      this.mouseMoveDate = date;
-    });
-    this.picker.$on("mouseMovEnd", () => {
-      this.isMouseMoving = false;
-    });
+    }
+    console.log("this.dateWrap:", dateWrap);
+    // this.picker.resetView && this.picker.resetView();
+    this.$emit("getDate", dateWrap);
   }
   unmountPicker() {
     if (this.picker) {
-      this.picker.$destroy();
-      this.picker.$off();
       this.picker.$el.parentNode.removeChild(this.picker.$el);
     }
   }

@@ -1,18 +1,27 @@
-// reference https://github.com/noeldelgado/gemini-scrollbar/blob/master/index.js
 
 import scrollbarWidth from '@/utils/scrollbar-width';
 import { toObject } from '@/utils';
 import Bar from './bar';
-import Vue, { CreateElement } from 'vue';
-import { Vue, Options, Prop } from 'vue-class-component';
+import { h, Slot } from 'vue';
+import { Vue, Options, prop, mixins } from 'vue-class-component';
 import { AnyObject } from '@/types';
 import "./style/index.scss";
-
+class Props {
+  native!: boolean
+  wrapStyle = prop<AnyObject | string>({ default: () => { return {}; } })
+  wrapClass = prop<AnyObject | string>({ default: () => { return {}; } })
+  viewClass = prop<AnyObject | string>({ default: () => { return {}; } })
+  viewStyle = prop<AnyObject | string>({ default: () => { return {}; } })
+  noresize = prop<boolean>({ default: false })
+  tag = prop<string>({ default: "div" })
+}
 @Options({
   name: "YnScrollbar",
-  components: { Bar }
+  components: {
+    Bar
+  }
 })
-export default class  Scrollbar extends Vue{
+export default class  Scrollbar extends mixins(Vue).with(Props){
   static componentName = "YnScrollbar";
   sizeWidth = '0';
   sizeHeight = '0';
@@ -20,53 +29,11 @@ export default class  Scrollbar extends Vue{
   moveY = 0;
   domRect!: DOMRect;
 
-  @Prop({
-    type: Boolean
-  })
-  native!: boolean;
-  @Prop({
-    type: Object,
-    default() {
-      return {};
-    }
-  })
-  wrapStyle!: AnyObject | string;
-  @Prop({
-    type: [Object, String],
-    default() {
-      return {};
-    }
-  })
-  wrapClass!: AnyObject | string;
-  @Prop({
-    type: [Object, String],
-    default() {
-      return {};
-    }
-  })
-  viewClass!: AnyObject | string;
-  @Prop({
-    type: [Object, String],
-    default() {
-      return {};
-    }
-  })
-  viewStyle!: AnyObject | string;
-  @Prop({
-    type: Boolean
-  })
-  noresize!: boolean; // 如果 container 尺寸不会发生变化，最好设置它可以优化性能
-  @Prop({
-    type: String,
-    default: "div"
-  })
-  tag!: string;
-
   get wrap() {
     return this.$refs.wrap;
   }
 
-  render(h: CreateElement) {
+  render() {
     const gutter = scrollbarWidth();
     let style = this.wrapStyle;
 
@@ -87,7 +54,7 @@ export default class  Scrollbar extends Vue{
       class: ['yn-scrollbar__view', this.viewClass],
       style: this.viewStyle,
       ref: 'resize'
-    }, this.$slots.default);
+    }, (this.$slots.default as Slot)());
     const wrap = h(
       "div",
       {
@@ -108,21 +75,20 @@ export default class  Scrollbar extends Vue{
         h(
           Bar,
           {
-            props: {
-              move: this.moveX,
-              size: this.sizeWidth
-            }
-          }
+            vertical: false,
+            move: this.moveX,
+            size: this.sizeWidth
+          },
+          []
         ),
         h(
           Bar,
           {
-            props: {
-              vertical: true,
-              move: this.moveY,
-              size: this.sizeHeight
-            } 
-          }
+            vertical: true,
+            move: this.moveY,
+            size: this.sizeHeight
+          },
+          []
         )
       ];
     } else {

@@ -21,7 +21,7 @@ export default class MessagePage extends Vue {
   open(option: AnyObject = {}) {
     // this.dialogVisible = true;
     option.message = "这是一条消息提示"
-    this.$message(option);
+    this.Message(option);
   }
 }
 </script>

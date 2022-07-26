@@ -20,18 +20,35 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Options, Mixins, Prop, Watch } from "vue-class-component";
-  import Emitter from "@/components/mixins/emitter";
+  import { Vue, Options, mixins, prop } from "vue-class-component";
   
   interface Dropdown {
     [propName: string]: any;
   }
-
+  class Props {
+    value = prop<number | string>({ default: "" })
+    label = prop<number | string>({ default: "" })
+    disabled = prop<boolean>({ default: false })
+    type = prop<string>({ default: "" })
+    checked = prop<boolean>({ default: false })
+  }
   @Options({
     name: 'ynOption',
-    inject: ['dropdown']
+    inject: ['dropdown'],
+    watch: {
+      currentLabel() {
+        // this.dispatch('YnSelect', 'setSelected');
+        this.dropdown.setSelected();
+      }
+      checked: {
+        immediate: true,
+        handler(n: boolean) {
+          this.isChecked = n;
+        }
+      }
+    }
   })
-  export default class DropdownItem extends Mixins(Vue, Emitter) {
+  export default class DropdownItem extends mixins(Vue).with(Props) {
     static componentName = 'YnDropdownItem';
     index = -1;
     visible = true;
@@ -39,32 +56,6 @@
     hover = false;
     dropdown!: Dropdown;
     isChecked = false;
-
-    @Prop({
-      type: [String, Number],
-      required: true
-    })
-    value!: number | string;
-    @Prop({
-      type: [String, Number],
-      required: true
-    })
-    label!: number | string;
-    @Prop({
-      type: Boolean,
-      default: false
-    })
-    disabled!: boolean;
-    @Prop({
-      type: String,
-      default: "" // checkbox
-    })
-    type!: string;
-    @Prop({
-      type: Boolean,
-      default: false
-    })
-    checked!: boolean;
 
     get isObject() {
       return Object.prototype.toString.call(this.value).toLowerCase() === '[object object]';
@@ -83,17 +74,6 @@
       }
     }
 
-    @Watch("currentLabel")
-    onCurrentLabel() {
-      this.dispatch('YnSelect', 'setSelected');
-    }
-    @Watch("checked", {
-      immediate: true
-    })
-    onChecked(n: boolean) {
-      this.isChecked = n;
-    }
-
     isEqual(a: number | string, b: number | string) {
       return a === b;
     }
@@ -107,7 +87,8 @@
     }
     selectOptionClick() {
       if (this.disabled !== true) {
-        this.dispatch('YnDropdown', 'handleOptionClick', this);
+        // this.dispatch('YnDropdown', 'handleOptionClick', this);
+        this.dropdown.handleOptionSelect();
       }
     }
 

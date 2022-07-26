@@ -7,13 +7,13 @@
 
 import "./style.scss";
 import common from "../common";
-import { Vue, Options, Mixins } from "vue-class-component";
-import { CreateElement } from "vue/types/umd";
+import { h } from "vue";
+import { Vue, Options, mixins } from "vue-class-component";
 @Options({
   name: "DoubleBounce"
 })
-export default class DoubleBounce extends Mixins(Vue, common){
-  render(h: CreateElement) {
+export default class DoubleBounce extends mixins(Vue, common){
+  render() {
     return h(
       "div",
       {

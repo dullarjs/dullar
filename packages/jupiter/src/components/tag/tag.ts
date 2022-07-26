@@ -1,5 +1,5 @@
 import Icon from "@/components/icon";
-import { h } from "vue";
+import { h, Slot } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 import "./style/index.scss";
 class Props {
@@ -34,18 +34,14 @@ export default class Tag extends mixins(Vue).with(Props){
       size ? `yn-tag--${size}` : '',
       hit && 'is-hit'
     ];
-    const children = this.$slots.default;
+    const children = (this.$slots.default as Slot)();
     if (this.closable) {
       const iconEl = h(
-        "icon",
+        Icon,
         {
           "class": ["yn-tag__close"],
-          props: {
-            name: "close"
-          },
-          nativeOn: {
-            click: this.handleClose
-          }
+          name: "close",
+          onClick: this.handleClose
         },
         []
       )

@@ -9,14 +9,20 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Options, Prop, Watch, Mixins  } from "vue-class-component";
+import { Vue, Options, prop, mixins } from "vue-class-component";
 import "./style/index.scss";
 import { AnyObject } from "../../types";
 import DropdownMenu from "./dropdownMenu.vue";
 import { valueEquals } from "@/utils";
 import Clickoutside from '@/utils/clickoutside.js';
-import Emitter from "@/components/mixins/emitter";
-import { VNode } from "vue";
+import { VNode, Slot } from "vue";
+class Props {
+  placement = prop<string>({ default: 'bottom' }) 
+  value = prop<number | string | (number | string)[]>({ default: "" })
+  placeholder = prop<string>({ default: "" })
+  disabled = prop<boolean>({ default: false })
+  multiple = prop<boolean>({ default: false })
+}
 @Options({
   name: "YnDropdown",
   components: {
@@ -27,9 +33,21 @@ import { VNode } from "vue";
       "dropdown": this
     }
   },
-  directives: { Clickoutside }
+  directives: { Clickoutside },
+  watch: {
+    value() {
+      this.setSelected();
+    }
+    options() {
+      this.setSelected();
+    }
+    visible(n: boolean) {
+      // this.broadcast('YnDropdownMenu', 'visible', n);
+      this.$emit("visible-change", n);
+    }
+  }
 })
-export default class Select extends Mixins(Vue, Emitter) {
+export default class Select extends mixins(Vue).with(Props) {
   static componentName = "YnDropdown";
 
   triggerElm!: HTMLElement;
@@ -43,49 +61,10 @@ export default class Select extends Mixins(Vue, Emitter) {
   currentPlaceholder = "";
   visible = false;
 
-  @Prop({
-    type: String,
-    default: 'bottom'
-  })
-  placement!: string; 
-  @Prop({
-    type: [Number, String, Array],
-    default: "",
-    required: true
-  })
-  value!: number | string | (number | string)[];
-  @Prop({
-    type: String,
-    default: ""
-  })
-  placeholder!: string;
-  @Prop({
-    type: Boolean,
-    default: false
-  })
-  disabled!: boolean;
-  @Prop({
-    type: Boolean,
-    default: false
-  })
-  multiple!: boolean;
-
   get readonly() {
     return true;
   }
-  @Watch("value")
-  onValue() {
-    this.setSelected();
-  }
-  @Watch("options")
-  onOptions() {
-    this.setSelected();
-  }
-  @Watch("visible")
-  onVisible(n: boolean) {
-    this.broadcast('YnDropdownMenu', 'visible', n);
-    this.$emit("visible-change", n);
-  }
+  
   emitChange(val: number | string | (string | number)[]) {
     if (!valueEquals(this.value, val)) {
       this.$emit('change', val);
@@ -185,11 +164,11 @@ export default class Select extends Mixins(Vue, Emitter) {
     }
   }
   initEvent() {
-    this.triggerElm = (this.$slots as { [propName: string]: VNode[]}).default[0].elm as HTMLElement;
+    this.triggerElm = (this.$slots.default as Slot)()[0].el as HTMLElement;
   }
   created() {
-    this.$on('handleOptionClick', this.handleOptionSelect);
-    this.$on('setSelected', this.setSelected);
+    // this.$on('handleOptionClick', this.handleOptionSelect);
+    // this.$on('setSelected', this.setSelected);
   }
   mounted() {
     this.initEvent();

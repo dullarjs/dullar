@@ -1,6 +1,6 @@
 <template>
   <popover
-    :visible.sync="visible"
+    v-model:visible="visible"
     v-bind="$attrs"
     :trigger="'click'"
   >
@@ -20,10 +20,16 @@
 </template>
 <script lang="ts">
 import "./style/index.scss";
-import Vue from 'vue'
-import { Vue, Options, Prop } from "vue-class-component";
+import { Vue, Options, prop, mixins } from "vue-class-component";
 import Popover from "@/components/popover";
 import Button from "@/components/button";
+class Props {
+  title = prop<string>({ default: "" })
+  confirmButtonText = prop<string>({ default: "确定" })
+  cancelButtonText = prop<string>({ default: "取消" })
+  confirmButtonType = prop<string>({ default: "primary" })
+  cancelButtonType = prop<string>({ default: "text" })
+}
 @Options({
   name: "Popconfirm",
   components: {
@@ -31,34 +37,10 @@ import Button from "@/components/button";
     Popover
   }
 })
-export default class Popconfirm extends Vue{
+export default class Popconfirm extends mixins(Vue).with(Props){
   static componentName = "YnPopconfirm";
   visible = false;
-  @Prop({
-    type: String,
-    default: ""
-  })
-  title!: string;
-  @Prop({
-    type: String,
-    default: "确定"
-  })
-  confirmButtonText!: string;
-  @Prop({
-    type: String,
-    default: "取消"
-  })
-  cancelButtonText!: string;
-  @Prop({
-    type: String,
-    default: "primary"
-  })
-  confirmButtonType!: string;
-  @Prop({
-    type: String,
-    default: "text"
-  })
-  cancelButtonType!: string;
+
   handleConfirm() {
     this.visible = false;
     this.$emit("confirm");

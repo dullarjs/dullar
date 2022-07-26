@@ -7,7 +7,6 @@
 import "./style/index.scss";
 import { h } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
-import { renderedMixins } from "../mixins/rendered";
 import Spin from "../spin";
 class Props {
   text!: string
@@ -24,7 +23,7 @@ class Props {
     Spin,
   }
 })
-export default class Indicator extends mixins(Vue, renderedMixins).with(Props){
+export default class Indicator extends mixins(Vue).with(Props){
   static componentName = "YnIndicator";
   visible = false;
   render() {

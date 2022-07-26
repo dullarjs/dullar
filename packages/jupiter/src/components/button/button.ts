@@ -7,7 +7,7 @@
 import "./style/index.scss";
 import Spin from "../spin";
 import Iconfont from "../iconfont";
-import { h } from "vue";
+import { h, Slot } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 class Props {
   type = prop<string>({ default: "default" })
@@ -22,6 +22,12 @@ class Props {
   loadingColor = prop<string>({ default: "#0052CC" })
   iconName = prop<string>({ default: "" })
   iconSize = prop<string>({ default: "16" })
+  parse = prop<(city: string) => string>({
+    default: (city: string) => {
+      // if (!nameSpace) nameSpace = "";
+      return `<span>${city}</span>`;
+    }
+  })
 }
 @Options({
   name: "Button",
@@ -104,7 +110,7 @@ export default class Button extends mixins(Vue).with(Props) {
     const text =
       this.loading && (this.loadingText || this.loadingText === "")
         ? this.loadingText
-        : this.$slots.default;
+        : (this.$slots.default as Slot)();
     return h(
       "button",
       {

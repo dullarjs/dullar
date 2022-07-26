@@ -6,23 +6,16 @@
  */
 
 import { AnyObject } from "@/types";
-import { Vue, Options, Prop } from "vue-class-component";
+import { Vue, Options, prop, mixins } from "vue-class-component";
+class Props {
+  size!: string | number;
+  color!: string;
+  borderWidth!: string | number;
+}
 @Options({
   name: "ShapeCommon"
 })
-export default class ShapeCommon extends Vue {
-  @Prop({
-    type: [String, Number]
-  })
-  size!: string | number;
-  @Prop({
-    type: String
-  })
-  color!: string;
-  @Prop({
-    type: [String, Number]
-  })
-  borderWidth!: string | number;
+export default class ShapeCommon extends mixins(Vue).with(Props) {
   get spinColor() {
     return this.color || (this as AnyObject).$parent.color || "#ccc";
   }

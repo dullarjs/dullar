@@ -46,70 +46,27 @@ import Popup from "../../utils/popup";
 import Icon from "@/components/icon";
 import "./style/index.scss";
 import { AnyObject } from "../../types";
+class Props {
+  appendToBody = prop<boolean>({ default: true })
+  top = prop<string>({ default: "" })
+  width = prop<string>({ default: "" })
+  title = prop<string>({ default: "提示" })
+  cancleBtnName = prop<string>({ default: "取消" })
+  confirmBtnName = prop<string>({ default: "确定" })
+  cancelBtnShow = prop<boolean>({ default: true })
+  confirmBtnShow = prop<boolean>({ default: true })
+  showHeader = prop<boolean>({ default: true })
+  showFooter = prop<boolean>({ default: true })
+  bodyOverflowY = prop<boolean>({ default: true })
+}
 @Options({
   name: "Dialog",
   components: {
     Icon
   }
 })
-export default class Dialog extends mixins(Vue, Popup) {
+export default class Dialog extends mixins(Vue, Popup).with(Props) {
   static componentName = "YnDialog";
-  @prop({
-    type: Boolean,
-    default: true
-  })
-  appendToBody!: boolean;
-  @Prop({
-    type: String,
-    default: ""
-  })
-  top!: string;
-  @Prop({
-    type: String,
-    default: ""
-  })
-  width!: string;
-  @Prop({
-    type: String,
-    default: "提示"
-  })
-  title!: string;
-  @Prop({
-    type: String,
-    default: "取消"
-  })
-  cancleBtnName!: string;
-  @Prop({
-    type: String,
-    default: "确定"
-  })
-  confirmBtnName!: string;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  cancelBtnShow!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  confirmBtnShow!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  showHeader!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  showFooter!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  bodyOverflowY!: boolean
-
 
   get style() {
     let style: AnyObject = {};

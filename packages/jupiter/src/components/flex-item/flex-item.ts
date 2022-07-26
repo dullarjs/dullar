@@ -10,8 +10,8 @@ import { slotsMixins } from "../mixins/slots";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 import { h } from "vue";
 class Props {
-  flex = prop<string | number>({ default: "initial" })
-  order = prop<string | number>({ default: 0 })
+  flex = prop<string|number>({ default: "initial" })
+  order = prop<string|number>({ default: 0 })
   alignSelf = prop<string>({ default: "auto" })
 }
 @Options({

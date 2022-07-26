@@ -29,8 +29,7 @@
 </template>
 <script lang="ts">
 import "./style/index.scss";
-import Vue from 'vue'
-import { Vue, Options, Mixins } from "vue-class-component";
+import { Vue, Options, mixins } from "vue-class-component";
 import Button from "@/components/button";
 import Popup from "../../utils/popup";
 import Icon from "@/components/icon";
@@ -42,7 +41,7 @@ import { Callback } from "@/types";
     Button
   }
 })
-export default class MessageBox extends Mixins(Vue, Popup){
+export default class MessageBox extends mixins(Vue, Popup){
   static componentName = "YnMessageBox";
 
   action = '';
@@ -53,6 +52,7 @@ export default class MessageBox extends Mixins(Vue, Popup){
   cancelButtonText = '取消';
   message = "";
   title = "";
+  beforeClose: Callback | null = null;
 
   handleClose() {
     this.handAction("close");

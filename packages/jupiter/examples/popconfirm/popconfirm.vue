@@ -6,7 +6,9 @@
       @confirm="handleConfirm"
       @cancel="handleCancel"
     >
-      <yn-button slot="reference">删除</yn-button>
+      <template #reference>
+        <yn-button>删除</yn-button>
+      </template>
     </yn-popconfirm>
     <h3>自定义</h3>
     <yn-popconfirm
@@ -16,7 +18,9 @@
       @confirm="handleConfirm"
       @cancel="handleCancel"
     >
-      <yn-button slot="reference">删除</yn-button>
+      <template #reference>
+        <yn-button>删除</yn-button>
+      </template>
     </yn-popconfirm>
   </div>
 </template>

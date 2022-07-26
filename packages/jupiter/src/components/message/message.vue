@@ -1,5 +1,7 @@
 <template>
-  <transition name="yn-message-fade" @afterLeave="handleAfterLeave">
+  <transition name="yn-message-fade"
+    @before-leave="onClose"
+    @after-leave="$emit('destroy')">
     <div class="yn-message"
       v-show="visible"
       :class="[
@@ -16,7 +18,6 @@
   </transition>
 </template>
 <script lang="ts">
-import Vue from 'vue'
 import { Vue, Options } from "vue-class-component";
 import Icon from "@/components/icon";
 import "./style/index.scss";
@@ -64,9 +65,6 @@ export default class Message extends Vue{
   close() {
     this.visible = false;
     this.onClose && typeof this.onClose === "function" && this.onClose();
-  }
-  handleAfterLeave() {
-    this.$destroy();
   }
   handleClose() {
     this.close();

@@ -5,15 +5,15 @@
  * @Last Modified time: 2020-07-02 17:30:33
  * @E-mail: justbefree@126.com
  */
-import Vue, { CreateElement } from "vue";
+import { h } from "vue";
 import "./style.scss";
-import { Mixins, Component } from "vue-class-component";
+import { Vue, mixins, Options } from "vue-class-component";
 import common from "../common";
 @Options({
   name: "Rotate"
 })
-export default class Rotate extends Mixins(Vue, common) {
-  createLeafNodes(h: CreateElement) {
+export default class Rotate extends mixins(Vue, common) {
+  createLeafNodes() {
     const nodes = [];
     for (let n = 0; n < 5; n++) {
       nodes.push(
@@ -22,7 +22,7 @@ export default class Rotate extends Mixins(Vue, common) {
     }
     return h("div", { class: ["rotate-leaf-wapper"] }, nodes);
   }
-  render(h: CreateElement) {
+  render() {
     return h(
       "div",
       {
@@ -35,7 +35,7 @@ export default class Rotate extends Mixins(Vue, common) {
           height: "50px",
         },
       },
-      [this.createLeafNodes(h)]
+      [this.createLeafNodes()]
     );
   }
 }

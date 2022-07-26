@@ -16,40 +16,33 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Options, Mixins, Prop, Watch } from "vue-class-component";
-  import Emitter from "@/components/mixins/emitter";
+  import { Vue, Options, mixins, prop } from "vue-class-component";
 
   interface Select {
     [propName: string]: any;
   }
-
+  class Props {
+    value!: number | string;
+    label!: number | string;
+    disabled!: boolean;
+  }
   @Options({
     name: 'ynOption',
-    inject: ['select']
+    inject: ['select'],
+    watch: {
+      currentLabel() {
+        // this.dispatch('YnSelect', 'setSelected');
+        this.select.setSelected()
+      }
+    }
   })
-  export default class Option extends Mixins(Vue, Emitter) {
+  export default class Option extends mixins(Vue).with(Props) {
     static componentName = 'YnOption';
     index = -1;
     visible = true;
     hitState = false;
     hover = false;
     select!: Select;
-
-    @Prop({
-      type: [String, Number],
-      required: true
-    })
-    value!: number | string;
-    @Prop({
-      type: [String, Number],
-      required: true
-    })
-    label!: number | string;
-    @Prop({
-      type: Boolean,
-      default: false
-    })
-    disabled!: boolean;
 
     get isObject() {
       return Object.prototype.toString.call(this.value).toLowerCase() === '[object object]';
@@ -68,11 +61,6 @@
       }
     }
 
-    @Watch("currentLabel")
-    onCurrentLabel() {
-      this.dispatch('YnSelect', 'setSelected');
-    }
-
     isEqual(a: number | string, b: number | string) {
       return a === b;
     }
@@ -86,7 +74,8 @@
     }
     selectOptionClick() {
       if (this.disabled !== true) {
-        this.dispatch('YnSelect', 'handleOptionClick', this);
+        // this.dispatch('YnSelect', 'handleOptionClick', this);
+        this.select.handleOptionSelect();
       }
     }
 

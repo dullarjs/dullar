@@ -1,20 +1,8 @@
 import { AnyObject } from "@/types";
 import { addClass } from "../dom";
-import { VueConstructor } from "vue/types";
-const getModal = () => {
-  let modalDom = PopupManager.modalDom;
-  if (modalDom) {
-    return modalDom;
-  } else {
-    modalDom = document.createElement("div");
-    modalDom.addEventListener("click", () => {
-      PopupManager.doOnModalClick();
-    });
-    PopupManager.modalDom = modalDom;
-    return modalDom;
-  }
-}
-const instances: AnyObject = {} // 保存 popup vue实例
+import { ComponentPublicInstance } from "vue";
+
+const instances: AnyObject = {}; // 保存 popup vue实例
 const PopupManager: AnyObject = {
   zIndex: 2000,
   modalStack: [],
@@ -24,7 +12,7 @@ const PopupManager: AnyObject = {
   getInstance(id: number) {
     return instances[id];
   },
-  register(id: number, instance: VueConstructor) {
+  register(id: number, instance: ComponentPublicInstance) {
     instances[id] = instance;
   },
   deRegister(id: string) {
@@ -39,7 +27,7 @@ const PopupManager: AnyObject = {
     instance.close();
   },
   openModal(id: string, zIndex: number, dom: Element | undefined) {
-    const modalDom = getModal();
+    const modalDom = this.getModal();
     if (dom) {
       dom.parentNode?.appendChild(modalDom);
     } else {
@@ -50,7 +38,7 @@ const PopupManager: AnyObject = {
     this.modalStack.push({ id: id, zIndex: zIndex});
   },
   closeModal(id: string) {
-    const modalDom = getModal();
+    const modalDom = this.getModal();
     // 存在已经打开的modal
     if (this.modalStack.length > 0) {
       const topItem = this.modalStack[this.modalStack.length - 1];
@@ -69,6 +57,19 @@ const PopupManager: AnyObject = {
           if(modalDom.parentNode) modalDom.parentNode.removeChild(modalDom);
         }
       }
+    }
+  },
+  getModal() {
+    let modalDom = this.modalDom;
+    if (modalDom) {
+      return modalDom;
+    } else {
+      modalDom = document.createElement("div");
+      modalDom.addEventListener("click", () => {
+        this.doOnModalClick();
+      });
+      this.modalDom = modalDom;
+      return modalDom;
     }
   }
 };

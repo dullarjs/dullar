@@ -6,6 +6,6 @@ import { EventBus } from "./eventBus";
     //   // console.log("ev = ", ev);
     //   EventBus.$emit("window:resize", ev);
     // })();
-    EventBus.$emit("window:resize", ev);
+    EventBus.emit("window:resize", ev);
   });
 })(window);

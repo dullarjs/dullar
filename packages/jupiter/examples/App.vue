@@ -5,7 +5,7 @@
 </template>
 <script type="text/javascript">
 export default {
-  name: "examples"
+  name: "examplesApp",
 };
 </script>
 <style type="text/css">

@@ -1,37 +1,28 @@
 
 import PopupManager from "./popupManger";
-import { Vue, Options, Prop, Watch } from "vue-class-component";
+import { Vue, Options, prop, mixins } from "vue-class-component";
 import "@/theme/popup.scss";
 let idSeed = 1;
+class Props {
+  visible = prop<boolean>({ default: false })
+  zIndex = prop<number>({ default: 0 })
+  modal = prop<boolean>({ default: true })
+  modalAppendToBody = prop<boolean>({ default: true })
+  closeOnClickModal = prop<boolean>({ default: true })
+}
 @Options({
-  name: "Popup"
+  name: "Popup",
+  watch: {
+    visible(val: boolean) {
+      if (val) {
+        this.open();
+      } else {
+        this.close();
+      }
+    }
+  }
 })
-export default class Popup extends Vue {
-  @Prop({
-    type: Boolean,
-    default: false
-  })
-  visible!: boolean;
-  @Prop({
-    type: Number,
-    default: 0
-  })
-  zIndex!: number;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  modal!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  modalAppendToBody!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  closeOnClickModal!: boolean;
+export default class Popup extends mixins(Vue).with(Props) {
 
   _popupId = "";
 
@@ -43,14 +34,6 @@ export default class Popup extends Vue {
     PopupManager.deRegister(this._popupId);
   }
 
-  @Watch("visible")
-  OnVisible(val: boolean) {
-    if (val) {
-      this.open();
-    } else {
-      this.close();
-    }
-  }
   open() {
     const dom = this.$el;
     if (this.zIndex) {

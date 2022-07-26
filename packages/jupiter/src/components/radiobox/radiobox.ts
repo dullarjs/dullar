@@ -1,7 +1,13 @@
 import Iconfont from "../iconfont";
-import Vue, { CreateElement } from "vue";
-import { Vue, Options, Prop } from "vue-class-component";
+import { h } from "vue";
+import { Vue, Options, prop, mixins } from "vue-class-component";
 import "./style/index.scss";
+class Props {
+  checked = prop<boolean>({ default: false })
+  size!: string | number
+  disabled = prop<boolean>({ default: false })
+  disableClick = prop<boolean>({ default: false })
+}
 @Options({
   name: "Radiobox",
   components: {
@@ -12,34 +18,15 @@ import "./style/index.scss";
     event: "change",
   }
 })
-export default class Radiobox extends Vue {
+export default class Radiobox extends mixins(Vue).with(Props) {
   static componentName = "YnRadiobox";
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  checked!: boolean;
-  @Prop({
-    type: [String, Number]
-  })
-  size!: string | number;
-  @Prop({
-    type: Boolean,
-    default: false
-  })
-  disabled!: boolean;
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  disableClick!: boolean;
 
   handleClick() {
     if (!this.disabled && !this.disableClick) {
       this.$emit("change", !this.checked);
     }
   }
-  render(h: CreateElement) {
+  render() {
     const disabled = this.disabled ? "-disabled" : "";
     return h(
       "span",
@@ -49,14 +36,12 @@ export default class Radiobox extends Vue {
       },
       [
         h(
-          "iconfont",
+          Iconfont,
           {
-            props: {
-              size: this.size,
-              name: this.checked
-                ? `radio-on${disabled}`
-                : `radio-off${disabled}`,
-            },
+            size: this.size,
+            name: this.checked
+              ? `radio-on${disabled}`
+              : `radio-off${disabled}`
           },
           []
         ),

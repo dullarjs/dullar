@@ -1,49 +1,42 @@
 
 import PopupManager from "./popup/popupManger";
-import { Vue, Options, Prop, Watch } from "vue-class-component";
+import { Vue, Options, prop, mixins } from "vue-class-component";
 import PopperJS from "@/utils/popper";
 import { AnyObject } from "@/types";
 import { on, off, addClass } from "@/utils/dom";
 const stop = (e: Event) => e.stopPropagation();
+class Props {
+  visible = prop<boolean>({ default: false })
+  width = prop<number>({ default: 0 })
+  placement = prop<string>({ default: "bottom" }) // "top", "bottom", "left", "right"
+  visibleArrow = prop<boolean>({ default: true })
+  appendToBody = prop<boolean>({ default: true })
+  offset = prop<number>({ default: 0 })
+  arrowOffset = prop<number>({ default: 0 })
+}
 @Options({
-  name: "Popup"
+  name: "Popup",
+  watch: {
+    visibleArrow: {
+      immediate: true,
+      handler(n: boolean) {
+        this.visibleArrowData = n;
+      }
+    },
+    visible(n: boolean) {
+      this.showPopper = n;
+    },
+    showPopper(n: boolean) {
+      if (n) {
+        this.updatePopper();
+        this.$nextTick(() => {
+          this.updatePopper();
+        });
+      }
+    }
+  }
 })
-export default class Popup extends Vue {
-  @Prop({
-    type: Boolean,
-    default: false
-  })
-  visible!: boolean;
-  @Prop({
-    type: Number,
-    default: 0
-  })
-  width!: number;
-  @Prop({
-    type: String,
-    default: "bottom"
-  })
-  placement!: string; // "top", "bottom", "left", "right"
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  visibleArrow!: boolean;
-  @Prop({
-    type: Boolean,
-    default: true
-  })
-  appendToBody!: boolean;
-  @Prop({
-    type: Number,
-    default: 0
-  })
-  offset!: number;
-  @Prop({
-    type: Number,
-    default: 0
-  })
-  arrowOffset!: number;
+export default class Popup extends mixins(Vue).with(Props) {
 
   visibleArrowData = true;
   showPopper = false;
@@ -53,25 +46,6 @@ export default class Popup extends Vue {
   popperElm: HTMLElement | undefined = undefined;
   referenceElm: HTMLElement | undefined = undefined;
 
-  @Watch("visibleArrow", {
-    immediate: true
-  })
-  onVisibleArrow(n: boolean) {
-    this.visibleArrowData = n;
-  }
-  @Watch("visible")
-  onVisible(n: boolean) {
-    this.showPopper = n;
-  }
-  @Watch("showPopper")
-  onShowPopper(n: boolean) {
-    if (n) {
-      this.updatePopper();
-      this.$nextTick(() => {
-        this.updatePopper();
-      });
-    }
-  }
   createPopper() {
     this.currentPlacement = this.currentPlacement || this.placement;
     if (!/^(top|bottom|left|right)(-start|-end)?$/g.test(this.currentPlacement)) {
@@ -83,8 +57,9 @@ export default class Popup extends Vue {
 
     if (!reference &&
       this.$slots.reference &&
-      this.$slots.reference[0]) {
-      reference = this.referenceElm = this.$slots.reference[0].elm as HTMLElement;
+      Array.isArray(this.$slots.reference()) &&
+      this.$slots.reference()[0]) {
+      reference = this.referenceElm = this.$slots.reference()[0].el as HTMLElement;
     }
 
     if (!popper || !reference) return;
