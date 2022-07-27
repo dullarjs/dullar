@@ -5,7 +5,7 @@
  * @Last Modified time: 2020-06-16 10:22:59
  */
 import "./style/index.scss";
-import { h } from "vue";
+import { h, Transition, withDirectives, vShow } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 import Spin from "../spin";
 class Props {
@@ -27,12 +27,12 @@ export default class Indicator extends mixins(Vue).with(Props){
   static componentName = "YnIndicator";
   visible = false;
   render() {
-    return h("transition", { props: { name: "yn-indicator" } }, [
-      h(
+    return h(Transition, { name: "yn-indicator" }, [
+      withDirectives(h(
         "div",
         {
           class: ["yn-indicator"],
-          directives: [{ name: "show", value: this.visible }],
+          // directives: [{ name: "show", value: this.visible }],
         },
         [
           h(
@@ -56,26 +56,24 @@ export default class Indicator extends mixins(Vue).with(Props){
             },
             [
               h(
-                "spin",
+                Spin,
                 {
-                  props: {
-                    size: this.size,
-                    type: this.spinType,
-                    color: this.spinColor,
-                  },
+                  size: this.size,
+                  type: this.spinType,
+                  color: this.spinColor,
                   class: ["yn-indicator-spin"],
                 },
                 []
               ),
-              h("span", {
+              withDirectives(h("span", {
                 class: ["yn-indicator-text"],
-                directives: [{ name: "show", value: this.text }],
+                // directives: [{ name: "show", value: this.text }],
                 domProps: { innerHTML: this.text },
-              }),
+              }), [[vShow, this.text]]),
             ]
           ),
         ]
-      ),
+      ), [[vShow, this.visible]])
     ]);
   }
 }
