@@ -18,14 +18,9 @@ export default class Spin extends mixins(Vue).with(Props) {
 
   loadSubComponent() {
     const capitalizeName = hyphenate(this.type);
-    const camelizeName = camelize(this.type);
-    if ((this as AnyObject).$options.components[camelizeName]) {
-      return camelizeName;
-    }
     try {
-      const component = require(`./shapes/${capitalizeName}/index.ts`);
-      (this as AnyObject).$options.components[camelizeName] = component["default"];
-      return camelizeName;
+      const component = require(`./shapes/${capitalizeName}/index.ts`)["default"];
+      return component;
     } catch (err) {
       warn(
         `The ${capitalizeName}.js module was not found in shapes floder. The default spinner will be used instead.`
