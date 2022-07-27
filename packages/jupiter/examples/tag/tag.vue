@@ -16,7 +16,7 @@
     <yn-tag
       v-for="tag in tags"
       :key="tag.name"
-      closable
+      :closable="true"
       :type="tag.type"
       @close="handleClose(tag)"
     >

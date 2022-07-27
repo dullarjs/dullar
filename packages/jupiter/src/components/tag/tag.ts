@@ -1,5 +1,5 @@
 import Icon from "@/components/icon";
-import { h, Slot } from "vue";
+import { h, Slot, Transition } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 import "./style/index.scss";
 class Props {
@@ -52,22 +52,17 @@ export default class Tag extends mixins(Vue).with(Props){
       {
         "class": classes,
         style: { backgroundColor: this.color },
-        on: {
-          click: this.handleClick.bind(this)
-        }
+        onClick: this.handleClick.bind(this)
       },
       children
     );
     const transtionEl = h(
-      "transition",
+      Transition,
       {
-        props: {
-          name: "yn-zoom-in-center"
-        }
+        name: "yn-zoom-in-center"
       },
       [tagEl]
     );
-
     return this.disableTransitions ? tagEl : transtionEl;
   }
 }

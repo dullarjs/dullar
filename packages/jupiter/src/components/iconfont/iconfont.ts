@@ -36,7 +36,6 @@ export default class Iconfont extends mixins(Vue).with(Props) {
     const { name = "" } = this.$props;
     const reg = new RegExp(`^${Iconfont.svgPrefix}`);
     const iconName = name.replace(reg, "");
-    console.log("Iconfont.svgs:", Iconfont.svgs);
     if (Iconfont.svgs) {
       if (name.startsWith(Iconfont.svgPrefix) && Iconfont.svgs[iconName]) {
         return Iconfont.svgs[iconName];
