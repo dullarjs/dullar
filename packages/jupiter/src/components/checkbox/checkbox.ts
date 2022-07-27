@@ -10,7 +10,7 @@ import { Vue, Options, prop, mixins } from "vue-class-component";
 import "./style/index.scss";
 class Props {
   indeterminate = prop<boolean>({ default: false })
-  checked = prop<boolean>({ default: false })
+  modelValue = prop<boolean>({ default: false })
   size!: string | number
   disabled = prop<boolean>({ default: false })
   disableClick = prop<boolean>({ default: false })
@@ -18,10 +18,7 @@ class Props {
 @Options({
   name: "Checkbox",
   components: { Iconfont },
-  model: {
-    prop: "checked",
-    event: "change",
-  }
+  emits: ["update:modelValue"]
 })
 export default class Checkbox extends mixins(Vue).with(Props){
   static componentName = "YnCheckbox";
@@ -31,13 +28,13 @@ export default class Checkbox extends mixins(Vue).with(Props){
     if (this.indeterminate) {
       iconName = `checkbox-indeterminate${disabled}`;
     } else {
-      iconName = this.checked ? `checkbox-checked${disabled}` : `checkbox-uncheck${disabled}`
+      iconName = this.modelValue ? `checkbox-checked${disabled}` : `checkbox-uncheck${disabled}`
     }
     return iconName;
   }
   handleClick() {
     if (!this.disabled && !this.disableClick) {
-      this.$emit("change", !this.checked);
+      this.$emit("update:modelValue", !this.modelValue);
     }
   }
   render() {
@@ -45,16 +42,14 @@ export default class Checkbox extends mixins(Vue).with(Props){
       "span",
       {
         class: ["yn-checkbox", this.disabled ? "disabled" : ""],
-        on: { click: this.handleClick },
+        onClick: this.handleClick
       },
       [
         h(
-          "iconfont",
+          Iconfont,
           {
-            props: {
-              size: this.size,
-              name: this.checkboxIconName,
-            }
+            size: this.size,
+            name: this.checkboxIconName,
           },
           []
         ),
