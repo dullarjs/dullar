@@ -3,7 +3,6 @@
     <h2>Yn-iconfont</h2>
     <p>扩展icon</p>
     <Yn-iconfont name="elm" size="40" @click="handleClick"></Yn-iconfont>
-    <Yn-iconfont name="eldddm"></Yn-iconfont>
     <p>内置icon</p>
     <ul>
       <li>
@@ -47,24 +46,16 @@
         <span>close</span>
       </li>
       <li>
-        <Yn-iconfont name="collapsed-default"></Yn-iconfont>
-        <span>collapsed-default</span>
+        <Yn-iconfont name="cpllapsed-expand-default"></Yn-iconfont>
+        <span>cpllapsed-expand-default</span>
       </li>
       <li>
-        <Yn-iconfont name="collapsed-selected"></Yn-iconfont>
-        <span>collapsed-selected</span>
+        <Yn-iconfont name="cpllapsed-expand-active"></Yn-iconfont>
+        <span>cpllapsed-expand-active</span>
       </li>
       <li>
-        <Yn-iconfont name="doarrow"></Yn-iconfont>
-        <span>doarrow</span>
-      </li>
-      <li>
-        <Yn-iconfont name="expanded-default"></Yn-iconfont>
-        <span>expanded-default</span>
-      </li>
-      <li>
-        <Yn-iconfont name="expanded-selected"></Yn-iconfont>
-        <span>expanded-selected</span>
+        <Yn-iconfont name="down-arrow"></Yn-iconfont>
+        <span>down-arrow</span>
       </li>
       <li>
         <Yn-iconfont name="minus-disabled"></Yn-iconfont>
@@ -81,8 +72,8 @@
         <span>radio-off</span>
       </li>
       <li>
-        <Yn-iconfont name="radio-disabled"></Yn-iconfont>
-        <span>radio-disabled</span>
+        <Yn-iconfont name="radio-on-disabled"></Yn-iconfont>
+        <span>radio-on-disabled</span>
       </li><li>
         <Yn-iconfont name="radio-on"></Yn-iconfont>
         <span>radio-on</span>

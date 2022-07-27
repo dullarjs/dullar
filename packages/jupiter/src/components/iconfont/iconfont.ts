@@ -36,6 +36,7 @@ export default class Iconfont extends mixins(Vue).with(Props) {
     const { name = "" } = this.$props;
     const reg = new RegExp(`^${Iconfont.svgPrefix}`);
     const iconName = name.replace(reg, "");
+    console.log("Iconfont.svgs:", Iconfont.svgs);
     if (Iconfont.svgs) {
       if (name.startsWith(Iconfont.svgPrefix) && Iconfont.svgs[iconName]) {
         return Iconfont.svgs[iconName];
@@ -66,7 +67,8 @@ export default class Iconfont extends mixins(Vue).with(Props) {
           "img",
           {
             style: { transform: `rotate(${this.rotate}deg)` },
-            attrs: { src: this.getSvg(), iconname: this.name },
+            src: this.getSvg(),
+            iconname: this.name,
             class: ["yn-iconfont", `yn-iconfont-size-${this.size}`],
           },
           []

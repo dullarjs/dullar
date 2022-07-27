@@ -72,7 +72,8 @@ export default class Button extends mixins(Vue).with(Props) {
           Iconfont,
           {
             "class": ["yn-button__icon"],
-            props: { name: this.iconName, size: this.iconSize }
+            name: this.iconName,
+            size: this.iconSize
           },
           []
         )
