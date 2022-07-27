@@ -3,7 +3,7 @@ import { h } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 import "./style/index.scss";
 class Props {
-  checked = prop<boolean>({ default: false })
+  modelValue = prop<boolean>({ default: false })
   size!: string | number
   disabled = prop<boolean>({ default: false })
   disableClick = prop<boolean>({ default: false })
@@ -12,10 +12,6 @@ class Props {
   name: "Radiobox",
   components: {
     Iconfont,
-  },
-  model: {
-    prop: "checked",
-    event: "change",
   }
 })
 export default class Radiobox extends mixins(Vue).with(Props) {
@@ -23,7 +19,7 @@ export default class Radiobox extends mixins(Vue).with(Props) {
 
   handleClick() {
     if (!this.disabled && !this.disableClick) {
-      this.$emit("change", !this.checked);
+      this.$emit("update:modelValue", !this.modelValue);
     }
   }
   render() {
@@ -32,14 +28,14 @@ export default class Radiobox extends mixins(Vue).with(Props) {
       "span",
       {
         class: ["yn-radiobox", this.disabled ? "disabled" : ""],
-        on: { click: this.handleClick },
+        onClick: this.handleClick
       },
       [
         h(
           Iconfont,
           {
             size: this.size,
-            name: this.checked
+            name: this.modelValue
               ? `radio-on${disabled}`
               : `radio-off${disabled}`
           },
