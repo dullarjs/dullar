@@ -58,7 +58,7 @@
             v-model="clear"
             label="清除icon"
             type="text"
-            clearable
+            :clearable="true"
           ></yn-field>
         </li>
         <li>

@@ -141,9 +141,9 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
           : this.value,
     };
     const events = {
-      focus: this.handleOnFocus,
-      blur: this.handleOnBlur,
-      input: this.handleInput,
+      onFocus: this.handleOnFocus,
+      onBlur: this.handleOnBlur,
+      onInput: this.handleInput,
     };
     const className = [];
     if (this.disabled) {
@@ -164,8 +164,8 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
                 {
                   ref: "textarea",
                   class: ["textarea-ele", ...className],
-                  on: { ...events },
-                  attrs: { ...attrs },
+                  ...events,
+                  ...attrs,
                   domProps
                 },
                 []
@@ -193,9 +193,10 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
                 "input",
                 {
                   ref: "input",
-                  on: { ...events },
+                  ...events,
                   class: ["input-ele", ...className],
-                  attrs: { ...attrs, type: this.type },
+                  ...attrs,
+                  type: this.type,
                   domProps
                 },
                 []
@@ -220,13 +221,15 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
           {
             class: ["yn-field__suffix"],
             directives,
-            on: { click: this.handleIconClick },
+            onClick: this.handleIconClick
           },
           [
             h(
-              "iconfont",
+              Iconfont,
               {
-                props: { name, size: this.iconSize, rotate: this.iconRotate },
+                name,
+                size: this.iconSize,
+                rotate: this.iconRotate,
                 "class": this.iconClass
               },
               []
@@ -266,7 +269,7 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
       h(
         ("div"),
         {
-          props: { flexDirection: this.display },
+          flexDirection: this.display,
           class: ynFieldClassName,
           style
         },
