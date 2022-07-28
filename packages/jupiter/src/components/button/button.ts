@@ -31,7 +31,8 @@ class Props {
 }
 @Options({
   name: "Button",
-  components: { Spin, Iconfont }
+  components: { Spin, Iconfont },
+  emits: ["click"]
 })
 export default class Button extends mixins(Vue).with(Props) {
   static componentName = "YnButton";
@@ -81,7 +82,7 @@ export default class Button extends mixins(Vue).with(Props) {
     }
     return icon;
   }
-  handleClick() {
+  handleClick(e: MouseEvent) {
     if (!this.loading && !this.disabled) {
       this.$emit("click");
     }

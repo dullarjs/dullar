@@ -18,14 +18,14 @@ export default class MessageBoxPage extends Vue {
   open() {
     // this.dialogVisible = true;
     console.log("messageBoxPage open this:", this);
-    this.Msgbox({
+    this.$msgbox({
       title: "消息",
       message: "我是msgbox"
     })
   }
   open1() {
     // this.dialogVisible = true;
-    this.Msgbox({
+    this.$msgbox({
       title: "消息",
       message: "我是msgbox",
       beforeClose: (action: string, ins: AnyObject, done: () => void) => {
