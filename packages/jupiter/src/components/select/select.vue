@@ -57,7 +57,7 @@ class Props {
     selectDropdown,
     field
   },
-  emits: ["change", "focus", "input", "update:modelValue"],
+  emits: ["change", "focus", "input", "update:modelValue", "blur"],
   provide() {
     return {
       "select": this

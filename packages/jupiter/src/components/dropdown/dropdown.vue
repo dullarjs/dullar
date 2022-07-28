@@ -2,7 +2,7 @@
   <div class="yn-dropdown"
     ref="reference"
     @click.stop="toggleMenu"
-    v-clickoutside="handleClose"
+    v-Clickoutside="handleClose"
   >
     <slot></slot>
     <slot name="dropdown"></slot>
@@ -15,10 +15,10 @@ import { AnyObject } from "../../types";
 import DropdownMenu from "./dropdownMenu.vue";
 import { valueEquals } from "@/utils";
 import Clickoutside from '@/utils/clickoutside.js';
-import { VNode, Slot } from "vue";
+import { Slot } from "vue";
 class Props {
   placement = prop<string>({ default: 'bottom' }) 
-  value = prop<number | string | (number | string)[]>({ default: "" })
+  modelValue = prop<number | string | (number | string)[]>({ default: "" })
   placeholder = prop<string>({ default: "" })
   disabled = prop<boolean>({ default: false })
   multiple = prop<boolean>({ default: false })
@@ -28,6 +28,7 @@ class Props {
   components: {
     DropdownMenu
   },
+  emits: ["visible-change", "change", "input", "update:modelValue"],
   provide() {
     return {
       "dropdown": this
@@ -35,12 +36,12 @@ class Props {
   },
   directives: { Clickoutside },
   watch: {
-    value() {
+    modelValue() {
       this.setSelected();
-    }
+    },
     options() {
       this.setSelected();
-    }
+    },
     visible(n: boolean) {
       // this.broadcast('YnDropdownMenu', 'visible', n);
       this.$emit("visible-change", n);
@@ -54,7 +55,7 @@ export default class Select extends mixins(Vue).with(Props) {
   popperElm!: HTMLElement;
   optionsCount = 0;
   hoverIndex = -1;
-  selected:AnyObject | AnyObject[] = {};
+  selected: AnyObject | AnyObject[] = {};
   options: AnyObject[] = [];
   cachedOptions: AnyObject[] = [];
   selectedLabel = "";
@@ -66,13 +67,13 @@ export default class Select extends mixins(Vue).with(Props) {
   }
   
   emitChange(val: number | string | (string | number)[]) {
-    if (!valueEquals(this.value, val)) {
+    if (!valueEquals(this.modelValue, val)) {
       this.$emit('change', val);
     }
   }
   handleOptionSelect(option: AnyObject) {
     if (this.multiple) {
-      const value = (this.value as (string | number)[] || []).slice();
+      const value = (this.modelValue as (string | number)[] || []).slice();
       const optionIndex = value.indexOf(option.value);
       if (optionIndex > -1) {
         value.splice(optionIndex, 1);
@@ -80,9 +81,11 @@ export default class Select extends mixins(Vue).with(Props) {
         value.push(option.value);
       }
       this.$emit('input', value);
+      this.$emit("update:modelValue", value);
       this.emitChange(value);
     } else {
       this.$emit("input", option.value);
+      this.$emit("update:modelValue", option.value);
       this.emitChange(option.value);
       this.visible = false;
     }
@@ -95,9 +98,9 @@ export default class Select extends mixins(Vue).with(Props) {
       }
     });
     if (this.multiple) {
-      let result: AnyObject[] = [];
-      if (Array.isArray(this.value)) {
-        this.value.forEach(value => {
+      const result: AnyObject[] = [];
+      if (Array.isArray(this.modelValue)) {
+        this.modelValue.forEach(value => {
           const option = this.getOption(value)
           if (option.type === "checkbox") {
             option.isChecked = true;
@@ -107,7 +110,7 @@ export default class Select extends mixins(Vue).with(Props) {
       }
       this.selected = result;
     } else {
-      let option = this.getOption(this.value as string | number);
+      const option = this.getOption(this.modelValue as string | number);
       this.selectedLabel = option.currentLabel;
       this.selected = option;
       if (option.type === "checkbox") {
@@ -131,7 +134,7 @@ export default class Select extends mixins(Vue).with(Props) {
     if (option) return option;
     const label = (!isObject && !isNull && !isUndefined)
       ? String(value) : '';
-    let newOption = {
+    const newOption = {
       value: value,
       currentLabel: label
     };

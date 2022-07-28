@@ -14,16 +14,18 @@ on(document, 'mouseup', e => {
 
 function createDocumentHandler(el, binding, vnode) {
   return function(mouseup = {}, mousedown = {}) {
-    if (!vnode ||
-      !vnode.context ||
+    // debugger; // eslint-disable-line;
+    const popperElm = binding.instance.popperElm
+    if (!binding ||
+      !binding.instance ||
       !mouseup.target ||
       !mousedown.target ||
       el.contains(mouseup.target) ||
       el.contains(mousedown.target) ||
       el === mouseup.target ||
-      (vnode.context.popperElm &&
-      (vnode.context.popperElm.contains(mouseup.target) ||
-      vnode.context.popperElm.contains(mousedown.target)))) return;
+      (popperElm &&
+      (popperElm.contains(mouseup.target) ||
+      popperElm.contains(mousedown.target)))) return;
 
     if (binding.expression &&
       el[ctx].methodName &&
@@ -62,7 +64,7 @@ export default {
   },
 
   unmounted(el) {
-    let len = nodeList.length;
+    const len = nodeList.length;
     for (let i = 0; i < len; i++) {
       if (nodeList[i][ctx].id === el[ctx].id) {
         nodeList.splice(i, 1);

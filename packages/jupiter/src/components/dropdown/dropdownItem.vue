@@ -68,9 +68,9 @@
     }
     get itemSelected() {
       if (!this.dropdown.multiple) {
-        return this.isEqual(this.value, this.dropdown.value);
+        return this.isEqual(this.value, this.dropdown.modelValue);
       } else {
-        return this.contains(this.dropdown.value, this.value);
+        return this.contains(this.dropdown.value, this.modelValue);
       }
     }
 
@@ -88,7 +88,7 @@
     selectOptionClick() {
       if (this.disabled !== true) {
         // this.dispatch('YnDropdown', 'handleOptionClick', this);
-        this.dropdown.handleOptionSelect();
+        this.dropdown.handleOptionSelect(this);
       }
     }
 
