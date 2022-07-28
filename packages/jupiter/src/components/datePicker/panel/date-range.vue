@@ -127,6 +127,7 @@ export default {
     Iconfont,
     DataTable,
   },
+  emits: ["mouseMoving", "mouseMovEnd", "pick", "dodestroy", "selecting"],
   data() {
     return {
       before: "",

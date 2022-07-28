@@ -53,13 +53,13 @@
       </div>
     </template>
     <component
-      :is="getPanel"
-      ref="pickerPanel"
+      :is="currentPickPanel"
+      ref="pickPanel"
       @dodestroy="doDestroy"
       @pick="pickHanler"
       @selecting="selectingHandler"
       @mouseMoving="mouseMovingHandler"
-      @mouseMoveEnd="mouseMoveEndHandler"
+      @mouseMovEnd="mouseMoveEndHandler"
     ></component>
   </div>
 </template>
@@ -76,7 +76,7 @@ import Clickoutside from '@/utils/clickoutside.js';
 import { formatDate, isDate, clearTime, diff } from "@/utils/date-util.js";
 import { ComponentPublicInstance } from "vue";
 class Props {
-  value = prop<boolean>({ default: false })
+  modelValue = prop<boolean>({ default: false })
   mode = prop<string>({ default: "single" })
   doubleModeAllowSameDate = prop<boolean>({ default: true })
   crossed = prop<boolean>({ default: true })
@@ -104,28 +104,31 @@ class Props {
   components: {
     Field
   },
+  emits: ["input", "focus", "selecting", "getDate", "update:modelValue"],
   props: {
     placement: {
       default: "bottom-start"
     },
     weekDesParse: {
-      default(date: string) {
-        if (!date) {
-          return "";
-        } else {
-          const now = clearTime(new Date());
-          const dateObj = new Date(date);
-          const week = dateObj.getDay();
-          const weekText = [
-            "周日",
-            "周一",
-            "周二",
-            "周三",
-            "周四",
-            "周五",
-            "周六",
-          ];
-          return now.getTime() === clearTime(dateObj).getTime() ? "今天" : weekText[week];
+      default() {
+        return (date: string) => {
+          if (!date) {
+            return "";
+          } else {
+            const now = clearTime(new Date());
+            const dateObj = new Date(date);
+            const week = dateObj.getDay();
+            const weekText = [
+              "周日",
+              "周一",
+              "周二",
+              "周三",
+              "周四",
+              "周五",
+              "周六",
+            ];
+            return now.getTime() === clearTime(dateObj).getTime() ? "今天" : weekText[week];
+          }
         }
       }
     }
@@ -146,7 +149,7 @@ class Props {
         this.panel = this.getPanel(this.mode);
       }
     },
-    value(n) {
+    modelValue(n) {
       if (n) {
         this.showPicker()
       }
@@ -199,7 +202,7 @@ export default class YnDatePicker extends mixins(Vue, Popper).with(Props) {
 
   get datePickerClassname() {
     const classnames = [];
-    if (this.value) classnames.push('is-focus');
+    if (this.modelValue) classnames.push('is-focus');
     if (this.mode === 'single') {
       classnames.push('is-single');
     } else {
@@ -212,10 +215,10 @@ export default class YnDatePicker extends mixins(Vue, Popper).with(Props) {
     return classnames;
   }
   get startDateSelecting() {
-    return this.value && !this.selecting;
+    return this.modelValue && !this.selecting;
   }
   get endDateSelecting() {
-    return this.value && this.selecting;
+    return this.modelValue && this.selecting;
   }
   get style() {
     const styleObj: AnyObject = {};
@@ -259,6 +262,9 @@ export default class YnDatePicker extends mixins(Vue, Popper).with(Props) {
       }
     }
   }
+  get currentPickPanel() {
+    return this.getPanel(this.mode);
+  }
 
   handleDateSelecting() {
     this.selecting = false;
@@ -267,8 +273,8 @@ export default class YnDatePicker extends mixins(Vue, Popper).with(Props) {
     }
   }
   handleClick() {
-    if (!this.value) {
-     this.$emit("input", true);
+    if (!this.modelValue) {
+     this.$emit("update:modelValue", true);
     }
     this.$emit('focus', this);
   }
@@ -281,7 +287,7 @@ export default class YnDatePicker extends mixins(Vue, Popper).with(Props) {
   }
   hidePicker() {
     if (this.picker) {
-      this.$emit("input", false);
+      this.$emit("update:modelValue", false);
       (this.picker as ComponentPublicInstance<{ visible: boolean }>).visible = false;
       // this.destroyPopper();
     }
@@ -297,7 +303,6 @@ export default class YnDatePicker extends mixins(Vue, Popper).with(Props) {
   }
 
   mountPicker() {
-    // this.picker = new Vue(this.panel).$mount();
     this.picker = this.$refs.pickPanel as ComponentPublicInstance;
     if (this.mode === "single") {
       (this.picker as ComponentPublicInstance<{ defaultValue: Date }>).defaultValue = new Date(this.defaultDate);
@@ -348,7 +353,7 @@ export default class YnDatePicker extends mixins(Vue, Popper).with(Props) {
   pickHanler(date = '', visible = false) {
     this.dateValue = date;
     (this.picker as ComponentPublicInstance<{ visible: boolean }>).visible = visible;
-    this.$emit("input", visible);
+    this.$emit("update:modelValue", visible);
     const dateWrap: AnyObject = {
       date: {},
       fromDate: {},

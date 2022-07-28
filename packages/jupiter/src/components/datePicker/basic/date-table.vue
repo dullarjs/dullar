@@ -47,6 +47,7 @@ const getDateTimestamp = function (time) {
 };
 export default {
   name: "DataTable",
+  emits: ["mouseMovEnd", "mouseMoving", "changerange", "pick"],
   props: {
     doubleModeAllowSameDate: {
       type: Boolean,
@@ -204,7 +205,7 @@ export default {
             }
           }
 
-          let cellDate = new Date(time);
+          const cellDate = new Date(time);
           cell.disabled =
             typeof disabledDate === "function" && disabledDate(cellDate);
           cell.selected =
@@ -361,7 +362,7 @@ export default {
           : [this.defaultValue]
         : [];
 
-      let classes = [];
+      const classes = [];
       if ((cell.type === "normal" || cell.type === "today") && !cell.disabled) {
         classes.push("available");
         if (cell.type === "today") {

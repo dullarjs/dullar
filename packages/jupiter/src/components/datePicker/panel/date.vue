@@ -92,6 +92,7 @@ export default {
     Iconfont,
     DataTable,
   },
+  emits: ["mouseMoving", "mouseMovEnd", "pick", "dodestroy"],
   data() {
     return {
       before: "",
@@ -151,7 +152,7 @@ export default {
     },
     handleDatePick(value) {
       if (this.selectionMode === 'day') {
-        let newDate = clearTime(value);
+        const newDate = clearTime(value);
         // change default time while out of selectableRange
         this.date = newDate;
         this.$emit("pick", this.date);

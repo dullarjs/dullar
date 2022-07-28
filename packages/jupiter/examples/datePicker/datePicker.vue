@@ -163,6 +163,7 @@
           after="1"
           v-model="calendar9"
           unit="year"
+          v-on:getDate="handleOnGetDate9"
         ></yn-date-picker>
       </li>
       <li>
@@ -182,7 +183,7 @@
           :fromDateMark="'出发'"
           :toDateMark="'到达'"
           v-model="calendar10"
-          v-on:getDate="handleOnGetDate5"
+          v-on:getDate="handleOnGetDate10"
           :showConfirmButton="true"
           :confirmText="confirmText"
           :dateRefenceWidth="'100%'"
@@ -329,7 +330,11 @@ export default {
       console.log(date);
     },
     handleOnGetDate9(date) {
-      this.calendar9Date = date.fromDate.date + " ~ " + date.toDate.date;
+      this.calendar9Date = date.date.date;
+      console.log(date);
+    },
+    handleOnGetDate10(date) {
+      this.calendar10Date = date.fromDate.date + " ~ " + date.toDate.date;
       console.log(date);
     },
     handleChange(e, args) {
