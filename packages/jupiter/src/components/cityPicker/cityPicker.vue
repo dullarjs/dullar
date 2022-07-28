@@ -2,7 +2,7 @@
   <div class="city-picker">
     <Popover
       @update:visible="updateVisibleHandle"
-      :visible.sync="popoverVisible"
+      v-model:visible="popoverVisible"
       :width="pickerWidth"
       :placement="'bottom'"
       :visibleArrow="false"
@@ -132,9 +132,11 @@ class Props {
   showHotCity = prop<boolean>({ default: true })
   showAlphaBeta = prop<boolean>({ default: true })
   parse = prop<(city: AnyObject, nameSpace: string) => string>({
-    default: (city: AnyObject, nameSpace?: string) => {
-      // if (!nameSpace) nameSpace = "";
-      return `<span>${city.CityName}</span>`;
+    default: () => {
+      return (city: AnyObject, nameSpace?: string) => {
+        // if (!nameSpace) nameSpace = "";
+        return `<span>${city.CityName}</span>`;
+      }
     }
   })
   search = prop<AnyObject>({

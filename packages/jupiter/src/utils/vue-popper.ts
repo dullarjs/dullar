@@ -16,6 +16,7 @@ class Props {
 }
 @Options({
   name: "Popup",
+  emits: ["created"],
   watch: {
     visibleArrow: {
       immediate: true,

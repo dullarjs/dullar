@@ -50,7 +50,7 @@ class Props {
 }
 @Options({
   name: "YnPopover",
-  emits: ["update:visible"]
+  emits: ["update:visible", "beforeEnter", "beforeLeave", "opend", "close"]
 })
 export default class Popover extends mixins(
   Vue,

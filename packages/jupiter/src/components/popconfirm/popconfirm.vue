@@ -35,7 +35,8 @@ class Props {
   components: {
     Button,
     Popover
-  }
+  },
+  emits: ["confirm", "cancel"]
 })
 export default class Popconfirm extends mixins(Vue).with(Props){
   static componentName = "YnPopconfirm";
