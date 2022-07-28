@@ -10,14 +10,10 @@
 <script type="text/babel">
   import "./style/index.scss";
   import Popper from '@/utils/vue-popper';
-
-  export default {
+  import { Vue, Options, mixins } from "vue-class-component";
+  @Options({
     name: 'YnSelectDropdown',
-
     componentName: 'YnSelectDropdown',
-
-    mixins: [Popper],
-
     props: {
       placement: {
         default: 'bottom-start'
@@ -44,25 +40,24 @@
         default: true
       }
     },
-
     data() {
       return {
         minWidth: ''
       };
     },
-
     computed: {
       popperClass() {
         return this.$parent.popperClass;
       }
     },
-
     watch: {
       '$parent.inputWidth'() {
         this.minWidth = this.$parent.$el.getBoundingClientRect().width + 'px';
 
       }
-    },
+    }
+  })
+  export default class SelectDropdown extends mixins(Vue, Popper) {
     mounted() {
       this.referenceElm = this.$parent.$refs.reference.$el;
       this.$parent.popperElm = this.popperElm = this.$el;
@@ -71,5 +66,5 @@
       // });
       // this.$on('destroyPopper', this.destroyPopper);
     }
-  };
+  }
 </script>

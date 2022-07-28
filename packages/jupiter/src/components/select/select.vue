@@ -36,7 +36,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Options, prop, mixins  } from "vue-class-component";
+import { Vue, Options, prop, mixins } from "vue-class-component";
 import "./style/index.scss";
 import { AnyObject } from "../../types";
 import field from "@/components/field";
@@ -45,7 +45,7 @@ import scrollbar from "@/components/scrollbar";
 import { valueEquals } from "@/utils";
 import Clickoutside from '@/utils/clickoutside.js';
 class Props {
-  value = prop<number | string>({ default: "" })
+  modelValue = prop<number | string>({ default: "" })
   placeholder = prop<string>({ default: "" })
   disabled = prop<boolean>({ default: false })
   size = prop<string>({ default: "medium" })
@@ -57,6 +57,7 @@ class Props {
     selectDropdown,
     field
   },
+  emits: ["change", "focus", "input", "update:modelValue"],
   provide() {
     return {
       "select": this
@@ -64,9 +65,9 @@ class Props {
   },
   directives: { Clickoutside },
   watch: {
-    value() {
+    modelValue() {
       this.setSelected();
-    }
+    },
     visible(n: boolean) {
       if (n) {
         this.iconRotate = 180;
@@ -75,7 +76,7 @@ class Props {
       } else {
         this.iconRotate = 0;
       }
-    }
+    },
     options() {
       this.$nextTick(() => {
         // this.broadcast('YnSelectDropdown', 'updatePopper');
@@ -89,10 +90,9 @@ class Props {
 })
 export default class Select extends mixins(Vue).with(Props) {
   static componentName = "YnSelect";
-
   optionsCount = 0;
   hoverIndex = -1;
-  selected:AnyObject = {};
+  selected: AnyObject = {};
   options: AnyObject[] = [];
   cachedOptions: AnyObject[] = [];
   selectedLabel = "";
@@ -109,7 +109,7 @@ export default class Select extends mixins(Vue).with(Props) {
   }
 
   emitChange(val: number | string) {
-    if (!valueEquals(this.value, val)) {
+    if (!valueEquals(this.modelValue, val)) {
       this.$emit('change', val);
     }
   }
@@ -126,12 +126,13 @@ export default class Select extends mixins(Vue).with(Props) {
   }
   handleOptionSelect(option: AnyObject) {
     this.$emit("input", option.value);
+    this.$emit("update:modelValue", option.value);
     this.emitChange(option.value);
     this.visible = false;
     this.setSoftFocus();
   }
   setSelected() {
-    let option = this.getOption(this.value);
+    const option = this.getOption(this.modelValue);
     this.selectedLabel = option.currentLabel;
     this.selected = option;
   }
@@ -151,7 +152,7 @@ export default class Select extends mixins(Vue).with(Props) {
     if (option) return option;
     const label = (!isObject && !isNull && !isUndefined)
       ? String(value) : '';
-    let newOption = {
+    const newOption = {
       value: value,
       currentLabel: label
     };

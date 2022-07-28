@@ -6,7 +6,7 @@
  */
 
 import "./style/index.scss";
-import { h, VNode } from "vue";
+import { h, VNode, withDirectives, vShow } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 import { encrypt } from "@/utils";
 import { slotsMixins } from "../mixins/slots";
@@ -16,7 +16,7 @@ const VALID_TYPE = ["number", "textarea", "password", "text", "email", "tel"];
 class Props {
   size = prop<string>({ default: "medium" })
   labelWidth!: string
-  value = prop<number | string>({ default: "" })
+  modelValue = prop<number | string>({ default: "" })
   label = prop<string>({ default: "" })
   placeholder = prop<string>({ default: "" })
   maxlength!: number | string
@@ -45,7 +45,8 @@ class Props {
 }
 @Options({
   name: "Field",
-  components: { Iconfont }
+  components: { Iconfont },
+  emits: ["focus", "input", "click", "blur"]
 })
 export default class Field extends mixins(Vue, slotsMixins).with(Props){
   static componentName = "YnField";
@@ -57,8 +58,8 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
 
   get valueComputed() {
     return this.encrypted && !this.inputing
-          ? this.encrypt(this.value)
-          : this.value
+          ? this.encrypt(this.modelValue)
+          : this.modelValue
   }
   get maxLengthComputed() {
     return this.maxlength ? Number(this.maxlength) : null;
@@ -91,7 +92,7 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
   handleOnBlur(e: Event) {
     this.inputing = false;
     if (this.encrypted) {
-      if (this.value === "") {
+      if (this.modelValue === "") {
         // this.$emit("input", this.encrypt(this.originalText));
         this.$emit("input", this.originalText);
       } else {
@@ -127,8 +128,8 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
       autofocus: this.autofocus,
       value:
         this.encrypted && !this.inputing
-          ? this.encrypt(this.value)
-          : this.value,
+          ? this.encrypt(this.modelValue)
+          : this.modelValue,
       required: this.required,
       disabled: this.disabled,
       maxlength,
@@ -137,8 +138,8 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
     const domProps = {
       value:
         this.encrypted && !this.inputing
-          ? this.encrypt(this.value)
-          : this.value,
+          ? this.encrypt(this.modelValue)
+          : this.modelValue,
     };
     const events = {
       onFocus: this.handleOnFocus,
@@ -170,16 +171,18 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
                 },
                 []
               ),
-              h(
-                "div",
-                {
-                  directives: [
-                    { name: "show", value: this.showTextareaCounter },
-                  ],
-                  class: ["yn-field-textarea-counter"],
-                },
-                [h("span", {}, `${(this.value as string).length}/${this.maxlength}`)]
-              ),
+              withDirectives(
+                h(
+                  "div",
+                  {
+                    directives: [
+                      { name: "show", value: this.showTextareaCounter },
+                    ],
+                    class: ["yn-field-textarea-counter"],
+                  },
+                  [h("span", {}, `${(this.modelValue as string).length}/${this.maxlength}`)]
+                ),
+                [[vShow, this.showTextareaCounter]])
             ]
           )
         );
@@ -211,31 +214,28 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
   createIcon() {
     const icon = [];
     const name = this.clearable ? "clear" : this.iconName;
-    const directives = this.clearable
-      ? [{ name: "show", value: this.showIcon }]
-      : [];
     if (this.clearable || this.iconName) {
       icon.push(
-        h(
-          "div",
-          {
-            class: ["yn-field__suffix"],
-            directives,
-            onClick: this.handleIconClick
-          },
-          [
-            h(
-              Iconfont,
-              {
-                name,
-                size: this.iconSize,
-                rotate: this.iconRotate,
-                "class": this.iconClass
-              },
-              []
-            ),
-          ]
-        )
+        withDirectives(
+          h(
+            "div",
+            {
+              class: ["yn-field__suffix"],
+              onClick: this.handleIconClick
+            },
+            [
+              h(
+                Iconfont,
+                {
+                  name,
+                  size: this.iconSize,
+                  rotate: this.iconRotate,
+                  "class": this.iconClass
+                },
+                []
+              ),
+            ]
+          ), [[vShow, this.showIcon]])
       );
     }
     return icon;
@@ -278,6 +278,6 @@ export default class Field extends mixins(Vue, slotsMixins).with(Props){
     ]);
   }
   created() {
-    this.originalText = this.value;
+    this.originalText = this.modelValue;
   }
 }

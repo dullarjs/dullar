@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Options, mixins, prop } from "vue-class-component";
+  import { Vue, Options, mixins } from "vue-class-component";
 
   interface Select {
     [propName: string]: any;
@@ -55,9 +55,9 @@
     }
     get itemSelected() {
       if (!this.select.multiple) {
-        return this.isEqual(this.value, this.select.value);
+        return this.isEqual(this.value, this.select.modelValue);
       } else {
-        return this.contains(this.select.value, this.value);
+        return this.contains(this.select.modelValue, this.value);
       }
     }
 
@@ -75,7 +75,7 @@
     selectOptionClick() {
       if (this.disabled !== true) {
         // this.dispatch('YnSelect', 'handleOptionClick', this);
-        this.select.handleOptionSelect();
+        this.select.handleOptionSelect(this);
       }
     }
 
@@ -86,9 +86,9 @@
     }
     beforeDestroy() {
       const { selected, multiple } = this.select;
-      let selectedOptions = multiple ? selected : [selected];
-      let index = this.select.cachedOptions.indexOf(this);
-      let selectedIndex = selectedOptions.indexOf(this);
+      const selectedOptions = multiple ? selected : [selected];
+      const index = this.select.cachedOptions.indexOf(this);
+      const selectedIndex = selectedOptions.indexOf(this);
 
       // if option is not selected, remove it from cache
       if (index > -1 && selectedIndex < 0) {

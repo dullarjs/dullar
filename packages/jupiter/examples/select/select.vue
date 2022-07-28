@@ -1,7 +1,7 @@
 <template>
   <div class="select-page">
     <h3>基本用法</h3>
-    <yn-select v-model="value" @input="handleInput">
+    <yn-select v-model="value1" @input="handleInput">
       <yn-option
         v-for="item in options"
         :key="item.value"
@@ -10,7 +10,7 @@
       </yn-option>
     </yn-select>
     <h3>基本用法测试</h3>
-    <yn-select v-model="value" @input="handleInput">
+    <yn-select v-model="value2" @input="handleInput">
       <yn-option
         v-for="item in options1"
         :key="item.value"
@@ -42,7 +42,8 @@ import { AnyObject } from "@/types";
   name: "selectPage"
 })
 export default class SelectPage extends Vue {
-  value = "选项4";
+  value1 = "选项4";
+  value2 = "";
   value3 = "";
   placeholder="请选择";
   options1: AnyObject[] = [];
