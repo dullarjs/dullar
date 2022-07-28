@@ -17,6 +17,7 @@ declare module "@vue/runtime-core" {
     Message: (args: AnyObject) => void,
     Msgbox: (args: AnyObject) => Promise,
     Notification: (args: AnyObject) => void,
-    Indicator: (args: AnyObject) => void
+    Indicator: (args: AnyObject) => void,
+    [prop: string]: any
   }
 }

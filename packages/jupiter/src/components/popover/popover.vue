@@ -49,7 +49,7 @@ class Props {
   closeDelay = prop<number>({ default: 200 })
 }
 @Options({
-  name: "Popover"
+  name: "YnPopover"
 })
 export default class Popover extends mixins(
   Vue,
@@ -108,7 +108,7 @@ export default class Popover extends mixins(
   }
   mounted() {
     let reference = this.referenceElm = this.$refs.reference as HTMLElement;
-    let poper = this.$refs.popper as HTMLElement;
+    const poper = this.$refs.popper as HTMLElement;
 
     if (!reference && (this.$refs.wrapper as HTMLElement).children) {
       reference = this.referenceElm = (this.$refs.wrapper as HTMLElement).children[0] as HTMLElement;
@@ -130,7 +130,7 @@ export default class Popover extends mixins(
     }
   }
   beforeDestroy() {
-    let reference = this.referenceElm as HTMLElement;
+    const reference = this.referenceElm as HTMLElement;
     off(reference, "click", this.toggle);
     off(document, "click", this.handleDocumentClick);
   }

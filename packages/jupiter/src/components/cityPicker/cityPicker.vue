@@ -228,7 +228,7 @@ class Props {
   })
 }
 @Options({
-  name: "CityPicker",
+  name: "YnCityPicker",
   components: {
     Popover,
     Spin

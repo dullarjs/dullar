@@ -100,7 +100,7 @@ class Props {
   roundType = prop<string>({ default: "" })
 }
 @Options({
-  name: "DatePicker",
+  name: "YnDatePicker",
   components: {
     Field
   },
@@ -145,12 +145,12 @@ class Props {
       } else {
         this.panel = this.getPanel(this.mode);
       }
-    }
+    },
     value(n) {
       if (n) {
         this.showPicker()
       }
-    }
+    },
     defaultDate: {
       immediate: true,
       handler(val: string) {
@@ -159,7 +159,7 @@ class Props {
           this.picker.defaultValue = new Date(val);
         }
       }
-    }
+    },
     defaulStartDate: {
       immediate: true,
       handler(val: string) {
@@ -169,7 +169,7 @@ class Props {
           this.picker.defaultValue = [new Date(val), new Date(this.defaultEndDate)];
         }
       }
-    }
+    },
     defaultEndDate: {
       immediate: true,
       handler(val: string) {

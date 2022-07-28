@@ -23,14 +23,14 @@ import Icon from "@/components/icon";
 import "./style/index.scss";
 import { AnyObject, Callback } from '@/types';
 @Options({
-  name: "Message",
+  name: "YnMessage",
   components: {
     Icon
   }
 })
 export default class Message extends Vue{
   static componentName = "YnMessage";
-  timer!:number;
+  timer!: number;
   offset = 20;
   showClose = true;
   duration = 3000;
@@ -40,7 +40,7 @@ export default class Message extends Vue{
   onClose: null | Callback = null;
 
   get style() {
-    let style: AnyObject = {}
+    const style: AnyObject = {}
     style.top = this.offset + "px";
     return style;
   }

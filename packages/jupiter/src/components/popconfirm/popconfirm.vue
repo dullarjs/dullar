@@ -31,7 +31,7 @@ class Props {
   cancelButtonType = prop<string>({ default: "text" })
 }
 @Options({
-  name: "Popconfirm",
+  name: "YnPopconfirm",
   components: {
     Button,
     Popover

@@ -38,7 +38,6 @@ export const components: AnyObject = {
   FlexItem,
   Flex,
   DatePicker,
-  // MessageBox,
   Popconfirm,
   Button,
   Icon,
@@ -62,6 +61,7 @@ export const components: AnyObject = {
 
 const install = (app: App<Element>): void => {
   Object.keys(components).map(compName => {
+    // debugger; // eslint-disable-line;
     const comp = components[compName];
     const merge = (comp as any).extendData;
     if (merge && typeof merge === "function") {
@@ -69,6 +69,8 @@ const install = (app: App<Element>): void => {
     }
     if (typeof comp === "function") {
       app.component(comp.componentName, comp);
+    } else {
+      app.component(comp.name, comp);
     }
   });
   app.config.globalProperties.Indicator = Indicator;

@@ -1,7 +1,7 @@
 <template>
   <div class="dialog-page">
     <h3>基本用法</h3>
-    <yn-button type="text" @click="dialogVisible1 = true">点击打开 Dialog</yn-button>
+    <yn-button type="text" @click="clickHandle('dialogVisible1')">点击打开 Dialog</yn-button>
     <Yn-dialog v-model:visible="dialogVisible1" confirmBtnName="提交行程">
     </Yn-dialog>
     <h3>自定义底部按钮</h3>
@@ -53,6 +53,9 @@ export default class ExDialog extends Vue {
   dialogVisible3 = false;
   outerVisible = false;
   innerVisible = false;
+  clickHandle(key: string) {
+    this[key] = true;
+  }
   get userList() {
     const list = [];
     for(let i = 0; i < 100; i++) {

@@ -60,7 +60,7 @@ class Props {
   bodyOverflowY = prop<boolean>({ default: true })
 }
 @Options({
-  name: "Dialog",
+  name: "YnDialog",
   components: {
     Icon
   }
@@ -69,7 +69,7 @@ export default class Dialog extends mixins(Vue, Popup).with(Props) {
   static componentName = "YnDialog";
 
   get style() {
-    let style: AnyObject = {};
+    const style: AnyObject = {};
     if (this.top) style.marginTop = this.top;
     if (this.width) style.width = this.width;
     return style;

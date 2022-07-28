@@ -35,7 +35,7 @@ import Popup from "../../utils/popup";
 import Icon from "@/components/icon";
 import { Callback } from "@/types";
 @Options({
-  name: "MessageBox",
+  name: "YnMessageBox",
   components: {
     Icon,
     Button

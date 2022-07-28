@@ -12,6 +12,7 @@ class Props {
 }
 @Options({
   name: "Popup",
+  emits: ["update:visible"],
   watch: {
     visible(val: boolean) {
       if (val) {

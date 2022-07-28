@@ -116,8 +116,8 @@ export default class Button extends mixins(Vue).with(Props) {
       "button",
       {
         class: ["yn-button", ...className],
-        attrs: { type: "button" },
-        on: { click: this.handleClick },
+        type: "button",
+        onClick: this.handleClick,
       },
       [
         ...this.createLoading(),

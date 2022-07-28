@@ -33,13 +33,13 @@
     checked = prop<boolean>({ default: false })
   }
   @Options({
-    name: 'ynOption',
+    name: 'YnDropdownItem',
     inject: ['dropdown'],
     watch: {
       currentLabel() {
         // this.dispatch('YnSelect', 'setSelected');
         this.dropdown.setSelected();
-      }
+      },
       checked: {
         immediate: true,
         handler(n: boolean) {
@@ -99,9 +99,9 @@
     }
     beforeDestroy() {
       const { selected, multiple } = this.dropdown;
-      let selectedOptions = multiple ? selected : [selected];
-      let index = this.dropdown.cachedOptions.indexOf(this);
-      let selectedIndex = selectedOptions.indexOf(this);
+      const selectedOptions = multiple ? selected : [selected];
+      const index = this.dropdown.cachedOptions.indexOf(this);
+      const selectedIndex = selectedOptions.indexOf(this);
 
       // if option is not selected, remove it from cache
       if (index > -1 && selectedIndex < 0) {

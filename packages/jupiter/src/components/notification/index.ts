@@ -1,6 +1,6 @@
 import myNotice from "./notification.vue"
 import { ComponentPublicInstance, createVNode, render } from "vue";
-const instances:any[] = [];
+const instances: any[] = [];
 let seed = 0;
 // 继承
 // const noticeConstructor = Vue.extend(myNotice);
@@ -40,8 +40,8 @@ const Notification = function(options: any) {
   if (instances && instances.length > 0) {
     instances.forEach(item => {
       // 防止noticeTop NAN
-      if (item.$el.offsetHeight) {
-        noticeTop += item.$el.offsetHeight + 10;
+      if (item.el.offsetHeight) {
+        noticeTop += item.el.offsetHeight + 10;
       }
     })   
   }

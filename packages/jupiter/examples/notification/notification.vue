@@ -13,16 +13,16 @@ import { Vue, Options } from 'vue-class-component';
 })
 export default class Notification extends Vue {
   openMessage() {
-    (this as any).Notification({ message: "这是一条消息提示" });
+    (this as any).$notification({ message: "这是一条消息提示" });
   }
   openMessageSuccess() {
-    (this as any).Notification({message: "这是一条好消息提示", type: "success", center: false, timer: 3000}); 
+    (this as any).$notification({message: "这是一条好消息提示", type: "success", center: false, timer: 3000}); 
   }
   openMessageerror() {
-    (this as any).Notification({message: "这是一条坏消息提示", type: "error"}); 
+    (this as any).$notification({message: "这是一条坏消息提示", type: "error"}); 
   }
   openMessagewarn() {
-    (this as any).Notification({message: "这是一条警告消息提示", type: "warning"}); 
+    (this as any).$notification({message: "这是一条警告消息提示", type: "warning"}); 
   }
 }
 </script>

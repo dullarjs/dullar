@@ -26,7 +26,7 @@ class Props {
   duration = prop<number>({ default: 3000 })
 }
 @Options({
-  name: "Notification",
+  name: "YnNotification",
   watch: {
     visable(newValue: boolean) {
       if (!newValue) {
