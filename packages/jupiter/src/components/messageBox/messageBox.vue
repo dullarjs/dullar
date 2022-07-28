@@ -3,7 +3,7 @@
     name="dialog-fade"
   >
     <div
-      v-show="visible"
+      v-show="showMsg"
       class="yn-message-box-wrapper"
       @click.self="handleWrapperClick"
     >
@@ -39,6 +39,15 @@ import { Callback } from "@/types";
   components: {
     Icon,
     Button
+  },
+  watch: {
+    showMsg(val: boolean) {
+      if (val) {
+        this.open();
+      } else {
+        this.close();
+      }
+    }
   }
 })
 export default class MessageBox extends mixins(Vue, Popup){
@@ -53,6 +62,7 @@ export default class MessageBox extends mixins(Vue, Popup){
   message = "";
   title = "";
   beforeClose: Callback | null = null;
+  showMsg = false;
 
   handleClose() {
     this.handAction("close");
@@ -76,7 +86,7 @@ export default class MessageBox extends mixins(Vue, Popup){
     }
   }
   doClose() {
-    this.visible = false;
+    this.showMsg = false;
     if (this.action && this.callback) this.callback(this.action);
   }
   beforeDestroy() {

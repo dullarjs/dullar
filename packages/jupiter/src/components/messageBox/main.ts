@@ -1,8 +1,8 @@
 import msgboxVue from "./messageBox.vue";
 import { AnyObject } from "@/types";
-import { nextTick  } from "vue";
+import { nextTick, createApp, ComponentPublicInstance, ref } from "vue";
 
-let instance: AnyObject, currentMsg: AnyObject;
+let instance: ComponentPublicInstance, currentMsg: AnyObject;
 const defaultCallback = (action: string) => {
   const { option, resolve, reject } = currentMsg;
   const { callback } = option;
@@ -20,9 +20,8 @@ const defaultCallback = (action: string) => {
   }
 };
 const initInstance = () => {
-  instance = new msgboxVue({
-    el: document.createElement("div")
-  });
+  const div = document.createElement("div");
+  instance = createApp(msgboxVue).mount(div);
 }
 const showNextMsg = () => {
   if (!instance) {
@@ -42,7 +41,7 @@ const showNextMsg = () => {
 
   document.body.appendChild(instance.$el);
   nextTick(() => {
-    instance.visible = true;
+    (instance as ComponentPublicInstance<{ showMsg: boolean }>).showMsg = true;
   });
 }
 const MessageBox = function(option: AnyObject) {
