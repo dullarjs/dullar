@@ -2,7 +2,7 @@
   <div class="popover-page">
     <h3>基础用法</h3>
     <Yn-popover
-      :visible.sync="popoverVisible1"
+      v-model:visible="popoverVisible1"
       :width="200"
       :title="'提示'"
     >
@@ -11,7 +11,7 @@
       </template>
     </Yn-popover>
     <Yn-popover
-      :visible.sync="popoverVisible2"
+      v-model:visible="popoverVisible2"
       :placement="'top-end'"
       :width="150"
     >
@@ -20,7 +20,7 @@
       </template>
     </Yn-popover>
     <Yn-popover
-      :visible.sync="popoverVisible3"
+      v-model:visible="popoverVisible3"
       :width="200"
       :placement="'left-end'"
     >
@@ -29,7 +29,7 @@
       </template>
     </Yn-popover>
     <Yn-popover
-      :visible.sync="popoverVisible4"
+      v-model:visible="popoverVisible4"
       :width="200"
       :placement="'right'"
     >
@@ -38,7 +38,7 @@
       </template>
     </Yn-popover>
     <Yn-popover
-      :visible.sync="popoverVisible5"
+      v-model:visible="popoverVisible5"
       :width="200"
       :placement="'top'"
       :trigger="'hover'"
@@ -49,7 +49,7 @@
     </Yn-popover>
     <h3>嵌套用法</h3>
     <Yn-popover
-      :visible.sync="popoverVisible6"
+      v-model:visible="popoverVisible6"
       :width="200"
       :placement="'top'"
     >

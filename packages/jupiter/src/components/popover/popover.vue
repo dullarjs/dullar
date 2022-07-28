@@ -49,7 +49,8 @@ class Props {
   closeDelay = prop<number>({ default: 200 })
 }
 @Options({
-  name: "YnPopover"
+  name: "YnPopover",
+  emits: ["update:visible"]
 })
 export default class Popover extends mixins(
   Vue,
