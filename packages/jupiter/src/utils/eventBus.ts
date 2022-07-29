@@ -1,7 +1,7 @@
 class Bus {
   private eventHub = new Map();
   on(eventName: string, callback: Function): void {
-    let events = [];
+    const events = [];
     if (!this.eventHub.has(eventName)) {
       events.push(callback);
     } else {

@@ -6,7 +6,7 @@
  */
 import "./style/index.scss";
 import { hyphenate, camelize } from "@/utils";
-import { slotsMixins } from "../mixins/slots";
+import { SlotsMixins } from "../mixins/slots";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 import { h } from "vue";
 class Props {
@@ -17,7 +17,7 @@ class Props {
 @Options({
   name: "YnFlexItem"
 })
-export default class YnFlexItem extends mixins(Vue, slotsMixins).with(Props) {
+export default class YnFlexItem extends mixins(Vue, SlotsMixins).with(Props) {
   static componentName = "YnFlexItem";
 
   isValidAlignSelfValue() {

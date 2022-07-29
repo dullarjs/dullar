@@ -1,8 +1,17 @@
 {
-  "name": "jupiter",
+  "name": "@dullar/jupiter",
   "version": "0.1.0",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/@dullar/jupiter.umd.min.js",
+  "files": [
+    "lib/*.js",
+    "types/*.d.ts"
+  ],
+  "typings": "types/index.d.ts",
   "scripts": {
+    "build:components": "vue-cli-service build --mode production --target lib --name @dullar/jupiter --dest lib src/index.ts",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

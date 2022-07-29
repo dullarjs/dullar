@@ -7,7 +7,7 @@
  */
 import "./style/index.scss";
 import { hyphenate, camelize, isString } from "@/utils";
-import { slotsMixins } from "../mixins/slots";
+import { SlotsMixins } from "../mixins/slots";
 const VALID_CHILD_COMPONENT = "flex-item";
 import { h } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
@@ -31,7 +31,7 @@ class Props {
     FlexItem
   }
 })
-export default class YnFlex extends mixins(Vue, slotsMixins).with(Props) {
+export default class YnFlex extends mixins(Vue, SlotsMixins).with(Props) {
   static componentName = "YnFlex";
 
   VUE_APP_PREFIX = "yn";

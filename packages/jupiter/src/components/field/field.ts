@@ -9,7 +9,7 @@ import "./style/index.scss";
 import { h, VNode, withDirectives, vShow } from "vue";
 import { Vue, Options, prop, mixins } from "vue-class-component";
 import { encrypt } from "@/utils";
-import { slotsMixins } from "../mixins/slots";
+import { SlotsMixins } from "../mixins/slots";
 import Iconfont from "../iconfont";
 import { AnyObject } from "@/types";
 const VALID_TYPE = ["number", "textarea", "password", "text", "email", "tel"];
@@ -48,7 +48,7 @@ class Props {
   components: { Iconfont },
   emits: ["focus", "input", "click", "blur"]
 })
-export default class Field extends mixins(Vue, slotsMixins).with(Props){
+export default class Field extends mixins(Vue, SlotsMixins).with(Props){
   static componentName = "YnField";
   target!: HTMLInputElement;
   showIcon = false;

@@ -36,7 +36,7 @@
         handler(val: string) {
           this.currentPlacement = val;
         }
-      }
+      },
       "dropdown.visible"(val: boolean) {
         this.showPopper = val;
       }

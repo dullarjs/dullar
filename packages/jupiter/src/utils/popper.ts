@@ -812,13 +812,13 @@ function isFixed(element: HTMLElement): boolean {
  * @argument {Object} styles - Object with a list of properties and values which will be applied to the element
  */
 function setStyle(element: HTMLElement, styles: AnyObject) {
-	function is_numeric(n: string | number) {
+	function isNumeric(n: string | number) {
 		return (n !== '' && !isNaN(parseFloat(n as string)) && isFinite(n as number));
 	}
 	Object.keys(styles).forEach(function (prop) {
 		let unit = '';
 		// add unit if the value is numeric and is one of the following
-		if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && is_numeric(styles[prop])) {
+		if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
 			unit = 'px';
 		}
 		(element.style as AnyObject)[prop] = styles[prop] + unit;

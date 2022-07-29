@@ -12,6 +12,8 @@ module.exports = {
     ecmaVersion: 2020
   },
   rules: {
+    "no-use-before-define": 'off',
+    "@typescript-eslint/no-use-before-define": ["off"],
     "vue/no-v-model-argument": "off",
     "vue/multi-word-component-names": 0,
     "@typescript-eslint/explicit-module-boundary-types": "off",
