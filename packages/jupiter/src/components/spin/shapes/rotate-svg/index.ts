@@ -11,9 +11,9 @@ import common from "../common";
 import { Vue, mixins, Options } from "vue-class-component";
 const svgIcon = require("./images/loading.svg");
 @Options({
-  name: "rotateSvg"
+  name: "RotateSvg"
 })
-export default class rotateSvg extends mixins(Vue, common) {
+export default class RotateSvg extends mixins(Vue, common) {
   render() {
     return h(
       "div",
