@@ -1,6 +1,6 @@
 {
   "name": "@dullar/mars",
-  "version": "0.4.45",
+  "version": "0.4.46",
   "publishConfig": {
     "access": "public"
   },
