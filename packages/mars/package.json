@@ -1,6 +1,6 @@
 {
   "name": "@dullar/mars",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "publishConfig": {
     "access": "public"
   },
@@ -67,5 +67,5 @@
     "last 2 versions",
     "not dead"
   ],
-  "gitHead": "cdd99fd5cd7d8de1ba4f5f1fd61adefef059a069"
+  "gitHead": "67b7e3aa6ed15674c23c7bf6316b698b5473e40a"
 }
