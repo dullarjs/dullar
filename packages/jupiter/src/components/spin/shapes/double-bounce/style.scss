@@ -1,0 +1,27 @@
+.yn-spin-double-bounce {
+  position: relative;
+  .double-bounce-1,
+  .double-bounce-2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.6;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: yn-spin-double-bounce 2s infinite ease-in-out;
+  }
+  .double-bounce-2 {
+    animation-delay: -1s;
+  }
+}
+
+@keyframes yn-spin-double-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}

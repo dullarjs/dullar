@@ -1,0 +1,61 @@
+@import "src/theme/variable";
+.yn-message{
+  position:fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s, transform 0.3s, top 0.3s;
+  min-width: 380px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #EBEEF5;
+  display: flex;
+  align-items: center;
+  padding: 15px 15px 15px 20px;
+  overflow: hidden;
+  p {
+    margin: 0;
+  }
+  &.yn-message--info{
+    background-color: $message-info-bg-color;
+    color: $message-info-font-color;
+    border-color: $message-info-border-color;
+  }
+  &.yn-message--success{
+    background-color: $message-success-bg-color;
+    color: $message-success-font-color;
+    border-color: $message-success-border-color;
+  }
+  &.yn-message--warning{
+    background-color: $message-warning-bg-color;
+    color: $message-warning-font-color;
+    border-color: $message-warning-border-color;
+  }
+  &.yn-message--error{
+    background-color: $message-error-bg-color;
+    color: $message-error-font-color;
+    border-color: $message-error-border-color;
+  }
+  &.is-closable{
+    .yn-message__content{
+      padding-right: 15px;
+    }
+  }
+  .yn-message__close{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    cursor: pointer;
+    color: $message-close-color;
+    font-size: 16px;
+    &:hover{
+      color: $message-close-hover-color;
+    }
+  }
+}
+.yn-message-fade-enter,
+.yn-message-fade-leave-active {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}

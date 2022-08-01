@@ -1,0 +1,21 @@
+@import "./variable.scss";
+
+.fade-in-linear-enter-active,
+.fade-in-linear-leave-active {
+  transition: $--fade-linear-transition;
+}
+.fade-in-linear-enter,
+.fade-in-linear-leave,
+.fade-in-linear-leave-active {
+  opacity: 0;
+}
+
+.yn-zoom-in-center-enter-active,
+.yn-zoom-in-center-leave-active {
+  transition: all .3s cubic-bezier(.55,0,.1,1);
+}
+.yn-zoom-in-center-enter,
+.yn-zoom-in-center-leave-active {
+  opacity: 0;
+  transform: scaleX(0);
+}

@@ -91,6 +91,7 @@ export default class QLayout extends mixins(Venus).with(Props) {
     }
   }
   render() {
+    console.log("this.getSlots('footer'):", this.getSlots("footer"));
     const headerHeight = `${this.headerHeight}px`;
     const footerHeight = `${this.footerHeight}px`;
     return h("div", { class: ["v-layout"] }, {

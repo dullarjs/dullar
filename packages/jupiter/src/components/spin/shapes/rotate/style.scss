@@ -1,0 +1,91 @@
+.yn-spin-rotate {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  overflow: hidden;
+  .rotate-leaf-wapper {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+    .rotate-leaf {
+      box-sizing: content-box;
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      transform: translate(20px, 20px) scale(1);
+      background: #007aff;
+      animation: rotate-leaf-wapper 1.4492753623188404s infinite
+        cubic-bezier(0, 0.5, 0.5, 1);
+    }
+    .rotate-leaf-1 {
+      background: #479fff;
+      transform: translate(148px, 80px) scale(1);
+      animation: rotate2 0.3623188405797101s infinite
+          cubic-bezier(0, 0.5, 0.5, 1),
+        rotate3 1.4492753623188404s infinite step-start;
+    }
+    .rotate-leaf-2 {
+      animation-delay: -0.3623188405797101s;
+      background: #007aff;
+    }
+    .rotate-leaf-3 {
+      animation-delay: -0.7246376811594202s;
+      background: #479fff;
+    }
+    .rotate-leaf-4 {
+      animation-delay: -1.0869565217391304s;
+      background: #add4ff;
+    }
+    .rotate-leaf-5 {
+      animation-delay: -1.4492753623188404s;
+      background: #479fff;
+    }
+  }
+}
+
+@keyframes rotate-leaf-wapper {
+  0% {
+    transform: translate(3px, 20px) scale(0);
+  }
+  25% {
+    transform: translate(3px, 20px) scale(0);
+  }
+  50% {
+    transform: translate(3px, 20px) scale(1);
+  }
+  75% {
+    transform: translate(20px, 20px) scale(1);
+  }
+  100% {
+    transform: translate(37px, 20px) scale(1);
+  }
+}
+@keyframes rotate2 {
+  0% {
+    transform: translate(37px, 20px) scale(1);
+  }
+  100% {
+    transform: translate(37px, 20px) scale(0);
+  }
+}
+@keyframes rotate3 {
+  0% {
+    background: #007aff;
+  }
+  25% {
+    background: #479fff;
+  }
+  50% {
+    background: #add4ff;
+  }
+  75% {
+    background: #479fff;
+  }
+  100% {
+    background: #007aff;
+  }
+}

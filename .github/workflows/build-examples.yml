@@ -81,6 +81,18 @@ jobs:
       run: |
         mkdir docs/mars
         mv packages/mars/docs/* docs/mars
+    
+    - name: Build jupiter
+      run: |
+        cd packages/jupiter
+        yarn install
+        yarn build:components
+        yarn run build
+
+    - name: Move jupiter to root docs
+      run: |
+        mkdir docs/jupiter
+        mv packages/jupiter/docs/* docs/jupiter
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@4.1.4
