@@ -1,0 +1,42 @@
+.message-fade{
+    width:200px;
+    color: #2a2a2a;
+    background-color: #fff;
+    // border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.14);
+    &.message-fade-success{
+      // color: #67C23A;
+      // background-color: #b3e599;
+    }
+    &.message-fade-warning{
+      // color: #e6a23c;
+      // background-color: #ebcb9d;
+    }
+    &.message-fade-info{
+      // color: #888;
+    }
+    &.message-fade-error{
+      // color: #f56c6c;
+      // background-color: #f3b8b8;
+    }
+    &.message-fade-center{
+        text-align: center;
+    }
+    img{
+      width:16px;
+      height:16px;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+}
+.notice-enter-active,
+.notice-leave-active{
+    opacity: 0;
+    transform: translate(-50%, -50%);
+}

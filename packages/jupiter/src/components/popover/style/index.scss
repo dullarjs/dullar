@@ -1,0 +1,119 @@
+@import "src/theme/variable.scss";
+.yn-popper{
+  position:absolute;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
+  border: 1px solid #EBEEF5;
+  box-sizing:border-box;
+  padding: 18px 20px;
+  min-width: 80px;
+  word-break: break-all;
+  text-align: justify;
+  font-size: 14px;
+  line-height: 1.4;
+  color:#606266;
+}
+.yn-popover__title{
+  margin-bottom: 12px;
+  font-size:16px;
+  line-height: 1;
+}
+.popper__arrow, .popper__arrow::after{
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  background: transparent;
+  width:0px;
+  height:0px;
+  border: 6px solid transparent;
+}
+.popper__arrow::after{
+  content: "";
+}
+.yn-popper{
+  // placement top
+  &[x-placement^="top"] {
+    margin-bottom: #{$--popover-arrow-size + 6};
+  }
+  &[x-placement ^= "top"] .popper__arrow {
+    margin-left:-3px;
+    top: 100%;
+    left: 50%;
+    border-bottom-width: 0px;
+    border-top-color: rgb(235, 238, 245);
+    &::after{
+      top: -$--popover-arrow-size;
+      margin-left: -$--popover-arrow-size;
+      border-bottom-width: 0px;
+      border-top-color: #ffffff;
+    }
+  }
+  // placement bottom
+  &[x-placement^="bottom"] {
+    margin-top: #{$--popover-arrow-size + 6};
+  }
+  &[x-placement ^= "bottom"] .popper__arrow {
+    margin-left:-3px;
+    top: -6px;
+    left: 50%;
+    border-top-width: 0px;
+    border-bottom-color: rgb(235, 238, 245);
+    &::after{
+      top: 1px;
+      margin-left: -6px;
+      border-top-width: 0px;
+      border-bottom-color: #ffffff;
+    }
+  }
+  
+  // placement left
+  &[x-placement^="left"] {
+    margin-right: #{$--popover-arrow-size + 6};
+  }
+  &[x-placement ^= "left"] .popper__arrow {
+    margin-top:-6px;
+    top: 50%;
+    left: 100%;
+    border-right-width: 0px;
+    border-left-color: rgb(235, 238, 245);
+    &::after{
+      margin-top: -6px;
+      margin-left: -6px;
+      border-right-width: 0px;
+      border-left-color: #ffffff;
+    }
+  }
+  
+  // placement right
+  &[x-placement^="right"] {
+    margin-left: #{$--popover-arrow-size + 6};
+  }
+  &[x-placement ^= "right"] .popper__arrow {
+    margin-top:-6px;
+    top: 50%;
+    left: -6px;
+    border-left-width: 0px;
+    border-right-color: rgb(235, 238, 245);
+    &::after{
+      margin-top:-6px;
+      border-left-width: 0px;
+      border-right-color: #ffffff;
+    }
+  }
+  &.is-noarrow{
+    &[x-placement^="top"] {
+      margin-bottom: 4px;
+    }
+    &[x-placement^="bottom"] {
+      margin-top: 4px;
+    }
+    &[x-placement^="left"] {
+      margin-right: 4px;
+    }
+    &[x-placement^="right"] {
+      margin-left: 4px;
+    }
+  }
+}

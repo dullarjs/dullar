@@ -1,0 +1,112 @@
+$yn-primary-1: #EDF1F7;
+$yn-primary-6: #1E88E5;
+
+// 主题色
+$theme-color: #0052CC; // modified
+// 边框颜色
+$yn-border-color-base: #E1E5EB;
+$border-color-light: #E4E7ED !default;
+$border-color-lighter: #EBEEF5 !default;
+$border-color-extra-light: #F2F6FC !default;
+
+// 成功颜色
+$yn-success-color: #2A8A37;
+$yn-success-bg-color: #EBF7F1;
+// 危险颜色
+$yn-error-color: #BB0B08;
+$yn-error-bg-color: #FCEEEE;
+// 警告颜色
+$yn-warning-color: #E58621;
+// 警告色背景色
+$yn-warning-bg-color: #FEF1E9;
+// 背景色
+$yn-background-color: #F5F7FA;
+$yn-background-color-1: #E4ECF8;
+// 选中色
+$yn-background-color-light: #E5EDF9;
+// 白色
+$white: #ffffff;
+// 黑色
+$black: #000000;
+
+// 标题重要文本
+$yn-text-color: #1A253B;
+// 一般正文
+$yn-heading-color: #161823;
+// 次文本
+$yn-text-color-secondary: #4E5D78;
+// 标签文本，按钮
+$yn-label-color: #8894A8;
+// 提醒文字 placeholder
+$yn-auxiliary-color: #D0D3DB;
+// 不可选颜色，未激活颜色
+$yn-disabled-color: #BCC1CC;
+
+$yn-disabled-bg-color: #F2F3F5;
+// 货币颜色
+$yn-money-color: #0052CC;
+
+// border-radius
+$border-radius-base: 4px;
+
+/** box-shadow */
+// 信息容器默认态投影
+$yn-border-shadow-1: 0 1px 5px 0 rgb(78 93 120 / 10%);
+// 信息容器激活态投影
+$yn-border-shadow-2: 0 6px 18px 0 rgb(78 93 120 / 10%);
+// 信息提示
+$yn-border-shadow-3: 0 10px 32px 0 rgb(78 93 120 / 10%);
+// 模态弹窗的投影
+$yn-border-shadow-4: 0 12px 42px 0 rgb(78 93 120 / 10%);
+// select
+// 模态弹窗的投影
+$yn-border-shadow-5: 0 3px 20px 0 rgb(22 24 35 / 20%);
+// border-bottom
+$yn-border-shadow-bottom: 0px 1px 0px 0px $yn-border-color-base;
+// border-top
+$yn-border-shadow-top: 0px -1px 0px 0px $yn-border-color-base;
+
+
+/* Popup
+-------------------------- */
+$--popup-modal-background-color: $black !default;
+$--popup-modal-opacity: 0.5 !default;
+$--popover-arrow-size: 6px !default;
+
+/** transition*/
+$--fade-linear-transition: opacity 200ms linear !default;
+
+/** tag */
+$tag-info-color: $yn-text-color !default;
+$tag-primary-color: $theme-color !default;
+$tag-success-color: $yn-success-color !default;
+$tag-warning-color: $yn-warning-color !default;
+$tag-danger-color: $yn-error-color !default;
+$tag-font-size: 12px !default;
+$tag-border-radius: 4px !default;
+$tag-padding: 0 10px !default;
+
+/** message */
+$message-info-font-color: $yn-text-color-secondary;
+$message-info-bg-color: mix($white, $yn-text-color-secondary, 90%);
+$message-info-border-color: mix($white, $yn-text-color-secondary, 80%);
+$message-success-font-color: $yn-success-color;
+$message-success-bg-color: mix($white, $yn-success-color, 90%);
+$message-success-border-color: mix($white, $yn-success-color, 80%);
+$message-warning-font-color: $yn-warning-color;
+$message-warning-bg-color: mix($white, $yn-warning-color, 90%);
+$message-warning-border-color: mix($white, $yn-warning-color, 80%);
+$message-error-font-color: $yn-error-color;
+$message-error-bg-color: mix($white, $yn-error-color, 90%);
+$message-error-border-color: mix($white, $yn-error-color, 80%);
+$message-close-color: mix($white, $yn-text-color-secondary, 50%);
+$message-close-hover-color:$yn-text-color-secondary;
+
+/** calendar  */
+$datepicker-off-font-color: $yn-auxiliary-color;
+$datepicker-hover-font-color: $theme-color;
+$datepicker-inrange-background-color: $yn-background-color-light;
+$datepicker-inrange-hover-background-color: $yn-background-color-light;
+$datepicker-active-color: $theme-color;
+$datepicker-header-font-color: $yn-heading-color;
+$datepicker-border-color: $yn-border-color-base;

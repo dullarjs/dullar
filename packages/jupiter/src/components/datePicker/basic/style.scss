@@ -1,0 +1,128 @@
+@import "src/theme/variable";
+.yn-date-table{
+  font-size: 14px;
+  user-select: none;
+  color: $yn-text-color;
+  td {
+    width: 32px;
+    height: 30px;
+    padding: 4px 0;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+
+    & div {
+      height: 30px;
+      // padding: 3px 0;
+      box-sizing: border-box;
+    }
+
+    & span {
+      width: 100%;
+      height: 30px;
+      display: block;
+      margin: 0 auto;
+      line-height: 30px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 4px;
+    }
+
+    &.next-month,
+    &.prev-month {
+      color: $datepicker-off-font-color;
+    }
+
+    &.today {
+      position: relative;
+      span {
+        color: $yn-disabled-color;
+        border: 1px solid $yn-border-color-base;
+        box-sizing: border-box;
+      }
+      &.available span{
+        color: $theme-color;
+        border: 1px solid $theme-color; 
+      }
+      &.start-date span,
+      &.end-date span {
+        color: $white;
+      }
+    }
+
+    &.available:hover {
+      color: $datepicker-hover-font-color;
+    }
+
+    &.in-range div {
+      background-color: $datepicker-inrange-background-color;
+      &:hover {
+        background-color: $datepicker-inrange-hover-background-color;
+      }
+    }
+
+    &.current:not(.disabled) span {
+      color: $white;
+      background-color: $datepicker-active-color;
+    }
+    &.start-date div,
+    &.end-date div {
+      color: $white;
+    }
+
+    &.start-date span,
+    &.end-date span {
+      background-color: $datepicker-active-color;
+      border-radius: 4px;
+    }
+
+    &.start-date div {
+      margin-left: 5px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    &.end-date div {
+      margin-right: 5px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    &.disabled div {
+      background-color: $yn-disabled-bg-color;
+      opacity: 1;
+      cursor: default;
+      color: $yn-disabled-color;
+    }
+
+    &.selected div {
+      // margin-left: 5px;
+      // margin-right: 5px;
+      background-color: $datepicker-inrange-background-color;
+      border-radius: 4px;
+      &:hover {
+        background-color: $datepicker-inrange-hover-background-color;
+      }
+    }
+
+    &.selected span {
+      background-color: $datepicker-active-color;
+      color: $white;
+      border-radius: 15px;
+    }
+
+    &.week {
+      font-size: 80%;
+      color: $datepicker-header-font-color;
+    }
+  }
+
+  th {
+    padding: 5px;
+    font-weight: 400;
+    text-align: center;
+    // border-bottom: solid 1px $border-color-lighter;
+  }
+}

@@ -1,0 +1,19 @@
+@import "src/theme/variable.scss";
+i.yn-iconfont-wrap {
+  display: inline-block;
+}
+.yn-iconfont {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  @for $i from 0 through 100 {
+    &.yn-iconfont-size-#{$i} {
+      font-size: #{$i}px;
+    }
+  }
+}
+.yn-iconfont-size-0 {
+  font-size: 0;
+}
