@@ -5,13 +5,23 @@
   &.none {
     transition: none 0s ease 0s;
   }
+  .yn-pull-refresh-loading {
+    .loading-spin {
+      vertical-align: middle;
+    }
+  }
   .yn-pull-refresh-loading,
   .yn-pull-refresh-draggin-text {
     text-align: center;
+    height: 48px;
+    line-height: 48px;
+    .text {
+      margin: 0 5px;
+    }
     > span {
       display: inline-block;
       font-size: 13px;
-      color: @yn-primary-color;
+      color: @yn-text-color2;
     }
   }
 }
