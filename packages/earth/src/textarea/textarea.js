@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2021-12-29 13:41:28
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-30 17:51:11
+ * @Last Modified time: 2022-08-05 13:32:51
  * @E-mail: justbefree@126.com
  */
 
@@ -10,6 +10,7 @@ import { defineComponent } from "../modules/component";
 import { getPropertyValue } from "../modules/dom/style";
 import { getScroller } from "../modules/dom/scroll";
 import { clearBr } from "../modules/utils";
+import { autoWrap } from "../modules/textarea";
 export default defineComponent({
   name: "Textarea",
   props: {
@@ -27,58 +28,19 @@ export default defineComponent({
     return {
       scrollElement: null,
       minHeight: 24,
-      wrapped: false,
       focused: false,
     };
   },
-  computed: {
-    className() {
-      return `${this.focused ? "focused" : "blured"}-${
-        this.wrapped ? "wrapped" : "unwrapped"
-      }`;
-    },
-  },
-
   methods: {
-    autoWrap(elem) {
-      let scrollTop,
-        extra = 0,
-        height,
-        padding = 0,
-        minHeight = this.minHeight,
-        maxHeight = this.maxHeight,
-        style = elem.style;
-      if (elem._length === elem.value.length) return;
-      elem._length = elem.value.length;
-      padding =
-        parseInt(getPropertyValue(elem, "padding-top")) +
-        parseInt(getPropertyValue(elem, "padding-bottom"));
-      scrollTop = this.scrollElement.scrollTop;
-      elem.style.height = minHeight + "px";
-      if (elem.scrollHeight - padding > minHeight) {
-        this.wrapped = true;
-      } else {
-        this.wrapped = false;
-      }
-      if (elem.scrollHeight > minHeight) {
-        if (maxHeight && elem.scrollHeight > maxHeight) {
-          height = maxHeight - padding;
-          style.overflowY = "auto";
-        } else {
-          height = elem.scrollHeight - padding;
-          style.overflowY = "hidden";
-        }
-        style.height = height + extra + "px";
-        scrollTop += parseInt(style.height) - elem.currHeight;
-        this.scrollElement.scrollTop = scrollTop;
-        elem.currHeight = parseInt(style.height);
-      }
+    handleAutoWrap(elem) {
+      const { minHeight, maxHeight } = this;
+      autoWrap(elem, this.scrollElement, { maxHeight, minHeight });
     },
     handleInput(e) {
       this.$emit("change", { e, wrapped: this.wrapped, focused: this.focused });
       e.target.value = e.target.value.replace(/\n/, "");
       this.$emit("input", clearBr(e.target.value));
-      this.autoWrap(e.target);
+      this.handleAutoWrap(e.target);
     },
     handleFocus(e) {
       const value = e.target.value;
@@ -89,7 +51,7 @@ export default defineComponent({
         const timer = setTimeout(() => {
           obj.selectionStart = e.target.value.length;
           clearTimeout(timer);
-        }, 0);
+        }, 10);
       }
     },
     handleBlur(e) {
@@ -105,7 +67,7 @@ export default defineComponent({
     value: {
       handler() {
         this.$nextTick(() => {
-          this.autoWrap(this.$refs.textarea);
+          this.handleAutoWrap(this.$refs.textarea);
         });
       },
       deep: true,
@@ -118,7 +80,7 @@ export default defineComponent({
       "textarea",
       {
         ref: "textarea",
-        class: ["yn-textarea", this.className],
+        class: ["yn-textarea", this.focused ? "focused" : "blured"],
         attrs: { ...props },
         domProps: { value: this.value },
         on: {
