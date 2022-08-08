@@ -100,7 +100,8 @@
 </template>
 
 <script type="text/javascript">
-export default {
+import { genComponentName } from "../../src/modules/component";
+  export default {
   name: "YnDropdownMenuPage",
   data() {
     return {
@@ -160,9 +161,8 @@ export default {
     };
   },
   methods: {
-    appendChild(h, active, vNode) {
-      console.log(vNode);
-      return h('yn-iconfont', { class: { active }, props: { name: active ? 'check-mark' : 'add', size: 18 }})
+    appendChild(h, active) {
+      return h(genComponentName('iconfont'), { class: { active }, props: { name: active ? 'check-mark' : 'add', size: 18 }})
     },
     getOptions() {
       return new Promise((resolve, reject) => {
