@@ -11,3 +11,4 @@ packages/earth/docs
 node_modules
 .DS_Store
 docs/*
+.idea

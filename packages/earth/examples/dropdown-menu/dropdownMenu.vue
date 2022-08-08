@@ -8,13 +8,15 @@
           :options="option1"
           @change="handleChange"
           :borderRadius="10"
-        ></yn-dropdown-menu-item>
+        >
+        </yn-dropdown-menu-item>
         <yn-dropdown-menu-item
           v-model="value2"
           defaultSelectedIndex="2"
           :options="option2"
           :titleChangealbe="true"
-        ></yn-dropdown-menu-item>
+        >
+        </yn-dropdown-menu-item>
         <yn-dropdown-menu-item
           v-model="value5"
           :mapStatus="mapStatus"
@@ -26,6 +28,7 @@
         <yn-dropdown-menu-item
           v-model="value7"
           :mapOption="mapOption"
+          :append="appendChild"
           :titleChangealbe="true"
           @change="handleChange"
           ref="mapOption"
@@ -157,6 +160,10 @@ export default {
     };
   },
   methods: {
+    appendChild(h, active, vNode) {
+      console.log(vNode);
+      return h('yn-iconfont', { class: { active }, props: { name: active ? 'check-mark' : 'add', size: 18 }})
+    },
     getOptions() {
       return new Promise((resolve, reject) => {
         console.log(reject);

@@ -123,16 +123,28 @@ export default defineComponent({
             const mapStatus = item.componentOptions.propsData.mapStatus || {};
             const mapOption = item.componentOptions.propsData.mapOption || [];
             // const fixed = item.componentOptions.propsData.fixed || false;
+            const active = this.tabs[key];
             const text = item.data.model.value;
+            const { append } = item.componentOptions.propsData;
+            let label = h("span", {}, text);
+            if (append && typeof append === "function") {
+              label = h("div", { class: "yn-dropdown-menu-bar-label" }, [
+                h("div", { class: "label-container" }, [
+                  append(h, active, item),
+                  h("div", { class: "label-container__text" }, text),
+                ]),
+              ]);
+            }
             const down = this.tabsIcon[key];
             const directionIcon =
               item.componentOptions.propsData.hideDirectionIcon || false;
             const showDirectionIcon =
               !(Object.keys(mapStatus).length > 0) &&
               !(mapOption.length > 0) &&
-              !directionIcon;
+              !directionIcon &&
+              !append;
             // const active = this.currentTab === key;
-            let active = false;
+            // let active = false;
             // if (showDirectionIcon) {
             //   active = this.currentTab === key && this.currentTabStauts;
             // } else {
@@ -142,7 +154,6 @@ export default defineComponent({
             //     active = this.currentTab === key && this.currentTabStauts;
             //   }
             // }
-            active = this.tabs[key];
             return h(
               genComponentName("flex-item"),
               {
@@ -154,7 +165,7 @@ export default defineComponent({
                 key,
               },
               [
-                h("span", {}, text),
+                label,
                 h(
                   genComponentName("iconfont"),
                   {
@@ -163,7 +174,7 @@ export default defineComponent({
                     props: {
                       size: 8,
                       name: `cpllapsed-expand-${active ? "active" : "default"}`,
-                      rotate: down ? 180 : 0
+                      rotate: down ? 180 : 0,
                     },
                   },
                   []

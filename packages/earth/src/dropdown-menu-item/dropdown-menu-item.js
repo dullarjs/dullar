@@ -65,6 +65,10 @@ export default defineComponent({
       default: -1,
     },
     fixed: Boolean,
+    append: {
+      type: Function,
+      default: null,
+    },
   },
   initPropsToData() {
     const clone = (data) => {
