@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:53
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-22 17:47:13
+ * @Last Modified time: 2022-08-10 14:54:03
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { renderedMixins } from "../mixins/rendered";
@@ -51,6 +51,10 @@ export default defineComponent({
       default: () => {
         return [];
       },
+    },
+    limitedLabel: {
+      type: String,
+      default: ""
     },
     tabs: {
       type: Array,
@@ -653,6 +657,9 @@ export default defineComponent({
               props: { flex: 1 },
             },
             [
+              (this.limitedLabel !== "") && h("div", {
+                class: ["yn-limited-label"]
+              }, [this.limitedLabel]),
               this.createBlock(h, {
                 cities: this.limitedData,
                 nameSpace: "limited",

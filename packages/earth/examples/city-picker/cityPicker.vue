@@ -45,6 +45,7 @@
       @pick="handlePick"
       v-model="picker4"
       :limitedData="data.cnCitiesList"
+      limitedLabel="您只能选择申请单规划的城市"
       limited
     ></yn-city-picker>
     <yn-city-picker
