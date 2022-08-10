@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-03-04 14:44:10
+ * @Last Modified time: 2022-08-10 18:36:28
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -74,6 +74,10 @@ export default defineComponent({
     textAlign: {
       type: String,
       default: "left"
+    },
+    iconSize: {
+      type: Number,
+      default: 16
     }
   },
   data() {
@@ -235,7 +239,10 @@ export default defineComponent({
             [
               h(
                 genComponentName("iconfont"),
-                { props: { name, size: "16" } },
+                {
+                  class: ["yn-field-iconfont"],
+                  props: { name, size: this.iconSize }
+                },
                 []
               ),
             ]
