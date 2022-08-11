@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:53
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-08-10 14:54:03
+ * @Last Modified time: 2022-08-11 18:21:40
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { renderedMixins } from "../mixins/rendered";
@@ -144,6 +144,16 @@ export default defineComponent({
         };
       },
     },
+    nodeAttribute: {
+      type: String,
+      default: ""
+    },
+    attributeCheck: {
+      type: Function,
+      default: function(args) {
+        return Promise.resolve(args);
+      }
+    }
   },
   data() {
     return {
@@ -205,18 +215,17 @@ export default defineComponent({
       this.$emit("input", e);
     },
     handlePick(e) {
-      const { disableClick = false } = e;
-      if (disableClick) {
-        // 不允许点击城市
-        return;
-      }
-      if (this.isSearching) {
-        // 搜索完结果后，点击结果需清当前搜索记录，以及搜索结果
-        this.clearSearchKeywords();
-        this.clearSearchResult();
-      }
-      this.handleChange(false);
-      this.$emit("pick", e);
+      this.attributeCheck({ e, attribute: this.nodeAttribute, value: e[this.nodeAttribute] }).then(() => {
+        if (this.isSearching) {
+          // 搜索完结果后，点击结果需清当前搜索记录，以及搜索结果
+          this.clearSearchKeywords();
+          this.clearSearchResult();
+        }
+        this.handleChange(false);
+        this.$emit("pick", e);
+      }).catch(() => {
+        this.$emit("pick", e);
+      })
     },
     clearSearchKeywords() {
       this.isSearching = false;
