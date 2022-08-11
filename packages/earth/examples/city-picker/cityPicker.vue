@@ -20,6 +20,8 @@
       :alphaBeta="getAlphaBeta()"
       :history="getHistory()"
       :hotCity="getHotCity()"
+      nodeAttribute="disable"
+      :attributeCheck="attributeCheck"
       showHistory
     ></yn-city-picker>
     <yn-city-picker
@@ -131,6 +133,14 @@ export default {
   methods: {
     handleAfterLeave() {
       this.$refs.cityPicker.clearSearchKeywords();
+    },
+    attributeCheck({ e, attribute, value }) {
+      console.log("点击的属性是啥元素", e);
+      if (attribute === "disable" && value) {
+        return Promise.reject();
+      } else {
+        return Promise.resolve(true);
+      }
     },
     parse(h, city, nameSpace) {
       if (nameSpace === "search-result") {

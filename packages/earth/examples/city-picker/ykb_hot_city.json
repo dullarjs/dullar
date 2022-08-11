@@ -275,10 +275,11 @@
                 "StateName": "天津",
                 "StateCode": "CN天津",
                 "CityEnName": "Tianjin",
-                "CityName": "天津名字超长我任性",
+                "CityName": "天津不可点击",
                 "CountryEnName": "China",
                 "CountryCode": "CN",
-                "StateEnName": "Tianjin"
+                "StateEnName": "Tianjin",
+                "disable": true
             },
             {
                 "CityCode": "DLC",
@@ -350,7 +351,8 @@
                 "CityName": "厦门",
                 "CountryEnName": "China",
                 "CountryCode": "CN",
-                "StateEnName": "Fujian"
+                "StateEnName": "Fujian",
+                "disable": true
             },
             {
                 "CityCode": "TNA",
