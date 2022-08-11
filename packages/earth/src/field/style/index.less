@@ -14,7 +14,7 @@
       text-align: left;
       span {
         font-size: 15px;
-        color: @yn-label-color;
+        color: @yn-text-color-secondary;
       }
     }
     .yn-field-input,
@@ -80,6 +80,13 @@
       > input.input-ele.disable,
       > textarea.textarea-ele.disable {
         cursor: not-allowed;
+      }
+      .yn-field-error-msg {
+        text-align: right;
+        color: @yn-warning-color;
+        .message {
+          font-size: 14px;
+        }
       }
     }
     .yn-field-iconfont {

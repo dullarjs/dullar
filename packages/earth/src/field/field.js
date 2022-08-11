@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-16 15:50:12
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-08-10 18:36:28
+ * @Last Modified time: 2022-08-11 10:07:15
  */
 
 import { defineComponent, genComponentName } from "../modules/component";
@@ -78,6 +78,10 @@ export default defineComponent({
     iconSize: {
       type: Number,
       default: 16
+    },
+    errorMessage: {
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -90,6 +94,11 @@ export default defineComponent({
   },
   initPropsToData() {
     return [{ key: "originalText", value: "value" }];
+  },
+  watch: {
+    value: function(nV) {
+      this.$emit("input", nV);
+    }
   },
   methods: {
     handleOnFocus(e) {
@@ -196,6 +205,9 @@ export default defineComponent({
                   },
                   [h("span", {}, `${this.value.length}/${this.maxlength}`)]
                 ),
+                (this.errorMessage !== "") && h("div", { class: ["yn-field-error-msg"] }, [
+                  h("span", { class: ["message"] }, [this.errorMessage])
+                ])
               ]
             )
           );
@@ -215,6 +227,9 @@ export default defineComponent({
                   },
                   []
                 ),
+                (this.errorMessage !== "") && h("div", { class: ["yn-field-error-msg"] }, [
+                  h("span", { class: ["message"] }, [this.errorMessage])
+                ])
               ]
             )
           );
