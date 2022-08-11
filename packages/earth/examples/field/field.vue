@@ -4,9 +4,9 @@
     <div class="box">
       <ul>
         <li>
-          <span class="label">基础用法</span>
+          <span class="label">基础用法（带校验）</span>
           <yn-field-group>
-            <yn-field v-model="basicUsage" placeholder="请输入内容"></yn-field>
+            <yn-field :errorMessage="errorMessage" @input="handleInput" v-model="basicUsage" placeholder="请输入内容"></yn-field>
           </yn-field-group>
         </li>
         <li>
@@ -124,8 +124,19 @@ export default {
       ynIdNo: "",
       ynBirthday: "",
       ynIdNoEncrpt: "11222222222",
-      customLabel: ""
+      customLabel: "",
+      errorMessage: ""
     };
+  },
+  methods: {
+    handleInput(e) {
+      const reg = /^[0-9]*$/;
+      if (reg.test(e)) {
+        this.errorMessage = "";
+      } else {
+        this.errorMessage = "我只能输入数字类型，不然我报错";
+      }
+    }
   }
 };
 </script>
