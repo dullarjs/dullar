@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-31 12:10:32
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-11-03 15:28:05
+ * @Last Modified time: 2022-08-11 15:11:57
  * @E-mail: justbefree@126.com
  */
 /* eslint-disable */
@@ -17,7 +17,7 @@ try {
   window.addEventListener("test", null, options);
 } catch (err) {}
 export const bind = (dom, type, fn, args, passive = true) => {
-  const callback = (e) => {
+  const callback = function(e) {
     fn.call(this, e, args);
   };
   dom.addEventListener(
