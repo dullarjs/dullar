@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-20 16:43:52
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-18 16:09:15
+ * @Last Modified time: 2022-08-16 15:24:43
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -15,6 +15,7 @@ import { slotsMixins } from "../mixins/slots";
 import { isDef } from "../modules/utils";
 import { EventBus } from "../modules/event/bus";
 import { stopPropagation } from "../modules/event";
+import { addHash, removeHash } from "../modules/url";
 let idSeed = 1;
 export default defineComponent({
   name: "Popup",
@@ -52,6 +53,10 @@ export default defineComponent({
       default: false,
     },
     fixed: Boolean,
+    routerHashName: {
+      type: String,
+      default: ""
+    },
   },
   data() {
     return {
@@ -84,6 +89,10 @@ export default defineComponent({
       this.events = {};
     },
     handleBeforeEnter(node) {
+      if (this.routerHashName !== "") {
+        console.log("url 设置hash值");
+        addHash(this.routerHashName);
+      }
       let popupCount = EventBus.$data.globalProperties["$popup-count"];
       popupCount = isDef(popupCount) ? ++popupCount : 1;
       EventBus.$set(
@@ -139,7 +148,12 @@ export default defineComponent({
       }
       this.$emit("leave");
     },
-    handleAfterLeave() {
+    handleAfterLeave(ev) {
+      console.log("handleAfterLeave", ev);
+      console.log("removeHash", removeHash);
+      // if (this.routerHashName !== "") {
+      //   removeHash(this.routerHashName);
+      // }
       let popupCount = EventBus.$data.globalProperties["$popup-count"];
       popupCount -= 1;
       EventBus.$set(
@@ -198,6 +212,20 @@ export default defineComponent({
         return [];
       }
     },
+  },
+  mounted() {
+    const hashName = this.routerHashName;
+    if (hashName !== "") {
+      EventBus.$on("location:hashchange", (ev) => {
+        const { oldURL, newURL } = ev;
+        console.log("hashchange", oldURL, newURL);
+        const changes = oldURL.replace(newURL, "");
+        console.log(changes);
+        if (this.routerHashName.includes(hashName)) {
+          this.$emit("input", false);
+        }
+      });
+    }
   },
   render(h) {
     let position = "bottom";

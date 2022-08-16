@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-12-29 13:55:30
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-12-29 14:19:45
+ * @Last Modified time: 2022-08-16 12:20:54
  * @E-mail: justbefree@126.com
  */
 import { on } from "./modules/event";
@@ -14,5 +14,8 @@ import { EventBus } from "./modules/event/bus";
       // console.log("ev = ", ev);
       EventBus.$emit("window:resize", ev);
     })();
+  });
+  on(w, "hashchange", (ev) => {
+    EventBus.$emit("location:hashchange", ev);
   });
 })(window);
