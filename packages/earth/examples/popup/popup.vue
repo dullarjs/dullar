@@ -19,7 +19,7 @@
         <yn-button @click="handleClick(6)">中间fade</yn-button>
       </li>
     </ul>
-    <yn-popup v-model="popup1" position="bottom">
+    <yn-popup v-model="popup1" position="bottom" routerHashName="popup-1" @beforeEnter="handleBeforeEnter" @afterLeave="handleAfterLeave">
       <div class="popup-content">
         底部出现遮罩
         <template v-for="item in 10">
@@ -64,12 +64,34 @@ export default {
     };
   },
   methods: {
+    handleBeforeEnter() {
+      // console.log("handleBeforeEnter", "进入之前");
+      // let uri = window.location.href.replace(window.location.origin, "");
+      // console.log(uri);
+      // if (uri.indexOf("?") > -1) {
+      //   uri += "?_=popup";
+      // } else {
+      //   uri += "&_=popup";
+      // }
+      // history.pushState({page: 1}, "title 1", uri);
+    },
+    handleAfterLeave() {
+      console.log("after leave");
+      // history.go(-1);
+    },
     handleBackgroundClick() {
       this.Toast("冒泡事件");
     },
     handleClick(num) {
       this[`popup${num}`] = !this[`popup${num}`];
     }
+  },
+  mounted() {
+    // window.addEventListener("hashchange", () => {
+    //   console.log("The hash has changed!")
+    //   this.Toast("The hash has changed");
+    //   this.popup1 = !this.popup1;
+    // }, false);
   }
 };
 </script>
