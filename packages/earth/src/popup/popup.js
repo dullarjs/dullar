@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-20 16:43:52
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-08-16 15:24:43
+ * @Last Modified time: 2022-08-16 19:27:57
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -64,6 +64,7 @@ export default defineComponent({
       diff: 0,
       events: {},
       zIndex: 2000,
+      controledByClose: false
     };
   },
   watch: {
@@ -90,7 +91,6 @@ export default defineComponent({
     },
     handleBeforeEnter(node) {
       if (this.routerHashName !== "") {
-        console.log("url 设置hash值");
         addHash(this.routerHashName);
       }
       let popupCount = EventBus.$data.globalProperties["$popup-count"];
@@ -148,12 +148,7 @@ export default defineComponent({
       }
       this.$emit("leave");
     },
-    handleAfterLeave(ev) {
-      console.log("handleAfterLeave", ev);
-      console.log("removeHash", removeHash);
-      // if (this.routerHashName !== "") {
-      //   removeHash(this.routerHashName);
-      // }
+    handleAfterLeave() {
       let popupCount = EventBus.$data.globalProperties["$popup-count"];
       popupCount -= 1;
       EventBus.$set(
@@ -170,8 +165,13 @@ export default defineComponent({
         PopupManager.closeModal(this.idSeed);
       }
       this.$emit("afterLeave");
+      if (this.routerHashName !== "" && this.controledByClose) {
+        removeHash(this.routerHashName);
+      }
+      this.controledByClose = false;
     },
     close() {
+      this.controledByClose = true;
       this.$emit("input", false);
     },
     isValidatePositionVlaue() {
@@ -218,13 +218,16 @@ export default defineComponent({
     if (hashName !== "") {
       EventBus.$on("location:hashchange", (ev) => {
         const { oldURL, newURL } = ev;
-        console.log("hashchange", oldURL, newURL);
         const changes = oldURL.replace(newURL, "");
-        console.log(changes);
-        if (this.routerHashName.includes(hashName)) {
+        if (changes.includes(hashName)) {
+          // 路由返回触发的时候需要关闭弹框
           this.$emit("input", false);
         }
       });
+      // EventBus.$on("history:popstate", (ev) => {
+      //   console.log("history:popstate", ev);
+      //   this.$emit("input", false);
+      // });
     }
   },
   render(h) {

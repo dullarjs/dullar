@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-12-29 13:55:30
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-08-16 12:20:54
+ * @Last Modified time: 2022-08-16 18:27:30
  * @E-mail: justbefree@126.com
  */
 import { on } from "./modules/event";
@@ -17,5 +17,8 @@ import { EventBus } from "./modules/event/bus";
   });
   on(w, "hashchange", (ev) => {
     EventBus.$emit("location:hashchange", ev);
+  });
+  on(w, "popstate", (ev) => {
+    EventBus.$emit("history:popstate", ev);
   });
 })(window);
