@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2022-06-16 09:55:15
 * @Last Modified by:   Just be free
-* @Last Modified time: 2022-07-26 18:06:19
+* @Last Modified time: 2022-08-18 11:59:33
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -61,7 +61,7 @@ export default defineComponent({
     },
     confirmButtonText: {
       type: String,
-      default: "确认"
+      default: "确定"
     },
     mask: {
       type: Boolean,
