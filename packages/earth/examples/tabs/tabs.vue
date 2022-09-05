@@ -2,7 +2,7 @@
   <div>
     <h2>yn-tabs</h2>
     <div class="box">
-      <yn-tabs :border="false" v-model="active" @change="change">
+      <yn-tabs v-model="active" @change="change">
         <yn-tab-item :key="index" :title="'Tab' + index" v-for="index in 4">
           <div class="tab-content">
             content of tab {{ index }}
@@ -25,7 +25,7 @@
       </yn-tabs>
     </div>
     <div class="box">
-      <yn-tabs v-model="active2">
+      <yn-tabs alignContent="flexStart" :border="false" justifyContent="spaceBetween" :fixedWidth="50" v-model="active2">
         <yn-tab-item :key="index" :title="'Tab' + index" v-for="index in 2">
           <div class="tab-content">
             content of tab {{ index }}

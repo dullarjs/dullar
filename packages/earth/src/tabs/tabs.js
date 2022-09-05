@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:19:49
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-05 09:15:35
+ * @Last Modified time: 2022-09-05 10:22:04
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -20,7 +20,11 @@ export default defineComponent({
     border: {
       type: Boolean,
       default: true,
-    }
+    },
+    fixedWidth: Number,
+    alignContent: String,
+    justifyContent: String,
+    alignItems: String,
   },
   initPropsToData() {
     return [{ key: "currentTab", value: "value" }];
@@ -62,18 +66,23 @@ export default defineComponent({
     }
     const slots = this.slots("default", {}, validChildComponent);
     const tabTitles = this.getTitles(slots);
-    const flex = tabTitles.length > 4 ? "0 0 22%" : 1;
+    const flex = this.fixedWidth > 0 ? undefined : (tabTitles.length > 4 ? "0 0 22%" : 1);
+    const { alignContent, alignItems, justifyContent } = this;
     return h("div", { class: ["yn-tabs"] }, [
       h("div", { class: ["yn-tabs-nav"] }, [
         h(
           genComponentName("flex"),
-          { style: { overflowX: "auto", userSelect: "none" }, class: ["yn-tabs-nav-flex"] },
+          {
+            props: { alignContent, justifyContent, alignItems },
+            style: { overflowX: "auto", userSelect: "none" },
+            class: ["yn-tabs-nav-flex"]
+          },
           Array.apply(null, tabTitles).map((tab) => {
             return h(
               genComponentName("flex-item"),
               {
                 class: ["yn-tabs-nav-flex-item", this.border ? "bottom-line" : ""],
-                style: { textAlign: "center" },
+                style: { textAlign: "center", width: `${this.fixedWidth}px` },
                 props: { flex },
                 on: { click: this.handleTabClick.bind(this, tab) },
                 key: tab.index,
