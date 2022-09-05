@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:19:49
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-03-09 12:10:11
+ * @Last Modified time: 2022-09-05 09:15:35
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -17,6 +17,10 @@ export default defineComponent({
   mixins: [slotsMixins, provideMixins()],
   props: {
     value: [Number, String],
+    border: {
+      type: Boolean,
+      default: true,
+    }
   },
   initPropsToData() {
     return [{ key: "currentTab", value: "value" }];
@@ -68,7 +72,7 @@ export default defineComponent({
             return h(
               genComponentName("flex-item"),
               {
-                class: ["yn-tabs-nav-flex-item"],
+                class: ["yn-tabs-nav-flex-item", this.border ? "bottom-line" : ""],
                 style: { textAlign: "center" },
                 props: { flex },
                 on: { click: this.handleTabClick.bind(this, tab) },
