@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:19:49
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-05 10:22:04
+ * @Last Modified time: 2022-09-05 10:41:32
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -25,6 +25,10 @@ export default defineComponent({
     alignContent: String,
     justifyContent: String,
     alignItems: String,
+    fontSize: {
+      type: Number,
+      default: 14
+    },
   },
   initPropsToData() {
     return [{ key: "currentTab", value: "value" }];
@@ -33,8 +37,8 @@ export default defineComponent({
     getTitles(slots = []) {
       const tabs = [];
       slots.forEach((slot, index) => {
-        const { title, disabled } = slot.componentOptions.propsData;
-        tabs.push({ value: title, disabled, index: index + 1 });
+        const { title, disabled, fixedWidth } = slot.componentOptions.propsData;
+        tabs.push({ value: title, disabled, index: index + 1, width: fixedWidth });
       });
       return tabs;
     },
@@ -66,8 +70,8 @@ export default defineComponent({
     }
     const slots = this.slots("default", {}, validChildComponent);
     const tabTitles = this.getTitles(slots);
-    const flex = this.fixedWidth > 0 ? undefined : (tabTitles.length > 4 ? "0 0 22%" : 1);
-    const { alignContent, alignItems, justifyContent } = this;
+    const flex = tabTitles.length > 4 ? "0 0 22%" : 1;
+    const { alignContent, alignItems, justifyContent, fontSize, border } = this;
     return h("div", { class: ["yn-tabs"] }, [
       h("div", { class: ["yn-tabs-nav"] }, [
         h(
@@ -78,19 +82,22 @@ export default defineComponent({
             class: ["yn-tabs-nav-flex"]
           },
           Array.apply(null, tabTitles).map((tab) => {
+            const width = tab.width > 0 ? tab.width : this.fixedWidth;
             return h(
               genComponentName("flex-item"),
               {
-                class: ["yn-tabs-nav-flex-item", this.border ? "bottom-line" : ""],
-                style: { textAlign: "center", width: `${this.fixedWidth}px` },
-                props: { flex },
+                class: ["yn-tabs-nav-flex-item", border ? "bottom-line" : ""],
+                style: { textAlign: "center", width: `${width}px` },
+                props: { flex: width > 0 ? undefined : flex },
                 on: { click: this.handleTabClick.bind(this, tab) },
                 key: tab.index,
               },
               [
                 h(
                   "span",
-                  { class: ["yn-tab-text", this.getStatus(tab)] },
+                  {
+                    style: { fontSize: `${fontSize}px` },
+                    class: ["yn-tab-text", this.getStatus(tab)] },
                   tab.value
                 ),
               ]

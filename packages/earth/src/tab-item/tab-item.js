@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:25:00
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-05-14 18:49:45
+ * @Last Modified time: 2022-09-05 10:41:18
  * @E-mail: justbefree@126.com
  */
 import { defineComponent } from "../modules/component";
@@ -14,6 +14,7 @@ export default defineComponent({
   props: {
     title: String,
     disabled: Boolean,
+    fixedWidth: Number,
   },
   data() {
     return {};
