@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-05-27 11:23:08
+ * @Last Modified time: 2022-09-06 15:32:46
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -453,7 +453,7 @@ export default defineComponent({
                             []
                           ),
                     ]),
-                    h(genComponentName("flex-item"), {}, [
+                    h(genComponentName("flex-item"), { class: ["flex-item-text-wrapper"] }, [
                       h("span", { class: ["text"] }, item.label),
                     ]),
                     this.createCustomeElement(h, {
