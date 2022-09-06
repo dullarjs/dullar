@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:53
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-08-11 18:21:40
+ * @Last Modified time: 2022-09-06 14:40:25
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import { renderedMixins } from "../mixins/rendered";
@@ -153,6 +153,10 @@ export default defineComponent({
       default: function(args) {
         return Promise.resolve(args);
       }
+    },
+    closeOnClickModal: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -273,7 +277,7 @@ export default defineComponent({
       promise
         .then((res) => {
           const data = this.search.parse(res, params);
-          if (data && data.length) {
+          if (data && Array.isArray(data)) {
             this.searchList = data;
           }
         })
@@ -783,7 +787,7 @@ export default defineComponent({
             beforeLeave: this.beforeLeave,
             afterLeave: this.afterLeave,
           },
-          props: { position: "bottom" },
+          props: { position: "bottom", closeOnClickModal: this.closeOnClickModal },
           style: { height: "85%" },
           directives: [{ name: "show", value: this.value }],
         },

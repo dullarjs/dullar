@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-05-07 16:43:24
+ * @Last Modified time: 2022-09-06 14:29:58
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -129,6 +129,10 @@ export default defineComponent({
           }
         }
       },
+    },
+    closeOnClickModal: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -861,7 +865,7 @@ export default defineComponent({
             afterLeave: this.handleAfterLeave,
           },
           directives: [{ name: "show", value: this.value }],
-          props: { position: "bottom" },
+          props: { position: "bottom", closeOnClickModal: this.closeOnClickModal },
           style: { height: "85%" },
           ref: "popup",
         },
