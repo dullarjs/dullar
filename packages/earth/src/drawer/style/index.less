@@ -48,12 +48,12 @@
     }
     .yn-drawer-body {
       height: calc(100% - 98px - 8px);
+      overflow: auto;
+      -webkit-overflow-scrolling: touch; /* ios5+ */
       .yn-drawer-content {
-        height: 100%;
-        overflow: auto;
         padding: 0;
         margin: 0;
-        // width: calc(100% - 20px);
+        width: calc(100% - 32px);
         margin: 0 auto;
         .yn-drawer-loading-warpper {
           line-height: normal;

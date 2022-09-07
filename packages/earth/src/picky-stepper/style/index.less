@@ -45,8 +45,9 @@
     .yn-picky-stepper-content {
       height: 100%;
       overflow: auto;
+      -webkit-overflow-scrolling: touch; /* ios5+ */
       ul {
-        width: 90%;
+        width: calc(100% - 32px);
         list-style-type: none;
         padding: 0;
         margin: 0 auto;
