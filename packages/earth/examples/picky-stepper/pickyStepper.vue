@@ -220,8 +220,27 @@ export default {
               value: "",
               counter: true,
               maxlength: 100,
-              // required: true
-            }
+              required: true
+            },
+            { label: "行程变化011111111111111111111111111111111111111111", value: "行程变化" },
+            { label: "目的地有住宿", value: "目的地有住宿" },
+            { label: "预算超支", value: "预算超支" },
+            {
+              label: "其他",
+              type: "input",
+              placeholder: "请输入原因，不是必填",
+              value: "",
+              required: false
+            },
+            {
+              label: "还有其他呢",
+              type: "textarea",
+              placeholder: "请输入原因，默认必填",
+              value: "",
+              counter: true,
+              maxlength: 100,
+              required: true
+            },
           ],
           multiple: false
         }
