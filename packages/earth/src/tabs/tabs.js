@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-21 14:19:49
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-05 10:41:32
+ * @Last Modified time: 2022-09-09 15:34:00
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -61,6 +61,10 @@ export default defineComponent({
       }
       return "";
     },
+    genSlotBetween(h) {
+      const slotBetween = this.slots("slotBetween");
+      return slotBetween ? [h("div", { class: ["yn-tab-slot-between"] }, slotBetween)] : null;
+    },
   },
   render(h) {
     const prefix = this.VUE_APP_PREFIX;
@@ -105,6 +109,7 @@ export default defineComponent({
           })
         ),
       ]),
+      ...this.genSlotBetween(h),
       h("div", { class: ["yn-tabs-content"] }, slots),
     ]);
   },

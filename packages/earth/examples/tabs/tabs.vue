@@ -3,6 +3,7 @@
     <h2>yn-tabs</h2>
     <div class="box">
       <yn-tabs v-model="active" @change="change">
+        <div class="tab-slot" slot="slotBetween"></div>
         <yn-tab-item :key="index" :title="'Tab' + index" v-for="index in 4">
           <div class="tab-content">
             content of tab {{ index }}
@@ -75,5 +76,9 @@ export default {
 }
 .tab-content {
   height: 150px;
+}
+.tab-slot {
+  height: 44px;
+  background: yellow;
 }
 </style>
