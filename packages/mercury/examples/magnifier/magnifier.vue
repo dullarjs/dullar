@@ -25,6 +25,8 @@ export default {
   }
 };
 </script>
-<!-- <style type="text/css" scoped="scoped">
+<style type="text/css" scoped="scoped">
+.yn-magnifier-container {
+  height: 150vh;
+}
 </style>
- -->
