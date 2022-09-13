@@ -17,7 +17,12 @@ const VIEWBOX_HEIGHT = 529;
 const errorImg = require("./imgs/onImgError.svg");
 export default defineComponent({
   name: "Magnifier",
-  components: { Flex, FlexItem, Popup, Iconfont },
+  components: {
+    Flex,
+    FlexItem,
+    Popup,
+    Iconfont,
+  },
   props: {
     images: Array,
     zoom: {
@@ -101,6 +106,7 @@ export default defineComponent({
       this.crosshairHeight = VIEWBOX_HEIGHT / this.zoom;
     },
     setPosition(e) {
+      const ele = document.getElementsByClassName("yn-magnifier")[0];
       const leftEdge = this.crosshairWidth / 2 + this.offsetLeft;
       const rightEdge =
         this.offsetLeft +
@@ -112,7 +118,9 @@ export default defineComponent({
         e.target.parentNode.offsetHeight -
         this.crosshairHeight / 2;
       let disX = e.clientX;
-      let disY = e.clientY;
+      const { top } = ele.getBoundingClientRect();
+      let disY =
+        top > 0 ? e.clientY : e.clientY - top + this.crosshairHeight / 2 - 10;
       if (disX < leftEdge) {
         disX = leftEdge;
       }
@@ -203,294 +211,392 @@ export default defineComponent({
     const maxRowCount = this.maxRowCount;
     const disabled = this.images.length <= maxRowCount;
     const loading = this.loading;
-    return h("div", { class: ["yn-magnifier"] }, [
-      h("div", { class: ["preview"], on: { click: this.zoomUpImage } }, [
+    return h(
+      "div",
+      {
+        class: ["yn-magnifier"],
+      },
+      [
         h(
-          "a",
+          "div",
           {
-            ref: "border",
-            attrs: { href: preview },
+            class: ["preview"],
             on: {
-              click: preventDefault,
-              mouseenter: this.handleMouseEnter,
-              mousemove: this.handleMouseMove,
-              mouseleave: this.handleMouseLeave,
+              click: this.zoomUpImage,
             },
-            style: { display: loading ? "none" : "block" },
           },
           [
             h(
-              "img",
+              "a",
               {
-                ref: "preview",
-                attrs: { src: preview },
+                ref: "border",
+                attrs: {
+                  href: preview,
+                },
                 on: {
-                  error: (e) => {
-                    return this.handleError(e);
-                  },
-                  load: () => {
-                    return this.handleShowPreview(preview);
-                  },
+                  click: preventDefault,
+                  mouseenter: this.handleMouseEnter,
+                  mousemove: this.handleMouseMove,
+                  mouseleave: this.handleMouseLeave,
+                },
+                style: {
+                  display: loading ? "none" : "block",
                 },
               },
-              []
+              [
+                h(
+                  "img",
+                  {
+                    ref: "preview",
+                    attrs: {
+                      src: preview,
+                    },
+                    on: {
+                      error: (e) => {
+                        return this.handleError(e);
+                      },
+                      load: () => {
+                        return this.handleShowPreview(preview);
+                      },
+                    },
+                  },
+                  []
+                ),
+                h(
+                  "div",
+                  {
+                    class: ["crosshair", this.showCrosshair ? "" : "hide"],
+                    style: {
+                      ...this.crosshairStyle,
+                    },
+                  },
+                  []
+                ),
+              ]
             ),
             h(
               "div",
               {
-                class: ["crosshair", this.showCrosshair ? "" : "hide"],
-                style: { ...this.crosshairStyle },
+                style: {
+                  width: "100%",
+                  height: "100%",
+                  display: loading ? "block" : "none",
+                },
               },
-              []
+              [
+                h(
+                  genComponentName("flex"),
+                  {
+                    props: {
+                      alignItems: "center",
+                      justifyContent: "spaceAround",
+                      alignContent: "stretch",
+                      flexDirection: "row",
+                    },
+                    style: {
+                      height: "100%",
+                    },
+                  },
+                  [
+                    h(genComponentName("flex-item"), {}, [
+                      h(
+                        genComponentName("spin"),
+                        {
+                          class: ["loading"],
+                          props: {
+                            type: "rotate-svg",
+                            size: 40,
+                          },
+                        },
+                        []
+                      ),
+                    ]),
+                  ]
+                ),
+              ]
+            ),
+            // this.showCrosshair ?
+            h(
+              "transition",
+              {
+                props: {
+                  name: "magnifier-fade",
+                },
+              },
+              [
+                h(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        value: this.showCrosshair,
+                      },
+                    ],
+                    class: ["magnifier-preview"],
+                    style: {
+                      ...this.previewStyle,
+                    },
+                  },
+                  []
+                ),
+              ]
             ),
           ]
         ),
         h(
           "div",
           {
-            style: {
-              width: "100%",
-              height: "100%",
-              display: loading ? "block" : "none",
-            },
+            class: ["preview-list-wrap"],
           },
           [
             h(
               genComponentName("flex"),
               {
                 props: {
-                  alignItems: "center",
                   justifyContent: "spaceAround",
-                  alignContent: "stretch",
-                  flexDirection: "row",
                 },
-                style: { height: "100%" },
               },
               [
                 h(genComponentName("flex-item"), {}, [
                   h(
-                    genComponentName("spin"),
+                    "a",
                     {
-                      class: ["loading"],
-                      props: {
-                        type: "rotate-svg",
-                        size: 40,
+                      on: {
+                        click: this.nextOrPrevious.bind(this, "previous"),
                       },
+                      attrs: {
+                        href: "javascript:;",
+                      },
+                      class: [
+                        "prev-button",
+                        this.steps === 0 ? "disabled" : "",
+                      ],
                     },
-                    []
+                    [
+                      h(
+                        genComponentName("iconfont"),
+                        {
+                          class: ["left"],
+                          props: {
+                            name: `magnifier-arrow${
+                              this.steps === 0 || disabled ? "" : "-active"
+                            }`,
+                            size: 16,
+                          },
+                        },
+                        []
+                      ),
+                    ]
+                  ),
+                ]),
+                h(genComponentName("flex-item"), {}, [
+                  h(
+                    "div",
+                    {
+                      class: ["list-box"],
+                    },
+                    [
+                      h(
+                        "ul",
+                        {
+                          style: {
+                            ...this.previewListStyle,
+                          },
+                        },
+                        Array.apply(null, this.images).map((img, index) => {
+                          return h(
+                            "li",
+                            {
+                              attrs: {
+                                dataIndex: index,
+                              },
+                              class: [
+                                index === this.previewIndex ? "selected" : "",
+                              ],
+                              on: {
+                                mouseenter: this.handlePreviewMouseEnter.bind(
+                                  this,
+                                  index
+                                ),
+                                mouseout: this.handlePreviewMouseOut,
+                              },
+                            },
+                            [
+                              h(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: img,
+                                  },
+                                  on: {
+                                    click: preventDefault,
+                                  },
+                                },
+                                [
+                                  h(
+                                    "img",
+                                    {
+                                      attrs: {
+                                        src: img,
+                                      },
+                                      on: {
+                                        error: (e) => {
+                                          return this.handleError(e);
+                                        },
+                                      },
+                                    },
+                                    []
+                                  ),
+                                ]
+                              ),
+                            ]
+                          );
+                        })
+                      ),
+                    ]
+                  ),
+                ]),
+                h(genComponentName("flex-item"), {}, [
+                  h(
+                    "a",
+                    {
+                      on: {
+                        click: this.nextOrPrevious.bind(this, "next"),
+                      },
+                      attrs: {
+                        href: "javascript:;",
+                      },
+                      class: [
+                        "next-button",
+                        maxRowCount - this.steps === this.images.length
+                          ? "disabled"
+                          : "",
+                      ],
+                    },
+                    [
+                      h(
+                        genComponentName("iconfont"),
+                        {
+                          class: ["right"],
+                          props: {
+                            name: `magnifier-arrow${
+                              maxRowCount - this.steps === this.images.length ||
+                              disabled
+                                ? ""
+                                : "-active"
+                            }`,
+                            size: 16,
+                          },
+                        },
+                        []
+                      ),
+                    ]
                   ),
                 ]),
               ]
             ),
           ]
         ),
-        // this.showCrosshair ?
-        h("transition", { props: { name: "magnifier-fade" } }, [
-          h(
-            "div",
-            {
-              directives: [{ name: "show", value: this.showCrosshair }],
-              class: ["magnifier-preview"],
-              style: { ...this.previewStyle },
-            },
-            []
-          ),
-        ]),
-      ]),
-      h("div", { class: ["preview-list-wrap"] }, [
         h(
-          genComponentName("flex"),
-          { props: { justifyContent: "spaceAround" } },
+          genComponentName("popup"),
+          {
+            props: {
+              position: "middle",
+            },
+            on: {
+              afterEnter: this.handleAfterEnter,
+              afterLeave: this.handleAfterLeave,
+            },
+            directives: [
+              {
+                name: "show",
+                value: this.showZoom,
+              },
+            ],
+          },
           [
-            h(genComponentName("flex-item"), {}, [
-              h(
-                "a",
-                {
-                  on: {
-                    click: this.nextOrPrevious.bind(this, "previous"),
-                  },
-                  attrs: {
-                    href: "javascript:;",
-                  },
-                  class: ["prev-button", this.steps === 0 ? "disabled" : ""],
+            h(
+              "div",
+              {
+                on: {
+                  click: this.handlePopupInput,
                 },
-                [
-                  h(
-                    genComponentName("iconfont"),
-                    {
-                      class: ["left"],
-                      props: {
-                        name: `magnifier-arrow${
-                          this.steps === 0 || disabled ? "" : "-active"
-                        }`,
-                        size: 16,
-                      },
-                    },
-                    []
-                  ),
-                ]
-              ),
-            ]),
-            h(genComponentName("flex-item"), {}, [
-              h("div", { class: ["list-box"] }, [
+                class: ["zoom-image"],
+              },
+              [
                 h(
-                  "ul",
-                  { style: { ...this.previewListStyle } },
-                  Array.apply(null, this.images).map((img, index) => {
-                    return h(
-                      "li",
+                  "a",
+                  {
+                    ref: "a",
+                    attrs: {
+                      href: "javascript:;",
+                    },
+                  },
+                  [
+                    h(
+                      "div",
                       {
-                        attrs: { dataIndex: index },
-                        class: [index === this.previewIndex ? "selected" : ""],
+                        class: ["image-gallery-box"],
+                      },
+                      Array.apply(null, this.images).map((image, index) => {
+                        const className = [];
+                        if (index > this.previewIndex) {
+                          className.push("left", "abs");
+                        } else if (index < this.previewIndex) {
+                          className.push("right", "abs");
+                        }
+                        return h(
+                          "img",
+                          {
+                            ref: `zoomImage_${index}`,
+                            class: [
+                              this.popupEntered && this.zoomEnter ? "hide" : "",
+                              ...className,
+                            ],
+                            attrs: {
+                              src: image,
+                            },
+                          },
+                          []
+                        );
+                      })
+                    ),
+                    h(
+                      genComponentName("iconfont"),
+                      {
                         on: {
-                          mouseenter: this.handlePreviewMouseEnter.bind(
-                            this,
-                            index
-                          ),
-                          mouseout: this.handlePreviewMouseOut,
+                          click: this.handleImageSwitch.bind(this, "left"),
+                        },
+                        class: ["left"],
+                        props: {
+                          name: "yn-left-arrow",
+                          size: 60,
                         },
                       },
-                      [
-                        h(
-                          "a",
-                          {
-                            attrs: { href: img },
-                            on: { click: preventDefault },
-                          },
-                          [
-                            h(
-                              "img",
-                              {
-                                attrs: { src: img },
-                                on: {
-                                  error: (e) => {
-                                    return this.handleError(e);
-                                  },
-                                },
-                              },
-                              []
-                            ),
-                          ]
-                        ),
-                      ]
-                    );
-                  })
-                ),
-              ]),
-            ]),
-            h(genComponentName("flex-item"), {}, [
-              h(
-                "a",
-                {
-                  on: {
-                    click: this.nextOrPrevious.bind(this, "next"),
-                  },
-                  attrs: { href: "javascript:;" },
-                  class: [
-                    "next-button",
-                    maxRowCount - this.steps === this.images.length
-                      ? "disabled"
-                      : "",
-                  ],
-                },
-                [
-                  h(
-                    genComponentName("iconfont"),
-                    {
-                      class: ["right"],
-                      props: {
-                        name: `magnifier-arrow${
-                          maxRowCount - this.steps === this.images.length ||
-                          disabled
-                            ? ""
-                            : "-active"
-                        }`,
-                        size: 16,
+                      []
+                    ),
+                    h(
+                      genComponentName("iconfont"),
+                      {
+                        on: {
+                          click: this.handleImageSwitch.bind(this, "right"),
+                        },
+                        class: ["right"],
+                        props: {
+                          name: "yn-left-arrow",
+                          size: 60,
+                        },
                       },
-                    },
-                    []
-                  ),
-                ]
-              ),
-            ]),
+                      []
+                    ),
+                  ]
+                ),
+              ]
+            ),
           ]
         ),
-      ]),
-      h(
-        genComponentName("popup"),
-        {
-          props: { position: "middle" },
-          on: {
-            afterEnter: this.handleAfterEnter,
-            afterLeave: this.handleAfterLeave,
-          },
-          directives: [{ name: "show", value: this.showZoom }],
-        },
-        [
-          h(
-            "div",
-            {
-              on: {
-                click: this.handlePopupInput,
-              },
-              class: ["zoom-image"],
-            },
-            [
-              h(
-                "a",
-                {
-                  ref: "a",
-                  attrs: { href: "javascript:;" },
-                },
-                [
-                  h(
-                    "div",
-                    { class: ["image-gallery-box"] },
-                    Array.apply(null, this.images).map((image, index) => {
-                      const className = [];
-                      if (index > this.previewIndex) {
-                        className.push("left", "abs");
-                      } else if (index < this.previewIndex) {
-                        className.push("right", "abs");
-                      }
-                      return h(
-                        "img",
-                        {
-                          ref: `zoomImage_${index}`,
-                          class: [
-                            this.popupEntered && this.zoomEnter ? "hide" : "",
-                            ...className,
-                          ],
-                          attrs: { src: image },
-                        },
-                        []
-                      );
-                    })
-                  ),
-                  h(
-                    genComponentName("iconfont"),
-                    {
-                      on: { click: this.handleImageSwitch.bind(this, "left") },
-                      class: ["left"],
-                      props: { name: "yn-left-arrow", size: 60 },
-                    },
-                    []
-                  ),
-                  h(
-                    genComponentName("iconfont"),
-                    {
-                      on: { click: this.handleImageSwitch.bind(this, "right") },
-                      class: ["right"],
-                      props: { name: "yn-left-arrow", size: 60 },
-                    },
-                    []
-                  ),
-                ]
-              ),
-            ]
-          ),
-        ]
-      ),
-    ]);
+      ]
+    );
   },
 });
