@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-29 10:58:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-01-21 15:59:11
+ * @Last Modified time: 2022-09-13 18:21:09
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -33,7 +33,7 @@ export default defineComponent({
     defaultDate: String,
     confirmText: {
       type: String,
-      default: "确认",
+      default: "确定",
     },
     cancelText: {
       type: String,
