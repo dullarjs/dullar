@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-15 18:18:00
+ * @Last Modified time: 2022-09-15 21:39:19
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -30,7 +30,7 @@ export default defineComponent({
     },
     oneStepMode: {
       type: Boolean,
-      default: false
+      default: false,
     },
     steps: {
       type: Array,
@@ -48,12 +48,16 @@ export default defineComponent({
     },
     cancelText: {
       type: String,
-      default: "取消"
+      default: "取消",
     },
     previousText: {
       type: String,
-      default: "上一步"
-    }
+      default: "上一步",
+    },
+    closeOnClickModal: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -62,7 +66,7 @@ export default defineComponent({
       currentStep: {},
       currentHeight: 0,
       submitLoading: false,
-      windowHeight: 0
+      windowHeight: 0,
     };
   },
   computed: {
@@ -72,26 +76,30 @@ export default defineComponent({
     popupStyle() {
       if (this.currentHeight > this.controlArea) {
         return {
-          height: "85%"
-        }
+          height: "85%",
+        };
       } else {
         return {
-          height: `${(this.currentHeight + 44 + (this.oneStepMode ? 0 : 54)) / this.windowHeight * 100}%`
-        }
+          height: `${
+            ((this.currentHeight + 44 + (this.oneStepMode ? 0 : 54)) /
+              this.windowHeight) *
+            100
+          }%`,
+        };
       }
-    }
+    },
   },
   watch: {
     "currentStep.list": function (val) {
       let height = 0;
       if (Array.isArray(val)) {
-        val.forEach(v => {
+        val.forEach((v) => {
           if (v.type === "textarea") {
             height += 145;
           } else {
             height += 45.5;
           }
-        })
+        });
         this.currentHeight = height;
       }
     },
@@ -155,23 +163,31 @@ export default defineComponent({
     },
     createClose(h) {
       if (this.oneStepMode) {
-        return h(genComponentName("button"), {
-          on: { click: this.handleStepConfirm },
-          class: ["yn-picky-stepper-close", "confirm-button"],
-          props: {
-            size: "large",
-            loadingSize: 12,
-            type: "texted",
-            loading: this.submitLoading,
-            disabled: this.getDisabledStatus(),
-            loadingColor: "#007aff",
-          }
-        }, [this.confirmText]);
+        return h(
+          genComponentName("button"),
+          {
+            on: { click: this.handleStepConfirm },
+            class: ["yn-picky-stepper-close", "confirm-button"],
+            props: {
+              size: "large",
+              loadingSize: 12,
+              type: "texted",
+              loading: this.submitLoading,
+              disabled: this.getDisabledStatus(),
+              loadingColor: "#007aff",
+            },
+          },
+          [this.confirmText]
+        );
       }
-      return h("span", {
-        class: ["yn-picky-stepper-close"],
-        on: { click: this.close }
-      }, [this.cancelText])
+      return h(
+        "span",
+        {
+          class: ["yn-picky-stepper-close"],
+          on: { click: this.close },
+        },
+        [this.cancelText]
+      );
     },
     stepBack() {
       const { previousNode } = this.currentStep;
@@ -182,10 +198,14 @@ export default defineComponent({
     },
     createBack(h) {
       if (this.oneStepMode) {
-        return h("span", {
-          class: ["yn-picky-stepper-back"],
-          on: { click: () => this.close("cancel") }
-        }, [this.cancelText])
+        return h(
+          "span",
+          {
+            class: ["yn-picky-stepper-back"],
+            on: { click: () => this.close("cancel") },
+          },
+          [this.cancelText]
+        );
       }
       const { previousNode } = this.currentStep;
       if (
@@ -193,10 +213,14 @@ export default defineComponent({
         previousNode !== undefined &&
         previousNode !== ""
       ) {
-        return h("span", {
-          class: ["yn-picky-stepper-back"],
-          on: { click: this.stepBack }
-        }, [this.previousText])
+        return h(
+          "span",
+          {
+            class: ["yn-picky-stepper-back"],
+            on: { click: this.stepBack },
+          },
+          [this.previousText]
+        );
       }
     },
     createTitle(h) {
@@ -508,18 +532,48 @@ export default defineComponent({
             afterLeave: this.handleAfterLeave,
           },
           directives: [{ name: "show", value: this.value }],
-          props: { position: "bottom" },
-          style: { ...this.popupStyle, overflow: "hidden" }
+          props: {
+            position: "bottom",
+            closeOnClickModal: this.closeOnClickModal,
+          },
+          style: { ...this.popupStyle, overflow: "hidden" },
         },
         [
-          h(genComponentName("flex"), {
-            class: ["yn-picky-stepper-popup-content"],
-            props: { flexDirection: "column", justifyContent: "spaceBetween" }
-          }, [
-            h(genComponentName("flex-item"), { class: ["yn-picky-stepper-header-wrap"] }, [this.createHeader(h)]),
-            h(genComponentName("flex-item"), { ref: "body", class: ["yn-picky-stepper-body", this.oneStepMode ? "onstep" : ""] }, [...this.createSteps(h)]),
-            !this.oneStepMode && h(genComponentName("flex-item"), { class: ["yn-picky-stepper-footer-wrap"] }, [this.createFooter(h)])
-          ])]
+          h(
+            genComponentName("flex"),
+            {
+              class: ["yn-picky-stepper-popup-content"],
+              props: {
+                flexDirection: "column",
+                justifyContent: "spaceBetween",
+              },
+            },
+            [
+              h(
+                genComponentName("flex-item"),
+                { class: ["yn-picky-stepper-header-wrap"] },
+                [this.createHeader(h)]
+              ),
+              h(
+                genComponentName("flex-item"),
+                {
+                  ref: "body",
+                  class: [
+                    "yn-picky-stepper-body",
+                    this.oneStepMode ? "onstep" : "",
+                  ],
+                },
+                [...this.createSteps(h)]
+              ),
+              !this.oneStepMode &&
+                h(
+                  genComponentName("flex-item"),
+                  { class: ["yn-picky-stepper-footer-wrap"] },
+                  [this.createFooter(h)]
+                ),
+            ]
+          ),
+        ]
       ),
     ]);
   },
