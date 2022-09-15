@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-13 18:21:38
+ * @Last Modified time: 2022-09-15 18:18:00
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -144,7 +144,10 @@ export default defineComponent({
     handleAfterLeave() {
       this.$emit("afterLeave");
     },
-    close() {
+    close(buttonType) {
+      if (buttonType) {
+        this.$emit("buttonClick", buttonType);
+      }
       this.handleChange(false);
     },
     destroyData() {
@@ -181,7 +184,7 @@ export default defineComponent({
       if (this.oneStepMode) {
         return h("span", {
           class: ["yn-picky-stepper-back"],
-          on: { click: this.close }
+          on: { click: () => this.close("cancel") }
         }, [this.cancelText])
       }
       const { previousNode } = this.currentStep;
@@ -253,19 +256,19 @@ export default defineComponent({
           const promise = submit(result);
           if (isPromise(promise)) {
             promise.then((res) => {
-              this.close();
+              this.close("confirm");
               this.$emit("success", result, res);
               this.submitLoading = false;
               this.destroyData();
             });
           } else {
             this.submitLoading = false;
-            this.close();
+            this.close("confirm");
             this.$emit("success", result);
           }
         } else {
           this.submitLoading = false;
-          this.close();
+          this.close("confirm");
           this.$emit("success", result);
         }
       }
@@ -352,6 +355,10 @@ export default defineComponent({
               attrs: {
                 placeholder: item.placeholder,
                 maxlength: item.maxlength,
+                value: item.value
+              },
+              domProps: {
+                value: item.value
               },
             },
             []
@@ -382,6 +389,10 @@ export default defineComponent({
               attrs: {
                 placeholder: item.placeholder,
                 maxlength: item.maxlength,
+                value: item.value,
+              },
+              domProps: {
+                value: item.value
               },
             },
             []
