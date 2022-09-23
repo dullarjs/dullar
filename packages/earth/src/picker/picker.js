@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-27 11:10:13
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-13 18:21:17
+ * @Last Modified time: 2022-09-23 09:08:10
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -52,6 +52,10 @@ export default defineComponent({
     animated: {
       type: String,
       default: "all",
+    },
+    closeOnClickModal: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -233,7 +237,7 @@ export default defineComponent({
       h(
         genComponentName("popup"),
         {
-          props: { position: "bottom" },
+          props: { position: "bottom", closeOnClickModal: this.closeOnClickModal },
           directives: [{ name: "show", value: this.value }],
           on: {
             input: this.close,

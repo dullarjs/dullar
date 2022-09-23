@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-29 10:58:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-13 18:21:09
+ * @Last Modified time: 2022-09-23 09:08:41
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -42,6 +42,10 @@ export default defineComponent({
     title: {
       type: String,
       default: "请选择",
+    },
+    closeOnClickModal: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -293,6 +297,7 @@ export default defineComponent({
             afterLeave: this.handleAfterLeave,
           },
           props: {
+            closeOnClickModal: this.closeOnClickModal,
             columns: this.computedColumns,
             value: this.value,
             confirmText: this.confirmText,
