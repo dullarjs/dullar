@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-11-11 10:03:24
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-12-15 17:07:27
+ * @Last Modified time: 2022-10-11 11:22:06
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -40,8 +40,8 @@ export default defineComponent({
     handleEnter(el, done) {
       this.$emit("enter", el);
       if (this.animated) {
-        let delay = el.getAttribute("dataindex") * 5 + 100;
-        setTimeout(() => {
+        // let delay = el.getAttribute("dataindex") * 5 + 100;
+        requestAnimationFrame(() => {
           el.setAttribute(
             "style",
             `
@@ -52,7 +52,7 @@ export default defineComponent({
           `
           );
           done();
-        }, delay);
+        });
       } else {
         el.setAttribute("style", "opacity: 1; transition: opacity 0ms");
         done();
