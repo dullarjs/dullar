@@ -2,15 +2,15 @@
  * @Author: Just be free
  * @Date:   2020-04-10 13:33:50
  * @Last Modified by:   Just be free
- * @Last Modified time: 2021-10-20 15:39:23
+ * @Last Modified time: 2022-10-11 13:48:30
  * @E-mail: justbefree@126.com
  */
 import { Tween } from "./tween";
 export const startMove = (obj, json, fn, div = 4) => {
-  clearInterval(obj.timer);
+  cancelAnimationFrame(obj.timer);
   let iCurrent = 0;
   let iSpeed = 0;
-  obj.timer = setInterval(() => {
+  obj.timer = requestAnimationFrame(() => {
     let finished = true;
     for (let attr in json) {
       let iTarget = json[attr];
@@ -31,10 +31,10 @@ export const startMove = (obj, json, fn, div = 4) => {
       }
     }
     if (finished) {
-      clearInterval(obj.timer);
+      cancelAnimationFrame(obj.timer);
       fn && typeof fn === "function" && fn.call(obj);
     }
-  }, 30);
+  });
 };
 
 export const move = (obj, json, fn) => {
@@ -43,15 +43,15 @@ export const move = (obj, json, fn) => {
     c = json.c,
     d = 40;
   let timer = null;
-  clearTimeout(timer);
+  cancelAnimationFrame(timer);
   const run = () => {
     const value = Math.ceil(Tween.Quart.easeOut(t, b, c, d));
     obj.style[json["attr"]] = `${value}px`;
     if (t < d) {
       t++;
-      timer = setTimeout(run, 10);
+      timer = requestAnimationFrame(run);
     } else {
-      clearTimeout(timer);
+      cancelAnimationFrame(timer);
       fn && typeof fn === "function" && fn.call(obj);
     }
   };
