@@ -2,7 +2,7 @@
 * @Author: Just be free
 * @Date:   2022-06-16 09:55:15
 * @Last Modified by:   Just be free
-* @Last Modified time: 2022-08-18 11:59:33
+* @Last Modified time: 2022-11-04 13:38:20
 * @E-mail: justbefree@126.com
 */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -27,6 +27,10 @@ export default defineComponent({
     event: "input"
   },
   props: {
+    fitsContent: {
+      type: Boolean,
+      default: false
+    },
     destroyOnClose: {
       type: Boolean,
       default: false
@@ -197,7 +201,7 @@ export default defineComponent({
             class: ["yn-drawer-body"],
             props: { flex: 1 }
           }, [
-            h("div", { class: ["yn-drawer-content"] }, [
+            h("div", { class: ["yn-drawer-content", this.fitsContent ? "fits-content" : ""] }, [
               this.slots()
             ])
           ]),

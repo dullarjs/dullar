@@ -30,8 +30,8 @@
     <yn-drawer @submit="handleOnSubmit" ref="drawer3" showFooter v-model="popup2" :closable="closable" title="你看到的未必是真实的，我隐藏了很多你相信吗">
       <div class="popup-content">我说我有点飘你还不信</div>
     </yn-drawer>
-    <yn-drawer showFooter v-model="popup3"  position="top" :showCloseIcon="true">
-      <div class="popup-content">看我的footer，如果有自定义footer不管showFooter是否设置，都将会显示自定义footer</div>
+    <yn-drawer fitsContent showFooter v-model="popup3"  position="top" :showCloseIcon="true">
+      <div class="popup-content">看我的footer，如果有自定义footer不管showFooter是否设置，都将会显示自定义footer<br/>另外注意我是设置了"fitsContent: true"，你可以发现我的外边框距没有了</div>
       <div slot="footer" >我是想告诉你footer可以自己定义</div>
     </yn-drawer>
     <yn-drawer showFooter v-model="popup4" submitButtonText="我换了个文案" position="bottom" :showCloseIcon="true">
