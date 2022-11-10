@@ -9,7 +9,7 @@ const hasClass = (dom, className) => {
 };
 export const addClass = (dom, className) => {
   if (!hasClass(dom, className)) {
-    dom.className = " " + className;
+    dom.className = (dom.className + " " + className).trim();
   }
 };
 const remove = (dom, className) => {
