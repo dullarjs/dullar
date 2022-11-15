@@ -121,7 +121,6 @@ export default defineComponent({
         : null;
     },
     handleButtonClick(e) {
-      // console.log(this.callback);
       this.action = e;
       const { beforeClose } = this;
       if (beforeClose) {
