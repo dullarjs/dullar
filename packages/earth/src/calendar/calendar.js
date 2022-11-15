@@ -5,16 +5,17 @@
  * @Last Modified time: 2022-09-13 18:21:00
  * @E-mail: justbefree@126.com
  */
-import { defineComponent, genComponentName } from "../modules/component";
-import { drop, push } from "../modules/utils";
-import { YnDate } from "../modules/date";
+import Flex from "../flex";
 import Popup from "../popup";
 import Iconfont from "../iconfont";
-import Flex from "../flex";
 import FlexItem from "../flex-item";
+import { YnDate } from "../modules/date";
+import { drop, push } from "../modules/utils";
 import { renderedMixins } from "../mixins/rendered";
 import { getOffset, getScrollTop } from "../modules/dom";
-import { on, off, preventDefault } from "../modules/event";
+import { off, on, preventDefault } from "../modules/event";
+import { defineComponent, genComponentName } from "../modules/component";
+
 export default defineComponent({
   name: "Calendar",
   mixins: [renderedMixins],
@@ -90,7 +91,7 @@ export default defineComponent({
       type: String,
       default: "今天",
     },
-    monthTtitleParser: {
+    monthTitleParser: {
       type: Function,
       default: (defaultText) => {
         return defaultText;
@@ -105,28 +106,22 @@ export default defineComponent({
       type: Function,
       default: (date, type) => {
         if (type === "week") {
-          if (!date) {
-            return "";
-          } else {
-            const { week, year, month, day } = date || {};
-            const weekText = [
-              "周日",
-              "周一",
-              "周二",
-              "周三",
-              "周四",
-              "周五",
-              "周六",
-            ];
-            return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
-          }
+          if (!date) return "";
+          const { week, year, month, day } = date || {};
+          const weekText = [
+            "周日",
+            "周一",
+            "周二",
+            "周三",
+            "周四",
+            "周五",
+            "周六",
+          ];
+          return YnDate().isSame(year, month, day) ? "今天" : weekText[week];
         } else {
-          if (!date) {
-            return "请选择日期";
-          } else {
-            const { month, day } = date || {};
-            return `${Number(month)}月${Number(day)}日`;
-          }
+          if (!date) return "请选择日期";
+          const { month, day } = date || {};
+          return `${Number(month)}月${Number(day)}日`;
         }
       },
     },
@@ -147,8 +142,87 @@ export default defineComponent({
       monthTitleDoms: [],
       weekBarOffsetTop: 0,
       calendarBlockHeight: 0,
-      monthTitleBarDom: null
+      monthTitleBarDom: null,
     };
+  },
+  computed: {
+    generateDate() {
+      const calculatedMonth = this.getTimePeriod();
+      return calculatedMonth.map((item) => {
+        const monthObject = {
+          dates: [],
+        };
+        const [year, month] = item.split("-");
+        const daysOfMonth = YnDate(year, month).getDaysCountOfMonth();
+        for (let i = 1; i <= daysOfMonth; i++) {
+          const className = [];
+          const j = i < 10 ? `0${i}` : String(i);
+          const ynDate = YnDate(year, month, j);
+          const day = ynDate.getDay();
+          if (j === "01") {
+            for (let k = 0; k < day; k++) {
+              monthObject["dates"].push({
+                className: [],
+                key: `year_month_date_${k}`,
+              });
+            }
+          }
+          push(
+            className,
+            YnDate().isAfter(year, month, j) ? "disable" : "clickable"
+          );
+          if (this.mode === "double" && this.fromDate && this.toDate) {
+            push(
+              className,
+              YnDate(year, month, j).isBetween(
+                this.fromDate.ynDate,
+                this.toDate.ynDate
+              )
+                ? "during-active"
+                : ""
+            );
+          }
+          if (this.beginDate && this.endDate) {
+            if (
+              YnDate(year, month, j).isBetweenIncludeBoth(
+                this.beginDate,
+                this.endDate
+              )
+            ) {
+              push(className, ["open-days", "clickable"]);
+              drop(className, "disable");
+            } else {
+              push(className, "disable");
+              drop(className, "clickable");
+            }
+          }
+          monthObject["year"] = year;
+          monthObject["month"] = month;
+          monthObject["key"] = `${year}-${month}`;
+          const festival = YnDate().isSame(year, month, j)
+            ? this.todayMark
+            : "";
+          const key = `${year}-${month}-${j}`;
+          if (this.changedNode[key]) {
+            monthObject["dates"].push({ ...this.changedNode[key] });
+          } else {
+            monthObject["dates"].push({
+              key,
+              year,
+              month,
+              day: j,
+              week: ynDate.getDay(),
+              date: key,
+              className,
+              ynDate,
+              mark: "",
+              festival,
+            });
+          }
+        }
+        return monthObject;
+      });
+    },
   },
   watch: {
     value: "highLightDefault",
@@ -160,29 +234,25 @@ export default defineComponent({
     this.bindEvent();
   },
   deactivated() {
-    this.destory();
+    this.destroy();
   },
   beforeDestroy() {
-    this.destory();
+    this.destroy();
   },
   methods: {
     bindEvent() {
-      const ele = this.$refs.scroller.$el;
-      if (!ele) {
-        return false;
-      }
+      const ele = this.$refs.scroller?.$el ?? null;
+      if (!ele) return;
       on(ele, "scroll", this.handleBodyScroll);
     },
-    destory() {
-      const ele = this.$refs.scroller.$el;
-      if (!ele) {
-        return false;
-      }
+    destroy() {
+      const ele = this.$refs.scroller?.$el ?? null;
+      if (!ele) return;
       off(ele, "scroll", this.handleBodyScroll);
     },
-    caculateMonthTitleOffsetTop({ scrollTop }) {
+    calculateMonthTitleOffsetTop({ scrollTop }) {
       let tops = [];
-      this.monthTitleDoms.forEach(dom => {
+      this.monthTitleDoms.forEach((dom) => {
         tops.push(getOffset(dom).top - scrollTop - this.weekBarOffsetTop);
       });
       const index = tops.findIndex((i) => {
@@ -204,7 +274,7 @@ export default defineComponent({
         (Number(this.bottomDistance) || 0);
       const top = Number(this.topDistance) || 0;
       // diff>0 往下滑动；diff<0往上滑动
-      this.caculateMonthTitleOffsetTop({ scrollTop });
+      this.calculateMonthTitleOffsetTop({ scrollTop });
       this.$emit("scroll", { e, scrollTop, diff, bottom: bottom - scrollTop });
       if (diff < 0 && !this.topTriggered && scrollTop <= top) {
         this.topTriggered = true;
@@ -226,16 +296,15 @@ export default defineComponent({
       this.clientHeight = clientHeight;
     },
     handleClick(date) {
-      if (date.className.indexOf("clickable") < 0) {
-        return false;
-      }
+      if (date.className.indexOf("clickable") < 0) return;
+
       if (this.mode === "double") {
-        this.haneleDoubleMode(date);
+        this.handleDoubleMode(date);
       } else {
-        this.haneleSingleMode(date);
+        this.handleSingleMode(date);
       }
     },
-    haneleSingleMode(date) {
+    handleSingleMode(date) {
       this.changedNode = {};
       push(date.className, ["active", "single-mode"]);
       this.changedNode = { ...this.changedNode, [date.key]: date };
@@ -244,7 +313,7 @@ export default defineComponent({
         this.handleOnConfirm();
       }
     },
-    haneleDoubleMode(date) {
+    handleDoubleMode(date) {
       if (!this.fromDate) {
         this.confirmButtonClassName = "disable";
         push(date.className, ["start", "active"]);
@@ -346,83 +415,55 @@ export default defineComponent({
       this.endDate = endDate.format();
       return YnDate().getMonthPeriod(beginDate, endDate);
     },
-    generateDate() {
-      const caculatedMonth = this.getTimePeriod();
-      const caculatedDates = [];
-      caculatedMonth.forEach((item) => {
-        const monthObject = {
-          dates: [],
-        };
-        const [year, month] = item.split("-");
-        const daysOfMonth = YnDate(year, month).getDaysCountOfMonth();
-        for (let i = 1; i <= daysOfMonth; i++) {
-          let j = i < 10 ? `0${i}` : String(i);
-          if (j === "01") {
-            for (let k = 0; k < YnDate(year, month, j).getDay(); k++) {
-              monthObject["dates"].push({
-                className: [],
-                key: `year_month_date_${k}`,
-              });
-            }
-          }
-          const className = [];
-          const ynDate = YnDate(year, month, j);
-          push(
-            className,
-            YnDate().isAfter(year, month, j) ? "disable" : "clickable"
-          );
-          if (this.mode === "double" && this.fromDate && this.toDate) {
-            push(
-              className,
-              YnDate(year, month, j).isBetween(
-                this.fromDate.ynDate,
-                this.toDate.ynDate
-              )
-                ? "during-active"
-                : ""
-            );
-          }
-          if (this.beginDate && this.endDate) {
-            if (
-              YnDate(year, month, j).isBetweenIncludeBoth(
-                this.beginDate,
-                this.endDate
-              )
-            ) {
-              push(className, ["open-days", "clickable"]);
-              drop(className, "disable");
-            } else {
-              push(className, "disable");
-              drop(className, "clickable");
-            }
-          }
-          monthObject["key"] = `${year}-${month}`;
-          monthObject["month"] = month;
-          monthObject["year"] = year;
-          const festival = YnDate().isSame(year, month, j)
-            ? this.todayMark
-            : "";
-          const key = `${year}-${month}-${j}`;
-          if (this.changedNode[key]) {
-            monthObject["dates"].push({ ...this.changedNode[key] });
-          } else {
-            monthObject["dates"].push({
-              key,
-              year,
-              month,
-              day: j,
-              week: ynDate.getDay(),
-              date: key,
-              className,
-              ynDate,
-              mark: "",
-              festival,
-            });
-          }
+    generateDateDom(h, { dates }) {
+      return dates.map((date) => {
+        let ref = null;
+        if (
+          date.className.indexOf("single-mode") > -1 ||
+          date.className.indexOf("start") > -1
+        ) {
+          ref = "scrollPosition";
         }
-        caculatedDates.push(monthObject);
+        return h(
+          genComponentName("flex-item"),
+          {
+            key: date.key,
+            class: ["yn-calendar-date", ...date.className],
+            ref,
+            nativeOn: {
+              click: this.handleClick.bind(this, date),
+            },
+          },
+          [
+            h(
+              genComponentName("flex"),
+              {
+                props: {
+                  flexDirection: "column",
+                  justifyContent: "spaceBetween",
+                },
+              },
+              [
+                h(
+                  genComponentName("flex-item"),
+                  { class: ["yn-calendar-date-festival"] },
+                  date.festival
+                ),
+                h(
+                  genComponentName("flex-item"),
+                  { class: ["yn-calendar-date-text"] },
+                  date.day
+                ),
+                h(
+                  genComponentName("flex-item"),
+                  { class: ["yn-calendar-date-mark"] },
+                  date.mark
+                ),
+              ]
+            ),
+          ]
+        );
       });
-      return caculatedDates;
     },
     getDefaultNodeFromProps(prop, className = []) {
       const key = this[prop];
@@ -483,8 +524,16 @@ export default defineComponent({
     },
     setPosition() {
       this.rendered(() => {
-        const el = this.$refs.scrollPosition.$el;
-        const parent = this.$refs.popup.$el;
+        const { scrollPosition, popup, scroller, header } = this.$refs;
+        if (!scrollPosition || !popup || !scroller || !header) return;
+        const headerHeight = header.$el?.offsetHeight ?? 0;
+        const scrollPositionHeight = scrollPosition.$el?.offsetHeight ?? 0;
+        const popupEleOffsetTop = popup.$el
+          ? getOffset(popup.$el)?.top ?? 0
+          : 0;
+        const scrollEleOffsetTop = scrollPosition.$el
+          ? getOffset(scrollPosition.$el)?.top ?? 0
+          : 0;
         // this.$refs.scroller.$el.scrollTop =
         //   getOffset(el).top -
         //   this.$refs.header.$el.offsetHeight -
@@ -494,10 +543,11 @@ export default defineComponent({
         // 猜测：可能是iOS 13.4.1的渲染机制跟其他版本浏览器渲染不一致，测试发现跟Vue transition有关系，具体还得查一下
         // 解决方法：延迟30ms，再进行设置scrollTop值
         setTimeout(() => {
-          this.$refs.scroller.$el.scrollTop =
-            getOffset(el).top -
-            this.$refs.header.$el.offsetHeight -
-            getOffset(parent).top;
+          scroller.$el.scrollTop =
+            scrollEleOffsetTop -
+            headerHeight -
+            popupEleOffsetTop -
+            scrollPositionHeight;
         }, 30);
       });
     },
@@ -507,9 +557,12 @@ export default defineComponent({
     handleAfterEnter() {
       const weekBar = this.$refs.weekBar;
       this.weekBarOffsetHeight = weekBar ? weekBar.offsetHeight : 0;
-      this.weekBarOffsetTop = weekBar ? parseInt(getOffset(weekBar).top + weekBar.offsetHeight) : 0;
-      const doms = this.$el.querySelectorAll(".yn-calendar-month-title");
-      this.monthTitleDoms = doms;
+      this.weekBarOffsetTop = weekBar
+        ? parseInt(getOffset(weekBar).top + weekBar.offsetHeight)
+        : 0;
+      this.monthTitleDoms = this.$el.querySelectorAll(
+        ".yn-calendar-month-title"
+      );
       if (this.$el) {
         const monthBlockDom = this.$el.querySelector(".yn-calendar-month");
         this.calendarBlockHeight = monthBlockDom.offsetHeight;
@@ -527,105 +580,44 @@ export default defineComponent({
       this.$emit("afterLeave");
     },
     createDate(h) {
-      const dates = this.generateDate();
-      const caculateDOM = [];
-      dates.forEach((monthItem) => {
+      return this.generateDate.map((monthItem) => {
         const { month, year, key } = monthItem;
-        caculateDOM.push(
-          h(
-            "div",
-            {
-              class: ["yn-calendar-month", month],
-              key,
-            },
-            [
-              h(
-                "h4",
-                {
-                  class: ["yn-calendar-month-title"],
-                  domProps: {
-                    innerHTML: this.monthTtitleParser(`${year}-${month}`, {
-                      year,
-                      month,
-                    }),
-                  },
+        return h(
+          "div",
+          {
+            key,
+            class: ["yn-calendar-month", month],
+          },
+          [
+            h(
+              "header",
+              {
+                class: ["yn-calendar-month-title"],
+                domProps: {
+                  innerHTML: this.monthTitleParser(`${year}-${month}`, {
+                    year,
+                    month,
+                  }),
                 },
-                []
-              ),
-              h(
-                genComponentName("flex"),
-                {
-                  key: `yn_flex_${key}`,
-                  class: ["yn-calendar-flex"],
-                  props: {
-                    flexWrap: "wrap",
-                    justifyContent: "spaceAround",
-                    fixBottomLine: true,
-                  },
+              },
+              []
+            ),
+            h(
+              genComponentName("flex"),
+              {
+                key: `yn_flex_${key}`,
+                class: ["yn-calendar-flex"],
+                props: {
+                  flexWrap: "wrap",
+                  justifyContent: "spaceAround",
+                  fixBottomLine: true,
                 },
-                [
-                  (() => {
-                    const dateDom = [];
-                    monthItem.dates.forEach((date) => {
-                      let ref = null;
-                      if (
-                        date.className.indexOf("single-mode") > -1 ||
-                        date.className.indexOf("start") > -1
-                      ) {
-                        ref = "scrollPosition";
-                      }
-                      dateDom.push(
-                        h(
-                          genComponentName("flex-item"),
-                          {
-                            key: date.key,
-                            class: ["yn-calendar-date", ...date.className],
-                            // domProps: { innerHTML: date.day },
-                            ref,
-                            nativeOn: {
-                              click: this.handleClick.bind(this, date),
-                            },
-                          },
-                          [
-                            h(
-                              genComponentName("flex"),
-                              {
-                                props: {
-                                  flexDirection: "column",
-                                  justifyContent: "spaceBetween",
-                                },
-                              },
-                              [
-                                h(
-                                  genComponentName("flex-item"),
-                                  { class: ["yn-calendar-date-festival"] },
-                                  date.festival
-                                ),
-                                h(
-                                  genComponentName("flex-item"),
-                                  { class: ["yn-calendar-date-text"] },
-                                  date.day
-                                ),
-                                h(
-                                  genComponentName("flex-item"),
-                                  { class: ["yn-calendar-date-mark"] },
-                                  date.mark
-                                ),
-                              ]
-                            ),
-                          ]
-                        )
-                      );
-                    });
-                    return dateDom;
-                  })(),
-                ]
-              ),
-            ]
-          )
+              },
+              this.generateDateDom(h, monthItem)
+            ),
+          ]
         );
       });
-      return caculateDOM;
     },
     createNoticeBar(h) {
       if (this.noticeText && this.noticeText !== "") {
@@ -650,7 +642,7 @@ export default defineComponent({
           h(
             "div",
             {
-              class: ["yn-calendar-reulst-left"],
+              class: ["yn-calendar-result-left"],
             },
             [
               h(
@@ -690,13 +682,13 @@ export default defineComponent({
           h(
             "div",
             {
-              class: ["yn-calendar-reulst-center"],
+              class: ["yn-calendar-result-center"],
             },
             [
               h(
                 "span",
                 {
-                  class: ["yn-clendar-result-center-icon"],
+                  class: ["yn-calendar-result-center-icon"],
                 },
                 []
               ),
@@ -705,7 +697,7 @@ export default defineComponent({
           h(
             "div",
             {
-              class: ["yn-calendar-reulst-right"],
+              class: ["yn-calendar-result-right"],
             },
             [
               h(
@@ -759,35 +751,33 @@ export default defineComponent({
       ]);
     },
     createFooterArea(h) {
-      if (this.showConfirmButton) {
-        return h(
-          genComponentName("flex-item"),
-          {
-            class: ["yn-calendar-footer"],
-          },
-          [
-            h(
-              "div",
-              {
-                class: ["yn-calendar-footer-inner"],
-              },
-              [
-                this.dateLocked && this.createDateResultArea(h),
-                h("div", {
-                  class: [
-                    "yn-calendar-confirm-button",
-                    this.confirmButtonClassName,
-                  ],
-                  on: { click: this.handleOnConfirm },
-                  domProps: { innerHTML: this.confirmText },
-                }),
-              ]
-            ),
-          ]
-        );
-      } else {
-        return [];
-      }
+      if (!this.showConfirmButton) return [];
+
+      return h(
+        genComponentName("flex-item"),
+        {
+          class: ["yn-calendar-footer"],
+        },
+        [
+          h(
+            "div",
+            {
+              class: ["yn-calendar-footer-inner"],
+            },
+            [
+              this.dateLocked && this.createDateResultArea(h),
+              h("div", {
+                class: [
+                  "yn-calendar-confirm-button",
+                  this.confirmButtonClassName,
+                ],
+                on: { click: this.handleOnConfirm },
+                domProps: { innerHTML: this.confirmText },
+              }),
+            ]
+          ),
+        ]
+      );
     },
     createCloseIcon(h) {
       return h(
@@ -865,7 +855,10 @@ export default defineComponent({
             afterLeave: this.handleAfterLeave,
           },
           directives: [{ name: "show", value: this.value }],
-          props: { position: "bottom", closeOnClickModal: this.closeOnClickModal },
+          props: {
+            position: "bottom",
+            closeOnClickModal: this.closeOnClickModal,
+          },
           style: { height: "85%" },
           ref: "popup",
         },

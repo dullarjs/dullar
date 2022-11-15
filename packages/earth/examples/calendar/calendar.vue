@@ -112,16 +112,16 @@
       :before="10"
       :after="10"
       v-model="calendar1"
-      v-on:getDate="handleOnGetDate1"
+      @getDate="handleOnGetDate1"
       @afterLeave="handleAfterLeave"
-      noticeText="温馨提示：为配合各地政府落实疫情防控常态化措施，避免重复退票带来的不便，铁路车票预售期调整为15天"
+      :monthTitleParser="monthTitleParser"
     ></yn-calendar>
     <yn-calendar
       mode="double"
       :before="10"
       :after="10"
       v-model="calendar2"
-      v-on:getDate="handleOnGetDate2"
+      @getDate="handleOnGetDate2"
     ></yn-calendar>
     <yn-calendar
       mode="single"
@@ -129,7 +129,7 @@
       :after="10"
       v-model="calendar3"
       :defaultDate="defaultDate"
-      v-on:getDate="handleOnGetDate3"
+      @getDate="handleOnGetDate3"
     ></yn-calendar>
     <yn-calendar
       mode="double"
@@ -138,14 +138,14 @@
       v-model="calendar4"
       :defaultStartDate="defaultStartDate"
       :defaultEndDate="defaultEndDate"
-      v-on:getDate="handleOnGetDate4"
+      @getDate="handleOnGetDate4"
     ></yn-calendar>
     <yn-calendar
       mode="double"
       :before="10"
       :after="10"
       v-model="calendar5"
-      v-on:getDate="handleOnGetDate5"
+      @getDate="handleOnGetDate5"
       :showConfirmButton="true"
       :confirmText="confirmText"
       @changeDate="changeDate"
@@ -155,7 +155,7 @@
       :before="10"
       :after="10"
       v-model="calendar6"
-      v-on:getDate="handleOnGetDate6"
+      @getDate="handleOnGetDate6"
       :doubleModeAllowSameDate="true"
     ></yn-calendar>
     <yn-calendar
@@ -163,7 +163,7 @@
       :before="10"
       :after="10"
       v-model="calendar7"
-      v-on:getDate="handleOnGetDate7"
+      @getDate="handleOnGetDate7"
       :title="['日历', '请选择入住时间', '请选择离店时间']"
     ></yn-calendar>
     <yn-calendar
@@ -171,7 +171,7 @@
       :before="10"
       :after="10"
       v-model="calendar8"
-      v-on:getDate="handleOnGetDate8"
+      @getDate="handleOnGetDate8"
       :title="['日历', '请选择入住时间', '请选择离店时间']"
     ></yn-calendar>
     <yn-calendar
@@ -188,7 +188,7 @@
       :before="9"
       :after="10"
       v-model="calendar10"
-      v-on:getDate="handleOnGetDate5"
+      @getDate="handleOnGetDate5"
       :showConfirmButton="true"
       :confirmText="confirmText"
       noticeText="温馨提示：为配合各地政府落实疫情防控常态化措施，避免重复退票带来的不便，铁路车票预售期调整为15天"
@@ -250,6 +250,10 @@ export default {
     },
   },
   methods: {
+    YnDate,
+    monthTitleParser(dateString, { month, year }){
+      return `${year}年${month}月`;
+    },
     lockDateParse(date, type) {
       if (type === "week") {
         if (!date) {
