@@ -1,6 +1,6 @@
 {
   "name": "@dullar/jupiter",
-  "version": "0.5.35",
+  "version": "0.5.36",
   "publishConfig": {
     "access": "public"
   },
@@ -60,5 +60,5 @@
     "not dead",
     "not ie 11"
   ],
-  "gitHead": "da1e3d1cb424dc6e89943333521be2064eabbecb"
+  "gitHead": "5a267e789c6aacbef9bb86190a06a5ce4a6f9bda"
 }
