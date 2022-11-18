@@ -33,6 +33,7 @@ import Picker from "./picker";
 import PickyStepper from "./picky-stepper";
 import Popup from "./popup";
 import PullRefresh from "./pull-refresh";
+import PullRefresh2 from "./pull-refresh2";
 import Radiobox from "./radiobox";
 import Skeleton from "./skeleton";
 import Slider from "./slider";
@@ -49,7 +50,7 @@ import Tabs from "./tabs";
 import Textarea from "./textarea";
 import Toast from "./toast";
 
-const components = [ActionSheet, AnimationList, AnimationListItem, Button, Calendar, Checkbox, CityPicker, Counter, DatePicker, Dialog, Dragable, Drawer, Dropdown, DropdownMenu, DropdownMenuItem, Field, FieldGroup, Flex, FlexItem, Iconfont, Indicator, Layout, MagicLayer, Picker, PickyStepper, Popup, PullRefresh, Radiobox, Skeleton, Slider, Spin, Sticky, SubmitAction, SubmitActionPopupContent, SubmitActionText, SubmitActionValue, Swipe, SwipeItem, TabItem, Tabs, Textarea, Toast];
+const components = [ActionSheet, AnimationList, AnimationListItem, Button, Calendar, Checkbox, CityPicker, Counter, DatePicker, Dialog, Dragable, Drawer, Dropdown, DropdownMenu, DropdownMenuItem, Field, FieldGroup, Flex, FlexItem, Iconfont, Indicator, Layout, MagicLayer, Picker, PickyStepper, Popup, PullRefresh, PullRefresh2, Radiobox, Skeleton, Slider, Spin, Sticky, SubmitAction, SubmitActionPopupContent, SubmitActionText, SubmitActionValue, Swipe, SwipeItem, TabItem, Tabs, Textarea, Toast];
 const install = (Vue) => {
   if (install.installed) return;
   components.map(component => {
@@ -118,6 +119,7 @@ export { Picker as YnPicker };
 export { PickyStepper as YnPickyStepper };
 export { Popup as YnPopup };
 export { PullRefresh as YnPullRefresh };
+export { PullRefresh2 as YnPullRefresh2 };
 export { Radiobox as YnRadiobox };
 export { Skeleton as YnSkeleton };
 export { Slider as YnSlider };
