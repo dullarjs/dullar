@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-28 15:42:16
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-11-18 13:49:27
+ * @Last Modified time: 2022-11-18 15:23:43
  * @E-mail: justbefree@126.com
  */
 
@@ -57,7 +57,6 @@ export default defineComponent({
       isLoading: false,
       distance: 0,
       timer: null,
-      fullyStoped: true,
     };
   },
   computed: {
@@ -82,7 +81,6 @@ export default defineComponent({
       return this.status !== "loading" && this.status !== "success";
     },
     refreshStyle() {
-      // if (this.fullyStoped) return {};
       return {
         transitionDuration: `${DURATION_TIME}ms`,
         transform: this.distance
@@ -133,7 +131,6 @@ export default defineComponent({
           if (that.contains(event.e.target) && this.isTouchable) return;
           that.$emit("input", true);
           that.distance = 0;
-          that.fullyStoped = false;
         },
         dragging(event) {
           if (that.contains(event.e.target) && this.isTouchable) return;
@@ -246,11 +243,7 @@ export default defineComponent({
             : this.genDraggingText(h),
         ]
       );
-    },
-    transitionend() {
-      console.log("运动结束");
-      this.fullyStoped = true;
-    },
+    }
   },
   watch: {
     status(newVal) {
@@ -270,8 +263,7 @@ export default defineComponent({
       "div",
       {
         class: ["yn-pull-refresh"],
-        style: this.refreshStyle,
-        on: { transitionend: this.transitionend },
+        style: this.refreshStyle
       },
       [this.genDraggingWrapper(h), this.slots()]
     );
