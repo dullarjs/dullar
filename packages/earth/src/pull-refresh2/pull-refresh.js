@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-28 15:42:16
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-11-18 11:56:41
+ * @Last Modified time: 2022-11-18 13:49:27
  * @E-mail: justbefree@126.com
  */
 
@@ -82,7 +82,7 @@ export default defineComponent({
       return this.status !== "loading" && this.status !== "success";
     },
     refreshStyle() {
-      if (this.fullyStoped) return {};
+      // if (this.fullyStoped) return {};
       return {
         transitionDuration: `${DURATION_TIME}ms`,
         transform: `translate3d(0, ${this.distance}px, 0)`
