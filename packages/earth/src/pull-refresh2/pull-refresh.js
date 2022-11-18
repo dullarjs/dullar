@@ -23,30 +23,30 @@ export default defineComponent({
   components: { Spin },
   props: {
     value: {
-      type: Boolean
+      type: Boolean,
     },
     dragDistance: {
       type: Number,
-      default: 48
+      default: 48,
     },
     cancelBubbles: {
       type: Array,
       default: () => {
         return [];
-      }
+      },
     },
     loadingTexts: {
       type: Array,
-      default: () => ["下拉刷新", "松手刷新", "正在刷新", "已刷新"]
+      default: () => ["下拉刷新", "松手刷新", "正在刷新", "已刷新"],
     },
     loadingStatusText: {
       type: String,
-      default: "加载中"
+      default: "加载中",
     },
     refreshTimeout: {
       type: Number,
-      default: 60 * 1000
-    }
+      default: 60 * 1000,
+    },
   },
   data() {
     return {
@@ -57,7 +57,7 @@ export default defineComponent({
       isLoading: false,
       distance: 0,
       timer: null,
-      fullyStoped: true
+      fullyStoped: true,
     };
   },
   computed: {
@@ -85,17 +85,19 @@ export default defineComponent({
       // if (this.fullyStoped) return {};
       return {
         transitionDuration: `${DURATION_TIME}ms`,
-        transform: `translate3d(0, ${this.distance}px, 0)`
+        transform: this.distance
+          ? `translate3d(0, ${this.distance}px, 0)`
+          : "unset",
       };
     },
     refreshText() {
-      const index = statusNames.findIndex(item => item === this.status);
+      const index = statusNames.findIndex((item) => item === this.status);
       if (index === -1) return "";
       return this.loadingTexts[index] || "";
     },
     reachTop() {
       return this.scrollTop === 0;
-    }
+    },
   },
   mounted() {
     this.pull();
@@ -105,11 +107,11 @@ export default defineComponent({
   },
   methods: {
     getBubbleDoms() {
-      return this.cancelBubbles.map(i => document.querySelector(i));
+      return this.cancelBubbles.map((i) => document.querySelector(i));
     },
     contains(target) {
       let contain = false;
-      this.getBubbleDoms().forEach(dom => {
+      this.getBubbleDoms().forEach((dom) => {
         if (dom && contains(dom, target)) {
           contain = true;
         }
@@ -211,7 +213,7 @@ export default defineComponent({
           } else {
             that.$emit("input", false);
           }
-        }
+        },
       });
     },
     genLoading(h) {
@@ -220,14 +222,14 @@ export default defineComponent({
           props: {
             tip: this.loadingStatusText,
             textDirection: "horizontal",
-            size: "small"
-          }
-        })
+            size: "small",
+          },
+        }),
       ]);
     },
     genDraggingText(h) {
       return h("div", { class: "yn-pull-refresh-dragging-text" }, [
-        h("span", {}, this.refreshText)
+        h("span", {}, this.refreshText),
       ]);
     },
     genDraggingWrapper(h) {
@@ -236,19 +238,19 @@ export default defineComponent({
         {
           class: "yn-pull-refresh-wrapper",
           style: { height: `${this.dragDistance}px` },
-          directives: [{ name: "show", value: !!this.distance }]
+          directives: [{ name: "show", value: !!this.distance }],
         },
         [
           this.status === "loading"
             ? this.genLoading(h)
-            : this.genDraggingText(h)
+            : this.genDraggingText(h),
         ]
       );
     },
     transitionend() {
       console.log("运动结束");
       this.fullyStoped = true;
-    }
+    },
   },
   watch: {
     status(newVal) {
@@ -261,12 +263,17 @@ export default defineComponent({
           clearTimeout(timer);
         }, 300);
       }
-    }
+    },
   },
   render(h) {
-    return h("div", { class: ["yn-pull-refresh"], style: this.refreshStyle, on: { transitionend: this.transitionend } }, [
-      this.genDraggingWrapper(h),
-      this.slots()
-    ]);
-  }
+    return h(
+      "div",
+      {
+        class: ["yn-pull-refresh"],
+        style: this.refreshStyle,
+        on: { transitionend: this.transitionend },
+      },
+      [this.genDraggingWrapper(h), this.slots()]
+    );
+  },
 });
