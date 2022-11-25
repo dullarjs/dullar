@@ -5,18 +5,19 @@
  * @Last Modified time: 2022-08-16 19:27:57
  * @E-mail: justbefree@126.com
  */
-import { defineComponent, genComponentName } from "../modules/component";
-import PopupManager from "../modules/popup/popup-manager";
-import { addClass } from "../modules/dom";
-const VALIDATE_POSITION_VALUE = ["left", "right", "top", "bottom", "middle"];
-import { warn } from "../modules/error";
 import Iconfont from "../iconfont";
-import { slotsMixins } from "../mixins/slots";
 import { isDef } from "../modules/utils";
+import { warn } from "../modules/error";
+import { addClass } from "../modules/dom";
+import { slotsMixins } from "../mixins/slots";
 import { EventBus } from "../modules/event/bus";
 import { stopPropagation } from "../modules/event";
-import { addHash, removeHash } from "../modules/url";
+import PopupManager from "../modules/popup/popup-manager";
+import { defineComponent, genComponentName } from "../modules/component";
+
 let idSeed = 1;
+const VALIDATE_POSITION_VALUE = ["left", "right", "top", "bottom", "middle"];
+
 export default defineComponent({
   name: "Popup",
   mixins: [slotsMixins],
@@ -55,7 +56,7 @@ export default defineComponent({
     fixed: Boolean,
     routerHashName: {
       type: String,
-      default: ""
+      default: "",
     },
   },
   data() {
@@ -64,14 +65,53 @@ export default defineComponent({
       diff: 0,
       events: {},
       zIndex: 2000,
-      controledByClose: false
     };
   },
+  computed: {
+    existRouterHashName() {
+      const { query } = this.$route;
+      return this.routerHashName && this.routerHashName in query;
+    },
+    hasBackRecord() {
+      if (!this.routerHashName) return false;
+      return window.history.state?.routerHashName === this.routerHashName;
+    },
+  },
   watch: {
-    value: "hanleFastClick",
+    value: "handleFastClick",
   },
   methods: {
-    hanleFastClick(c, o) {
+    setHistoryState(state) {
+      window.history.replaceState(
+        {
+          ...history.state,
+          ...state,
+        },
+        document.title
+      );
+    },
+    async addQuery() {
+      if (!this.existRouterHashName) {
+        const newQuery = { ...this.$route.query };
+        if (this.routerHashName) newQuery[this.routerHashName] = "_popup";
+        await this.$router.push({
+          query: newQuery,
+        });
+        this.setHistoryState({
+          routerHashName: this.routerHashName,
+        });
+      }
+    },
+    removeQuery() {
+      if (this.routerHashName && this.existRouterHashName) {
+        const newQuery = { ...this.$route.query };
+        delete newQuery[this.routerHashName];
+        this.$router.replace({
+          query: newQuery,
+        });
+      }
+    },
+    handleFastClick(c, o) {
       if (c) {
         this.time = Date.now();
       }
@@ -90,8 +130,8 @@ export default defineComponent({
       this.events = {};
     },
     handleBeforeEnter(node) {
-      if (this.routerHashName !== "") {
-        addHash(this.routerHashName);
+      if (this.routerHashName) {
+        this.addQuery();
       }
       let popupCount = EventBus.$data.globalProperties["$popup-count"];
       popupCount = isDef(popupCount) ? ++popupCount : 1;
@@ -134,7 +174,7 @@ export default defineComponent({
     handleEnter() {
       this.$emit("enter");
     },
-    handleAfterEneter() {
+    handleAfterEnter() {
       this.$emit("afterEnter");
     },
     handleBeforeLeave() {
@@ -165,16 +205,16 @@ export default defineComponent({
         PopupManager.closeModal(this.idSeed);
       }
       this.$emit("afterLeave");
-      if (this.routerHashName !== "" && this.controledByClose) {
-        removeHash(this.routerHashName);
+      if (this.hasBackRecord) {
+        this.$router.back();
+      } else {
+        this.removeQuery();
       }
-      this.controledByClose = false;
     },
     close() {
-      this.controledByClose = true;
       this.$emit("input", false);
     },
-    isValidatePositionVlaue() {
+    isValidatePositionValue() {
       return VALIDATE_POSITION_VALUE.indexOf(this.position) > -1;
     },
     getStyle(position) {
@@ -224,15 +264,11 @@ export default defineComponent({
           this.$emit("input", false);
         }
       });
-      // EventBus.$on("history:popstate", (ev) => {
-      //   console.log("history:popstate", ev);
-      //   this.$emit("input", false);
-      // });
     }
   },
   render(h) {
     let position = "bottom";
-    if (this.isValidatePositionVlaue()) {
+    if (this.isValidatePositionValue()) {
       position = this.position;
     } else {
       warn(`${this.position} is not a valid value of position props`);
@@ -244,7 +280,7 @@ export default defineComponent({
         on: {
           beforeEnter: this.handleBeforeEnter,
           enter: this.handleEnter,
-          afterEnter: this.handleAfterEneter,
+          afterEnter: this.handleAfterEnter,
           beforeLeave: this.handleBeforeLeave,
           leave: this.handleLeave,
           afterLeave: this.handleAfterLeave,
