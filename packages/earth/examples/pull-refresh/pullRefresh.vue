@@ -1,32 +1,44 @@
 <template>
-  <yn-pull-refresh2
+  <yn-pull-refresh
     v-model="refresh2"
-    success-text="刷新成功"
+    loadingStatusText="加载中"
+    :loadingTexts='["下拉提示文案", "松手提示文案", "加载中的文案", "刷新成功"]'
     @refresh="handleRefresh2"
   >
-  <div>
-    <h2>yn-pull-refresh</h2>
-    <!-- <yn-pull-refresh loadingText="加载中的文案" draggingTip="下拉提示文案" triggerLoadingText="松手提示文案" loadingSuccessText="加载完成文案" :cancelBubbles="cancelBubbles" @pullRefresh="handlePullRefresh" :loading="isLoading">
-      <div class="cancel-bubble-event" v-if="show">我是一块比较特殊的区域，拖拽我的话将不生效。不信你试试</div>
-      <button @click="refresh">refresh</button>
-      <ul>
-        <li v-for="i in list" :key="i">{{ i }}</li>
-      </ul>
-    </yn-pull-refresh> -->
+    <div>
+      <h2>yn-pull-refresh</h2>
+<!--      <yn-pull-refresh-->
+<!--        loadingText="加载中的文案"-->
+<!--        draggingTip="下拉提示文案"-->
+<!--        triggerLoadingText="松手提示文案"-->
+<!--        loadingSuccessText="加载完成文案"-->
+<!--        :cancelBubbles="cancelBubbles"-->
+<!--        @pullRefresh="handlePullRefresh"-->
+<!--        :loading="isLoading"-->
+<!--      >-->
+<!--        <div class="cancel-bubble-event" v-if="show">-->
+<!--          我是一块比较特殊的区域，拖拽我的话将不生效。不信你试试-->
+<!--        </div>-->
+<!--        <button @click="refresh">refresh</button>-->
+<!--        <ul>-->
+<!--          <li v-for="i in list" :key="i">{{ i }}</li>-->
+<!--        </ul>-->
+<!--      </yn-pull-refresh>-->
       <yn-button @click="openDrawer">打开yn-drawer</yn-button>
-      
-        <div class="content" style="padding: 0 16px; background-color: #fff;">
+
+      <div class="content" style="padding: 0 16px; background-color: #fff">
+        <ul>
+          <li v-for="i in list" :key="i">{{ i }}</li>
+        </ul>
+        <yn-spin type="rotate-svg" />
+        <yn-drawer :popupStyle="popupStyle" v-model="showDrawer">
           <ul>
-            <li v-for="i in list" :key="i">{{ i }}</li>
+            <li v-for="i in 100" :key="i">{{ i }}</li>
           </ul>
-          <yn-drawer :popupStyle="popupStyle" v-model="showDrawer">
-            <ul>
-              <li v-for="i in 100" :key="i">{{i}}</li>
-            </ul>
-          </yn-drawer>
-        </div>
-  </div>
-      </yn-pull-refresh2>
+        </yn-drawer>
+      </div>
+    </div>
+  </yn-pull-refresh>
 </template>
 <script type="text/javascript">
 export default {
@@ -41,8 +53,8 @@ export default {
       refresh2: false,
       showDrawer: false,
       popupStyle: {
-        height: "80%"
-      }
+        height: "80%",
+      },
     };
   },
   mounted() {
@@ -83,8 +95,8 @@ export default {
         }
         this.refresh2 = false;
       }, 4000);
-    }
-  }
+    },
+  },
 };
 </script>
 

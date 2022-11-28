@@ -1,4 +1,3 @@
-
 const EVENTS = {};
 import { getConfig } from "./modules/component/config";
 import { hyphenate } from "./modules/utils";
@@ -33,7 +32,6 @@ import Picker from "./picker";
 import PickyStepper from "./picky-stepper";
 import Popup from "./popup";
 import PullRefresh from "./pull-refresh";
-import PullRefresh2 from "./pull-refresh2";
 import Radiobox from "./radiobox";
 import Skeleton from "./skeleton";
 import Slider from "./slider";
@@ -50,16 +48,59 @@ import Tabs from "./tabs";
 import Textarea from "./textarea";
 import Toast from "./toast";
 
-const components = [ActionSheet, AnimationList, AnimationListItem, Button, Calendar, Checkbox, CityPicker, Counter, DatePicker, Dialog, Dragable, Drawer, Dropdown, DropdownMenu, DropdownMenuItem, Field, FieldGroup, Flex, FlexItem, Iconfont, Indicator, Layout, MagicLayer, Picker, PickyStepper, Popup, PullRefresh, PullRefresh2, Radiobox, Skeleton, Slider, Spin, Sticky, SubmitAction, SubmitActionPopupContent, SubmitActionText, SubmitActionValue, Swipe, SwipeItem, TabItem, Tabs, Textarea, Toast];
+const components = [
+  ActionSheet,
+  AnimationList,
+  AnimationListItem,
+  Button,
+  Calendar,
+  Checkbox,
+  CityPicker,
+  Counter,
+  DatePicker,
+  Dialog,
+  Dragable,
+  Drawer,
+  Dropdown,
+  DropdownMenu,
+  DropdownMenuItem,
+  Field,
+  FieldGroup,
+  Flex,
+  FlexItem,
+  Iconfont,
+  Indicator,
+  Layout,
+  MagicLayer,
+  Picker,
+  PickyStepper,
+  Popup,
+  PullRefresh,
+  Radiobox,
+  Skeleton,
+  Slider,
+  Spin,
+  Sticky,
+  SubmitAction,
+  SubmitActionPopupContent,
+  SubmitActionText,
+  SubmitActionValue,
+  Swipe,
+  SwipeItem,
+  TabItem,
+  Tabs,
+  Textarea,
+  Toast,
+];
 const install = (Vue) => {
   if (install.installed) return;
-  components.map(component => {
+  components.map((component) => {
     if (component.name && typeof component !== "function") {
       const eventName = hyphenate(component.name);
       if (EVENTS[eventName] && typeof EVENTS[eventName] === "function") {
-         Vue.component(component.name, EVENTS[eventName]());
+        Vue.component(component.name, EVENTS[eventName]());
       } else {
-         Vue.component(component.name, component);
+        Vue.component(component.name, component);
       }
     } else if (component.install) {
       Vue.use(component);
@@ -73,24 +114,24 @@ if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
 }
 const config = (options = {}) => {
-  Object.keys(options).forEach(componentName => {
-   const ca = hyphenate(componentName);
-   components.forEach((component) => {
-     if (ca === component.name) {
-       if (component.callback && (typeof component.callback === "function")) {
-         EVENTS[ca] = () => {
-           return component.callback(options[componentName]);
-         }
-       }
-     }
-   });
+  Object.keys(options).forEach((componentName) => {
+    const ca = hyphenate(componentName);
+    components.forEach((component) => {
+      if (ca === component.name) {
+        if (component.callback && typeof component.callback === "function") {
+          EVENTS[ca] = () => {
+            return component.callback(options[componentName]);
+          };
+        }
+      }
+    });
   });
 };
 export { install, version, config };
 export default {
   install,
   version,
-  config
+  config,
 };
 export { ActionSheet as YnActionSheet };
 export { AnimationList as YnAnimationList };
@@ -119,7 +160,6 @@ export { Picker as YnPicker };
 export { PickyStepper as YnPickyStepper };
 export { Popup as YnPopup };
 export { PullRefresh as YnPullRefresh };
-export { PullRefresh2 as YnPullRefresh2 };
 export { Radiobox as YnRadiobox };
 export { Skeleton as YnSkeleton };
 export { Slider as YnSlider };
