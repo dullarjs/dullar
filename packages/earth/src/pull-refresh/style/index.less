@@ -1,17 +1,44 @@
 @import "../../theme/variable.less";
+
 .yn-pull-refresh {
   user-select: none;
-  transition: all 0.2s ease-out;
-  &.none {
-    transition: none 0s ease 0s;
+  position: relative;
+
+  &-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: @yn-text-color-secondary;
+    line-height: 48px;
+    font-size: 12px;
+    overflow: hidden;
+    transform: translate3d(0, -100%, 0);
+
+    .yn-pull-refresh-dragging-text {
+      font-size: 12px;
+      text-align: center;
+    }
   }
-  .yn-pull-refresh-loading,
-  .yn-pull-refresh-draggin-text {
+
+  .yn-pull-refresh-loading {
     text-align: center;
+
+    .yn-pull-refresh-loading-text {
+      padding-left: 4px;
+    }
+
+    .yn-spin-rotate-svg {
+      img {
+        display: block;
+      }
+    }
+
     > span {
       display: inline-block;
-      font-size: 13px;
-      color: @yn-primary-color;
+      vertical-align: middle;
+      font-size: 12px;
+      color: @yn-text-color-secondary;
     }
   }
 }
