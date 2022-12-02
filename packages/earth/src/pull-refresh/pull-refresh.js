@@ -48,6 +48,14 @@ export default defineComponent({
       type: Number,
       default: 60 * 1000,
     },
+    refreshFailedText: {
+      type: String,
+      default: "刷新失败",
+    },
+    refreshFailed: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -90,6 +98,7 @@ export default defineComponent({
       };
     },
     refreshText() {
+      if (this.refreshFailed) return this.refreshFailedText;
       const index = statusNames.findIndex((item) => item === this.status);
       if (index === -1) return "";
       return this.loadingTexts[index] || "";
