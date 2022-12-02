@@ -2,14 +2,13 @@
  * @Author: Just be free
  * @Date:   2020-03-25 16:50:20
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-15 21:39:19
+ * @Last Modified time: 2022-12-01 10:28:09
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
 import Button from "../button";
 import Radiobox from "../radiobox";
-import Checkbox from "../checkbox";
 import Flex from "../flex";
 import FlexItem from "../flex-item";
 import { isPromise, hasOwnProperty } from "../modules/utils";
@@ -21,7 +20,6 @@ export default defineComponent({
     FlexItem,
     Button,
     Radiobox,
-    Checkbox,
   },
   props: {
     value: {
@@ -464,29 +462,17 @@ export default defineComponent({
                 [
                   h(genComponentName("flex"), {}, [
                     h(genComponentName("flex-item"), {}, [
-                      step.multiple
-                        ? h(
-                            genComponentName("checkbox"),
-                            {
-                              props: {
-                                checked: item.checked,
-                                size: 12,
-                                disabled: item.disabled,
-                              },
-                            },
-                            []
-                          )
-                        : h(
-                            genComponentName("radiobox"),
-                            {
-                              props: {
-                                checked: item.checked,
-                                size: 12,
-                                disabled: item.disabled,
-                              },
-                            },
-                            []
-                          ),
+                      h(
+                        genComponentName("radiobox"),
+                        {
+                          props: {
+                            checked: item.checked,
+                            size: 12,
+                            disabled: item.disabled,
+                          },
+                        },
+                        []
+                      ),
                     ]),
                     h(genComponentName("flex-item"), { class: ["flex-item-text-wrapper"] }, [
                       h("span", { class: ["text"] }, item.label),
