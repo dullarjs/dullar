@@ -289,11 +289,6 @@ export default {
     changeDefaultDate() {
       this.defaultDate = moment().add(2, "d").format("YYYY-MM-DD");
     },
-    monthTtitleParser(defaultText, { year, month }) {
-      console.log("defaultText", defaultText);
-      console.log(year, month);
-      return `${month}/${year}`;
-    },
     handleAfterLeave() {
       this.Toast("关闭完成的回调事件触发");
     },
