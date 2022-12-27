@@ -1,44 +1,34 @@
 <template>
-  <yn-pull-refresh
-    v-model="refresh2"
-    loadingStatusText="加载中"
-    :loadingTexts='["下拉提示文案", "松手提示文案", "加载中的文案", "刷新成功"]'
-    @refresh="handleRefresh2"
-  >
-    <div>
-      <h2>yn-pull-refresh</h2>
-<!--      <yn-pull-refresh-->
-<!--        loadingText="加载中的文案"-->
-<!--        draggingTip="下拉提示文案"-->
-<!--        triggerLoadingText="松手提示文案"-->
-<!--        loadingSuccessText="加载完成文案"-->
-<!--        :cancelBubbles="cancelBubbles"-->
-<!--        @pullRefresh="handlePullRefresh"-->
-<!--        :loading="isLoading"-->
-<!--      >-->
-<!--        <div class="cancel-bubble-event" v-if="show">-->
-<!--          我是一块比较特殊的区域，拖拽我的话将不生效。不信你试试-->
-<!--        </div>-->
-<!--        <button @click="refresh">refresh</button>-->
-<!--        <ul>-->
-<!--          <li v-for="i in list" :key="i">{{ i }}</li>-->
-<!--        </ul>-->
-<!--      </yn-pull-refresh>-->
-      <yn-button @click="openDrawer">打开yn-drawer</yn-button>
+  <yn-layout showHeader>
+    <div slot="header">header {{ top }}</div>
+    <div slot="body">
+      <yn-pull-refresh
+        v-model="refresh2"
+        @getTop="handleGetTop"
+        loadingStatusText="加载中"
+        :loadingTexts='["下拉提示文案", "松手提示文案", "加载中的文案", "刷新成功"]'
+        @refresh="handleRefresh2"
+      >
+        <div>
+          <h2>yn-pull-refresh</h2>
+          <yn-button @click="openDrawer">打开yn-drawer</yn-button>
 
-      <div class="content" style="padding: 0 16px; background-color: #fff">
-        <ul>
-          <li v-for="i in list" :key="i">{{ i }}</li>
-        </ul>
-        <yn-spin type="rotate-svg" />
-        <yn-drawer :popupStyle="popupStyle" v-model="showDrawer">
-          <ul>
-            <li v-for="i in 100" :key="i">{{ i }}</li>
-          </ul>
-        </yn-drawer>
-      </div>
+          <div class="content" style="padding: 0 16px; background-color: #fff">
+            <ul>
+              <li v-for="i in list" :key="i">{{ i }}</li>
+            </ul>
+            <yn-spin type="rotate-svg" />
+            <yn-drawer :popupStyle="popupStyle" v-model="showDrawer">
+              <ul>
+                <li v-for="i in 100" :key="i">{{ i }}</li>
+              </ul>
+            </yn-drawer>
+          </div>
+        </div>
+      </yn-pull-refresh>
     </div>
-  </yn-pull-refresh>
+    <div slot="footer">footer</div>
+  </yn-layout>
 </template>
 <script type="text/javascript">
 export default {
@@ -55,12 +45,16 @@ export default {
       popupStyle: {
         height: "80%",
       },
+      top: 0
     };
   },
   mounted() {
     this.load(0);
   },
   methods: {
+    handleGetTop(t) {
+      this.top = t;
+    },
     openDrawer() {
       this.showDrawer = !this.showDrawer;
     },
@@ -72,7 +66,7 @@ export default {
     },
     load(time = 3000, callback) {
       const timer = setTimeout(() => {
-        for (let i = this.index * 10; i < (this.index + 1) * 10; i++) {
+        for (let i = this.index * 30; i < (this.index + 1) * 30; i++) {
           this.list.unshift(i);
         }
         callback && typeof callback === "function" && callback();
@@ -90,7 +84,7 @@ export default {
       this.refresh2 = true;
       this.timer = setTimeout(() => {
         const length = this.list.length;
-        for (let i = length + 1; i <= 10 + length; i++) {
+        for (let i = length + 1; i <= 30 + length; i++) {
           this.list.push(i);
         }
         this.refresh2 = false;
