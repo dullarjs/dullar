@@ -1,6 +1,6 @@
 {
   "name": "@dullar/jupiter",
-  "version": "0.5.38",
+  "version": "0.5.39",
   "publishConfig": {
     "access": "public"
   },
