@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-28 15:42:16
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-18 16:47:10
+ * @Last Modified time: 2022-12-27 15:54:34
  * @E-mail: justbefree@126.com
  */
 
@@ -10,7 +10,7 @@ import YnSpin from "../spin";
 import { getScrollTop } from "../modules/dom";
 import { slotsMixins } from "../mixins/slots";
 import { touchMixins } from "../mixins/touch";
-import { preventDefault } from "../modules/event";
+import { preventDefault, on, off } from "../modules/event";
 import { contains } from "../modules/dom/contains";
 import { getScroller } from "../modules/dom/scroll";
 import { defineComponent, genComponentName } from "../modules/component";
@@ -111,7 +111,8 @@ export default defineComponent({
     this.pull();
   },
   beforeDestroy() {
-    this.scrollElement.removeEventListener("scroll", this.handleScroll, false);
+    off(this.scrollElement, "scroll", this.handleScroll);
+    // this.scrollElement.removeEventListener("scroll", this.handleScroll, false);
   },
   methods: {
     getBubbleDoms() {
@@ -128,10 +129,13 @@ export default defineComponent({
     },
     handleScroll(e) {
       this.scrollTop = getScrollTop(e.target);
+      e.target.scrollTop = this.scrollTop < 0 ? 0 : this.scrollTop;
+      this.$emit("getTop", this.scrollTop);
     },
     scroll() {
       this.scrollElement = getScroller(this.$el);
-      this.scrollElement.addEventListener("scroll", this.handleScroll, false);
+      // this.scrollElement.addEventListener("scroll", this.handleScroll, false);
+      on(this.scrollElement, "scroll", this.handleScroll);
     },
     pull() {
       this.scroll();
