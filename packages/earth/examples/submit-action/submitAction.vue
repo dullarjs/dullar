@@ -31,12 +31,26 @@
         submitText="确认退票"
         @submit="handleSubmit2"
         label="应退金额参考:"
+        :popupStyle="popupStyle"
         value="100"
       >
         <yn-submit-action-popup-content>
           <ul>
             <li>这里是自定义内容</li>
             <li>这里是自定义内容</li>
+            <li>这里是自定义内容</li>
+            <li>这里是自定义内容</li>
+            <li>这里是自定义内容</li>
+            <li>这里是自定义内容</li>
+            <li>这里是自定义内容</li>
+            <li>这里是自定义内容</li>
+            <li>这里是自定义内容</li>
+            <li>这里是自定义内容</li>
+            <li>这里是自定义内容5</li>
+            <li>这里是自定义内容4</li>
+            <li>这里是自定义内容3</li>
+            <li>这里是自定义内容2</li>
+            <li>这里是自定义内容1</li>
           </ul>
         </yn-submit-action-popup-content>
       </yn-submit-action>
@@ -75,27 +89,6 @@
         </yn-submit-action-popup-content>
       </yn-submit-action>
     </div>
-    <div class="box">
-      <yn-button @click="handlePopup">弹出</yn-button>
-      <yn-popup v-model="popup">
-        <div class="full-content">
-          <yn-submit-action
-            fixed
-            submitText="确认退票"
-            @submit="handleSubmit3"
-            label="应退金额参考:"
-            value="100"
-          >
-            <yn-submit-action-popup-content>
-              <ul>
-                <li>这里是自定义内容</li>
-                <li>这里是自定义内容</li>
-              </ul>
-            </yn-submit-action-popup-content>
-          </yn-submit-action>
-        </div>
-      </yn-popup>
-    </div>
   </div>
 </template>
 
@@ -105,7 +98,10 @@ export default {
   data() {
     return {
       disabled: false,
-      popup: false
+      popup: false,
+      popupStyle: {
+        height: "50%"
+      }
     };
   },
   methods: {
@@ -122,10 +118,6 @@ export default {
     handleSubmit2() {
       this.Toast("提交成功");
     },
-    handleSubmit3() {
-      this.handlePopup();
-      this.Toast("提交成功");
-    }
   }
 };
 </script>

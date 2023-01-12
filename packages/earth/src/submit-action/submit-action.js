@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-04-24 12:04:15
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-04-28 15:55:00
+ * @Last Modified time: 2023-01-12 10:02:23
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -57,6 +57,12 @@ export default defineComponent({
       type: [String, Number],
       default: 1,
     },
+    popupStyle: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    }
   },
   data() {
     return {
@@ -202,7 +208,7 @@ export default defineComponent({
               h(
                 genComponentName("popup"),
                 {
-                  style: { position: "absolute" },
+                  style: { position: "absolute", ...this.popupStyle },
                   props: { value: this.showPopup, singleton: true },
                   on: {
                     beforeEnter: this.handleBeforeEnter,
