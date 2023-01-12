@@ -35,23 +35,28 @@
         value="100"
       >
         <yn-submit-action-popup-content>
-          <ul>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容</li>
-            <li>这里是自定义内容5</li>
-            <li>这里是自定义内容4</li>
-            <li>这里是自定义内容3</li>
-            <li>这里是自定义内容2</li>
-            <li>这里是自定义内容1</li>
-          </ul>
+          <yn-layout showHeader :showFooter="false">
+            <div slot="header" class="custom-header">
+              固定区域不动
+            </div>
+            <ul style="height: 100%" slot="body">
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容</li>
+              <li>这里是自定义内容5</li>
+              <li>这里是自定义内容4</li>
+              <li>这里是自定义内容3</li>
+              <li>这里是自定义内容2</li>
+              <li>这里是自定义内容1</li>
+            </ul>
+          </yn-layout>
         </yn-submit-action-popup-content>
       </yn-submit-action>
     </div>
@@ -101,6 +106,7 @@ export default {
       popup: false,
       popupStyle: {
         height: "50%"
+        // "max-height": "50%"
       }
     };
   },
@@ -123,6 +129,9 @@ export default {
 </script>
 
 <style type="text/css" scoped="scoped">
+  .custom-header {
+    height: 50px;
+  }
 .box {
   margin: 150px auto;
   border: none;
