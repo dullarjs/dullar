@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-09 12:18:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-02-24 18:32:42
+ * @Last Modified time: 2023-02-03 18:35:56
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
@@ -49,30 +49,6 @@ export default defineComponent({
       default: 36,
     },
     iconColor: String,
-  },
-  computed: {
-    controlArea() {
-      return this.windowHeight * 0.85 - 106;
-    },
-    countActions() {
-      return this.actions.length * 48;
-    },
-    popupStyle() {
-      if (this.countActions > this.controlArea) {
-        return {
-          height: "85%"
-        }
-      } else {
-        return {
-          height: `${(this.countActions + 106 + (this.loading ? 60 : 0)) / this.windowHeight * 100}%`
-        }
-      }
-    }
-  },
-  data() {
-    return {
-      windowHeight: 0
-    }
   },
   methods: {
     handleChange(e) {
@@ -130,7 +106,6 @@ export default defineComponent({
       return list;
     },
     handleBeforeEnter() {
-      this.windowHeight = window.innerHeight; // make sure get window.innerHeight properly
       this.$emit("beforeEnter");
     },
     handleAfterEnter() {
@@ -157,37 +132,33 @@ export default defineComponent({
           },
           directives: [{ name: "show", value: this.value }],
           props: { position: "bottom" },
-          style: { ...this.popupStyle, overflow: "hidden" },
+          // style: { ...this.popupStyle, overflow: "hidden" },
+          class: ["yn-action-sheet-wrapper"],
         },
         [
-          h(genComponentName("flex"), {
-            class: ["yn-action-sheet-wrapper"],
-            props: { flexDirection: "column", justifyContent: "spaceBetween" }
+          h(genComponentName("flex-item"), {
+            ref: "header", class: ["yn-action-sheet-header"]
           }, [
-            h(genComponentName("flex-item"), {
-              ref: "header", class: ["yn-action-sheet-header"]
-            }, [
-              h("h3", { class: ["yn-action-sheet-title"] }, this.title)
-            ]),
-            h(genComponentName("flex-item"), {
-              class: ["yn-action-sheet-body"],
-              props: { flex: 1 }
-            }, [
-              h("ul", { class: ["yn-action-sheet-content"] }, [this.createList(h)])
-            ]),
-            h(genComponentName("flex-item"), {
-              ref: "header",
-              class: ["yn-action-sheet-footer"]
-            }, [
-              h(
-                "div",
-                {
-                  class: ["yn-action-sheet-cancel"],
-                  on: { click: this.handleCancel },
-                },
-                [h("span", {}, this.cancelText)]
-              )
-            ])
+            h("h3", { class: ["yn-action-sheet-title"] }, this.title)
+          ]),
+          h(genComponentName("flex-item"), {
+            class: ["yn-action-sheet-body"],
+            props: { flex: 1 }
+          }, [
+            h("ul", { class: ["yn-action-sheet-content"] }, [this.createList(h)])
+          ]),
+          h(genComponentName("flex-item"), {
+            ref: "header",
+            class: ["yn-action-sheet-footer"]
+          }, [
+            h(
+              "div",
+              {
+                class: ["yn-action-sheet-cancel"],
+                on: { click: this.handleCancel },
+              },
+              [h("span", {}, this.cancelText)]
+            )
           ])
         ]
       )

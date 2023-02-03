@@ -1,7 +1,12 @@
 @import "../../theme/variable.less";
 .yn-action-sheet {
   .yn-action-sheet-wrapper {
-    height: 100%;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: space-between;
+    // height: 100%;
+    max-height: 85%;
     .yn-action-sheet-header {
       box-shadow: 0px 1px 3px 0px @yn-border-color-base;;
       height: 44px;
@@ -16,8 +21,8 @@
       }
     }
     .yn-action-sheet-body {
-      height: calc(100% - 98px - 8px);
-      overflow: auto;
+      // height: calc(100% - 98px - 8px);
+      overflow-y: auto;
       .yn-action-sheet-content {
         padding: 0;
         margin: 0;
