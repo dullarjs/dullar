@@ -21,10 +21,6 @@
       <yn-spin type="double-bounce"></yn-spin>
     </div>
     <div>
-      <h4>rotate</h4>
-      <yn-spin type="rotate" :size="50"></yn-spin>
-    </div>
-    <div>
       <h4>rotate svg</h4>
       <yn-spin type="rotate-svg" size="40"></yn-spin>
     </div>
