@@ -2,17 +2,16 @@
  * @Author: Just be free
  * @Date:   2020-03-09 12:18:33
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-02-03 18:35:56
+ * @Last Modified time: 2023-02-06 13:54:15
  */
 import { defineComponent, genComponentName } from "../modules/component";
 import Popup from "../popup";
 import Iconfont from "../iconfont";
-import Flex from "../flex";
 import FlexItem from "../flex-item";
 import Spin from "../spin";
 export default defineComponent({
   name: "actionSheet",
-  components: { Popup, Iconfont, Flex, FlexItem, Spin },
+  components: { Popup, Iconfont, FlexItem, Spin },
   props: {
     value: {
       type: Boolean,
