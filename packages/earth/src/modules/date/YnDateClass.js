@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-19 21:12:21
  * @Last Modified by:   Just be free
- * @Last Modified time: 2020-07-24 15:01:20
+ * @Last Modified time: 2023-03-16 16:19:51
  * @E-mail: justbefree@126.com
  */
 import { error } from "../error";
@@ -31,10 +31,10 @@ YnDate.prototype = YnDate.fn = {
     }
   },
   setMonth: function (month) {
-    this.month = parseInt(month) < 10 ? `0${month}` : month;
+    this.month = parseInt(month) < 10 ? `0${parseInt(month)}` : month;
   },
   setDate: function (date) {
-    this.date = parseInt(date) < 10 ? `0${date}` : date;
+    this.date = parseInt(date) < 10 ? `0${parseInt(date)}` : date;
   },
   add: function (count = 1, unit = "days") {
     if (["days", "day", "d"].indexOf(unit) > -1) {
