@@ -31,10 +31,10 @@ YnDate.prototype = YnDate.fn = {
     }
   },
   setMonth: function (month) {
-    this.month = parseInt(month) < 10 ? `0${month}` : month;
+    this.month = parseInt(month) < 10 ? `0${parseInt(month)}` : month;
   },
   setDate: function (date) {
-    this.date = parseInt(date) < 10 ? `0${date}` : date;
+    this.date = parseInt(date) < 10 ? `0${parseInt(date)}` : date;
   },
   add: function (count = 1, unit = "days") {
     if (["days", "day", "d"].indexOf(unit) > -1) {

@@ -132,6 +132,9 @@ export default defineComponent({
   },
   data() {
     return {
+      calculatedMonthPrev: [], // 历史 显示月份
+      actualMonthPeriod: [], // 真实的月份范围
+      calculatedMonth: [],
       changedNode: {},
       fromDate: null,
       toDate: null,
@@ -146,9 +149,25 @@ export default defineComponent({
     };
   },
   computed: {
+    calculatedMonthTemp() {
+      // debugger; // eslint-disable-line
+      if (
+        this.actualMonthPeriod.length > 3 ||
+        this.actualMonthPeriod.length === 0
+      ) {
+        // 首次计算 且日期范围大于3个月
+        // this.calculatedMonth = this.calculatedMonthTemp
+        const curMonth = YnDate().format();
+        const prevMonth = YnDate().substract(1, "m").format();
+        const nextMonth = YnDate().add(1, "m").format();
+        return [prevMonth, curMonth, nextMonth];
+      } else {
+        return this.actualMonthPeriod;
+      }
+    },
     generateDate() {
-      const calculatedMonth = this.getTimePeriod();
-      return calculatedMonth.map((item) => {
+      this.getTimePeriod();
+      return this.calculatedMonth.map((item) => {
         const monthObject = {
           dates: [],
         };
@@ -250,7 +269,8 @@ export default defineComponent({
       if (!ele) return;
       off(ele, "scroll", this.handleBodyScroll);
     },
-    calculateMonthTitleOffsetTop({ scrollTop }) {
+    calculateMonthTitleOffsetTop({ scrollTop, diff }) {
+      console.log("scrollTop:", scrollTop, "diff:", diff);
       let tops = [];
       this.monthTitleDoms.forEach((dom) => {
         tops.push(getOffset(dom).top - scrollTop - this.weekBarOffsetTop);
@@ -259,8 +279,69 @@ export default defineComponent({
         return i <= 0 && Math.abs(i) <= this.calendarBlockHeight - 44;
       });
       if (this.monthTitleBarDom && this.monthTitleDoms[index]) {
+        if (
+          this.monthTitleBarDom.innerHTML !==
+          this.monthTitleDoms[index].innerHTML
+        ) {
+          this.calculateMonthPeriod(
+            this.monthTitleDoms[index].innerHTML,
+            scrollTop,
+            diff
+          );
+        }
         this.monthTitleBarDom.innerHTML = this.monthTitleDoms[index].innerHTML;
       }
+    },
+    calculateMonthPeriod(monthTitle, scrollTop, diff) {
+      let curDate = new Date(this.actualMonthPeriod[0]).getDate();
+      curDate = parseInt(curDate) < 10 ? `0${parseInt(curDate)}` : curDate;
+      const curMonthStr = monthTitle + "-" + curDate;
+      console.log("curMonthStr:", curMonthStr);
+      let indexInActualMonthPeriod = -1;
+      this.actualMonthPeriod.some((item, index) => {
+        // debugger; // eslint-disable-line
+        if (
+          YnDate(item).year === YnDate(curMonthStr).year &&
+          YnDate(item).month === YnDate(curMonthStr).month
+        ) {
+          indexInActualMonthPeriod = index;
+          return true;
+        }
+      });
+      console.log("indexInActualMonthPeriod:", indexInActualMonthPeriod);
+      if (indexInActualMonthPeriod > -1) {
+        this.calculatedMonth = [
+          // YnDate(curMonthStr).add(-2, "month").format(),
+          YnDate(curMonthStr).add(-1, "month").format(),
+          curMonthStr,
+          YnDate(curMonthStr).add(1, "month").format(),
+          YnDate(curMonthStr).add(2, "month").format(),
+        ];
+      }
+      if (diff < 0) {
+        // diff<0往上滑动
+      } else {
+        // diff>0 往下滑动
+        if (
+          indexInActualMonthPeriod > -1 &&
+          this.calculatedMonthPrev.length > 0 &&
+          this.calculatedMonthPrev.join(",") !== this.calculatedMonth.join(",")
+        ) {
+          this.$refs.scroller.$el.scrollTop =
+            this.$refs.scroller.$el.scrollTop - this.calendarBlockHeight;
+          console.log(
+            "this.$refs.scroller.scrollTop:",
+            this.$refs.scroller.$el
+          );
+        }
+        this.calculatedMonthPrev = this.calculatedMonth;
+      }
+      this.$nextTick(() => {
+        console.log("querySelectorAll");
+        this.monthTitleDoms = this.$el.querySelectorAll(
+          ".yn-calendar-month-title"
+        );
+      });
     },
     handleBodyScroll(e) {
       preventDefault(e);
@@ -274,7 +355,7 @@ export default defineComponent({
         (Number(this.bottomDistance) || 0);
       const top = Number(this.topDistance) || 0;
       // diff>0 往下滑动；diff<0往上滑动
-      this.calculateMonthTitleOffsetTop({ scrollTop });
+      this.calculateMonthTitleOffsetTop({ scrollTop, diff });
       this.$emit("scroll", { e, scrollTop, diff, bottom: bottom - scrollTop });
       if (diff < 0 && !this.topTriggered && scrollTop <= top) {
         this.topTriggered = true;
@@ -409,11 +490,17 @@ export default defineComponent({
       }
     },
     getTimePeriod() {
-      const beginDate = YnDate().substract(Number(this.before), this.unit);
-      const endDate = YnDate().add(Number(this.after), this.unit);
-      this.beginDate = beginDate.format();
-      this.endDate = endDate.format();
-      return YnDate().getMonthPeriod(beginDate, endDate);
+      const beginDate = YnDate()
+        .substract(Number(this.before), this.unit)
+        .format();
+      const endDate = YnDate().add(Number(this.after), this.unit).format();
+      this.beginDate = beginDate;
+      this.endDate = endDate;
+      const calculatedMonth = YnDate().getMonthPeriod(
+        YnDate(beginDate),
+        YnDate(endDate)
+      );
+      this.actualMonthPeriod = calculatedMonth;
     },
     generateDateDom(h, { dates }) {
       return dates.map((date) => {
@@ -487,6 +574,11 @@ export default defineComponent({
       date[attr] = value;
     },
     highLightDefault() {
+      if (!this.value) {
+        // 弹框关闭
+        this.isFirstRender = true;
+        this.calculatedMonth = this.calculatedMonthTemp;
+      }
       if (this.mode === "double") {
         const startNode = this.getDefaultNodeFromProps("defaultStartDate", [
           "start",
