@@ -132,15 +132,14 @@ export default defineComponent({
   },
   data() {
     return {
-      calculatedMonthPrev: [], // 历史 显示月份
-      actualMonthPeriod: [], // 真实的月份范围
+      // actualMonthPeriod: [], // 真实的月份范围
       calculatedMonth: [],
       changedNode: {},
       fromDate: null,
       toDate: null,
       date: null,
-      beginDate: null,
-      endDate: null,
+      // beginDate: null,
+      // endDate: null,
       confirmButtonClassName: "active",
       monthTitleDoms: [],
       weekBarOffsetTop: 0,
@@ -149,94 +148,126 @@ export default defineComponent({
     };
   },
   computed: {
-    calculatedMonthTemp() {
-      // debugger; // eslint-disable-line
-      if (
-        this.actualMonthPeriod.length > 3 ||
-        this.actualMonthPeriod.length === 0
-      ) {
-        // 首次计算 且日期范围大于3个月
-        // this.calculatedMonth = this.calculatedMonthTemp
-        const curMonth = YnDate().format();
-        const prevMonth = YnDate().substract(1, "m").format();
-        const nextMonth = YnDate().add(1, "m").format();
-        return [prevMonth, curMonth, nextMonth];
-      } else {
-        return this.actualMonthPeriod;
-      }
+    beginDate() {
+      const beginDate = YnDate()
+        .substract(Number(this.before), this.unit)
+        .format();
+      return beginDate;
+    },
+    endDate() {
+      const endDate = YnDate().add(Number(this.after), this.unit).format();
+      return endDate;
+    },
+    actualMonthPeriod() {
+      const calculatedMonth = YnDate().getMonthPeriod(
+        YnDate(this.beginDate),
+        YnDate(this.endDate)
+      );
+      return calculatedMonth;
     },
     generateDate() {
-      this.getTimePeriod();
       return this.calculatedMonth.map((item) => {
         const monthObject = {
           dates: [],
         };
-        const [year, month] = item.split("-");
+        const [year, month] = item.monthStr.split("-");
         const daysOfMonth = YnDate(year, month).getDaysCountOfMonth();
-        for (let i = 1; i <= daysOfMonth; i++) {
-          const className = [];
-          const j = i < 10 ? `0${i}` : String(i);
-          const ynDate = YnDate(year, month, j);
-          const day = ynDate.getDay();
-          if (j === "01") {
-            for (let k = 0; k < day; k++) {
-              monthObject["dates"].push({
-                className: [],
-                key: `year_month_date_${k}`,
-              });
-            }
-          }
-          push(
-            className,
-            YnDate().isAfter(year, month, j) ? "disable" : "clickable"
-          );
-          if (this.mode === "double" && this.fromDate && this.toDate) {
-            push(
-              className,
-              YnDate(year, month, j).isBetween(
-                this.fromDate.ynDate,
-                this.toDate.ynDate
-              )
-                ? "during-active"
-                : ""
-            );
-          }
-          if (this.beginDate && this.endDate) {
-            if (
-              YnDate(year, month, j).isBetweenIncludeBoth(
-                this.beginDate,
-                this.endDate
-              )
-            ) {
-              push(className, ["open-days", "clickable"]);
-              drop(className, "disable");
-            } else {
-              push(className, "disable");
-              drop(className, "clickable");
-            }
-          }
+        if (!item.visible) {
           monthObject["year"] = year;
           monthObject["month"] = month;
           monthObject["key"] = `${year}-${month}`;
-          const festival = YnDate().isSame(year, month, j)
-            ? this.todayMark
-            : "";
-          const key = `${year}-${month}-${j}`;
-          if (this.changedNode[key]) {
-            monthObject["dates"].push({ ...this.changedNode[key] });
+          const offsetDay = new Date(year, month, "01").getDay();
+          const count = Math.ceil((daysOfMonth + offsetDay) / 7);
+          let className = [];
+          if (this.mode === "double") {
+            const defaultStartDate = new Date(this.defaultStartDate);
+            if (
+              defaultStartDate.getFullYear() === Number(year) &&
+              defaultStartDate.getMonth() + 1 === Number(month)
+            ) {
+              className = ["start"];
+            }
           } else {
-            monthObject["dates"].push({
-              key,
-              year,
-              month,
-              day: j,
-              week: ynDate.getDay(),
-              date: key,
+            const defaultDate = new Date(this.defaultDate);
+            if (
+              defaultDate.getFullYear() === Number(year) &&
+              defaultDate.getMonth() + 1 === Number(month)
+            ) {
+              className = ["single-mode"];
+            }
+          }
+          const classNameCount = Math.ceil(
+            (new Date().getDate() + offsetDay) / 7
+          );
+          console.log("classNameCount:", classNameCount);
+          monthObject["dates"] = Array(count).fill({ type: "placeholder" });
+          monthObject["dates"][classNameCount].className = className;
+        } else {
+          for (let i = 1; i <= daysOfMonth; i++) {
+            const className = [];
+            const j = i < 10 ? `0${i}` : String(i);
+            const ynDate = YnDate(year, month, j);
+            const day = ynDate.getDay();
+            if (j === "01") {
+              for (let k = 0; k < day; k++) {
+                monthObject["dates"].push({
+                  className: [],
+                  key: `year_month_date_${k}`,
+                });
+              }
+            }
+            push(
               className,
-              ynDate,
-              mark: "",
-              festival,
-            });
+              YnDate().isAfter(year, month, j) ? "disable" : "clickable"
+            );
+            if (this.mode === "double" && this.fromDate && this.toDate) {
+              push(
+                className,
+                YnDate(year, month, j).isBetween(
+                  this.fromDate.ynDate,
+                  this.toDate.ynDate
+                )
+                  ? "during-active"
+                  : ""
+              );
+            }
+            if (this.beginDate && this.endDate) {
+              if (
+                YnDate(year, month, j).isBetweenIncludeBoth(
+                  this.beginDate,
+                  this.endDate
+                )
+              ) {
+                push(className, ["open-days", "clickable"]);
+                drop(className, "disable");
+              } else {
+                push(className, "disable");
+                drop(className, "clickable");
+              }
+            }
+            monthObject["year"] = year;
+            monthObject["month"] = month;
+            monthObject["key"] = `${year}-${month}`;
+            const festival = YnDate().isSame(year, month, j)
+              ? this.todayMark
+              : "";
+            const key = `${year}-${month}-${j}`;
+            if (this.changedNode[key]) {
+              monthObject["dates"].push({ ...this.changedNode[key] });
+            } else {
+              monthObject["dates"].push({
+                key,
+                year,
+                month,
+                day: j,
+                week: ynDate.getDay(),
+                date: key,
+                className,
+                ynDate,
+                mark: "",
+                festival,
+              });
+            }
           }
         }
         return monthObject;
@@ -279,68 +310,59 @@ export default defineComponent({
         return i <= 0 && Math.abs(i) <= this.calendarBlockHeight - 44;
       });
       if (this.monthTitleBarDom && this.monthTitleDoms[index]) {
-        if (
-          this.monthTitleBarDom.innerHTML !==
-          this.monthTitleDoms[index].innerHTML
-        ) {
-          this.calculateMonthPeriod(
-            this.monthTitleDoms[index].innerHTML,
-            scrollTop,
-            diff
-          );
-        }
         this.monthTitleBarDom.innerHTML = this.monthTitleDoms[index].innerHTML;
       }
     },
-    calculateMonthPeriod(monthTitle, scrollTop, diff) {
-      let curDate = new Date(this.actualMonthPeriod[0]).getDate();
-      curDate = parseInt(curDate) < 10 ? `0${parseInt(curDate)}` : curDate;
-      const curMonthStr = monthTitle + "-" + curDate;
-      console.log("curMonthStr:", curMonthStr);
-      let indexInActualMonthPeriod = -1;
-      this.actualMonthPeriod.some((item, index) => {
-        // debugger; // eslint-disable-line
-        if (
-          YnDate(item).year === YnDate(curMonthStr).year &&
-          YnDate(item).month === YnDate(curMonthStr).month
-        ) {
-          indexInActualMonthPeriod = index;
-          return true;
-        }
-      });
-      console.log("indexInActualMonthPeriod:", indexInActualMonthPeriod);
-      if (indexInActualMonthPeriod > -1) {
-        this.calculatedMonth = [
-          // YnDate(curMonthStr).add(-2, "month").format(),
-          YnDate(curMonthStr).add(-1, "month").format(),
-          curMonthStr,
-          YnDate(curMonthStr).add(1, "month").format(),
-          YnDate(curMonthStr).add(2, "month").format(),
-        ];
-      }
-      if (diff < 0) {
-        // diff<0往上滑动
-      } else {
-        // diff>0 往下滑动
-        if (
-          indexInActualMonthPeriod > -1 &&
-          this.calculatedMonthPrev.length > 0 &&
-          this.calculatedMonthPrev.join(",") !== this.calculatedMonth.join(",")
-        ) {
-          this.$refs.scroller.$el.scrollTop =
-            this.$refs.scroller.$el.scrollTop - this.calendarBlockHeight;
-          console.log(
-            "this.$refs.scroller.scrollTop:",
-            this.$refs.scroller.$el
-          );
-        }
-        this.calculatedMonthPrev = this.calculatedMonth;
-      }
-      this.$nextTick(() => {
-        console.log("querySelectorAll");
-        this.monthTitleDoms = this.$el.querySelectorAll(
-          ".yn-calendar-month-title"
+    scrollToCalculateMonth() {
+      if (this.$refs.scroller) {
+        const scrollerEle = this.$refs.scroller.$el;
+        const scrollTop = scrollerEle.scrollTop;
+        const clientHeight = scrollerEle.clientHeight;
+        const bottom = scrollTop + clientHeight;
+        // const monthRefs = this.$refs.month;
+        const monthEles = Array.from(
+          this.$el.querySelectorAll(".yn-calendar-month")
         );
+        const heights = monthEles.map((item) => {
+          // const monthEle = item.$el;
+          // monthEles.push(monthEle);
+          return item.getBoundingClientRect().height;
+        });
+        const heightSum = heights.reduce((a, b) => a + b, 0);
+        // iOS scroll bounce may exceed the range
+        if (bottom > heightSum && scrollTop > 0) {
+          return;
+        }
+        let height = 0;
+        let currentMonth;
+        const visibleRange = [-1, -1];
+        for (let i = 0; i < monthEles.length; i++) {
+          const monthEle = monthEles[i];
+          const visible = height <= bottom && height + heights[i] >= scrollTop;
+          // 前一个 month元素底部已经移动到scrollbody中或者scrollbody底部之上（当前Month元素顶部 移动到scrollbody底部或者之上）
+          // 当前month元素底部没有移动到scrollbody 顶部之上
+          if (visible) {
+            visibleRange[1] = i;
+            if (!currentMonth) {
+              currentMonth = monthEle;
+              visibleRange[0] = i;
+            }
+          }
+          height += heights[i];
+        }
+        this.setCalculateMonth(visibleRange);
+      } else {
+        this.setCalculateMonth();
+      }
+    },
+    setCalculateMonth(visibleRange = [-1, -1]) {
+      this.calculatedMonth = this.actualMonthPeriod.map((item, index) => {
+        const visible =
+          index >= visibleRange[0] - 1 && index <= visibleRange[1] + 1;
+        return {
+          visible,
+          monthStr: item,
+        };
       });
     },
     handleBodyScroll(e) {
@@ -356,6 +378,7 @@ export default defineComponent({
       const top = Number(this.topDistance) || 0;
       // diff>0 往下滑动；diff<0往上滑动
       this.calculateMonthTitleOffsetTop({ scrollTop, diff });
+      this.scrollToCalculateMonth();
       this.$emit("scroll", { e, scrollTop, diff, bottom: bottom - scrollTop });
       if (diff < 0 && !this.topTriggered && scrollTop <= top) {
         this.topTriggered = true;
@@ -489,67 +512,75 @@ export default defineComponent({
         this.$emit("getDate", { date: this.date });
       }
     },
-    getTimePeriod() {
-      const beginDate = YnDate()
-        .substract(Number(this.before), this.unit)
-        .format();
-      const endDate = YnDate().add(Number(this.after), this.unit).format();
-      this.beginDate = beginDate;
-      this.endDate = endDate;
-      const calculatedMonth = YnDate().getMonthPeriod(
-        YnDate(beginDate),
-        YnDate(endDate)
-      );
-      this.actualMonthPeriod = calculatedMonth;
-    },
     generateDateDom(h, { dates }) {
       return dates.map((date) => {
-        let ref = null;
-        if (
-          date.className.indexOf("single-mode") > -1 ||
-          date.className.indexOf("start") > -1
-        ) {
-          ref = "scrollPosition";
-        }
-        return h(
-          genComponentName("flex-item"),
-          {
-            key: date.key,
-            class: ["yn-calendar-date", ...date.className],
-            ref,
-            nativeOn: {
-              click: this.handleClick.bind(this, date),
+        const { type, className } = date;
+        if (type === "placeholder") {
+          let ref = null;
+          if (
+            className.indexOf("single-mode") > -1 ||
+            className.indexOf("start") > -1
+          ) {
+            ref = "scrollPosition";
+          }
+          return h(
+            genComponentName("flex-item"),
+            {
+              key: date.key,
+              class: ["yn-calendar-date", ...className],
+              style: { width: "100%" },
+              ref,
             },
-          },
-          [
-            h(
-              genComponentName("flex"),
-              {
-                props: {
-                  flexDirection: "column",
-                  justifyContent: "spaceBetween",
-                },
+            []
+          );
+        } else {
+          let ref = null;
+          if (
+            date.className.indexOf("single-mode") > -1 ||
+            date.className.indexOf("start") > -1
+          ) {
+            ref = "scrollPosition";
+          }
+          return h(
+            genComponentName("flex-item"),
+            {
+              key: date.key,
+              class: ["yn-calendar-date", ...date.className],
+              ref,
+              nativeOn: {
+                click: this.handleClick.bind(this, date),
               },
-              [
-                h(
-                  genComponentName("flex-item"),
-                  { class: ["yn-calendar-date-festival"] },
-                  date.festival
-                ),
-                h(
-                  genComponentName("flex-item"),
-                  { class: ["yn-calendar-date-text"] },
-                  date.day
-                ),
-                h(
-                  genComponentName("flex-item"),
-                  { class: ["yn-calendar-date-mark"] },
-                  date.mark
-                ),
-              ]
-            ),
-          ]
-        );
+            },
+            [
+              h(
+                genComponentName("flex"),
+                {
+                  props: {
+                    flexDirection: "column",
+                    justifyContent: "spaceBetween",
+                  },
+                },
+                [
+                  h(
+                    genComponentName("flex-item"),
+                    { class: ["yn-calendar-date-festival"] },
+                    date.festival
+                  ),
+                  h(
+                    genComponentName("flex-item"),
+                    { class: ["yn-calendar-date-text"] },
+                    date.day
+                  ),
+                  h(
+                    genComponentName("flex-item"),
+                    { class: ["yn-calendar-date-mark"] },
+                    date.mark
+                  ),
+                ]
+              ),
+            ]
+          );
+        }
       });
     },
     getDefaultNodeFromProps(prop, className = []) {
@@ -574,11 +605,6 @@ export default defineComponent({
       date[attr] = value;
     },
     highLightDefault() {
-      if (!this.value) {
-        // 弹框关闭
-        this.isFirstRender = true;
-        this.calculatedMonth = this.calculatedMonthTemp;
-      }
       if (this.mode === "double") {
         const startNode = this.getDefaultNodeFromProps("defaultStartDate", [
           "start",
@@ -679,6 +705,7 @@ export default defineComponent({
           {
             key,
             class: ["yn-calendar-month", month],
+            ref: "month",
           },
           [
             h(
@@ -932,6 +959,7 @@ export default defineComponent({
     },
   },
   created() {
+    this.setCalculateMonth();
     this.highLightDefault();
   },
   render(h) {

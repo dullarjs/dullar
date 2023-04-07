@@ -109,8 +109,8 @@
     </ul>
     <yn-calendar
       mode="single"
-      :before="10"
-      :after="10"
+      :before="90"
+      :after="150"
       v-model="calendar1"
       @getDate="handleOnGetDate1"
       @afterLeave="handleAfterLeave"
