@@ -175,10 +175,12 @@
       :title="['日历', '请选择入住时间', '请选择离店时间']"
     ></yn-calendar>
     <yn-calendar
-      before="1"
-      after="1"
-      v-model="calendar9"
+      before="0"
+      :after="after9"
       unit="year"
+      defaultDate="2023-04-28"
+      v-model="calendar9"
+      mode="single"
     ></yn-calendar>
     <yn-calendar
       mode="double"
@@ -228,6 +230,7 @@ export default {
       calendar8Date: "",
       calendar9Date: "",
       calendar9: false,
+      after9: 0,
       calendar10: false,
       calendar10Date: "",
     };
@@ -293,6 +296,7 @@ export default {
       this.Toast("关闭完成的回调事件触发");
     },
     handleOpenCalendar(attr) {
+      this.after9 = 1;
       this[attr] = !this[attr];
     },
     handleOnGetDate1(date) {

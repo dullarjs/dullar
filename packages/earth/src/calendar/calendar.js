@@ -276,6 +276,8 @@ export default defineComponent({
   },
   watch: {
     value: "highLightDefault",
+    beginDate: "setCalculateMonth",
+    endDate: "setCalculateMonth",
   },
   mounted() {
     this.bindEvent();
