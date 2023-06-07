@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-09-13 18:21:00
+ * @Last Modified time: 2023-06-07 13:44:27
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -129,6 +129,12 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    festival: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
   },
   data() {
     return {
@@ -171,16 +177,31 @@ export default defineComponent({
             className,
             YnDate().isAfter(year, month, j) ? "disable" : "clickable"
           );
+          let sf = null;
+          const iKey = `${year}-${month}-${j}`;
+          if (!this.isEmptyFestival(iKey)) {
+            sf = this.festival[iKey];
+          }
+          // 处理假期休息日
+          if (sf && !sf.workday) {
+            push(className, "not-duty");
+          }
           if (this.mode === "double" && this.fromDate && this.toDate) {
-            push(
-              className,
-              YnDate(year, month, j).isBetween(
+            if (YnDate(year, month, j).isBetween(
                 this.fromDate.ynDate,
                 this.toDate.ynDate
-              )
-                ? "during-active"
-                : ""
-            );
+              )) {
+              push(className, "during-active");
+            }
+            // push(
+            //   className,
+            //   YnDate(year, month, j).isBetween(
+            //     this.fromDate.ynDate,
+            //     this.toDate.ynDate
+            //   )
+            //     ? "during-active"
+            //     : ""
+            // );
           }
           if (this.beginDate && this.endDate) {
             if (
@@ -199,10 +220,11 @@ export default defineComponent({
           monthObject["year"] = year;
           monthObject["month"] = month;
           monthObject["key"] = `${year}-${month}`;
+          const key = `${year}-${month}-${j}`;
           const festival = YnDate().isSame(year, month, j)
             ? this.todayMark
-            : "";
-          const key = `${year}-${month}-${j}`;
+            : this.getFestival(key);
+          // console.log("key = ", key);
           if (this.changedNode[key]) {
             monthObject["dates"].push({ ...this.changedNode[key] });
           } else {
@@ -240,6 +262,27 @@ export default defineComponent({
     this.destroy();
   },
   methods: {
+    isEmptyFestival(key) {
+      if (Object.keys(this.festival).length > 0 && this.festival[key]) {
+        return false;
+      }
+      return true;
+    },
+    getFestival(key) {
+      if (!this.isEmptyFestival(key)) {
+        const sf = this.festival[key];
+        if (sf.solarFestival || sf.lunarFestival) {
+          return sf.solarFestival || sf.lunarFestival;
+        } else {
+          if (sf.workday) {
+            return "班";
+          } else {
+            return "休";
+          }
+        }
+      }
+      return "";
+    },
     bindEvent() {
       const ele = this.$refs.scroller?.$el ?? null;
       if (!ele) return;
@@ -468,8 +511,12 @@ export default defineComponent({
     getDefaultNodeFromProps(prop, className = []) {
       const key = this[prop];
       const [year, month, day] = key.split("-");
-      const festival = YnDate().isSame(year, month, day) ? this.todayMark : "";
+      const festival = YnDate().isSame(year, month, day) ? this.todayMark : this.getFestival(key);
       const ynDate = YnDate(year, month, day);
+      // let sf = null;
+      // if (!this.isEmptyFestival(key)) {
+      //   sf = this.festival[key];
+      // }
       return {
         key,
         ynDate,

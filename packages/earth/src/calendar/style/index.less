@@ -82,6 +82,10 @@
           height: 64px;
           color: @yn-text-color-secondary;
 
+          &.not-duty {
+            color: @yn-warning-color;
+          }
+
           .yn-calendar-date-festival,
           .yn-calendar-date-mark {
             height: 16px;
@@ -135,6 +139,9 @@
         .yn-calendar-date.during-active {
           background: @yn-background-color-light;
           color: @yn-text-color-secondary;
+          &.not-duty {
+            color: @yn-warning-color;
+          }
         }
       }
     }
