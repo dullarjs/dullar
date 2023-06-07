@@ -1,0 +1,74 @@
+{
+  "2023-06-07": {
+    "year": "2023",
+    "month": 6,
+    "day": 7,
+    "date": "2023-06-07",
+    "lunarFestival": "中秋节",
+    "solarFestival": "什么节",
+    "workday": false
+  },
+  "2023-10-01": {
+    "year": "2023",
+    "month": 10,
+    "day": 1,
+    "date": "2023-10-01",
+    "lunarFestival": "中秋节",
+    "solarFestival": "国庆节",
+    "workday": false
+  },
+  "2023-10-02": {
+    "year": "2023",
+    "month": 10,
+    "day": 2,
+    "date": "2023-10-02",
+    "lunarFestival": "",
+    "solarFestival": "",
+    "workday": false
+  },
+  "2023-10-03": {
+    "year": "2023",
+    "month": 10,
+    "day": 3,
+    "date": "2023-10-03",
+    "lunarFestival": "",
+    "solarFestival": "",
+    "workday": false
+  },
+  "2023-10-04": {
+    "year": "2023",
+    "month": 10,
+    "day": 4,
+    "date": "2023-10-04",
+    "lunarFestival": "",
+    "solarFestival": "",
+    "workday": false
+  },
+  "2023-10-05": {
+    "year": "2023",
+    "month": 10,
+    "day": 5,
+    "date": "2023-10-05",
+    "lunarFestival": "",
+    "solarFestival": "",
+    "workday": false
+  },
+  "2023-10-06": {
+    "year": "2023",
+    "month": 10,
+    "day": 6,
+    "date": "2023-10-06",
+    "lunarFestival": "",
+    "solarFestival": "",
+    "workday": false
+  },
+  "2023-10-07": {
+    "year": "2023",
+    "month": 10,
+    "day": 7,
+    "date": "2023-10-07",
+    "lunarFestival": "",
+    "solarFestival": "",
+    "workday": false
+  }
+}

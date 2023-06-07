@@ -178,6 +178,11 @@
       before="1"
       after="1"
       v-model="calendar9"
+      mode="double"
+      :festival="festival"
+      @getDate="handleOnGetDate11"
+      :defaultStartDate="defaultStartDate11"
+      :defaultEndDate="defaultEndDate11"
       unit="year"
     ></yn-calendar>
     <yn-calendar
@@ -200,6 +205,8 @@
 <script>
 const moment = require("moment");
 import { YnDate } from "../../src/modules/date";
+const festival = require("./festival.json");
+console.log("节假日", festival);
 export default {
   name: "YnCalendarPage",
   data() {
@@ -230,6 +237,9 @@ export default {
       calendar9: false,
       calendar10: false,
       calendar10Date: "",
+      festival,
+      defaultStartDate11: "2023-10-01",
+      defaultEndDate11: "2023-10-09"
     };
   },
   computed: {
@@ -330,6 +340,11 @@ export default {
     handleOnGetDate9(date) {
       this.calendar9Date = date.fromDate.date + " ~ " + date.toDate.date;
       console.log(date);
+    },
+    handleOnGetDate11(date) {
+      // console.log("fromDate = ", date.fromDate.data, ";toDate = ", date.toDate.date);
+      this.defaultStartDate11 = date.fromDate.date;
+      this.defaultEndDate11 = date.toDate.date;
     },
     handleChange(e, args) {
       if (args === "single") {
