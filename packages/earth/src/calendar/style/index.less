@@ -82,8 +82,11 @@
           height: 64px;
           color: @yn-text-color-secondary;
 
-          &.not-duty {
+          &.not-duty,&.weekend {
             color: @yn-warning-color;
+          }
+          &.duty {
+            color: @yn-text-color-secondary;
           }
 
           .yn-calendar-date-festival,

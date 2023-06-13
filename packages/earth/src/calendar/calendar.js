@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-06-07 13:44:27
+ * @Last Modified time: 2023-06-13 09:23:09
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -164,9 +164,9 @@ export default defineComponent({
           const className = [];
           const j = i < 10 ? `0${i}` : String(i);
           const ynDate = YnDate(year, month, j);
-          const day = ynDate.getDay();
+          const week = ynDate.getDay();
           if (j === "01") {
-            for (let k = 0; k < day; k++) {
+            for (let k = 0; k < week; k++) {
               monthObject["dates"].push({
                 className: [],
                 key: `year_month_date_${k}`,
@@ -183,8 +183,16 @@ export default defineComponent({
             sf = this.festival[iKey];
           }
           // 处理假期休息日
-          if (sf && !sf.workday) {
-            push(className, "not-duty");
+          if (sf) {
+            if (sf.workday) {
+              push(className, "duty");
+            } else {
+              push(className, "not-duty");
+            }
+          }
+          // 周六周日要标记出来
+          if (week === 0 || week === 6) {
+            push(className, "weekend");
           }
           if (this.mode === "double" && this.fromDate && this.toDate) {
             if (YnDate(year, month, j).isBetween(
@@ -193,15 +201,6 @@ export default defineComponent({
               )) {
               push(className, "during-active");
             }
-            // push(
-            //   className,
-            //   YnDate(year, month, j).isBetween(
-            //     this.fromDate.ynDate,
-            //     this.toDate.ynDate
-            //   )
-            //     ? "during-active"
-            //     : ""
-            // );
           }
           if (this.beginDate && this.endDate) {
             if (
@@ -224,7 +223,6 @@ export default defineComponent({
           const festival = YnDate().isSame(year, month, j)
             ? this.todayMark
             : this.getFestival(key);
-          // console.log("key = ", key);
           if (this.changedNode[key]) {
             monthObject["dates"].push({ ...this.changedNode[key] });
           } else {
@@ -233,7 +231,7 @@ export default defineComponent({
               year,
               month,
               day: j,
-              week: ynDate.getDay(),
+              week,
               date: key,
               className,
               ynDate,
@@ -460,6 +458,7 @@ export default defineComponent({
     },
     generateDateDom(h, { dates }) {
       return dates.map((date) => {
+        // console.log("generateDateDom = ", date);
         let ref = null;
         if (
           date.className.indexOf("single-mode") > -1 ||
@@ -467,6 +466,9 @@ export default defineComponent({
         ) {
           ref = "scrollPosition";
         }
+        // if ([0, 6].includes(date.week)) {
+        //   date.className.push("yn-calendar-date-festival");
+        // }
         return h(
           genComponentName("flex-item"),
           {
