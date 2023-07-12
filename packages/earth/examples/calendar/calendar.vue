@@ -3,6 +3,10 @@
     <h2>yn-calendar</h2>
     <ul>
       <li>
+        <yn-button @click="handleTimezone('bj')">北京时间</yn-button>
+        <yn-button @click="handleTimezone('nut')">目的地时间</yn-button>
+      </li>
+      <li>
         <div>
           <yn-button @click="handleOpenCalendar('calendar1')">
             单选日历默认，无指定默认日期
@@ -107,9 +111,10 @@
         <hr />
       </li>
     </ul>
+    <yn-calendar v-model="timezoneCalendar" :timezone="timezone" :before="0"></yn-calendar>
     <yn-calendar
       mode="single"
-      :before="10"
+      :before="0"
       :after="10"
       v-model="calendar1"
       @getDate="handleOnGetDate1"
@@ -211,7 +216,9 @@ export default {
   name: "YnCalendarPage",
   data() {
     return {
+      timezone: 0,
       duration: 0,
+      timezoneCalendar: false,
       calendar1: false,
       calendar1Date: "",
       calendar2: false,
@@ -261,6 +268,14 @@ export default {
   },
   methods: {
     YnDate,
+    handleTimezone(timezone) {
+      this.timezoneCalendar = !this.timezoneCalendar;
+      if (timezone === "bj") {
+        this.timezone = 8;
+      } else if (timezone === "nut") {
+        this.timezone = -19;
+      }
+    },
     monthTitleParser(dateString, { month, year }){
       return `${year}年${month}月`;
     },

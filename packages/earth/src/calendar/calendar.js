@@ -2,14 +2,14 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-06-13 09:23:09
+ * @Last Modified time: 2023-07-12 09:20:34
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
 import Popup from "../popup";
 import Iconfont from "../iconfont";
 import FlexItem from "../flex-item";
-import { YnDate } from "../modules/date";
+import { YnDate, setLocalTime } from "../modules/date";
 import { drop, push } from "../modules/utils";
 import { renderedMixins } from "../mixins/rendered";
 import { getOffset, getScrollTop } from "../modules/dom";
@@ -134,6 +134,10 @@ export default defineComponent({
       default: function() {
         return {};
       }
+    },
+    timezone: {
+      type: Number,
+      default: YnDate().getTimezone()
     }
   },
   data() {
@@ -246,6 +250,7 @@ export default defineComponent({
   },
   watch: {
     value: "highLightDefault",
+    timezone: "setLocalTime"
   },
   mounted() {
     this.bindEvent();
@@ -260,6 +265,10 @@ export default defineComponent({
     this.destroy();
   },
   methods: {
+    setLocalTime() {
+      setLocalTime(this.timezone);
+      this.highLightDefault();
+    },
     isEmptyFestival(key) {
       if (Object.keys(this.festival).length > 0 && this.festival[key]) {
         return false;

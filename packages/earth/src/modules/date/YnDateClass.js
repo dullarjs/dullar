@@ -2,14 +2,21 @@
  * @Author: Just be free
  * @Date:   2020-02-19 21:12:21
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-03-16 16:19:51
+ * @Last Modified time: 2023-07-11 17:53:55
  * @E-mail: justbefree@126.com
  */
 import { error } from "../error";
-const now = new Date();
+let now = new Date();
 const YnDate = (...args) => {
   return new YnDate.fn.Init(...args);
 };
+const setLocalTime = (timezone) => {
+  const localTime = new Date();
+  const offsetGMT = localTime.getTimezoneOffset() * 60 * 1000;
+  const dateNow = localTime.getTime();
+  const utc = dateNow + offsetGMT;
+  now = new Date(utc + timezone * 60 * 60 * 1000);
+}
 YnDate.prototype = YnDate.fn = {
   constructor: YnDate,
   Init: function (...args) {
@@ -80,6 +87,9 @@ YnDate.prototype = YnDate.fn = {
   },
   substract: function (count = 1, unit = "days") {
     return this.add(-1 * count, unit);
+  },
+  getTimezone: function() {
+    return now.getTimezoneOffset() / 60;
   },
   getMonthPeriod: function (begin, end) {
     const period = [begin.format()];
@@ -166,3 +176,4 @@ YnDate.prototype = YnDate.fn = {
 };
 YnDate.fn.Init.prototype = YnDate.fn;
 export default YnDate;
+export { setLocalTime };
