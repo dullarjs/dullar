@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-02-19 21:12:21
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-07-18 09:38:26
+ * @Last Modified time: 2023-07-18 09:40:36
  * @E-mail: justbefree@126.com
  */
 import { error } from "../error";
@@ -31,7 +31,7 @@ YnDate.prototype = YnDate.fn = {
       return this.Init(...year.split("-"));
     } else {
       this.JSDate = new Date(Date.parse(`${year}/${month}/${date}`));
-      this.time = now.getTime();
+      this.timestamp = now.getTime();
       this.year = year;
       this.setMonth(month);
       this.setDate(date);
