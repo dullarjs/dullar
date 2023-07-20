@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-23 11:35:23
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-05-27 11:22:47
+ * @Last Modified time: 2023-07-20 16:57:33
  * @E-mail: justbefree@126.com
  */
 import { defineComponent, genComponentName } from "../modules/component";
@@ -23,6 +23,10 @@ export default defineComponent({
     className: [String, Array],
     title: String,
     message: String,
+    autoCloseDialog: {
+      type: Boolean,
+      default: true,
+    },
     value: {
       type: Boolean,
       default: false,
@@ -128,19 +132,25 @@ export default defineComponent({
         if (isPromise(promise)) {
           this.loading = true;
           promise.then((res) => {
-            this.show = false;
-            this.$emit("input", false);
+            if (this.autoCloseDialog) {
+              this.show = false;
+              this.$emit("input", false);
+            }
             this.$emit("buttonClick", e, res);
           });
         } else {
-          this.show = false;
-          this.$emit("input", false);
+          if (this.autoCloseDialog) {
+            this.show = false;
+            this.$emit("input", false);
+          }
           this.$emit("buttonClick", e);
         }
       } else {
-        this.$emit("input", false);
+        if (this.autoCloseDialog) {
+          this.$emit("input", false);
+          this.show = false;
+        }
         this.$emit("buttonClick", e);
-        this.show = false;
       }
     },
     genTitle(h) {
@@ -171,8 +181,10 @@ export default defineComponent({
       modal.style.zIndex = Number(this.zIndex) - 1;
       modal.onclick = () => {
         if (this.closeModelOnClick) {
-          this.$emit("input", false);
-          this.show = false;
+          if (this.autoCloseDialog) {
+            this.$emit("input", false);
+            this.show = false;
+          }
         } else {
           this.$emit("modalClick");
         }

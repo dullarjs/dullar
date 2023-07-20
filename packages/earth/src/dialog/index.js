@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-03-23 11:34:48
  * @Last Modified by:   Just be free
- * @Last Modified time: 2022-05-27 11:22:52
+ * @Last Modified time: 2023-07-20 16:52:19
  * @E-mail: justbefree@126.com
  */
 import { install } from "../modules/component";
@@ -26,6 +26,7 @@ const props = {
   confirmLoadingText: "确定",
   loadingColor: "#007aff",
   closeModelOnClick: false,
+  autoCloseDialog: true,
   zIndex: 2,
   className: "",
 };

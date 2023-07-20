@@ -19,6 +19,7 @@
           :value="show2"
           @buttonClick="handleInput"
           @modalClick="handleClick"
+          :autoCloseDialog="false"
         >
           <img src="https://img.yzcdn.cn/vant/apple-3.jpg"/>
         </yn-dialog>
