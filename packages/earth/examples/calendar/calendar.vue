@@ -3,6 +3,10 @@
     <h2>yn-calendar</h2>
     <ul>
       <li>
+        <yn-button @click="multiple">多选时间，离散</yn-button>
+        <div></div>
+      </li>
+      <li>
         <yn-button @click="handleTimezone('bj')">北京时间</yn-button>
         <yn-button @click="handleTimezone('nut')">目的地时间</yn-button>
       </li>
@@ -204,6 +208,7 @@
       noticeText="温馨提示：为配合各地政府落实疫情防控常态化措施，避免重复退票带来的不便，铁路车票预售期调整为15天"
       @changeDate="changeDate"
     ></yn-calendar>
+    <yn-calendar :before="0" :after="30" showConfirmButton :multipleDate="multipleDate" v-model="calendarMultiple" mode="multiple" @getDate="handleMultipleGetDate"></yn-calendar>
   </div>
 </template>
 
@@ -216,6 +221,7 @@ export default {
   name: "YnCalendarPage",
   data() {
     return {
+      calendarMultiple: false,
       timezone: 0,
       duration: 0,
       timezoneCalendar: false,
@@ -246,7 +252,11 @@ export default {
       calendar10Date: "",
       festival,
       defaultStartDate11: "2023-10-01",
-      defaultEndDate11: "2023-10-09"
+      defaultEndDate11: "2023-10-09",
+      multipleDate: [
+        { date: moment().format("YYYY-MM-DD"), disabled: true },
+        { date: moment().add(1, "day").format("YYYY-MM-DD"), disabled: false }
+      ]
     };
   },
   computed: {
@@ -254,7 +264,7 @@ export default {
       if (this.double) {
         return `确定（${this.duration}晚）`;
       } else {
-        return "";
+        return "确定";
       }
     },
     getModel() {
@@ -267,6 +277,19 @@ export default {
     },
   },
   methods: {
+    multiple() {
+      console.log("多选时间，离散");
+      this.calendarMultiple = true;
+    },
+    handleMultipleGetDate(dateArray) {
+      console.log("dateArray = ", dateArray);
+      Object.keys(dateArray).forEach(date => {
+        const isExists = this.multipleDate.find(item => item.date === date);
+        if (!isExists) {
+          this.multipleDate.push({ date, disabled: false });
+        }
+      });
+    },
     YnDate,
     handleTimezone(timezone) {
       this.timezoneCalendar = !this.timezoneCalendar;

@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-07-12 09:20:34
+ * @Last Modified time: 2023-08-01 11:56:05
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -31,7 +31,7 @@ export default defineComponent({
     },
     mode: {
       type: String,
-      default: "single",
+      default: "single", // ["single", "double", "multiple"]
     },
     doubleModeAllowSameDate: {
       type: Boolean,
@@ -62,6 +62,12 @@ export default defineComponent({
     defaultDate: {
       type: String,
       default: YnDate().format(),
+    },
+    multipleDate: {
+      type: Array,
+      default: () => {
+        return [];
+      }
     },
     defaultStartDate: {
       type: String,
@@ -350,8 +356,10 @@ export default defineComponent({
 
       if (this.mode === "double") {
         this.handleDoubleMode(date);
-      } else {
+      } else if (this.mode === "single") {
         this.handleSingleMode(date);
+      } else if (this.mode === "multiple") {
+        this.handleMultipleMode(date);
       }
     },
     handleSingleMode(date) {
@@ -447,6 +455,15 @@ export default defineComponent({
         toDate: this.toDate,
       });
     },
+    handleMultipleMode(date) {
+      date.className.push("radius");
+      if (date.className.includes("active")) {
+        drop(date.className, ["active"]);
+      } else {
+        push(date.className, ["active"]);
+      }
+      this.changedNode = { ...this.changedNode, [date.key]: date };
+    },
     handleOnConfirm() {
       if (this.confirmButtonClassName !== "active") {
         return false;
@@ -454,8 +471,10 @@ export default defineComponent({
       this.close();
       if (this.mode === "double") {
         this.$emit("getDate", { fromDate: this.fromDate, toDate: this.toDate });
-      } else {
+      } else if (this.mode === "single") {
         this.$emit("getDate", { date: this.date });
+      } else if (this.mode === "multiple") {
+        this.$emit("getDate", this.changedNode);
       }
     },
     getTimePeriod() {
@@ -519,27 +538,26 @@ export default defineComponent({
         );
       });
     },
-    getDefaultNodeFromProps(prop, className = []) {
-      const key = this[prop];
-      const [year, month, day] = key.split("-");
-      const festival = YnDate().isSame(year, month, day) ? this.todayMark : this.getFestival(key);
+    getDateNode(dateFormat, className = []) {
+      const [year, month, day] = dateFormat.split("-");
+      const festival = YnDate().isSame(year, month, day) ? this.todayMark : this.getFestival(dateFormat);
       const ynDate = YnDate(year, month, day);
-      // let sf = null;
-      // if (!this.isEmptyFestival(key)) {
-      //   sf = this.festival[key];
-      // }
       return {
-        key,
+        key: dateFormat,
         ynDate,
         year,
         month,
         day,
-        date: key,
+        date: dateFormat,
         week: ynDate.getDay(),
-        className: ["active", "clickable", ...className],
+        className,
         mark: "",
         festival,
       };
+    },
+    getDefaultNodeFromProps(prop, className = []) {
+      const key = this[prop];
+      return this.getDateNode(key, ["active", "clickable", ...className]);
     },
     setDateValue(date, attr, value) {
       date[attr] = value;
@@ -572,12 +590,19 @@ export default defineComponent({
           toDate: this.toDate,
         });
         this.confirmButtonClassName = "active";
-      } else {
+      } else if (this.mode === "single") {
         const node = this.getDefaultNodeFromProps("defaultDate", [
           "single-mode",
           "open-days",
         ]);
         this.changedNode = { [node.key]: node };
+      } else if (this.mode === "multiple") {
+        this.multipleDate.forEach((item) => {
+          if (!this.changedNode[item.date]) {
+            const dateNode = this.getDateNode(item.date, item.disabled ? ["disable", "radius"] : ["active", "clickable", "radius"]);
+            this.changedNode = { ...this.changedNode, [item.date]: dateNode };
+          }
+        });
       }
     },
     setPosition() {
