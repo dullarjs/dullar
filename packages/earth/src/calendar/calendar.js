@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-08-01 11:56:05
+ * @Last Modified time: 2023-08-09 15:44:16
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -144,6 +144,10 @@ export default defineComponent({
     timezone: {
       type: Number,
       default: YnDate().getTimezone()
+    },
+    clearUnsaved: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -486,7 +490,6 @@ export default defineComponent({
     },
     generateDateDom(h, { dates }) {
       return dates.map((date) => {
-        // console.log("generateDateDom = ", date);
         let ref = null;
         if (
           date.className.indexOf("single-mode") > -1 ||
@@ -494,9 +497,6 @@ export default defineComponent({
         ) {
           ref = "scrollPosition";
         }
-        // if ([0, 6].includes(date.week)) {
-        //   date.className.push("yn-calendar-date-festival");
-        // }
         return h(
           genComponentName("flex-item"),
           {
@@ -868,10 +868,16 @@ export default defineComponent({
         {
           class: ["yn-calendar-close"],
           props: { name: "close", size: 12 },
-          nativeOn: { click: this.close },
+          nativeOn: { click: this.closeAndClear },
         },
         []
       );
+    },
+    closeAndClear() {
+      if (this.clearUnsaved) {
+        this.changedNode = {};
+      }
+      this.close();
     },
     close() {
       this.$emit("input", false);
