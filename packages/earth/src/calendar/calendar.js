@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-08-09 15:44:16
+ * @Last Modified time: 2023-08-09 15:59:25
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -148,6 +148,12 @@ export default defineComponent({
     clearUnsaved: {
       type: Boolean,
       default: false
+    },
+    beforeDateClicked: {
+      type: Function,
+      default: (date) => {
+        return !!date;
+      }
     }
   },
   data() {
@@ -356,6 +362,9 @@ export default defineComponent({
       this.clientHeight = clientHeight;
     },
     handleClick(date) {
+      if (!this.beforeDateClicked(date)) {
+        return;
+      }
       if (date.className.indexOf("clickable") < 0) return;
 
       if (this.mode === "double") {
