@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-08-09 15:59:25
+ * @Last Modified time: 2023-08-21 16:54:26
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -472,10 +472,14 @@ export default defineComponent({
       date.className.push("radius");
       if (date.className.includes("active")) {
         drop(date.className, ["active"]);
+        // 反选需要删除已选数据
+        if (this.changedNode[date.key]) {
+          delete this.changedNode[date.key];
+        }
       } else {
         push(date.className, ["active"]);
+        this.changedNode = { ...this.changedNode, [date.key]: date };
       }
-      this.changedNode = { ...this.changedNode, [date.key]: date };
     },
     handleOnConfirm() {
       if (this.confirmButtonClassName !== "active") {
