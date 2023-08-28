@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-08-21 16:54:26
+ * @Last Modified time: 2023-08-28 14:02:51
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -718,7 +718,10 @@ export default defineComponent({
     createNoticeBar(h) {
       if (this.noticeText && this.noticeText !== "") {
         return h("div", { class: ["yn-calendar-notice"] }, [
-          h("p", { class: ["text"] }, this.noticeText),
+          h("p", { class: ["text"] }, [
+            h(genComponentName("iconfont"), { class: ["waring-icon"], props: { name: "warning", size: 12 } }, []),
+            this.noticeText
+          ]),
         ]);
       }
     },
