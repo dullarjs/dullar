@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-08-30 11:28:21
+ * @Last Modified time: 2023-08-30 11:31:52
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -819,118 +819,6 @@ export default defineComponent({
           )
         ])
       ]);
-    },
-    createDateResultArea1(h) {
-      const fromPlaceHolderClass = this.fromDate
-        ? ""
-        : "yn-calendar-result-date-placeholder";
-      const toPlaceHolderClass = this.toDate
-        ? ""
-        : "yn-calendar-result-date-placeholder";
-      return h(
-        "div",
-        {
-          class: ["yn-calendar-date-result"],
-        },
-        [
-          h(
-            "div",
-            {
-              class: ["yn-calendar-result-left"],
-            },
-            [
-              h(
-                "span",
-                {
-                  class: ["yn-calendar-result-date-des"],
-                },
-                this.fromDateMark
-              ),
-              h(
-                "div",
-                {
-                  class: ["yn-calendar-result-date"],
-                },
-                [
-                  h(
-                    "span",
-                    {
-                      class: [
-                        "yn-calendar-result-year-day",
-                        fromPlaceHolderClass,
-                      ],
-                    },
-                    this.lockDateParse(this.fromDate, "day")
-                  ),
-                  h(
-                    "span",
-                    {
-                      class: ["yn-calendar-result-week"],
-                    },
-                    this.lockDateParse(this.fromDate, "week")
-                  ),
-                ]
-              ),
-            ]
-          ),
-          h(
-            "div",
-            {
-              class: ["yn-calendar-result-center"],
-            },
-            [
-              h(
-                "span",
-                {
-                  class: ["yn-calendar-result-center-icon"],
-                },
-                []
-              ),
-            ]
-          ),
-          h(
-            "div",
-            {
-              class: ["yn-calendar-result-right"],
-            },
-            [
-              h(
-                "span",
-                {
-                  class: ["yn-calendar-result-date-des"],
-                },
-                this.toDateMark
-              ),
-              h(
-                "div",
-                {
-                  class: ["yn-calendar-result-date"],
-                },
-                [
-                  h(
-                    "span",
-                    {
-                      class: [
-                        "yn-calendar-result-year-day",
-                        toPlaceHolderClass,
-                      ],
-                    },
-                    this.lockDateParse(this.toDate, "day")
-                  ),
-                  this.toDate &&
-                    h(
-                      "span",
-                      {
-                        class: ["yn-calendar-result-week"],
-                      },
-                      this.lockDateParse(this.toDate, "week")
-                    ),
-                ]
-              ),
-            ]
-          ),
-        ]
-      );
     },
     createMonthTitleBar(h) {
       return h("div", { ref: "monthTitleBar", class: ["yn-month-bar"] }, []);
