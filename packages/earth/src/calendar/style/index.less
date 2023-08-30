@@ -168,35 +168,37 @@
       }
 
       .yn-calendar-date-result {
-        display: flex;
         font-size: 17px;
         color: @yn-text-color;
         padding: 0 calc((100% / 7 - 20px) / 2);
         margin-bottom: 15px;
 
         .yn-calendar-result-left {
-          flex: 1;
           text-align: left;
         }
 
         .yn-calendar-result-center {
           width: 18px;
           text-align: center;
-          display: flex;
-          align-items: flex-end;
           padding-bottom: 11px;
+          .local-time {
+            .mark {
+              padding: 4px;
+              background: @yn-secondary-orange-1;
+              color: @yn-secondary-orange-6;
+              font-size: 12px;
+            }
+          }
 
           .yn-calendar-result-center-icon {
-            width: 18px;
-            height: 1.38px;
+            width: 24px;
+            height: 2px;
             background: @yn-border-color-base;
             display: inline-block;
           }
         }
 
         .yn-calendar-result-right {
-          flex: 1;
-          display: flex;
           flex-direction: column;
           text-align: right;
         }

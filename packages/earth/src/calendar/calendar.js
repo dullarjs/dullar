@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-08-28 14:02:51
+ * @Last Modified time: 2023-08-30 11:28:21
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -154,6 +154,10 @@ export default defineComponent({
       default: (date) => {
         return !!date;
       }
+    },
+    localTimeMark: {
+      type: String,
+      default: "当地时间"
     }
   },
   data() {
@@ -726,6 +730,97 @@ export default defineComponent({
       }
     },
     createDateResultArea(h) {
+      const fromPlaceHolderClass = this.fromDate
+        ? ""
+        : "yn-calendar-result-date-placeholder";
+      const toPlaceHolderClass = this.toDate
+        ? ""
+        : "yn-calendar-result-date-placeholder";
+      return h(genComponentName("flex"), { class: ["yn-calendar-date-result"], props: { justifyContent: "spaceAround" } }, [
+        h(genComponentName("flex-item"), { class: ["yn-calendar-result-left"], props: { flex: 1 } }, [
+          h(
+            "span",
+            {
+              class: ["yn-calendar-result-date-des"],
+            },
+            this.fromDateMark
+          ),
+          h(
+            "div",
+            {
+              class: ["yn-calendar-result-date"],
+            },
+            [
+              h(
+                "span",
+                {
+                  class: [
+                    "yn-calendar-result-year-day",
+                    fromPlaceHolderClass,
+                  ],
+                },
+                this.lockDateParse(this.fromDate, "day")
+              ),
+              h(
+                "span",
+                {
+                  class: ["yn-calendar-result-week"],
+                },
+                this.lockDateParse(this.fromDate, "week")
+              ),
+            ]
+          )
+        ]),
+        h(genComponentName("flex-item"), { class: ["yn-calendar-result-center"], props: { flex: 0.8 } }, [
+          h("div", { class: ["local-time"] }, [
+            h("span", { class: ["mark"] }, [this.localTimeMark])
+          ]),
+          h(
+            "div",
+            {
+              class: ["yn-calendar-result-center-icon"],
+            },
+            []
+          )
+        ]),
+        h(genComponentName("flex-item"), { class: ["yn-calendar-result-right"], props: { flex: 1 } }, [
+          h(
+            "span",
+            {
+              class: ["yn-calendar-result-date-des"],
+            },
+            this.toDateMark
+          ),
+          h(
+            "div",
+            {
+              class: ["yn-calendar-result-date"],
+            },
+            [
+              h(
+                "span",
+                {
+                  class: [
+                    "yn-calendar-result-year-day",
+                    toPlaceHolderClass,
+                  ],
+                },
+                this.lockDateParse(this.toDate, "day")
+              ),
+              this.toDate &&
+                h(
+                  "span",
+                  {
+                    class: ["yn-calendar-result-week"],
+                  },
+                  this.lockDateParse(this.toDate, "week")
+                ),
+            ]
+          )
+        ])
+      ]);
+    },
+    createDateResultArea1(h) {
       const fromPlaceHolderClass = this.fromDate
         ? ""
         : "yn-calendar-result-date-placeholder";
