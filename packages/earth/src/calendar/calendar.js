@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-08-30 11:50:49
+ * @Last Modified time: 2023-08-30 11:55:44
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -157,7 +157,7 @@ export default defineComponent({
     },
     localTimeMark: {
       type: String,
-      default: "当地时间"
+      default: ""
     }
   },
   data() {
