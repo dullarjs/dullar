@@ -205,6 +205,7 @@
       @getDate="handleOnGetDate5"
       :showConfirmButton="true"
       :confirmText="confirmText"
+      localTimeMark="local time"
       noticeText="温馨提示：为配合各地政府落实疫情防控常态化措施，避免重复退票带来的不便，铁路车票预售期调整为15天"
       @changeDate="changeDate"
     ></yn-calendar>

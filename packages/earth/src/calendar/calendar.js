@@ -2,7 +2,7 @@
  * @Author: Just be free
  * @Date:   2020-01-15 17:16:27
  * @Last Modified by:   Just be free
- * @Last Modified time: 2023-08-30 11:31:52
+ * @Last Modified time: 2023-08-30 11:50:49
  * @E-mail: justbefree@126.com
  */
 import Flex from "../flex";
@@ -773,7 +773,7 @@ export default defineComponent({
         ]),
         h(genComponentName("flex-item"), { class: ["yn-calendar-result-center"], props: { flex: 0.8 } }, [
           h("div", { class: ["local-time"] }, [
-            h("span", { class: ["mark"] }, [this.localTimeMark])
+            this.localTimeMark !== "" ? h("span", { class: ["mark"] }, [this.localTimeMark]) : null
           ]),
           h(
             "div",
